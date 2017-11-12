@@ -1,0 +1,39 @@
+FOO.txt|NDB No.
+FOO2.txt|Name of Food
+ENE8.txt|Calories
+PRO12.txt|Protein
+CHO.txt|Carbs
+FIB.txt|Fiber
+FAT.txt|Total Fat
+FAS.txt|Sat Fat
+FAP.txt|Poly Fat
+FAM.txt|Mono Fat
+MG26.txt|Magnesium
+NA28.txt|Sodium
+CA22.txt|Calcium
+FE24.txt|Iron
+VIT39.txt|Vit A
+VIT37.txt|Vit C
+THI.txt|B1, Thiamine
+RIB.txt|B2, Riboflavin
+NIA.txt|B3, Niacin
+VIT.txt|B6, Pyridoxine
+VIT36.txt|B12, Cobalamins
+CU23.txt|Copper
+IP6.txt|Inositol IP6
+ALA.txt|Alanine
+ARG.txt|Arginine
+ASP.txt|Aspartic acid
+GLU.txt|Glutamic acid
+GLY.txt|Glycine
+HIS.txt|Histidine
+ILE.txt|Isoleucine
+LEU.txt|Leucine
+MET.txt|Methionine
+PHE.txt|Phenylalanine
+PRO59.txt|Proline
+SER.txt|Serine
+THR.txt|Threonine
+TRP.txt|Tryptophan
+TYR.txt|Tyrosine
+VAL.txt|Valine
