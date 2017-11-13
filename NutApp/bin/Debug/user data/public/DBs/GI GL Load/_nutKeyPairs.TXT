@@ -1,2 +1,0 @@
-FOO.txt|Name of Food
-GI .txt|Calories

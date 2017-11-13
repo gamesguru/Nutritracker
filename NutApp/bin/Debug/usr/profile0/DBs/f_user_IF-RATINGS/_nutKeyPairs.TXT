@@ -1,0 +1,4 @@
+NAM.TXT|Name of Food
+IFX.TXT|Value1
+SER.TXT|Serving
+GRA.TXT|Weight

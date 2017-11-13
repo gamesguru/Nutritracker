@@ -21,10 +21,10 @@ namespace NutApp
         string slash = Path.DirectorySeparatorChar.ToString();
         private void frmDetailReport_Load(object sender, EventArgs e)
         {
-            string[] directs = Directory.GetFiles(Application.StartupPath + $"{slash}user data{slash}profile" + frmMain.profIndex.ToString() + $"{slash}foodlog");
+            string[] directs = Directory.GetFiles(Application.StartupPath + $"{slash}usr{slash}profile" + frmMain.profIndex.ToString() + $"{slash}foodlog");
             for (int i = 0; i < directs.Length; i++)
             {
-                directs[i] = directs[i].Replace(Application.StartupPath + $"{slash}user data{slash}profile" + frmMain.profIndex.ToString() + $"{slash}foodlog{slash}", "");
+                directs[i] = directs[i].Replace(Application.StartupPath + $"{slash}usr{slash}profile" + frmMain.profIndex.ToString() + $"{slash}foodlog{slash}", "");
                 directs[i] = directs[i].Replace(".TXT", "");
                 chkLstBoxDays.Items.Add(directs[i]);
             }

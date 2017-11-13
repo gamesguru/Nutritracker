@@ -120,6 +120,8 @@ namespace NutApp
             txtCu.Text = "";
             txtCr.Text = "";
             txtMo.Text = "";
+            txtLyco.Text = "";
+            txtLutZea.Text = "";
             txtCho.Text = "";
             txtIno.Text = "";
             txtCarn.Text = "";
@@ -255,6 +257,10 @@ namespace NutApp
                     txtCr.Text = li;
                 else if (list[i].Contains("Molybdenum"))
                     txtMo.Text = li;
+                else if (list[i].Contains("Lycopene"))
+                    txtLyco.Text = li;
+                else if (list[i].Contains("LutZea"))
+                    txtLutZea.Text = li;
                 else if (list[i].Contains("Choline"))
                     txtCho.Text = li;
                 else if (list[i].Contains("Inositol IP6"))
@@ -505,6 +511,14 @@ namespace NutApp
             txtMo.AutoCompleteSource = AutoCompleteSource.CustomSource;
             txtMo.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
 
+            txtLyco.AutoCompleteCustomSource = source;
+            txtLyco.AutoCompleteSource = AutoCompleteSource.CustomSource;
+            txtLyco.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+
+            txtLutZea.AutoCompleteCustomSource = source;
+            txtLutZea.AutoCompleteSource = AutoCompleteSource.CustomSource;
+            txtLutZea.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+
             txtCho.AutoCompleteCustomSource = source;
             txtCho.AutoCompleteSource = AutoCompleteSource.CustomSource;
             txtCho.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
@@ -701,6 +715,10 @@ namespace NutApp
             if (txtMo.TextLength > 0 && File.Exists(dbDir + $"{slash}" + txtMo.Text))
                 text.Add(txtMo.Text + "|Molybdenum");
             if (txtCho.TextLength > 0 && File.Exists(dbDir + $"{slash}" + txtCho.Text))
+                text.Add(txtCho.Text + "|Lycopene");
+            if (txtCho.TextLength > 0 && File.Exists(dbDir + $"{slash}" + txtLyco.Text))
+                text.Add(txtCho.Text + "|LutZea");
+            if (txtCho.TextLength > 0 && File.Exists(dbDir + $"{slash}" + txtLutZea.Text))
                 text.Add(txtCho.Text + "|Choline");
             if (txtIno.TextLength > 0 && File.Exists(dbDir + $"{slash}" + txtIno.Text))
                 text.Add(txtIno.Text + "|Inositol IP6");
@@ -778,6 +796,5 @@ namespace NutApp
 
             refresh();
         }
-
     }
 }

@@ -154,11 +154,14 @@ namespace NutApp
 
         private int profMax = 0;
         private int profIndex;
+        public int defaultIndex;
         private void frmProfile_Load(object sender, EventArgs e)
         {
             profIndex = frmMain.profIndex;
             //MessageBox.Show(Properties.Settings.Default.defaultIndex.ToString());
-            string root = Application.StartupPath + $"{slash}user data";// profile" + profIndex.ToString();
+            string root = Application.StartupPath + $"{slash}usr";// profile" + profIndex.ToString();
+            defaultIndex = Convert.ToInt32(Directory.GetFiles(root)[0].Replace($"{root}{slash}default", ""));
+
             string[] directs = Directory.GetDirectories(root);
             //MessageBox.Show(string.Join(", ", directs));
             List<string> profs = new List<string>();
@@ -173,12 +176,14 @@ namespace NutApp
             if (comboExistingProfs.Items.Count > 0)
                 comboExistingProfs.SelectedIndex = profIndex;
 
-            if (Properties.Settings.Default.defaultIndex > comboExistingProfs.Items.Count-1)
-                Properties.Settings.Default.defaultIndex -= 1;
+            if (defaultIndex > comboExistingProfs.Items.Count-1)
+                defaultIndex -= 1;
 
-            Properties.Settings.Default.Save();
+            foreach (string s in Directory.GetFiles(root))
+                File.Delete(s);
+            File.Create(root + $"{slash}default{profIndex}").Close();
             
-            if (comboExistingProfs.SelectedIndex == Properties.Settings.Default.defaultIndex)
+            if (comboExistingProfs.SelectedIndex == defaultIndex)
                 checkDefaultProf.Enabled = false;
             else
                 checkDefaultProf.Enabled = true;
@@ -207,7 +212,7 @@ namespace NutApp
 
             string text = "";
             int profIndex = 0;
-            string root = Application.StartupPath + $"{slash}user data";
+            string root = Application.StartupPath + $"{slash}usr";
             string[] directs = Directory.GetDirectories(root);
             
             //profMax = files.Length;
@@ -242,18 +247,11 @@ namespace NutApp
             }
             if (checkDefaultProf.Checked)
             {
-                Properties.Settings.Default.defaultIndex = profIndex;
-                Properties.Settings.Default.gender = radioMale.Checked;
-                Properties.Settings.Default.age=Convert.ToInt32(txtAge.Text);
-                Properties.Settings.Default.weight = Convert.ToInt32(txtWt.Text);
-                Properties.Settings.Default.height=Convert.ToInt32(txtHt.Text);
-                Properties.Settings.Default.activityLvl = comboActivity.SelectedIndex;
-                Properties.Settings.Default.goal = comboGoal.SelectedIndex;
-                Properties.Settings.Default.bodyFat = Convert.ToInt32(txtBodyfat.Text);
+                foreach (string s in Directory.GetFiles(root))
+                    File.Delete(s);
+                File.Create(root + $"{slash}default{profIndex}").Close();
             }
-            Properties.Settings.Default.Save();
             
-            frmMain.loadIndex = comboExistingProfs.SelectedIndex;
             frmMain.profIndex = comboExistingProfs.SelectedIndex;
             this.DialogResult = DialogResult.OK;
             this.Close();
@@ -262,14 +260,14 @@ namespace NutApp
         private void btnDel_Click(object sender, EventArgs e)
         {
             if (DialogResult.Yes == MessageBox.Show("Are you sure?", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question))
-                Directory.Delete(Application.StartupPath + $"{slash}user data{slash}profile" + comboExistingProfs.SelectedIndex.ToString());
-            //File.Delete(Application.StartupPath + $"{slash}user data{slash}profile" + comboExistingProfs.SelectedIndex.ToString() + $"{slash}profile" + comboExistingProfs.SelectedIndex.ToString() + ".txt");
+                Directory.Delete(Application.StartupPath + $"{slash}usr{slash}profile" + comboExistingProfs.SelectedIndex.ToString());
+            //File.Delete(Application.StartupPath + $"{slash}usr{slash}profile" + comboExistingProfs.SelectedIndex.ToString() + $"{slash}profile" + comboExistingProfs.SelectedIndex.ToString() + ".txt");
             else
                 return;
 
             //same as form load
             comboExistingProfs.Items.Clear();
-            string root = Application.StartupPath + $"{slash}user data{slash}";
+            string root = Application.StartupPath + $"{slash}usr{slash}";
             string[] files = Directory.GetFiles(root);
             //MessageBox.Show(string.Join(", ", files));
             List<string> profs = new List<string>();
@@ -281,15 +279,16 @@ namespace NutApp
                         .Add(importArray(files[i])[0]); //importArray(root + "profile" + i.ToString() + ".txt")[0]);
                 }
 
-            if (Properties.Settings.Default.defaultIndex >= comboExistingProfs.Items.Count)
-            Properties.Settings.Default.defaultIndex -= 1;
+            if (defaultIndex >= comboExistingProfs.Items.Count)
+            defaultIndex -= 1;
 
-            comboExistingProfs.SelectedIndex = Properties.Settings.Default.defaultIndex;
+            comboExistingProfs.SelectedIndex = defaultIndex;
 
-            Properties.Settings.Default.Save();
+            foreach (string s in Directory.GetFiles(root))
+                File.Delete(s);
+            File.Create(root + $"{slash}default{profIndex}").Close();
 
             profMax = files.Length;
-
         }
 
         private void radioMale_CheckedChanged(object sender, EventArgs e)
@@ -372,7 +371,7 @@ namespace NutApp
             if (!mH && txtNewProfName.Text.ToLower() != comboExistingProfs.Text.ToLower())
                 txtNewProfName.Text = comboExistingProfs.Text;
 
-            string root = Application.StartupPath + $"{slash}user data{slash}";
+            string root = Application.StartupPath + $"{slash}usr{slash}";
             string[] directs = Directory.GetDirectories(root);
             profs = new List<string>();
             //MessageBox.Show(string.Join(", ", directs));
@@ -392,12 +391,12 @@ namespace NutApp
                     comboActivity.SelectedIndex = Convert.ToInt32(importArray(directs[i] + $"{slash}profile" + i.ToString() + ".TXT")[6]);
                     comboGoal.SelectedIndex = Convert.ToInt32(importArray(directs[i] + $"{slash}profile" + i.ToString() + ".TXT")[7]);
                 }
-            if (comboExistingProfs.SelectedIndex == Properties.Settings.Default.defaultIndex)
+            if (comboExistingProfs.SelectedIndex == defaultIndex)
                 checkDefaultProf.Checked = true;
             else
                 checkDefaultProf.Checked = false;
 
-            if (comboExistingProfs.SelectedIndex == Properties.Settings.Default.defaultIndex)
+            if (comboExistingProfs.SelectedIndex == defaultIndex)
                 checkDefaultProf.Enabled = false;
             else
                 checkDefaultProf.Enabled = true;

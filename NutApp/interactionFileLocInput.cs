@@ -36,7 +36,7 @@ namespace NutApp
         private void interactionFileLocInput_Load(object sender, EventArgs e)
         {
             AutoCompleteStringCollection source = new AutoCompleteStringCollection();
-            string dir = Application.StartupPath.Replace("\\", "/") + "/module_imports";
+            string dir = Application.StartupPath.Replace("\\", "/") + "/lib";
             string str = dir + "/";
             textBox1.Text = str;
             textBox1.SelectionStart = textBox1.TextLength;

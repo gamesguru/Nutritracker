@@ -195,6 +195,12 @@
             this.btnCancel = new System.Windows.Forms.Button();
             this.label71 = new System.Windows.Forms.Label();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.button6 = new System.Windows.Forms.Button();
+            this.txtLutZea = new System.Windows.Forms.TextBox();
+            this.label74 = new System.Windows.Forms.Label();
+            this.txtLyco = new System.Windows.Forms.TextBox();
+            this.label75 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.grpSecondaryFields.SuspendLayout();
@@ -207,6 +213,7 @@
             this.groupBox2.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.groupBox3.SuspendLayout();
+            this.groupBox4.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -231,7 +238,7 @@
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage1.Size = new System.Drawing.Size(450, 507);
             this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "Name & Primary Fields";
+            this.tabPage1.Text = "Name and Primaries";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
             // grpSecondaryFields
@@ -800,6 +807,7 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.groupBox4);
             this.tabPage2.Controls.Add(this.groupBox6);
             this.tabPage2.Controls.Add(this.groupBox5);
             this.tabPage2.Controls.Add(this.groupBox2);
@@ -808,7 +816,7 @@
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage2.Size = new System.Drawing.Size(450, 507);
             this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "Vitamins & Minerals";
+            this.tabPage2.Text = "Vits and Mins";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
             // groupBox6
@@ -827,7 +835,7 @@
             this.groupBox6.Size = new System.Drawing.Size(200, 170);
             this.groupBox6.TabIndex = 6;
             this.groupBox6.TabStop = false;
-            this.groupBox6.Text = "Non-essentials:";
+            this.groupBox6.Text = "Non-essentials";
             // 
             // txtLipoic
             // 
@@ -1350,7 +1358,7 @@
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Size = new System.Drawing.Size(450, 507);
             this.tabPage3.TabIndex = 2;
-            this.tabPage3.Text = "Amino Acids";
+            this.tabPage3.Text = "Aminos";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
             // groupBox3
@@ -1758,7 +1766,7 @@
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Size = new System.Drawing.Size(450, 507);
             this.tabPage4.TabIndex = 3;
-            this.tabPage4.Text = "User Defined";
+            this.tabPage4.Text = "User Defined Fields";
             this.tabPage4.UseVisualStyleBackColor = true;
             // 
             // btnSave
@@ -1801,6 +1809,63 @@
             this.comboBox1.TabIndex = 4;
             this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
+            // groupBox4
+            // 
+            this.groupBox4.Controls.Add(this.button6);
+            this.groupBox4.Controls.Add(this.txtLutZea);
+            this.groupBox4.Controls.Add(this.label74);
+            this.groupBox4.Controls.Add(this.txtLyco);
+            this.groupBox4.Controls.Add(this.label75);
+            this.groupBox4.Location = new System.Drawing.Point(6, 349);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(200, 121);
+            this.groupBox4.TabIndex = 7;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "Misc";
+            // 
+            // button6
+            // 
+            this.button6.Location = new System.Drawing.Point(3, 78);
+            this.button6.Name = "button6";
+            this.button6.Size = new System.Drawing.Size(75, 23);
+            this.button6.TabIndex = 73;
+            this.button6.Text = "Reset";
+            this.button6.UseVisualStyleBackColor = true;
+            // 
+            // txtLutZea
+            // 
+            this.txtLutZea.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtLutZea.Location = new System.Drawing.Point(81, 45);
+            this.txtLutZea.Name = "txtLutZea";
+            this.txtLutZea.Size = new System.Drawing.Size(100, 20);
+            this.txtLutZea.TabIndex = 70;
+            // 
+            // label74
+            // 
+            this.label74.AutoSize = true;
+            this.label74.Location = new System.Drawing.Point(13, 48);
+            this.label74.Name = "label74";
+            this.label74.Size = new System.Drawing.Size(56, 13);
+            this.label74.TabIndex = 69;
+            this.label74.Text = "Lut + Zea:";
+            // 
+            // txtLyco
+            // 
+            this.txtLyco.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtLyco.Location = new System.Drawing.Point(81, 19);
+            this.txtLyco.Name = "txtLyco";
+            this.txtLyco.Size = new System.Drawing.Size(100, 20);
+            this.txtLyco.TabIndex = 68;
+            // 
+            // label75
+            // 
+            this.label75.AutoSize = true;
+            this.label75.Location = new System.Drawing.Point(13, 22);
+            this.label75.Name = "label75";
+            this.label75.Size = new System.Drawing.Size(57, 13);
+            this.label75.TabIndex = 67;
+            this.label75.Text = "Lycopene:";
+            // 
             // frmManageDBfields
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1838,6 +1903,8 @@
             this.tabPage3.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
+            this.groupBox4.ResumeLayout(false);
+            this.groupBox4.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -2011,5 +2078,11 @@
         private System.Windows.Forms.Label label64;
         private System.Windows.Forms.Label label71;
         private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.GroupBox groupBox4;
+        private System.Windows.Forms.Button button6;
+        private System.Windows.Forms.TextBox txtLutZea;
+        private System.Windows.Forms.Label label74;
+        private System.Windows.Forms.TextBox txtLyco;
+        private System.Windows.Forms.Label label75;
     }
 }

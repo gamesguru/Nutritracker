@@ -36,11 +36,11 @@ namespace NutApp
         string slash = Path.DirectorySeparatorChar.ToString();
         private void frmManageField_Load(object sender, EventArgs e)
         {
-            string[] fields = Directory.GetDirectories(Application.StartupPath + $"{slash}user data{slash}profile" +
+            string[] fields = Directory.GetDirectories(Application.StartupPath + $"{slash}usr{slash}profile" +
                                                        frmMain.profIndex.ToString() + $"{slash}DBs");
             for (int i = 0; i < fields.Length; i++)
             {
-                fields[i] = fields[i].Replace(Application.StartupPath + $"{slash}user data{slash}profile" +
+                fields[i] = fields[i].Replace(Application.StartupPath + $"{slash}usr{slash}profile" +
                                               frmMain.profIndex.ToString() + $"{slash}DBs{slash}", "");
                 if (fields[i].StartsWith("f_user_"))
                     comboFields.Items.Add(fields[i].Remove(0, 7));
@@ -66,7 +66,7 @@ namespace NutApp
         {
             source.Clear();
             renewFields();
-            string dr = Application.StartupPath + $"{slash}user data{slash}profile" + frmMain.profIndex.ToString() + $"{slash}DBs{slash}f_user_" + comboFields.Text;
+            string dr = Application.StartupPath + $"{slash}usr{slash}profile" + frmMain.profIndex.ToString() + $"{slash}DBs{slash}f_user_" + comboFields.Text;
             string nkp = dr + $"{slash}_nutKeyPairs.TXT";
             string[] files = Directory.GetFiles(dr);
 
@@ -191,6 +191,8 @@ namespace NutApp
             //MessageBox.Show(string.Join(", ", names));
             //MessageBox.Show(string.Join(", ", val1));
 
+            //are these text fields null valued at this time??
+            //does this go alphabetical and not according to plan?
             for (int q = 0; q < z; q++)
             {
                 ListViewItem itm = new ListViewItem();
@@ -256,7 +258,7 @@ namespace NutApp
             txtServ.Text = "";
             txtWeight.Text = "";
 
-            lst = importArray(Application.StartupPath + $"{slash}user data{slash}profile" +
+            lst = importArray(Application.StartupPath + $"{slash}usr{slash}profile" +
                               frmMain.profIndex.ToString() + $"{slash}DBs{slash}f_user_" + comboFields.Text + $"{slash}_nutKeyPairs.TXT");
             for (int i = 0; i < lst.Count; i++)
             {
@@ -291,7 +293,7 @@ namespace NutApp
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            string dr = Application.StartupPath + $"{slash}user data{slash}profile" + frmMain.profIndex.ToString() + $"{slash}DBs{slash}f_user_" + comboFields.Text;
+            string dr = Application.StartupPath + $"{slash}usr{slash}profile" + frmMain.profIndex.ToString() + $"{slash}DBs{slash}f_user_" + comboFields.Text;
             List<string> text = new List<string>();
 
             if (chkCal.Checked)

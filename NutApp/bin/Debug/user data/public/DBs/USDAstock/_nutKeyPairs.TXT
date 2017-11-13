@@ -1,7 +1,0 @@
-SHR.TXT|Name of Food
-ENE.TXT|Calories
-PRO.TXT|Protein
-SUG.TXT|Sugar
-MAG.TXT|Magnesium
-CAL.TXT|Calcium
-IRO.TXT|Iron

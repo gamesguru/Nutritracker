@@ -135,7 +135,7 @@ namespace NutApp
                 if (dataDay.Rows[i].Cells[0].Value.ToString() == "Totals")
                     tDay = i + 1;
 
-            string fp = Application.StartupPath + $"{slash}user data{slash}profile" + profIndex.ToString() + $"{slash}foodlog{slash}" + dte + ".TXT";
+            string fp = Application.StartupPath + $"{slash}usr{slash}profile" + profIndex.ToString() + $"{slash}foodlog{slash}" + dte + ".TXT";
             string textB = "";
             textB += dataDay.Rows[bDay - 1].Cells[0].Value.ToString() + "|";
             for (int m = bDay; m < lDay - 2; m++)
@@ -236,16 +236,26 @@ dataDay.Rows.Add(row);*/
         public static int profIndex = 0;
         public static string dte;
         public static string slash = Path.DirectorySeparatorChar.ToString();
+        #region profile info
+        string name = "";
+        bool gender = false;
+        int age = 0;
+        int bodyFat = 0;
+        int wt = 0;
+        int ht = 0;
+        int activityLvl = 0;
+        int overallGoal = 0;
+        #endregion
         private void frmMain_Load(object sender, EventArgs e)
         {
             dte = DateTime.Today.ToString("MM-dd-yyyy");
             dateTimePicker1.Text = dte.Replace("-", "/");
 
-            if (Properties.Settings.Default.defaultIndex > -1)
-                loadIndex = Properties.Settings.Default.defaultIndex;
-            profIndex = loadIndex;
+            //if (defaultIndex > -1)
+            //    loadIndex = defaultIndex;
 
-            string root = Application.StartupPath + $"{slash}user data";
+            string root = Application.StartupPath + $"{slash}usr";
+            profIndex = Convert.ToInt16(Directory.GetFiles(root)[0].Replace($"{root}{slash}default", ""));
             string[] directs = Directory.GetDirectories(root);
             profDirects = new List<string>();
             frmProfile frmP = new frmProfile();
@@ -257,14 +267,24 @@ dataDay.Rows.Add(row);*/
 
             if (profDirects.Count == 0)
             {
-                Properties.Settings.Default.defaultIndex = 0;
+                profIndex = 0;
                 Properties.Settings.Default.Save();
                 if (frmP.ShowDialog() == DialogResult.Cancel)
                     Application.Exit();
             }
 
+            List<string> profData = importArray($"{root}{slash}profile{profIndex}{slash}profile{profIndex}.TXT");
 
-            lblCurrentUser.Text = "Current User: " + importArray(root + $"{slash}profile" + profIndex.ToString() + $"{slash}profile" + profIndex.ToString() + ".TXT")[0];
+            name = profData[0];
+            gender = profData[1] == "female";
+            age = Convert.ToInt16(profData[2]);
+            bodyFat = Convert.ToInt16(profData[3]);
+            wt = Convert.ToInt16(profData[4]);
+            ht = Convert.ToInt16(profData[5]);
+            activityLvl = Convert.ToInt16(profData[6]);
+            overallGoal = Convert.ToInt16(profData[7]);
+
+            lblCurrentUser.Text = $"Current User: {name}";
 
             /*dataDay.Rows.Add("Breakfast");
             dataDay.Rows.Add("", "");
@@ -383,20 +403,17 @@ dataDay.Rows.Add(row);*/
             dataExercise.Rows.Add("Existing");
             dataExercise.Rows[0].Height = 50;
             dataExercise.Rows[0].Cells[1].Value = "Brisk";
-            int wt = Properties.Settings.Default.weight;
-            int ht = Properties.Settings.Default.height;
-            int age = Properties.Settings.Default.age;
-            if (Properties.Settings.Default.activityLvl == 0)
+            if (activityLvl == 0)
                 mFactor = 1.2;
-            else if (Properties.Settings.Default.activityLvl == 1)
+            else if (activityLvl == 1)
                 mFactor = 1.375;
-            else if (Properties.Settings.Default.activityLvl == 2)
+            else if (activityLvl == 2)
                 mFactor = 1.55;
-            else if (Properties.Settings.Default.activityLvl == 3)
+            else if (activityLvl == 3)
                 mFactor = 1.725;
-            else if (Properties.Settings.Default.activityLvl == 4)
+            else if (activityLvl == 4)
                 mFactor = 1.9;
-            if (Properties.Settings.Default.gender)
+            if (gender)
                 bmr = Convert.ToInt32(mFactor * (10 * 0.4536 * wt + 6.25 * 2.54 * ht - 5 * age) + 5);
             else
                 bmr = Convert.ToInt32(mFactor * (10 * 0.4536 * wt + 6.25 * 2.54 * ht - 5 * age) - 161);
@@ -414,10 +431,10 @@ dataDay.Rows.Add(row);*/
             comboMeal.SelectedIndex = 0;
 
             //MessageBox.Show(root + "\\user data\\profile" + loadIndex.ToString() + "\\foods\\names.txt");
-            if (File.Exists(root + $"{slash}profile" + loadIndex.ToString() + $"{slash}foods{slash}names.TXT"))
+            if (File.Exists(root + $"{slash}profile" + profIndex.ToString() + $"{slash}foods{slash}names.TXT"))
             {
                 lstCustFoods = new List<string>();
-                lstCustFoods = importArray(root + $"{slash}profile" + loadIndex.ToString() + $"{slash}foods{slash}names.TXT");
+                lstCustFoods = importArray(root + $"{slash}profile" + profIndex.ToString() + $"{slash}foods{slash}names.TXT");
                 for (int i = 0; i < lstCustFoods.Count; i++)
                     lstBoxRecipes.Items.Add(lstCustFoods[i]);
             }
@@ -462,7 +479,7 @@ dataDay.Rows.Add(row);*/
                 e.Handled = true;
         }
 
-        static public int loadIndex = 0;
+        //static public int loadIndex = 0;
 
         private void button5_Click(object sender, EventArgs e)
         {
@@ -470,7 +487,7 @@ dataDay.Rows.Add(row);*/
             frm.ShowDialog();
 
             lblCurrentUser.Text = "Current User: " +
-                                  importArray(Application.StartupPath + $"{slash}user data{slash}profile" + profIndex.ToString() + $"{slash}profile" + profIndex.ToString() +
+                                  importArray(Application.StartupPath + $"{slash}usr{slash}profile" + profIndex.ToString() + $"{slash}profile" + profIndex.ToString() +
                                               ".TXT")[0];
             dataDay.Rows.Clear();
             dataDay.Rows.Add("Breakfast");
@@ -498,14 +515,14 @@ dataDay.Rows.Add(row);*/
             dataDay.Rows[7].ReadOnly = true;
             dataDay.Rows[8].ReadOnly = true;
 
-            if (!File.Exists(Application.StartupPath + $"{slash}user data{slash}profile" + profIndex.ToString() + $"{slash}foodlog{slash}" + dte + ".TXT"))
+            if (!File.Exists(Application.StartupPath + $"{slash}usr{slash}profile" + profIndex.ToString() + $"{slash}foodlog{slash}" + dte + ".TXT"))
             {
                 MessageBox.Show("No food data found for this day, add something to create a log.", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
-            string breakfast = importArray(Application.StartupPath + $"{slash}user data{slash}profile" + profIndex.ToString() + $"{slash}foodlog{slash}" + dte + ".TXT")[0];
-            string lunch = importArray(Application.StartupPath + $"{slash}user data{slash}profile" + profIndex.ToString() + $"{slash}foodlog{slash}" + dte + ".TXT")[1];
-            string dinner = importArray(Application.StartupPath + $"{slash}user data{slash}profile" + profIndex.ToString() + $"{slash}foodlog{slash}" + dte + ".TXT")[2];
+            string breakfast = importArray(Application.StartupPath + $"{slash}usr{slash}profile" + profIndex.ToString() + $"{slash}foodlog{slash}" + dte + ".TXT")[0];
+            string lunch = importArray(Application.StartupPath + $"{slash}usr{slash}profile" + profIndex.ToString() + $"{slash}foodlog{slash}" + dte + ".TXT")[1];
+            string dinner = importArray(Application.StartupPath + $"{slash}usr{slash}profile" + profIndex.ToString() + $"{slash}foodlog{slash}" + dte + ".TXT")[2];
             breakfast = breakfast.Replace("Breakfast|", "");
             lunch = lunch.Replace("Lunch|", "");
             dinner = dinner.Replace("Dinner|", "");
@@ -620,23 +637,18 @@ dataDay.Rows.Add(row);*/
             //
             //
             //
-
-
-            int wt = Properties.Settings.Default.weight;
-            int ht = Properties.Settings.Default.height;
-            int age = Properties.Settings.Default.age;
-            
-            if (Properties.Settings.Default.activityLvl == 0)
+                        
+            if (activityLvl == 0)
                 mFactor = 1.2;
-            else if (Properties.Settings.Default.activityLvl == 1)
+            else if (activityLvl == 1)
                 mFactor = 1.375;
-            else if (Properties.Settings.Default.activityLvl == 2)
+            else if (activityLvl == 2)
                 mFactor = 1.55;
-            else if (Properties.Settings.Default.activityLvl == 3)
+            else if (activityLvl == 3)
                 mFactor = 1.725;
-            else if (Properties.Settings.Default.activityLvl == 4)
+            else if (activityLvl == 4)
                 mFactor = 1.9;
-            if (Properties.Settings.Default.gender)
+            if (gender)
                 bmr = Convert.ToInt32(mFactor * (10 * 0.4536 * wt + 6.25 * 2.54 * ht - 5 * age) + 5);
             else
                 bmr = Convert.ToInt32(mFactor * (10 * 0.4536 * wt + 6.25 * 2.54 * ht - 5 * age) - 161);
@@ -722,7 +734,7 @@ dataDay.Rows.Add(row);*/
                     if (dataDay.Rows[i].Cells[0].Value.ToString() == "Totals")
                         tDay = i + 1;
 
-                string fp = Application.StartupPath + $"{slash}user data{slash}profile" + profIndex.ToString() + $"{slash}foodlog{slash}" + dte + ".TXT";
+                string fp = Application.StartupPath + $"{slash}usr{slash}profile" + profIndex.ToString() + $"{slash}foodlog{slash}" + dte + ".TXT";
                 string textB = "";
                 textB += dataDay.Rows[bDay - 1].Cells[0].Value.ToString() + "|";
                 for (int m = bDay; m < lDay - 2; m++)
@@ -823,7 +835,7 @@ dataDay.Rows.Add(row);*/
                         if (dataDay.Rows[i].Cells[0].Value.ToString() == "Totals")
                             tDay = i + 1;
 
-                    string fp = Application.StartupPath + $"{slash}user data{slash}profile" + profIndex.ToString() + $"{slash}foodlog{slash}" + dte + ".TXT";
+                    string fp = Application.StartupPath + $"{slash}usr{slash}profile" + profIndex.ToString() + $"{slash}foodlog{slash}" + dte + ".TXT";
                     string textB = "";
                     textB += dataDay.Rows[bDay - 1].Cells[0].Value.ToString() + "|";
                     for (int m = bDay; m < lDay - 2; m++)
@@ -913,7 +925,7 @@ dataDay.Rows.Add(row);*/
                 if (dataDay.Rows[i].Cells[0].Value.ToString() == "Lunch")
                     lDay = i;
 
-            string fp = Application.StartupPath + $"{slash}user data{slash}profile" + profIndex.ToString() + $"{slash}foodlog{slash}" + dte + ".TXT";
+            string fp = Application.StartupPath + $"{slash}usr{slash}profile" + profIndex.ToString() + $"{slash}foodlog{slash}" + dte + ".TXT";
             string textB = "";
             textB += dataDay.Rows[bDay].Cells[0].Value.ToString() + "|";
             for (int m = bDay + 1; m < lDay - 1; m++)
@@ -1094,7 +1106,6 @@ dataDay.Rows.Add(row);*/
         private void btnAddEx_Click(object sender, EventArgs e)
         {
             editing = true;
-            int wt = Properties.Settings.Default.weight;
             dataExercise.Rows.Insert(0);
             int j = comboExType.SelectedIndex;
             if (j == 0)
@@ -1179,7 +1190,6 @@ dataDay.Rows.Add(row);*/
 
             if (bH || x != 3 || y < 0)
                 return;
-            int wt = Properties.Settings.Default.weight;
             int val = 0;
             bH = true;
             try
@@ -1405,9 +1415,9 @@ dataExercise[0, x].Value == "Sprinting")
             string dinner = "";
             try
             {
-                breakfast = importArray(Application.StartupPath + $"{slash}user data{slash}profile" + profIndex.ToString() + $"{slash}foodlog{slash}" + dteNew + ".TXT")[0];
-                lunch = importArray(Application.StartupPath + $"{slash}user data{slash}profile" + profIndex.ToString() + $"{slash}foodlog{slash}" + dteNew + ".TXT")[1];
-                dinner = importArray(Application.StartupPath + $"{slash}user data{slash}profile" + profIndex.ToString() + $"{slash}foodlog{slash}" + dteNew + ".TXT")[2];
+                breakfast = importArray(Application.StartupPath + $"{slash}usr{slash}profile" + profIndex.ToString() + $"{slash}foodlog{slash}" + dteNew + ".TXT")[0];
+                lunch = importArray(Application.StartupPath + $"{slash}usr{slash}profile" + profIndex.ToString() + $"{slash}foodlog{slash}" + dteNew + ".TXT")[1];
+                dinner = importArray(Application.StartupPath + $"{slash}usr{slash}profile" + profIndex.ToString() + $"{slash}foodlog{slash}" + dteNew + ".TXT")[2];
                 breakfast = breakfast.Replace("Breakfast|", "");
                 lunch = lunch.Replace("Lunch|", "");
                 dinner = dinner.Replace("Dinner|", "");
@@ -1533,12 +1543,12 @@ dataExercise[0, x].Value == "Sprinting")
         private void bodyFatCalcToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
-            frmBodyfatCalc.currentName = importArray(Application.StartupPath + $"{slash}user data{slash}profile" + profIndex.ToString() + $"{slash}profile" + profIndex.ToString() + ".TXT")[0];
+            frmBodyfatCalc.currentName = importArray(Application.StartupPath + $"{slash}usr{slash}profile" + profIndex.ToString() + $"{slash}profile" + profIndex.ToString() + ".TXT")[0];
             frmBodyfatCalc frmBFC = new NutApp.frmBodyfatCalc();
-            frmBFC.gender = importArray(Application.StartupPath + $"{slash}user data{slash}profile" + profIndex.ToString() + $"{slash}profile" + profIndex.ToString() + ".TXT")[1];
-            frmBFC.age = Convert.ToInt32(importArray(Application.StartupPath + $"{slash}user data{slash}profile" + profIndex.ToString() + $"{slash}profile" + profIndex.ToString() + ".TXT")[2]);
-            frmBFC.wt = Convert.ToInt32(importArray(Application.StartupPath + $"{slash}user data{slash}profile" + profIndex.ToString() + $"{slash}profile" + profIndex.ToString() + ".TXT")[4]);
-            frmBFC.ht = Convert.ToInt32(importArray(Application.StartupPath + $"{slash}user data{slash}profile" + profIndex.ToString() + $"{slash}profile" + profIndex.ToString() + ".TXT")[5]);
+            frmBFC.gender = importArray(Application.StartupPath + $"{slash}usr{slash}profile" + profIndex.ToString() + $"{slash}profile" + profIndex.ToString() + ".TXT")[1];
+            frmBFC.age = Convert.ToInt32(importArray(Application.StartupPath + $"{slash}usr{slash}profile" + profIndex.ToString() + $"{slash}profile" + profIndex.ToString() + ".TXT")[2]);
+            frmBFC.wt = Convert.ToInt32(importArray(Application.StartupPath + $"{slash}usr{slash}profile" + profIndex.ToString() + $"{slash}profile" + profIndex.ToString() + ".TXT")[4]);
+            frmBFC.ht = Convert.ToInt32(importArray(Application.StartupPath + $"{slash}usr{slash}profile" + profIndex.ToString() + $"{slash}profile" + profIndex.ToString() + ".TXT")[5]);
             frmBFC.ShowDialog();
         }
 
@@ -1549,9 +1559,9 @@ dataExercise[0, x].Value == "Sprinting")
 
         private void naturalPotentialCalcToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            frmLeanPotentialCalc.bodyfat = Convert.ToInt32(importArray(Application.StartupPath + $"{slash}user data{slash}profile" + profIndex.ToString() + $"{slash}profile" + profIndex.ToString() + ".TXT")[3]);
-            frmLeanPotentialCalc.weight = Convert.ToInt32(importArray(Application.StartupPath + $"{slash}user data{slash}profile" + profIndex.ToString() + $"{slash}profile" + profIndex.ToString() + ".TXT")[4]);
-            frmLeanPotentialCalc.height = Convert.ToInt32(importArray(Application.StartupPath + $"{slash}user data{slash}profile" + profIndex.ToString() + $"{slash}profile" + profIndex.ToString() + ".TXT")[5]);
+            frmLeanPotentialCalc.bodyfat = Convert.ToInt32(importArray(Application.StartupPath + $"{slash}usr{slash}profile" + profIndex.ToString() + $"{slash}profile" + profIndex.ToString() + ".TXT")[3]);
+            frmLeanPotentialCalc.weight = Convert.ToInt32(importArray(Application.StartupPath + $"{slash}usr{slash}profile" + profIndex.ToString() + $"{slash}profile" + profIndex.ToString() + ".TXT")[4]);
+            frmLeanPotentialCalc.height = Convert.ToInt32(importArray(Application.StartupPath + $"{slash}usr{slash}profile" + profIndex.ToString() + $"{slash}profile" + profIndex.ToString() + ".TXT")[5]);
             frmLeanPotentialCalc frmNatPot = new NutApp.frmLeanPotentialCalc();            
             frmNatPot.ShowDialog();
         }
@@ -1564,7 +1574,7 @@ dataExercise[0, x].Value == "Sprinting")
 
         private void btnSearchUserD_Click(object sender, EventArgs e)
         {
-            if (!Directory.Exists(Application.StartupPath + $"{slash}user data{slash}public{slash}DBs") && !Directory.Exists(Application.StartupPath + $"{slash}user data{slash}profile" + profIndex.ToString() + "{slash}DBs"))
+            if (!Directory.Exists(Application.StartupPath + $"{slash}usr{slash}public{slash}DBs") && !Directory.Exists(Application.StartupPath + $"{slash}usr{slash}profile" + profIndex.ToString() + "{slash}DBs"))
             {
                 MessageBox.Show("There don't seem to be any public OR user loaded databases.  Try going to the spreadsheet wizard (under tools) to import some, or manually copy some from another user.", "Nothing found", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;

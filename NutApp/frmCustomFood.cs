@@ -284,7 +284,7 @@ namespace NutApp
             startingVits = richtextvits.Text;
             startingMins = richtextmins.Text;
 
-            fr = Application.StartupPath + $"{slash}user data{slash}profile" + frmMain.loadIndex.ToString() + $"{slash}foods";
+            fr = Application.StartupPath + $"{slash}usr{slash}profile" + frmMain.profIndex.ToString() + $"{slash}foods";
 
             //q = Convert.ToInt32(comboBox1.Text);
 
