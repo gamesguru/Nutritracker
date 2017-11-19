@@ -108,113 +108,158 @@ namespace NutApp
             string[] lst = importArray(nkp).ToArray();
             listView1.Clear();
             int z = 0;
-            for (int i = 0; i < lst.Length; i++)
-            {
+            string[] vals = new string[] { "Name of Food", "Value1", "Value2", "Value3", "Serving", "Weight", "Other Units" };
+            string[] keys = new string[7];
 
-                string m = lst[i].Split('|')[0];
-                string l = lst[i].Split('|')[1];
-                if (l == "Name of Food")
+            for (int i = 0; i < vals.Length; i++)
+                for (int j = 0; j < lst.Length; j++)
                 {
-                    listView1.Columns.Add(l);
+                    string m = lst[j].Split('|')[0];
+                    string n = lst[j].Split('|')[1];
+                    keys[j] = m;
+                    if (n == vals[i])
+                        listView1.Columns.Add(n);
                     if (z == 0)
                         z = importArray(dr + $"{slash}" + m).Count;
                 }
-                else if (l == "Value1")
-                {
-                    listView1.Columns.Add(l);
-                    if (z == 0)
-                        z = importArray(dr + $"{slash}" + m).Count;
-                }
-                else if (l == "Value2")
-                {
-                    listView1.Columns.Add(l);
-                    if (z == 0)
-                        z = importArray(dr + $"{slash}" + m).Count;
-                }
-                else if (l == "Value3")
-                {
-                    listView1.Columns.Add(l);
-                    if (z == 0)
-                        z = importArray(dr + $"{slash}" + m).Count;
-                }
-                else if (l == "Other Units")
-                {
-                    listView1.Columns.Add(l);
-                    if (z == 0)
-                        z = importArray(dr + $"{slash}" + m).Count;
-                }
-                else if (l == "Serving")
-                {
-                    listView1.Columns.Add(l);
-                    if (z == 0)
-                        z = importArray(dr + $"{slash}" + m).Count;
-                }
-                else if (l == "Weight")
-                {
-                    listView1.Columns.Add(l);
-                    if (z == 0)
-                        z = importArray(dr + $"{slash}" + m).Count;
-                }
-            }
+
+            //for (int i = 0; i < lst.Length; i++)
+            //{
+
+            //    string m = lst[i].Split('|')[0];
+            //    string l = lst[i].Split('|')[1];
+            //    if (l == "Name of Food")
+            //    {
+            //        listView1.Columns.Add(l);
+            //        if (z == 0)
+            //            z = importArray(dr + $"{slash}" + m).Count;
+            //    }
+            //    else if (l == "Value1")
+            //    {
+            //        listView1.Columns.Add(l);
+            //        if (z == 0)
+            //            z = importArray(dr + $"{slash}" + m).Count;
+            //    }
+            //    else if (l == "Value2")
+            //    {
+            //        listView1.Columns.Add(l);
+            //        if (z == 0)
+            //            z = importArray(dr + $"{slash}" + m).Count;
+            //    }
+            //    else if (l == "Value3")
+            //    {
+            //        listView1.Columns.Add(l);
+            //        if (z == 0)
+            //            z = importArray(dr + $"{slash}" + m).Count;
+            //    }
+            //    else if (l == "Other Units")
+            //    {
+            //        listView1.Columns.Add(l);
+            //        if (z == 0)
+            //            z = importArray(dr + $"{slash}" + m).Count;
+            //    }
+            //    else if (l == "Serving")
+            //    {
+            //        listView1.Columns.Add(l);
+            //        if (z == 0)
+            //            z = importArray(dr + $"{slash}" + m).Count;
+            //    }
+            //    else if (l == "Weight")
+            //    {
+            //        listView1.Columns.Add(l);
+            //        if (z == 0)
+            //            z = importArray(dr + $"{slash}" + m).Count;
+            //    }
+            //}
 
             //MessageBox.Show(string.Join(", ", importArray(dr + $"{slash}" + txtVal1.Text)));
             //int q = 0;
+            List<string[]> valls = new List<string[]>();
+            //string[,] valls = new string[vals.Length, 7];
             string[] names = new string[z];
             string[] val1 = new string[z];
             string[] val2 = new string[z];
             string[] val3 = new string[z];
-            string[] othUnts = new string[z];
             string[] servs = new string[z];
             string[] weights = new string[z];
+            string[] othUnts = new string[z];
 
-            for (int i = 0; i < lst.Length; i++)
-            {
+            for (int i = 0; i < 7/*valls.Count*/; i++)
+                for (int j = 0; j < lst.Length; j++)
+                {
+                    string m = lst[j].Split('|')[0];
+                    string n = lst[j].Split('|')[1];
+                    string[] tmp = importArray(dr + $"{slash}" + m).ToArray();
+                    //MessageBox.Show("k");
+                    if (n == vals[i])
+                        valls.Add(tmp);
 
-                string m = lst[i].Split('|')[0];
-                string l = lst[i].Split('|')[1];
-                if (l == "Name of Food")
-                    names = importArray(dr + $"{slash}" + m).ToArray();
-                else if (l == "Value1")
-                    val1 = importArray(dr + $"{slash}" + m).ToArray();
-                else if (l == "Value2")
-                    val2 = importArray(dr + $"{slash}" + m).ToArray();
-                else if (l == "Value3")
-                    val3 = importArray(dr + $"{slash}" + m).ToArray();
-                else if (l == "Other Units")
-                    othUnts = importArray(dr + $"{slash}" + m).ToArray();
-                else if (l == "Serving")
-                    servs = importArray(dr + $"{slash}" + m).ToArray();
-                else if (l == "Weight")
-                    weights = importArray(dr + $"{slash}" + m).ToArray();
-            }
+                }
+            //for (int i = 0; i < lst.Length; i++)
+            //{
+
+            //    string m = lst[i].Split('|')[0];
+            //    string l = lst[i].Split('|')[1];
+            //    if (l == "Name of Food")
+            //        names = importArray(dr + $"{slash}" + m).ToArray();
+            //    else if (l == "Value1")
+            //        val1 = importArray(dr + $"{slash}" + m).ToArray();
+            //    else if (l == "Value2")
+            //        val2 = importArray(dr + $"{slash}" + m).ToArray();
+            //    else if (l == "Value3")
+            //        val3 = importArray(dr + $"{slash}" + m).ToArray();
+            //    else if (l == "Other Units")
+            //        othUnts = importArray(dr + $"{slash}" + m).ToArray();
+            //    else if (l == "Serving")
+            //        servs = importArray(dr + $"{slash}" + m).ToArray();
+            //    else if (l == "Weight")
+            //        weights = importArray(dr + $"{slash}" + m).ToArray();
+            //}
 
             //MessageBox.Show(string.Join(", ", names));
             //MessageBox.Show(string.Join(", ", val1));
 
             //are these text fields null valued at this time??
             //does this go alphabetical and not according to plan?
-            for (int q = 0; q < z; q++)
-            {
+            for (int i = 0; i < z; i++) {
+                int q = -1;
                 ListViewItem itm = new ListViewItem();
-                for (int i = 0; i < Directory.GetFiles(dr).Length; i++)
+                for (int j = 0; j < Directory.GetFiles(dr).Length; j++)
                 {
-                    if (Directory.GetFiles(dr)[i].Replace(dr + $"{slash}", "") == txtName.Text)
-                        itm.Text = names[q];
-                    else if (Directory.GetFiles(dr)[i].Replace(dr + $"{slash}", "") == txtVal1.Text)
-                        itm.SubItems.Add(val1[q]);
-                    else if (Directory.GetFiles(dr)[i].Replace(dr + $"{slash}", "") == txtVal2.Text)
-                        itm.SubItems.Add(val2[q]);
-                    else if (Directory.GetFiles(dr)[i].Replace(dr + $"{slash}", "") == txtVal3.Text)
-                        itm.SubItems.Add(val3[q]);
-                    else if (Directory.GetFiles(dr)[i].Replace(dr + $"{slash}", "") == txtOthUn.Text)
-                        itm.SubItems.Add(othUnts[q]);
-                    else if (Directory.GetFiles(dr)[i].Replace(dr + $"{slash}", "") == txtServ.Text)
-                        itm.SubItems.Add(servs[q]);
-                    else if (Directory.GetFiles(dr)[i].Replace(dr + $"{slash}", "") == txtWeight.Text)
-                        itm.SubItems.Add(weights[q]);
+                    if (Directory.GetFiles(dr)[i].Replace(dr + $"{slash}", "") == keys[0])
+                    {
+                        itm.Text = valls[0][q];
+                        q++;
+                    }
+                    else if (Directory.GetFiles(dr)[i].Replace(dr + $"{slash}", "") == keys[i])
+                    {
+                        itm.SubItems.Add(valls[j][q]);
+                        q++;
+                    }
                 }
-                listView1.Items.Add(itm);
             }
+            //for (int q = 0; q < z; q++)
+            //{
+            //    ListViewItem itm = new ListViewItem();
+            //    for (int i = 0; i < Directory.GetFiles(dr).Length; i++)
+            //    {
+            //        if (Directory.GetFiles(dr)[i].Replace(dr + $"{slash}", "") == txtName.Text)
+            //            itm.Text = valls[0][q];
+            //        else if (Directory.GetFiles(dr)[i].Replace(dr + $"{slash}", "") == txtVal1.Text)
+            //            itm.SubItems.Add(valls[1][q]);
+            //        else if (Directory.GetFiles(dr)[i].Replace(dr + $"{slash}", "") == txtVal2.Text)
+            //            itm.SubItems.Add(valls[2][q]);
+            //        else if (Directory.GetFiles(dr)[i].Replace(dr + $"{slash}", "") == txtVal3.Text)
+            //            itm.SubItems.Add(valls[3][q]);
+            //        else if (Directory.GetFiles(dr)[i].Replace(dr + $"{slash}", "") == txtServ.Text)
+            //            itm.SubItems.Add(valls[4][q]);
+            //        else if (Directory.GetFiles(dr)[i].Replace(dr + $"{slash}", "") == txtWeight.Text)
+            //            itm.SubItems.Add(valls[5][q]);
+            //        else if (Directory.GetFiles(dr)[i].Replace(dr + $"{slash}", "") == txtOthUn.Text)
+            //            itm.SubItems.Add(valls[6][q]);
+            //    }
+            //    listView1.Items.Add(itm);
+            //}
 
 
             /*for (int i = 0; i < lst.Count; i++)

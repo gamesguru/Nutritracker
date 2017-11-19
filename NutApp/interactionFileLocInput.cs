@@ -47,13 +47,13 @@ namespace NutApp
             {
                 string[] files = Directory.GetFiles(dir);
                 foreach (string file in files)
-                    source.Add(file);
+                    source.Add(file.Replace("\\", "/"));
 
                 foreach (string subdir in Directory.GetDirectories(dir))
                 {
                     files = Directory.GetFiles(subdir);
                     foreach (string file in files)
-                        source.Add(file);
+                        source.Add(file.Replace("\\", "/"));
                 }
             }         
 

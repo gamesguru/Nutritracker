@@ -312,9 +312,9 @@ dataDay.Rows.Add(row);*/
             dataDay.Rows[8].ReadOnly = true;
 
             
-            string breakfast = importArray(Application.StartupPath + "\\user data\\profile" + profIndex.ToString() + "\\foodlog\\" + dte + ".txt")[0];
-            string lunch = importArray(Application.StartupPath + "\\user data\\profile" + profIndex.ToString() + "\\foodlog\\" + dte + ".txt")[1];
-            string dinner = importArray(Application.StartupPath + "\\user data\\profile" + profIndex.ToString() + "\\foodlog\\" + dte + ".txt")[2];
+            string breakfast = importArray(Application.StartupPath + "\\usr\\profile" + profIndex.ToString() + "\\foodlog\\" + dte + ".txt")[0];
+            string lunch = importArray(Application.StartupPath + "\\usr\\profile" + profIndex.ToString() + "\\foodlog\\" + dte + ".txt")[1];
+            string dinner = importArray(Application.StartupPath + "\\usr\\profile" + profIndex.ToString() + "\\foodlog\\" + dte + ".txt")[2];
             breakfast = breakfast.Replace("Breakfast|", "");
             lunch = lunch.Replace("Lunch|", "");
             dinner = dinner.Replace("Dinner|", "");
@@ -430,7 +430,7 @@ dataDay.Rows.Add(row);*/
 
             comboMeal.SelectedIndex = 0;
 
-            //MessageBox.Show(root + "\\user data\\profile" + loadIndex.ToString() + "\\foods\\names.txt");
+            //MessageBox.Show(root + "\\usr\\profile" + loadIndex.ToString() + "\\foods\\names.txt");
             if (File.Exists(root + $"{slash}profile" + profIndex.ToString() + $"{slash}foods{slash}names.TXT"))
             {
                 lstCustFoods = new List<string>();
@@ -1584,7 +1584,7 @@ dataExercise[0, x].Value == "Sprinting")
                 frmSearchFoods frmAddSFood = new frmSearchFoods();
                 frmAddSFood.Show(this);
             }
-            //else if (importArray(Application.StartupPath + "\\user data\\public"))
+            //else if (importArray(Application.StartupPath + "\\usr\\public"))
         }
 
         private void addSearchCommonFoodsToolStripMenuItem1_Click(object sender, EventArgs e)

@@ -2068,7 +2068,7 @@ namespace NutApp
                 if (getUnits(lines[i]) == "none")
                 {
                     lines[i] = lines[i].Replace(" ", "");
-                    if (i < 4)
+                    if (i < 3)
                     {
                         int oldLength = lines[i].Length;
                         lines[i] = getBiggestInt(lines[i]) + " mg";
@@ -2158,7 +2158,7 @@ namespace NutApp
                 if (getUnits(lines[i]) == "none")
                 {
                     lines[i] = lines[i].Replace(" ", "");
-                    if (i < 4)
+                    if (i < 3)
                     {
                         lines[i] = getBiggestInt(lines[i]) + " mg";
                         sum += 4;

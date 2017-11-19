@@ -142,7 +142,7 @@ namespace NutApp
                 {
                     MessageBox.Show("The nutrient keys have not been paired for this database.  You will be taken to the admin center.", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     frmManageDBfields frmMDB = new frmManageDBfields();
-                    frmMDB.nutkeyPath = Application.StartupPath + $"{slash}usr{slash}public{slash}DBs{slash}" + db + $"{slash}_nutKeyPairs.TXT";
+                    NewMethod(frmMDB);
                     frmMDB.ShowDialog();
                 }
             }
@@ -171,6 +171,11 @@ namespace NutApp
                     frmMDB.ShowDialog();
                 }
             }
+        }
+
+        private void NewMethod(frmManageDBfields frmMDB)
+        {
+            frmMDB.nutkeyPath = Application.StartupPath + $"{slash}usr{slash}public{slash}DBs{slash}" + db + $"{slash}_nutKeyPairs.TXT";
         }
 
         private void manageBasicFieldsToolStripMenuItem_Click(object sender, EventArgs e)

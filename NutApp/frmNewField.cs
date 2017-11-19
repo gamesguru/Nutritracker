@@ -28,7 +28,7 @@ namespace NutApp
         List<string> nameKeyPairs;
         private void frmNewField_Load(object sender, EventArgs e)
         {
-            txtLoc.Text = $"{slash}user data{slash}profile" + frmMain.profIndex.ToString() + $"{slash}DBs{slash}f_user_";
+            txtLoc.Text = $"{slash}usr{slash}profile" + frmMain.profIndex.ToString() + $"{slash}DBs{slash}f_user_";
             lblRowCount.Text = "Your Field will have " + n.ToString() + " entries";
             for (int i = 0; i < arr.Count; i++)
             {
@@ -65,7 +65,7 @@ namespace NutApp
                 btnCreate.Enabled = true;
             if (txtName.TextLength < 2)
                 btnCreate.Enabled = false;
-            txtLoc.Text = $"{slash}user data{slash}profile" + frmMain.profIndex.ToString() + $"{slash}DBs{slash}f_user_" +
+            txtLoc.Text = $"{slash}usr{slash}profile" + frmMain.profIndex.ToString() + $"{slash}DBs{slash}f_user_" +
                           txtName.Text.ToUpper();
         }
 

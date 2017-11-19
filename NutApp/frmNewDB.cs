@@ -41,7 +41,7 @@ namespace NutApp
         public int n = 0;
         private void frmNewDB_Load(object sender, EventArgs e)
         {
-            txtLoc.Text = $"{slash}user data{slash}profile" + frmMain.profIndex.ToString() + $"{slash}DBs{slash}";
+            txtLoc.Text = $"{slash}usr{slash}profile" + frmMain.profIndex.ToString() + $"{slash}DBs{slash}";
             lblRowCount.Text = "Your database will have " + n.ToString() + " entries";
             for (int i = 0; i < arr.Count; i++)
             {
@@ -74,9 +74,9 @@ namespace NutApp
         private void txtName_TextChanged(object sender, EventArgs e)
         {
             if (radioShared.Checked)            
-                txtLoc.Text = $"{slash}user data{slash}public{slash}DBs{slash}" + txtName.Text;            
+                txtLoc.Text = $"{slash}usr{slash}public{slash}DBs{slash}" + txtName.Text;            
             else            
-                txtLoc.Text = $"{slash}user data{slash}profile" + frmMain.profIndex.ToString() + $"{slash}DBs{slash}" + txtName.Text;
+                txtLoc.Text = $"{slash}usr{slash}profile" + frmMain.profIndex.ToString() + $"{slash}DBs{slash}" + txtName.Text;
 
             if (txtName.TextLength > 2 && lblSearchField.Text != "N/A" && lblCalories.Text != "N/A")
                 btnCreate.Enabled = true;
@@ -87,9 +87,9 @@ namespace NutApp
         private void radioShared_CheckedChanged(object sender, EventArgs e)
         {
             if (radioShared.Checked)
-                txtLoc.Text = $"{slash}user data{slash}public{slash}DBs{slash}" + txtName.Text;
+                txtLoc.Text = $"{slash}usr{slash}public{slash}DBs{slash}" + txtName.Text;
             else
-                txtLoc.Text = $"{slash}user data{slash}profile" + frmMain.profIndex.ToString() + $"{slash}DBs{slash}" + txtName.Text;
+                txtLoc.Text = $"{slash}usr{slash}profile" + frmMain.profIndex.ToString() + $"{slash}DBs{slash}" + txtName.Text;
         }
 
         private void txtName_KeyPress(object sender, KeyPressEventArgs e)

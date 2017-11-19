@@ -43,8 +43,8 @@ namespace NutApp
         string[] userDBs;
         private void frmManageDBfields_Load(object sender, EventArgs e)
         {
-            pubDBs = Directory.GetDirectories(Application.StartupPath + $"{slash}user data{slash}public{slash}DBs");
-            userDBs = Directory.GetDirectories(Application.StartupPath + $"{slash}user data{slash}profile" + frmMain.profIndex.ToString() + $"{slash}DBs");
+            pubDBs = Directory.GetDirectories(Application.StartupPath + $"{slash}usr{slash}public{slash}DBs");
+            userDBs = Directory.GetDirectories(Application.StartupPath + $"{slash}usr{slash}profile" + frmMain.profIndex.ToString() + $"{slash}DBs");
 
             if (pubDBs.Length == 0 && userDBs.Length == 0)
             {
@@ -54,13 +54,13 @@ namespace NutApp
 
             for (int i = 0; i < userDBs.Length; i++)
             {
-                userDBs[i] = userDBs[i].Replace(Application.StartupPath + $"{slash}user data{slash}profile" + frmMain.profIndex.ToString() + $"{slash}DBs{slash}", "");
+                userDBs[i] = userDBs[i].Replace(Application.StartupPath + $"{slash}usr{slash}profile" + frmMain.profIndex.ToString() + $"{slash}DBs{slash}", "");
                 if (!userDBs[i].StartsWith("f_user"))
                     comboBox1.Items.Add(userDBs[i] + " (user)");
             }
             for (int i = 0; i < pubDBs.Length; i++)
             {
-                pubDBs[i] = pubDBs[i].Replace(Application.StartupPath + $"{slash}user data{slash}public{slash}DBs{slash}", "");
+                pubDBs[i] = pubDBs[i].Replace(Application.StartupPath + $"{slash}usr{slash}public{slash}DBs{slash}", "");
                 comboBox1.Items.Add(pubDBs[i] + " (public)");
             }
 
@@ -790,9 +790,9 @@ namespace NutApp
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (comboBox1.Text.Contains("(public)"))
-                nutkeyPath = Application.StartupPath + $"{slash}user data{slash}public{slash}DBs{slash}" + comboBox1.Text.Replace(" (public)", "") + $"{slash}_nutKeyPairs.TXT";
+                nutkeyPath = Application.StartupPath + $"{slash}usr{slash}public{slash}DBs{slash}" + comboBox1.Text.Replace(" (public)", "") + $"{slash}_nutKeyPairs.TXT";
             else
-                nutkeyPath = Application.StartupPath + $"{slash}user data{slash}profile" + frmMain.profIndex.ToString() + $"{slash}DBs{slash}" + comboBox1.Text.Replace(" (user)", "") + $"{slash}_nutKeyPairs.TXT";
+                nutkeyPath = Application.StartupPath + $"{slash}usr{slash}profile" + frmMain.profIndex.ToString() + $"{slash}DBs{slash}" + comboBox1.Text.Replace(" (user)", "") + $"{slash}_nutKeyPairs.TXT";
 
             refresh();
         }
