@@ -100,3 +100,30 @@ E:\NutApp\NutApp\obj\Debug\Nutrition App.csproj.CoreCompileInputs.cache
 E:\NutApp\NutApp\obj\Debug\NutApp.exe
 E:\NutApp\NutApp\obj\Debug\NutApp.pdb
 C:\Users\Shane\Desktop\NutApp\NutApp\obj\Debug\NutApp.interactionFileLocInput.resources
+E:\VsProjects\NutApp\NutApp\bin\Debug\NutApp.exe.config
+E:\VsProjects\NutApp\NutApp\bin\Debug\NutApp.exe
+E:\VsProjects\NutApp\NutApp\bin\Debug\NutApp.pdb
+E:\VsProjects\NutApp\NutApp\obj\Debug\Nutrition App.csprojResolveAssemblyReference.cache
+E:\VsProjects\NutApp\NutApp\obj\Debug\NutApp.frmAddCommonFood.resources
+E:\VsProjects\NutApp\NutApp\obj\Debug\NutApp.frmAddFood.resources
+E:\VsProjects\NutApp\NutApp\obj\Debug\NutApp.frmBodyfatCalc.resources
+E:\VsProjects\NutApp\NutApp\obj\Debug\NutApp.frmCustomFood.resources
+E:\VsProjects\NutApp\NutApp\obj\Debug\NutApp.frmDetailReport.resources
+E:\VsProjects\NutApp\NutApp\obj\Debug\NutApp.frmLeanPotentialCalc.resources
+E:\VsProjects\NutApp\NutApp\obj\Debug\NutApp.frmMain.resources
+E:\VsProjects\NutApp\NutApp\obj\Debug\NutApp.frmManageDBfields.resources
+E:\VsProjects\NutApp\NutApp\obj\Debug\NutApp.frmManageField.resources
+E:\VsProjects\NutApp\NutApp\obj\Debug\NutApp.frmNewDB.resources
+E:\VsProjects\NutApp\NutApp\obj\Debug\NutApp.frmNewField.resources
+E:\VsProjects\NutApp\NutApp\obj\Debug\NutApp.frmParseCustomDatabase.resources
+E:\VsProjects\NutApp\NutApp\obj\Debug\NutApp.frmProfile.resources
+E:\VsProjects\NutApp\NutApp\obj\Debug\NutApp.frmSearchFind.resources
+E:\VsProjects\NutApp\NutApp\obj\Debug\NutApp.frmSearchFoods.resources
+E:\VsProjects\NutApp\NutApp\obj\Debug\NutApp.frmSearchReplace.resources
+E:\VsProjects\NutApp\NutApp\obj\Debug\NutApp.frmSettings.resources
+E:\VsProjects\NutApp\NutApp\obj\Debug\NutApp.interactionFileLocInput.resources
+E:\VsProjects\NutApp\NutApp\obj\Debug\NutApp.Properties.Resources.resources
+E:\VsProjects\NutApp\NutApp\obj\Debug\Nutrition App.csproj.GenerateResource.Cache
+E:\VsProjects\NutApp\NutApp\obj\Debug\Nutrition App.csproj.CoreCompileInputs.cache
+E:\VsProjects\NutApp\NutApp\obj\Debug\NutApp.exe
+E:\VsProjects\NutApp\NutApp\obj\Debug\NutApp.pdb
