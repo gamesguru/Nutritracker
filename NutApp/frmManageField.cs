@@ -221,24 +221,39 @@ namespace NutApp
 
             //are these text fields null valued at this time??
             //does this go alphabetical and not according to plan?
-            for (int i = 0; i < z; i++) {
-                int q = 0;
-                ListViewItem itm = new ListViewItem();
-                for (int j = 0; j < Directory.GetFiles(dr).Length- 1; j++)
-                {
-                    if (Directory.GetFiles(dr)[j].Replace(dr + $"{slash}", "") == keys[0])
-                    {
-                        itm.Text = valls[0][q];
-                        q++;
-                    }
-                    else if (Directory.GetFiles(dr)[j].Replace(dr + $"{slash}", "") == keys[j])
-                    {
-                        itm.SubItems.Add(valls[j][q]);
-                        q++;
-                    }
-                }
-                listView1.Items.Add(itm);
-            }
+//            for (int i = 0; i < z; i++) {
+//                int q = 0;
+//                ListViewItem itm = new ListViewItem();
+//                for (int j = 0; j < Directory.GetFiles(dr).Length- 1; j++)
+//                {
+//                    if (Directory.GetFiles(dr)[j].Replace(dr + $"{slash}", "") == keys[0])
+//                    {
+//                        itm.Text = valls[0][q];
+//                        q++;
+//                    }
+//                    else if (Directory.GetFiles(dr)[j].Replace(dr + $"{slash}", "") == keys[j])
+//                    {
+//                        itm.SubItems.Add(valls[j][q]);
+//                        q++;
+//                    }
+//                }
+//                listView1.Items.Add(itm);
+//            }
+
+			for (int i = 0; i < z; i++) { 
+				ListViewItem itm = new ListViewItem (); 
+				string[] test = Directory.GetFiles (dr);
+				for (int j = 0; j < Directory.GetFiles (dr).Length - 1; j++) { 
+					if (Directory.GetFiles (dr) [j].Replace (dr +$"{slash}", "") == keys [0]) {
+						itm.Text = valls [0] [i];
+					}
+					if (keys.Contains(Directory.GetFiles (dr) [j].Replace (dr +$"{slash}", "")) && keys[j] != keys[0]) {
+						itm.SubItems.Add (valls [j] [i]);
+					} // TODO: Add missing scenarios } 
+				}
+				listView1.Items.Add(itm); 
+			}
+
             //for (int q = 0; q < z; q++)
             //{
             //    ListViewItem itm = new ListViewItem();
