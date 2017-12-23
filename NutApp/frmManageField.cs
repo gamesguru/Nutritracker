@@ -43,7 +43,14 @@ namespace NutApp
                 fields[i] = fields[i].Replace(Application.StartupPath + $"{slash}usr{slash}profile" +
                                               frmMain.profIndex.ToString() + $"{slash}DBs{slash}", "");
                 if (fields[i].StartsWith("f_user_"))
-                    comboFields.Items.Add(fields[i].Remove(0, 7));
+                {
+                    string field = fields[i].Remove(0, 7);
+                    comboBox1.Items.Add(field);
+                    comboBox2.Items.Add(field);
+                    comboBox3.Items.Add(field);
+                    comboBox4.Items.Add(field);
+                    comboFields.Items.Add(field);
+                }
             }
             if (comboFields.Items.Count == 0)
             {
@@ -247,10 +254,11 @@ namespace NutApp
 					if (Directory.GetFiles (dr) [j].Replace (dr +$"{slash}", "") == keys [0]) {
 						itm.Text = valls [0] [i];
 					}
-					if (keys.Contains(Directory.GetFiles (dr) [j].Replace (dr +$"{slash}", "")) && keys[j] != keys[0]) {
-						itm.SubItems.Add (valls [j] [i]);
-					} // TODO: Add missing scenarios } 
-				}
+                    if (keys.Contains(Directory.GetFiles(dr)[j].Replace(dr + $"{slash}", "")) && j > 0)
+                    {
+                        itm.SubItems.Add(valls[j][i]);
+                    }
+                }
 				listView1.Items.Add(itm); 
 			}
 

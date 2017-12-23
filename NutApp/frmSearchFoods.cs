@@ -43,6 +43,14 @@ namespace NutApp
         string[] pubDBs;
         string[] userDBs;
         string slash = Path.DirectorySeparatorChar.ToString();
+        private class slotObj {
+            public string[] names = new string[0];
+            public string[] vals = new string[0];
+            public string[] weights = new string[0];
+        }
+        slotObj[] slotObjs = new slotObj[4];
+
+
         private void frmSearchFoods_Load(object sender, EventArgs e)
         {
             pubDBs = Directory.GetDirectories(Application.StartupPath + $"{slash}usr{slash}public{slash}DBs");
@@ -67,6 +75,168 @@ namespace NutApp
             }
             if (comboDBs.Items.Count > 0)
                 comboDBs.SelectedIndex = comboDBs.Items.Count - 1;
+
+
+            //Loads the user-defined fields
+            slotObjs[0] = new slotObj();
+            slotObjs[1] = new slotObj();
+            slotObjs[2] = new slotObj();
+            slotObjs[3] = new slotObj();
+            if (File.Exists(Application.StartupPath + $"{slash}usr{slash}profile" + frmMain.profIndex.ToString() + $"{slash}DBs" + slash + "Slots.TXT"))
+            {
+                string[] slots = File.ReadAllLines(Application.StartupPath + $"{slash}usr{slash}profile" + frmMain.profIndex.ToString() + $"{slash}DBs" + slash + "Slots.TXT");
+                int slotMax = 0;
+                foreach (string s in slots)
+                {
+                    string dir = Application.StartupPath + $"{slash}usr{slash}profile" + frmMain.profIndex.ToString() + $"{slash}DBs" + slash + s;
+                        string[] nkp = File.ReadAllLines(dir + slash + "_nutKeyPairs.TXT");
+                        string[] names = new string[0];
+                        string[] vals = new string[0];
+                        string[] weights = new string[0];
+
+                    if (Directory.Exists(dir))
+                    {
+                        if (slotMax == 0)
+                        {
+                            lblSlot1.Text = s.Replace("f_user_" , "");
+                            foreach (string t in nkp)
+                            {
+                                if (t.Split('|')[1] == "Name of Food")
+                                {
+                                    names = File.ReadAllLines(dir + slash + t.Split('|')[0]);
+                                    slotObjs[0].names = names;
+                                }
+                                else if (t.Split('|')[1] == "Value1")
+                                {
+                                    vals = File.ReadAllLines(dir + slash + t.Split('|')[0]);
+                                    slotObjs[0].vals = vals;
+                                }
+
+                                else if (t.Split('|')[1] == "Weight")
+                                {
+                                    weights = File.ReadAllLines(dir + slash + t.Split('|')[0]);
+                                    slotObjs[0].weights = weights;
+                                }
+                            }
+
+                            //adds to list
+                            for (int i = 0; i < names.Length; i++)
+                            {
+                                ListViewItem itm = new ListViewItem(names[i]);
+                                itm.SubItems.Add(weights[i]);
+                                itm.SubItems.Add(vals[i]);
+                                lstViewSlot1.Items.Add(itm);
+                            }
+                        }
+                        else if (slotMax == 1)
+                        {
+                            lblSlot2.Text = s.Replace("f_user_", "");
+                            foreach (string t in nkp)
+                            {
+                                if (t.Split('|')[1] == "Name of Food")
+                                {
+                                    names = File.ReadAllLines(dir + slash + t.Split('|')[0]);
+                                    slotObjs[1].names = names;
+                                }
+                                else if (t.Split('|')[1] == "Value1")
+                                {
+                                    vals = File.ReadAllLines(dir + slash + t.Split('|')[0]);
+                                    slotObjs[1].vals = vals;
+                                }
+                                else if (t.Split('|')[1] == "Weight")
+                                {
+                                    weights = File.ReadAllLines(dir + slash + t.Split('|')[0]);
+                                    slotObjs[1].weights = weights;
+                                }
+                            }
+
+                            //adds to list
+                            for (int i = 0; i < names.Length; i++)
+                            {
+                                                                    //if (names.Length != weights.Length || weights.Length != vals.Length)
+                                    //{
+                                    //    MessageBox.Show($"the {s} field is corrupt, not all entries have the same length\nameLength: {names.Length}\nweightsLength: {weights.Length}\nvalueLength: {vals.Length}");
+                                    //    break;
+                                    //}
+                                ListViewItem itm = new ListViewItem(names[i]);
+                                if (weights.Length == names.Length)
+                                    itm.SubItems.Add(weights[i]);
+                                if (vals.Length == names.Length)
+                                    itm.SubItems.Add(vals[i]);
+                                lstViewSlot2.Items.Add(itm);
+                            }
+                        }
+                        else if (slotMax == 2)
+                        {
+                            lblSlot3.Text = s.Replace("f_user_", "");
+                            foreach (string t in nkp)
+                            {
+                                if (t.Split('|')[1] == "Name of Food")
+                                {
+                                    names = File.ReadAllLines(dir + slash + t.Split('|')[0]);
+                                    slotObjs[2].names = names;
+                                }
+                                else if (t.Split('|')[1] == "Value1")
+                                {
+                                    vals = File.ReadAllLines(dir + slash + t.Split('|')[0]);
+                                    slotObjs[2].vals = vals;
+                                }
+
+                                else if (t.Split('|')[1] == "Weight")
+                                {
+                                    weights = File.ReadAllLines(dir + slash + t.Split('|')[0]);
+                                    slotObjs[2].weights = weights;
+                                }
+                            }
+
+                            //adds to list
+                            for (int i = 0; i < names.Length; i++)
+                            {
+                                ListViewItem itm = new ListViewItem(names[i]);
+                                itm.SubItems.Add(weights[i]);
+                                itm.SubItems.Add(vals[i]);
+                                lstViewSlot3.Items.Add(itm);
+                            }
+                        }
+                        else if (slotMax == 3)
+                        {
+                            lblSlot4.Text = s.Replace("f_user_", "");
+                            foreach (string t in nkp)
+                            {
+                                if (t.Split('|')[1] == "Name of Food")
+                                {
+                                    names = File.ReadAllLines(dir + slash + t.Split('|')[0]);
+                                    slotObjs[3].names = names;
+                                }
+
+                                else if (t.Split('|')[1] == "Value1")
+                                {
+                                    vals = File.ReadAllLines(dir + slash + t.Split('|')[0]);
+                                    slotObjs[3].vals = vals;
+                                }
+
+                                else if (t.Split('|')[1] == "Weight")
+                                {
+                                    weights = File.ReadAllLines(dir + slash + t.Split('|')[0]);
+                                    slotObjs[3].weights = weights;
+                                }
+                            }
+
+                            //adds to list
+                            for (int i = 0; i < names.Length; i++)
+                            {
+                                ListViewItem itm = new ListViewItem(names[i]);
+                                itm.SubItems.Add(weights[i]);
+                                itm.SubItems.Add(vals[i]);
+                                lstViewSlot4.Items.Add(itm);
+                            }
+                        }
+                        slotMax++;
+                    }
+                    if (slotMax >= 4)
+                        break;
+                }
+            }
         }
 
         private string nameKeyPath = "";
@@ -196,6 +366,11 @@ namespace NutApp
             srchTmout.Stop();
             srchTmout.Start();
             richTxtWarn.Text = "";
+
+            txtUser1.Text = txtSrch.Text;
+            txtUser2.Text = txtSrch.Text;
+            txtUser3.Text = txtSrch.Text;
+            txtUser4.Text = txtSrch.Text;
         }
 
         string lastQuery = "";
@@ -362,6 +537,74 @@ namespace NutApp
                     this.Invoke(new MethodInvoker(delegate { this.UseWaitCursor = false; }));
                 };
                 bw.RunWorkerAsync();
+            }
+        }
+
+        private void txtUser1_TextChanged(object sender, EventArgs e)
+        {
+            lstViewSlot1.Items.Clear();
+            for ( int i = 0;  i < slotObjs[0].names.Length; i++)
+            {
+                if (slotObjs[0].names[i].ToUpper().Contains(txtUser1.Text.ToUpper()))
+                {
+                    ListViewItem itm = new ListViewItem(slotObjs[0].names[i]);
+                    if (slotObjs[0].names.Length == slotObjs[0].weights.Length)
+                        itm.SubItems.Add(slotObjs[0].weights[i]);
+                    if (slotObjs[0].names.Length == slotObjs[0].vals.Length)
+                        itm.SubItems.Add(slotObjs[0].vals[i]);
+                    lstViewSlot1.Items.Add(itm);
+                }
+            }
+        }
+
+        private void txtUser2_TextChanged(object sender, EventArgs e)
+        {
+            lstViewSlot2.Items.Clear();
+            for (int i = 0; i < slotObjs[1].names.Length; i++)
+            {
+                if (slotObjs[1].names[i].ToUpper().Contains(txtUser1.Text.ToUpper()))
+                {
+                    ListViewItem itm = new ListViewItem(slotObjs[1].names[i]);
+                    if (slotObjs[1].names.Length == slotObjs[1].weights.Length)
+                        itm.SubItems.Add(slotObjs[1].weights[i]);
+                    if (slotObjs[1].names.Length == slotObjs[1].vals.Length)
+                        itm.SubItems.Add(slotObjs[1].vals[i]);
+                    lstViewSlot2.Items.Add(itm);
+                }
+            }
+        }
+
+        private void txtUser3_TextChanged(object sender, EventArgs e)
+        {
+            lstViewSlot3.Items.Clear();
+            for (int i = 0; i < slotObjs[2].names.Length; i++)
+            {
+                if (slotObjs[2].names[i].ToUpper().Contains(txtUser1.Text.ToUpper()))
+                {
+                    ListViewItem itm = new ListViewItem(slotObjs[2].names[i]);
+                    if (slotObjs[2].names.Length == slotObjs[2].weights.Length)
+                        itm.SubItems.Add(slotObjs[2].weights[i]);
+                    if (slotObjs[2].names.Length == slotObjs[2].vals.Length)
+                        itm.SubItems.Add(slotObjs[2].vals[i]);
+                    lstViewSlot3.Items.Add(itm);
+                }
+            }
+        }
+
+        private void txtUser4_TextChanged(object sender, EventArgs e)
+        {
+            lstViewSlot4.Items.Clear();
+            for (int i = 0; i < slotObjs[3].names.Length; i++)
+            {
+                if (slotObjs[3].names[i].ToUpper().Contains(txtUser1.Text.ToUpper()))
+                {
+                    ListViewItem itm = new ListViewItem(slotObjs[3].names[i]);
+                    if (slotObjs[3].names.Length == slotObjs[3].weights.Length)
+                        itm.SubItems.Add(slotObjs[3].weights[i]);
+                    if (slotObjs[3].names.Length == slotObjs[3].vals.Length)
+                        itm.SubItems.Add(slotObjs[3].vals[i]);
+                    lstViewSlot4.Items.Add(itm);
+                }
             }
         }
     }

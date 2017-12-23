@@ -58,34 +58,34 @@
             this.txtUser1Units = new System.Windows.Forms.Label();
             this.txtUser1Qty = new System.Windows.Forms.TextBox();
             this.label14 = new System.Windows.Forms.Label();
-            this.listView4 = new System.Windows.Forms.ListView();
+            this.lstViewSlot4 = new System.Windows.Forms.ListView();
             this.columnHeader56 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader57 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader60 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.listView3 = new System.Windows.Forms.ListView();
+            this.lstViewSlot3 = new System.Windows.Forms.ListView();
             this.columnHeader53 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader54 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader55 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.listView2 = new System.Windows.Forms.ListView();
+            this.lstViewSlot2 = new System.Windows.Forms.ListView();
             this.columnHeader50 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader51 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader52 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.label12 = new System.Windows.Forms.Label();
             this.txtUser4 = new System.Windows.Forms.TextBox();
-            this.label13 = new System.Windows.Forms.Label();
+            this.lblSlot4 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.txtUser3 = new System.Windows.Forms.TextBox();
-            this.label11 = new System.Windows.Forms.Label();
+            this.lblSlot3 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.txtUser2 = new System.Windows.Forms.TextBox();
-            this.label9 = new System.Windows.Forms.Label();
+            this.lblSlot2 = new System.Windows.Forms.Label();
             this.lblUser1 = new System.Windows.Forms.Label();
-            this.lstViewUser1 = new System.Windows.Forms.ListView();
+            this.lstViewSlot1 = new System.Windows.Forms.ListView();
             this.columnHeader49 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader58 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader59 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.txtUser1 = new System.Windows.Forms.TextBox();
-            this.label7 = new System.Windows.Forms.Label();
+            this.lblSlot1 = new System.Windows.Forms.Label();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.manageBasicFieldsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -292,22 +292,22 @@
             this.groupBox2.Controls.Add(this.txtUser1Units);
             this.groupBox2.Controls.Add(this.txtUser1Qty);
             this.groupBox2.Controls.Add(this.label14);
-            this.groupBox2.Controls.Add(this.listView4);
-            this.groupBox2.Controls.Add(this.listView3);
-            this.groupBox2.Controls.Add(this.listView2);
+            this.groupBox2.Controls.Add(this.lstViewSlot4);
+            this.groupBox2.Controls.Add(this.lstViewSlot3);
+            this.groupBox2.Controls.Add(this.lstViewSlot2);
             this.groupBox2.Controls.Add(this.label12);
             this.groupBox2.Controls.Add(this.txtUser4);
-            this.groupBox2.Controls.Add(this.label13);
+            this.groupBox2.Controls.Add(this.lblSlot4);
             this.groupBox2.Controls.Add(this.label10);
             this.groupBox2.Controls.Add(this.txtUser3);
-            this.groupBox2.Controls.Add(this.label11);
+            this.groupBox2.Controls.Add(this.lblSlot3);
             this.groupBox2.Controls.Add(this.label8);
             this.groupBox2.Controls.Add(this.txtUser2);
-            this.groupBox2.Controls.Add(this.label9);
+            this.groupBox2.Controls.Add(this.lblSlot2);
             this.groupBox2.Controls.Add(this.lblUser1);
-            this.groupBox2.Controls.Add(this.lstViewUser1);
+            this.groupBox2.Controls.Add(this.lstViewSlot1);
             this.groupBox2.Controls.Add(this.txtUser1);
-            this.groupBox2.Controls.Add(this.label7);
+            this.groupBox2.Controls.Add(this.lblSlot1);
             this.groupBox2.Location = new System.Drawing.Point(12, 508);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(1086, 212);
@@ -415,20 +415,20 @@
             this.label14.TabIndex = 23;
             this.label14.Text = "Qty:";
             // 
-            // listView4
+            // lstViewSlot4
             // 
-            this.listView4.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.lstViewSlot4.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader56,
             this.columnHeader57,
             this.columnHeader60});
-            this.listView4.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.listView4.FullRowSelect = true;
-            this.listView4.Location = new System.Drawing.Point(819, 62);
-            this.listView4.Name = "listView4";
-            this.listView4.Size = new System.Drawing.Size(265, 114);
-            this.listView4.TabIndex = 22;
-            this.listView4.UseCompatibleStateImageBehavior = false;
-            this.listView4.View = System.Windows.Forms.View.Details;
+            this.lstViewSlot4.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.lstViewSlot4.FullRowSelect = true;
+            this.lstViewSlot4.Location = new System.Drawing.Point(819, 62);
+            this.lstViewSlot4.Name = "lstViewSlot4";
+            this.lstViewSlot4.Size = new System.Drawing.Size(265, 114);
+            this.lstViewSlot4.TabIndex = 22;
+            this.lstViewSlot4.UseCompatibleStateImageBehavior = false;
+            this.lstViewSlot4.View = System.Windows.Forms.View.Details;
             // 
             // columnHeader56
             // 
@@ -444,20 +444,20 @@
             // 
             this.columnHeader60.Text = "Value";
             // 
-            // listView3
+            // lstViewSlot3
             // 
-            this.listView3.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.lstViewSlot3.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader53,
             this.columnHeader54,
             this.columnHeader55});
-            this.listView3.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.listView3.FullRowSelect = true;
-            this.listView3.Location = new System.Drawing.Point(548, 62);
-            this.listView3.Name = "listView3";
-            this.listView3.Size = new System.Drawing.Size(265, 114);
-            this.listView3.TabIndex = 21;
-            this.listView3.UseCompatibleStateImageBehavior = false;
-            this.listView3.View = System.Windows.Forms.View.Details;
+            this.lstViewSlot3.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.lstViewSlot3.FullRowSelect = true;
+            this.lstViewSlot3.Location = new System.Drawing.Point(548, 62);
+            this.lstViewSlot3.Name = "lstViewSlot3";
+            this.lstViewSlot3.Size = new System.Drawing.Size(265, 114);
+            this.lstViewSlot3.TabIndex = 21;
+            this.lstViewSlot3.UseCompatibleStateImageBehavior = false;
+            this.lstViewSlot3.View = System.Windows.Forms.View.Details;
             // 
             // columnHeader53
             // 
@@ -473,20 +473,20 @@
             // 
             this.columnHeader55.Text = "Value";
             // 
-            // listView2
+            // lstViewSlot2
             // 
-            this.listView2.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.lstViewSlot2.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader50,
             this.columnHeader51,
             this.columnHeader52});
-            this.listView2.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.listView2.FullRowSelect = true;
-            this.listView2.Location = new System.Drawing.Point(277, 62);
-            this.listView2.Name = "listView2";
-            this.listView2.Size = new System.Drawing.Size(265, 114);
-            this.listView2.TabIndex = 20;
-            this.listView2.UseCompatibleStateImageBehavior = false;
-            this.listView2.View = System.Windows.Forms.View.Details;
+            this.lstViewSlot2.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.lstViewSlot2.FullRowSelect = true;
+            this.lstViewSlot2.Location = new System.Drawing.Point(277, 62);
+            this.lstViewSlot2.Name = "lstViewSlot2";
+            this.lstViewSlot2.Size = new System.Drawing.Size(265, 114);
+            this.lstViewSlot2.TabIndex = 20;
+            this.lstViewSlot2.UseCompatibleStateImageBehavior = false;
+            this.lstViewSlot2.View = System.Windows.Forms.View.Details;
             // 
             // columnHeader50
             // 
@@ -517,15 +517,16 @@
             this.txtUser4.Name = "txtUser4";
             this.txtUser4.Size = new System.Drawing.Size(134, 20);
             this.txtUser4.TabIndex = 13;
+            this.txtUser4.TextChanged += new System.EventHandler(this.txtUser4_TextChanged);
             // 
-            // label13
+            // lblSlot4
             // 
-            this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(820, 20);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(92, 13);
-            this.label13.TabIndex = 12;
-            this.label13.Text = "Omega-3 content:";
+            this.lblSlot4.AutoSize = true;
+            this.lblSlot4.Location = new System.Drawing.Point(820, 20);
+            this.lblSlot4.Name = "lblSlot4";
+            this.lblSlot4.Size = new System.Drawing.Size(92, 13);
+            this.lblSlot4.TabIndex = 12;
+            this.lblSlot4.Text = "Omega-3 content:";
             // 
             // label10
             // 
@@ -542,15 +543,16 @@
             this.txtUser3.Name = "txtUser3";
             this.txtUser3.Size = new System.Drawing.Size(134, 20);
             this.txtUser3.TabIndex = 9;
+            this.txtUser3.TextChanged += new System.EventHandler(this.txtUser3_TextChanged);
             // 
-            // label11
+            // lblSlot3
             // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(549, 20);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(82, 13);
-            this.label11.TabIndex = 8;
-            this.label11.Text = "Glycemic Index:";
+            this.lblSlot3.AutoSize = true;
+            this.lblSlot3.Location = new System.Drawing.Point(549, 20);
+            this.lblSlot3.Name = "lblSlot3";
+            this.lblSlot3.Size = new System.Drawing.Size(82, 13);
+            this.lblSlot3.TabIndex = 8;
+            this.lblSlot3.Text = "Glycemic Index:";
             // 
             // label8
             // 
@@ -567,15 +569,16 @@
             this.txtUser2.Name = "txtUser2";
             this.txtUser2.Size = new System.Drawing.Size(134, 20);
             this.txtUser2.TabIndex = 5;
+            this.txtUser2.TextChanged += new System.EventHandler(this.txtUser2_TextChanged);
             // 
-            // label9
+            // lblSlot2
             // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(278, 20);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(48, 13);
-            this.label9.TabIndex = 4;
-            this.label9.Text = "IF rating:";
+            this.lblSlot2.AutoSize = true;
+            this.lblSlot2.Location = new System.Drawing.Point(278, 20);
+            this.lblSlot2.Name = "lblSlot2";
+            this.lblSlot2.Size = new System.Drawing.Size(48, 13);
+            this.lblSlot2.TabIndex = 4;
+            this.lblSlot2.Text = "IF rating:";
             // 
             // lblUser1
             // 
@@ -586,20 +589,20 @@
             this.lblUser1.TabIndex = 3;
             this.lblUser1.Text = "N/A";
             // 
-            // lstViewUser1
+            // lstViewSlot1
             // 
-            this.lstViewUser1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.lstViewSlot1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader49,
             this.columnHeader58,
             this.columnHeader59});
-            this.lstViewUser1.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.lstViewUser1.FullRowSelect = true;
-            this.lstViewUser1.Location = new System.Drawing.Point(6, 62);
-            this.lstViewUser1.Name = "lstViewUser1";
-            this.lstViewUser1.Size = new System.Drawing.Size(265, 114);
-            this.lstViewUser1.TabIndex = 2;
-            this.lstViewUser1.UseCompatibleStateImageBehavior = false;
-            this.lstViewUser1.View = System.Windows.Forms.View.Details;
+            this.lstViewSlot1.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.lstViewSlot1.FullRowSelect = true;
+            this.lstViewSlot1.Location = new System.Drawing.Point(6, 62);
+            this.lstViewSlot1.Name = "lstViewSlot1";
+            this.lstViewSlot1.Size = new System.Drawing.Size(265, 114);
+            this.lstViewSlot1.TabIndex = 2;
+            this.lstViewSlot1.UseCompatibleStateImageBehavior = false;
+            this.lstViewSlot1.View = System.Windows.Forms.View.Details;
             // 
             // columnHeader49
             // 
@@ -621,15 +624,16 @@
             this.txtUser1.Name = "txtUser1";
             this.txtUser1.Size = new System.Drawing.Size(134, 20);
             this.txtUser1.TabIndex = 1;
+            this.txtUser1.TextChanged += new System.EventHandler(this.txtUser1_TextChanged);
             // 
-            // label7
+            // lblSlot1
             // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(7, 20);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(74, 13);
-            this.label7.TabIndex = 0;
-            this.label7.Text = "ORAC values:";
+            this.lblSlot1.AutoSize = true;
+            this.lblSlot1.Location = new System.Drawing.Point(7, 20);
+            this.lblSlot1.Name = "lblSlot1";
+            this.lblSlot1.Size = new System.Drawing.Size(74, 13);
+            this.lblSlot1.TabIndex = 0;
+            this.lblSlot1.Text = "ORAC values:";
             // 
             // menuStrip1
             // 
@@ -761,32 +765,32 @@
         private System.Windows.Forms.ComboBox comboDBs;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.TextBox txtUser1;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.ListView lstViewUser1;
+        private System.Windows.Forms.Label lblSlot1;
+        private System.Windows.Forms.ListView lstViewSlot1;
         private System.Windows.Forms.ColumnHeader columnHeader49;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.TextBox txtUser4;
-        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.Label lblSlot4;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.TextBox txtUser3;
-        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Label lblSlot3;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.TextBox txtUser2;
-        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label lblSlot2;
         private System.Windows.Forms.Label lblUser1;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem swapOrManageUserFieldsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem swapOrManageExtendedDBsToolStripMenuItem;
-        private System.Windows.Forms.ListView listView4;
+        private System.Windows.Forms.ListView lstViewSlot4;
         private System.Windows.Forms.ColumnHeader columnHeader56;
         private System.Windows.Forms.ColumnHeader columnHeader57;
         private System.Windows.Forms.ColumnHeader columnHeader60;
-        private System.Windows.Forms.ListView listView3;
+        private System.Windows.Forms.ListView lstViewSlot3;
         private System.Windows.Forms.ColumnHeader columnHeader53;
         private System.Windows.Forms.ColumnHeader columnHeader54;
         private System.Windows.Forms.ColumnHeader columnHeader55;
-        private System.Windows.Forms.ListView listView2;
+        private System.Windows.Forms.ListView lstViewSlot2;
         private System.Windows.Forms.ColumnHeader columnHeader50;
         private System.Windows.Forms.ColumnHeader columnHeader51;
         private System.Windows.Forms.ColumnHeader columnHeader52;

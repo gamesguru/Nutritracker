@@ -127,3 +127,30 @@ E:\VsProjects\NutApp\NutApp\obj\Debug\Nutrition App.csproj.GenerateResource.Cach
 E:\VsProjects\NutApp\NutApp\obj\Debug\Nutrition App.csproj.CoreCompileInputs.cache
 E:\VsProjects\NutApp\NutApp\obj\Debug\NutApp.exe
 E:\VsProjects\NutApp\NutApp\obj\Debug\NutApp.pdb
+E:\MonoProjects\NutApp\NutApp\bin\Debug\NutApp.exe.config
+E:\MonoProjects\NutApp\NutApp\bin\Debug\NutApp.exe
+E:\MonoProjects\NutApp\NutApp\bin\Debug\NutApp.pdb
+E:\MonoProjects\NutApp\NutApp\obj\Debug\Nutrition App.csprojResolveAssemblyReference.cache
+E:\MonoProjects\NutApp\NutApp\obj\Debug\NutApp.frmAddCommonFood.resources
+E:\MonoProjects\NutApp\NutApp\obj\Debug\NutApp.frmAddFood.resources
+E:\MonoProjects\NutApp\NutApp\obj\Debug\NutApp.frmBodyfatCalc.resources
+E:\MonoProjects\NutApp\NutApp\obj\Debug\NutApp.frmCustomFood.resources
+E:\MonoProjects\NutApp\NutApp\obj\Debug\NutApp.frmDetailReport.resources
+E:\MonoProjects\NutApp\NutApp\obj\Debug\NutApp.frmLeanPotentialCalc.resources
+E:\MonoProjects\NutApp\NutApp\obj\Debug\NutApp.frmMain.resources
+E:\MonoProjects\NutApp\NutApp\obj\Debug\NutApp.frmManageDBfields.resources
+E:\MonoProjects\NutApp\NutApp\obj\Debug\NutApp.frmManageField.resources
+E:\MonoProjects\NutApp\NutApp\obj\Debug\NutApp.frmNewDB.resources
+E:\MonoProjects\NutApp\NutApp\obj\Debug\NutApp.frmNewField.resources
+E:\MonoProjects\NutApp\NutApp\obj\Debug\NutApp.frmParseCustomDatabase.resources
+E:\MonoProjects\NutApp\NutApp\obj\Debug\NutApp.frmProfile.resources
+E:\MonoProjects\NutApp\NutApp\obj\Debug\NutApp.frmSearchFind.resources
+E:\MonoProjects\NutApp\NutApp\obj\Debug\NutApp.frmSearchFoods.resources
+E:\MonoProjects\NutApp\NutApp\obj\Debug\NutApp.frmSearchReplace.resources
+E:\MonoProjects\NutApp\NutApp\obj\Debug\NutApp.frmSettings.resources
+E:\MonoProjects\NutApp\NutApp\obj\Debug\NutApp.interactionFileLocInput.resources
+E:\MonoProjects\NutApp\NutApp\obj\Debug\NutApp.Properties.Resources.resources
+E:\MonoProjects\NutApp\NutApp\obj\Debug\Nutrition App.csproj.GenerateResource.Cache
+E:\MonoProjects\NutApp\NutApp\obj\Debug\Nutrition App.csproj.CoreCompileInputs.cache
+E:\MonoProjects\NutApp\NutApp\obj\Debug\NutApp.exe
+E:\MonoProjects\NutApp\NutApp\obj\Debug\NutApp.pdb
