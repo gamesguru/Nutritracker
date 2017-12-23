@@ -1,0 +1,3 @@
+FOO.TXT|Name of Food
+GI .TXT|Value1
+SER.TXT|Weight
