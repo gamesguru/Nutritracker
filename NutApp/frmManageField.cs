@@ -27,7 +27,7 @@ namespace NutApp
                 string line;
                 while ((line = reader.ReadLine()) != null)
                 {
-                    list.Add(line); // Add to list.
+                    list.Add(line);
                 }
             }
             return list;
@@ -58,12 +58,14 @@ namespace NutApp
             {
                 fields[i] = fields[i].Replace(Application.StartupPath + $"{slash}usr{slash}profile" +
                                               frmMain.profIndex.ToString() + $"{slash}DBs{slash}", "");
-				field f = new field();
-				f.name = fields[i];
-				Fields.Add (f);
                 if (fields[i].StartsWith("f_user_"))
                 {
                     string field = fields[i].Remove(0, 7);
+
+                    field f = new field();
+				    f.name = fields[i];
+				    Fields.Add (f);
+                    
                     comboBox1.Items.Add(field);
                     comboBox2.Items.Add(field);
                     comboBox3.Items.Add(field);
@@ -78,8 +80,40 @@ namespace NutApp
                 this.Close();
                 return;
             }
-            comboFields.SelectedIndex = 0;
 
+            for (int i = 0; i < Fields.Count; i++)
+            {
+                Fields[i].nkLines = File.ReadAllLines(Application.StartupPath + $"{slash}usr{slash}profile" +
+                                              frmMain.profIndex.ToString() + $"{slash}DBs{slash}{Fields[i].name}{slash}_nutKeyPairs.TXT");
+                for (int j= 0;j< Fields[i].nkLines.Length; j++)
+                {
+                    if (Fields[i].nkLines[j].Split('|')[1] == "Name of Food")
+                        Fields[i].nameOfFood = File.ReadAllLines(Application.StartupPath + $"{slash}usr{slash}profile" +
+                                              frmMain.profIndex.ToString() + $"{slash}DBs{slash}{Fields[i].name}{slash}{Fields[i].nkLines[j].Split('|')[0]}");
+                    else if (Fields[i].nkLines[j].Split('|')[1] == "Value1")
+                        Fields[i].value1 = File.ReadAllLines(Application.StartupPath + $"{slash}usr{slash}profile" +
+                                              frmMain.profIndex.ToString() + $"{slash}DBs{slash}{Fields[i].name}{slash}{Fields[i].nkLines[j].Split('|')[0]}");
+                    else if (Fields[i].nkLines[j].Split('|')[1] == "Value2")
+                        Fields[i].value2 = File.ReadAllLines(Application.StartupPath + $"{slash}usr{slash}profile" +
+                                              frmMain.profIndex.ToString() + $"{slash}DBs{slash}{Fields[i].name}{slash}{Fields[i].nkLines[j].Split('|')[0]}");
+                    else if (Fields[i].nkLines[j].Split('|')[1] == "Value3")
+                        Fields[i].value3 = File.ReadAllLines(Application.StartupPath + $"{slash}usr{slash}profile" +
+                                              frmMain.profIndex.ToString() + $"{slash}DBs{slash}{Fields[i].name}{slash}{Fields[i].nkLines[j].Split('|')[0]}");
+                    else if (Fields[i].nkLines[j].Split('|')[1] == "Serving")
+                        Fields[i].serving = File.ReadAllLines(Application.StartupPath + $"{slash}usr{slash}profile" +
+                                              frmMain.profIndex.ToString() + $"{slash}DBs{slash}{Fields[i].name}{slash}{Fields[i].nkLines[j].Split('|')[0]}");
+                    else if (Fields[i].nkLines[j].Split('|')[1] == "Weight")
+                        Fields[i].weight = File.ReadAllLines(Application.StartupPath + $"{slash}usr{slash}profile" +
+                                              frmMain.profIndex.ToString() + $"{slash}DBs{slash}{Fields[i].name}{slash}{Fields[i].nkLines[j].Split('|')[0]}");
+                    else if (Fields[i].nkLines[j].Split('|')[1] == "Other Units")
+                        Fields[i].othUnits = File.ReadAllLines(Application.StartupPath + $"{slash}usr{slash}profile" +
+                                              frmMain.profIndex.ToString() + $"{slash}DBs{slash}{Fields[i].name}{slash}{Fields[i].nkLines[j].Split('|')[0]}");
+                }
+                Fields[i].z = Fields[i].nameOfFood.Length;
+            }
+
+
+            comboFields.SelectedIndex = 0;
 			string[] slots = File.ReadAllLines (Application.StartupPath + $"{slash}usr{slash}profile" +
 				frmMain.profIndex.ToString() + $"{slash}DBs{slash}Slots.TXT");
 			//MessageBox.Show (string.Join ("\n", slots).Replace("f_user_", ""));
@@ -104,6 +138,7 @@ namespace NutApp
         AutoCompleteStringCollection source = new AutoCompleteStringCollection();
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
+            listView1.Clear();
             source.Clear();
             renewFields();
             string dr = Application.StartupPath + $"{slash}usr{slash}profile" + frmMain.profIndex.ToString() + $"{slash}DBs{slash}f_user_" + comboFields.Text;
@@ -116,7 +151,7 @@ namespace NutApp
                 if (!files[i].StartsWith("_"))
                     source.Add(files[i]);
             }
-
+            #region autocompletes
             txtName.AutoCompleteCustomSource = source;
             txtName.AutoCompleteSource = AutoCompleteSource.CustomSource;
             txtName.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
@@ -144,221 +179,76 @@ namespace NutApp
             txtOthUn.AutoCompleteCustomSource = source;
             txtOthUn.AutoCompleteSource = AutoCompleteSource.CustomSource;
             txtOthUn.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+            #endregion
 
-            string[] lst = importArray(nkp).ToArray();
-			List<string> temp = lst.ToList();
-			for (int i=0;i<temp.Count;i++) {
-				if (temp[i].Contains ("|Standardization"))
-					temp.RemoveAt (i);
-			}
-			lst = temp.ToArray ();
-
-            listView1.Clear();
-            int z = 0;
-            string[] vals = new string[] { "Name of Food", "Value1", "Value2", "Value3", "Serving", "Weight", "Other Units" };
-            string[] keys = new string[7];
-
-            for (int i = 0; i < vals.Length; i++)
-                for (int j = 0; j < lst.Length; j++)
+            foreach (field f in Fields)
+                if (f.name.Replace("f_user_", "") == comboFields.Text)
                 {
-                    string m = lst[j].Split('|')[0];
-                    string n = lst[j].Split('|')[1];
-                    keys[j] = m;
-                    if (n == vals[i])
-                        listView1.Columns.Add(n);
-                    if (z == 0)
-                        z = importArray(dr + $"{slash}" + m).Count;
-                }
-
-            //for (int i = 0; i < lst.Length; i++)
-            //{
-
-            //    string m = lst[i].Split('|')[0];
-            //    string l = lst[i].Split('|')[1];
-            //    if (l == "Name of Food")
-            //    {
-            //        listView1.Columns.Add(l);
-            //        if (z == 0)
-            //            z = importArray(dr + $"{slash}" + m).Count;
-            //    }
-            //    else if (l == "Value1")
-            //    {
-            //        listView1.Columns.Add(l);
-            //        if (z == 0)
-            //            z = importArray(dr + $"{slash}" + m).Count;
-            //    }
-            //    else if (l == "Value2")
-            //    {
-            //        listView1.Columns.Add(l);
-            //        if (z == 0)
-            //            z = importArray(dr + $"{slash}" + m).Count;
-            //    }
-            //    else if (l == "Value3")
-            //    {
-            //        listView1.Columns.Add(l);
-            //        if (z == 0)
-            //            z = importArray(dr + $"{slash}" + m).Count;
-            //    }
-            //    else if (l == "Other Units")
-            //    {
-            //        listView1.Columns.Add(l);
-            //        if (z == 0)
-            //            z = importArray(dr + $"{slash}" + m).Count;
-            //    }
-            //    else if (l == "Serving")
-            //    {
-            //        listView1.Columns.Add(l);
-            //        if (z == 0)
-            //            z = importArray(dr + $"{slash}" + m).Count;
-            //    }
-            //    else if (l == "Weight")
-            //    {
-            //        listView1.Columns.Add(l);
-            //        if (z == 0)
-            //            z = importArray(dr + $"{slash}" + m).Count;
-            //    }
-            //}
-
-            //MessageBox.Show(string.Join(", ", importArray(dr + $"{slash}" + txtVal1.Text)));
-            //int q = 0;
-            List<string[]> valls = new List<string[]>();
-            //string[,] valls = new string[vals.Length, 7];
-            string[] names = new string[z];
-            string[] val1 = new string[z];
-            string[] val2 = new string[z];
-            string[] val3 = new string[z];
-            string[] servs = new string[z];
-            string[] weights = new string[z];
-            string[] othUnts = new string[z];
-
-            for (int i = 0; i < 7/*valls.Count*/; i++)
-                for (int j = 0; j < lst.Length; j++)
-                {
-                    string m = lst[j].Split('|')[0];
-                    string n = lst[j].Split('|')[1];
-                    string[] tmp = importArray(dr + $"{slash}" + m).ToArray();
-                    //MessageBox.Show("k");
-                    if (n == vals[i])
-                        valls.Add(tmp);
-
-                }
-            //for (int i = 0; i < lst.Length; i++)
-            //{
-
-            //    string m = lst[i].Split('|')[0];
-            //    string l = lst[i].Split('|')[1];
-            //    if (l == "Name of Food")
-            //        names = importArray(dr + $"{slash}" + m).ToArray();
-            //    else if (l == "Value1")
-            //        val1 = importArray(dr + $"{slash}" + m).ToArray();
-            //    else if (l == "Value2")
-            //        val2 = importArray(dr + $"{slash}" + m).ToArray();
-            //    else if (l == "Value3")
-            //        val3 = importArray(dr + $"{slash}" + m).ToArray();
-            //    else if (l == "Other Units")
-            //        othUnts = importArray(dr + $"{slash}" + m).ToArray();
-            //    else if (l == "Serving")
-            //        servs = importArray(dr + $"{slash}" + m).ToArray();
-            //    else if (l == "Weight")
-            //        weights = importArray(dr + $"{slash}" + m).ToArray();
-            //}
-
-            //MessageBox.Show(string.Join(", ", names));
-            //MessageBox.Show(string.Join(", ", val1));
-
-            //are these text fields null valued at this time??
-            //does this go alphabetical and not according to plan?
-//            for (int i = 0; i < z; i++) {
-//                int q = 0;
-//                ListViewItem itm = new ListViewItem();
-//                for (int j = 0; j < Directory.GetFiles(dr).Length- 1; j++)
-//                {
-//                    if (Directory.GetFiles(dr)[j].Replace(dr + $"{slash}", "") == keys[0])
-//                    {
-//                        itm.Text = valls[0][q];
-//                        q++;
-//                    }
-//                    else if (Directory.GetFiles(dr)[j].Replace(dr + $"{slash}", "") == keys[j])
-//                    {
-//                        itm.SubItems.Add(valls[j][q]);
-//                        q++;
-//                    }
-//                }
-//                listView1.Items.Add(itm);
-//            }
-
-			for (int i = 0; i < z; i++) { 
-				int n = 0;
-				ListViewItem itm = new ListViewItem (); ;
-				for (int j = 0; j < Directory.GetFiles (dr).Length - 1; j++) { 
-					if (Directory.GetFiles (dr) [j].Replace (dr +$"{slash}", "") == keys [0]) {
-						itm.Text = valls [0] [i];
-					}
-                    if (keys.Contains(Directory.GetFiles(dr)[j].Replace(dr + $"{slash}", "")) && j > 0)
+                    if (f.name != null)
                     {
-                        try { itm.SubItems.Add(valls[n][i]); 
-							n++;}
-                        catch (Exception ex){
-                            MessageBox.Show(ex.ToString());
+                        listView1.Columns.Add("Name of Food");
+                    }
+                    if (f.value1 != null && f.value1.Length == f.z)
+                    {
+                        listView1.Columns.Add("Value1");
+                    }
+                    if (f.value2 != null && f.value2.Length == f.z)
+                    {
+                        listView1.Columns.Add("Value2");
+                    }
+                    if (f.value3 != null && f.value3.Length == f.z)
+                    {
+                        listView1.Columns.Add("Value3");
+                    }
+                    if (f.serving != null && f.serving.Length == f.z)
+                    {
+                        listView1.Columns.Add("Serving");
+                    }
+                    if (f.weight != null && f.weight.Length == f.z)
+                    {
+                        listView1.Columns.Add("Weight");
+                    }
+                    if (f.othUnits != null && f.othUnits.Length == f.z)
+                    {
+                        listView1.Columns.Add("Other Units");
+                    }
+
+                    for (int i = 0; i < f.z; i++)
+                    {
+                        ListViewItem itm = new ListViewItem();
+                        if (f.name != null)
+                        {
+                            itm.Text = f.nameOfFood[i];
                         }
+                        if (f.value1 != null && f.value1.Length == f.z)
+                        {
+                            itm.SubItems.Add(f.value1[i]);
+                        }
+                        if (f.value2 != null && f.value2.Length == f.z)
+                        {
+                            itm.SubItems.Add(f.value2[i]);
+                        }
+                        if (f.value3 != null && f.value3.Length == f.z)
+                        {
+                            itm.SubItems.Add(f.value3[i]);
+                        }
+                        if (f.serving != null && f.serving.Length == f.z)
+                        {
+                            itm.SubItems.Add(f.serving[i]);
+                        }
+                        if (f.weight != null && f.weight.Length == f.z)
+                        {
+                            itm.SubItems.Add(f.weight[i]);
+                        }
+                        if (f.othUnits != null && f.othUnits.Length == f.z)
+                        {
+                            itm.SubItems.Add(f.othUnits[i]);
+                        }
+                        listView1.Items.Add(itm);
+                        //MessageBox.Show(f.ToString());
                     }
                 }
-				listView1.Items.Add(itm); 
-			}
-
-            //for (int q = 0; q < z; q++)
-            //{
-            //    ListViewItem itm = new ListViewItem();
-            //    for (int i = 0; i < Directory.GetFiles(dr).Length; i++)
-            //    {
-            //        if (Directory.GetFiles(dr)[i].Replace(dr + $"{slash}", "") == txtName.Text)
-            //            itm.Text = valls[0][q];
-            //        else if (Directory.GetFiles(dr)[i].Replace(dr + $"{slash}", "") == txtVal1.Text)
-            //            itm.SubItems.Add(valls[1][q]);
-            //        else if (Directory.GetFiles(dr)[i].Replace(dr + $"{slash}", "") == txtVal2.Text)
-            //            itm.SubItems.Add(valls[2][q]);
-            //        else if (Directory.GetFiles(dr)[i].Replace(dr + $"{slash}", "") == txtVal3.Text)
-            //            itm.SubItems.Add(valls[3][q]);
-            //        else if (Directory.GetFiles(dr)[i].Replace(dr + $"{slash}", "") == txtServ.Text)
-            //            itm.SubItems.Add(valls[4][q]);
-            //        else if (Directory.GetFiles(dr)[i].Replace(dr + $"{slash}", "") == txtWeight.Text)
-            //            itm.SubItems.Add(valls[5][q]);
-            //        else if (Directory.GetFiles(dr)[i].Replace(dr + $"{slash}", "") == txtOthUn.Text)
-            //            itm.SubItems.Add(valls[6][q]);
-            //    }
-            //    listView1.Items.Add(itm);
-            //}
-
-
-            /*for (int i = 0; i < lst.Count; i++)
-            {
-                string m = lst[i].Split('|')[0];
-                string l = lst[i].Split('|')[1];
-
-                int q = 0;
-                ListViewItem itm;
-                if (l == "Name of Food")
-                {
-                    List<string> tmp = importArray(dr + $"{slash}" + m);
-
-                }
-                else if (l == "Value1")
-                {
-                    itm.SubItems.Add(m);
-                }
-                else if (l == "Value2")
-                    listView1.Columns.Add(l);
-                else if (l == "Value3")
-                    listView1.Columns.Add(l);
-                else if (l == "Other Units")
-                    listView1.Columns.Add(l);
-                else if (l == "Serving")
-                    listView1.Columns.Add(l);
-                else if (l == "Weight")
-                    listView1.Columns.Add(l);
-
-                listView1.Items.Add(itm);
-            }*/
+            //MessageBox.Show(Fields[0].z.ToString());
         }
 
         private void renewFields()
