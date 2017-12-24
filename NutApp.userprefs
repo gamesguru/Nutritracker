@@ -2,7 +2,7 @@
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.Workbench ActiveDocument="NutApp/frmManageField.cs">
     <Files>
-      <File FileName="NutApp/frmManageField.cs" Line="119" Column="43" />
+      <File FileName="NutApp/frmManageField.cs" Line="85" Column="6" />
       <File FileName="NutApp/frmSearchFoods.cs" Line="633" Column="69" />
     </Files>
   </MonoDevelop.Ide.Workbench>

@@ -33,6 +33,22 @@ namespace NutApp
             return list;
         }
         List<string> list = new List<string>();
+
+		public class field {
+			public string[] nkLines;
+			public string name;
+			public int z;
+			public string standardization;
+			public string[] nameOfFood;
+			public string[] value1;
+			public string[] value2;
+			public string[] value3;
+			public string[] serving;
+			public string[] weight;
+			public string[] othUnits;
+		}
+
+		List<field> Fields = new List<field>();
         string slash = Path.DirectorySeparatorChar.ToString();
         private void frmManageField_Load(object sender, EventArgs e)
         {
@@ -42,6 +58,9 @@ namespace NutApp
             {
                 fields[i] = fields[i].Replace(Application.StartupPath + $"{slash}usr{slash}profile" +
                                               frmMain.profIndex.ToString() + $"{slash}DBs{slash}", "");
+				field f = new field();
+				f.name = fields[i];
+				Fields.Add (f);
                 if (fields[i].StartsWith("f_user_"))
                 {
                     string field = fields[i].Remove(0, 7);
@@ -60,6 +79,20 @@ namespace NutApp
                 return;
             }
             comboFields.SelectedIndex = 0;
+
+			string[] slots = File.ReadAllLines (Application.StartupPath + $"{slash}usr{slash}profile" +
+				frmMain.profIndex.ToString() + $"{slash}DBs{slash}Slots.TXT");
+			//MessageBox.Show (string.Join ("\n", slots).Replace("f_user_", ""));
+			foreach (string s in slots) {
+				if (comboBox1.Items.Contains (s.Remove (0, 7)) && comboBox1.SelectedIndex == -1)
+					comboBox1.SelectedIndex = comboBox1.Items.IndexOf (s.Remove (0, 7));
+				else if (comboBox2.Items.Contains (s.Remove (0, 7)) && comboBox2.SelectedIndex == -1)
+					comboBox2.SelectedIndex = comboBox2.Items.IndexOf (s.Remove (0, 7));
+				else if (comboBox3.Items.Contains (s.Remove (0, 7)) && comboBox3.SelectedIndex == -1)
+					comboBox3.SelectedIndex = comboBox3.Items.IndexOf (s.Remove (0, 7));
+				else if (comboBox4.Items.Contains (s.Remove (0, 7)) && comboBox4.SelectedIndex == -1)
+					comboBox4.SelectedIndex = comboBox4.Items.IndexOf (s.Remove (0, 7));
+			}
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
@@ -113,6 +146,13 @@ namespace NutApp
             txtOthUn.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
 
             string[] lst = importArray(nkp).ToArray();
+			List<string> temp = lst.ToList();
+			for (int i=0;i<temp.Count;i++) {
+				if (temp[i].Contains ("|Standardization"))
+					temp.RemoveAt (i);
+			}
+			lst = temp.ToArray ();
+
             listView1.Clear();
             int z = 0;
             string[] vals = new string[] { "Name of Food", "Value1", "Value2", "Value3", "Serving", "Weight", "Other Units" };
@@ -249,8 +289,7 @@ namespace NutApp
 
 			for (int i = 0; i < z; i++) { 
 				int n = 0;
-				ListViewItem itm = new ListViewItem (); 
-				string[] test = Directory.GetFiles (dr);
+				ListViewItem itm = new ListViewItem (); ;
 				for (int j = 0; j < Directory.GetFiles (dr).Length - 1; j++) { 
 					if (Directory.GetFiles (dr) [j].Replace (dr +$"{slash}", "") == keys [0]) {
 						itm.Text = valls [0] [i];
@@ -397,6 +436,22 @@ namespace NutApp
             if (txtWeight.TextLength > 0 && File.Exists(dr + $"{slash}" + txtWeight.Text))
                 text.Add(txtWeight.Text + "|Weight");
             File.WriteAllLines(dr + $"{slash}_nutKeyPairs.TXT", text);
+
+			text = new List<string> ();
+			if (comboBox1.SelectedIndex > -1) {
+				text.Add ("f_user_" + comboBox1.SelectedItem.ToString ());
+			}
+			if (comboBox2.SelectedIndex > -1) {
+				text.Add ("f_user_" + comboBox2.SelectedItem.ToString ());
+			}
+			if (comboBox3.SelectedIndex > -1) {
+				text.Add ("f_user_" + comboBox3.SelectedItem.ToString ());				
+			}
+			if (comboBox4.SelectedIndex > -1) {
+				text.Add ("f_user_" + comboBox4.SelectedItem.ToString ());				
+			}
+			File.WriteAllLines (Application.StartupPath +$"{slash}usr{slash}profile" + 
+			frmMain.profIndex.ToString () +$"{slash}DBs{slash}Slots.TXT", text);
             this.Close();
         }
 
