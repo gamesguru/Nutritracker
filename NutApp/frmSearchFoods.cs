@@ -123,8 +123,14 @@ namespace NutApp
                             for (int i = 0; i < names.Length; i++)
                             {
                                 ListViewItem itm = new ListViewItem(names[i]);
-                                itm.SubItems.Add(weights[i]);
-                                itm.SubItems.Add(vals[i]);
+                                if (weights.Length == names.Length)
+                                    itm.SubItems.Add(weights[i]);
+                                else
+                                    itm.SubItems.Add("");
+                                if (vals.Length == names.Length)
+                                    itm.SubItems.Add(vals[i]);
+                                else
+                                    itm.SubItems.Add("");
                                 lstViewSlot1.Items.Add(itm);
                             }
                         }
@@ -161,8 +167,12 @@ namespace NutApp
                                 ListViewItem itm = new ListViewItem(names[i]);
                                 if (weights.Length == names.Length)
                                     itm.SubItems.Add(weights[i]);
+                                else
+                                    itm.SubItems.Add("");
                                 if (vals.Length == names.Length)
                                     itm.SubItems.Add(vals[i]);
+                                else
+                                    itm.SubItems.Add("");
                                 lstViewSlot2.Items.Add(itm);
                             }
                         }
@@ -193,8 +203,14 @@ namespace NutApp
                             for (int i = 0; i < names.Length; i++)
                             {
                                 ListViewItem itm = new ListViewItem(names[i]);
-                                itm.SubItems.Add(weights[i]);
-                                itm.SubItems.Add(vals[i]);
+                                if (weights.Length == names.Length)
+                                    itm.SubItems.Add(weights[i]);
+                                else
+                                    itm.SubItems.Add("");
+                                if (vals.Length == names.Length)
+                                    itm.SubItems.Add(vals[i]);
+                                else
+                                    itm.SubItems.Add("");
                                 lstViewSlot3.Items.Add(itm);
                             }
                         }
@@ -226,8 +242,14 @@ namespace NutApp
                             for (int i = 0; i < names.Length; i++)
                             {
                                 ListViewItem itm = new ListViewItem(names[i]);
-                                itm.SubItems.Add(weights[i]);
-                                itm.SubItems.Add(vals[i]);
+                                if (weights.Length == names.Length)
+                                    itm.SubItems.Add(weights[i]);
+                                else
+                                    itm.SubItems.Add("");
+                                if (vals.Length == names.Length)
+                                    itm.SubItems.Add(vals[i]);
+                                else
+                                    itm.SubItems.Add("");
                                 lstViewSlot4.Items.Add(itm);
                             }
                         }
@@ -550,8 +572,12 @@ namespace NutApp
                     ListViewItem itm = new ListViewItem(slotObjs[0].names[i]);
                     if (slotObjs[0].names.Length == slotObjs[0].weights.Length)
                         itm.SubItems.Add(slotObjs[0].weights[i]);
+                    else
+                        itm.SubItems.Add("");
                     if (slotObjs[0].names.Length == slotObjs[0].vals.Length)
                         itm.SubItems.Add(slotObjs[0].vals[i]);
+                    else
+                        itm.SubItems.Add("");
                     lstViewSlot1.Items.Add(itm);
                 }
             }
@@ -567,8 +593,12 @@ namespace NutApp
                     ListViewItem itm = new ListViewItem(slotObjs[1].names[i]);
                     if (slotObjs[1].names.Length == slotObjs[1].weights.Length)
                         itm.SubItems.Add(slotObjs[1].weights[i]);
+                    else
+                        itm.SubItems.Add("");
                     if (slotObjs[1].names.Length == slotObjs[1].vals.Length)
                         itm.SubItems.Add(slotObjs[1].vals[i]);
+                    else
+                        itm.SubItems.Add("");
                     lstViewSlot2.Items.Add(itm);
                 }
             }
@@ -584,8 +614,12 @@ namespace NutApp
                     ListViewItem itm = new ListViewItem(slotObjs[2].names[i]);
                     if (slotObjs[2].names.Length == slotObjs[2].weights.Length)
                         itm.SubItems.Add(slotObjs[2].weights[i]);
+                    else
+                        itm.SubItems.Add("");
                     if (slotObjs[2].names.Length == slotObjs[2].vals.Length)
                         itm.SubItems.Add(slotObjs[2].vals[i]);
+                    else
+                        itm.SubItems.Add("");
                     lstViewSlot3.Items.Add(itm);
                 }
             }
@@ -601,8 +635,12 @@ namespace NutApp
                     ListViewItem itm = new ListViewItem(slotObjs[3].names[i]);
                     if (slotObjs[3].names.Length == slotObjs[3].weights.Length)
                         itm.SubItems.Add(slotObjs[3].weights[i]);
+                    else
+                        itm.SubItems.Add("");
                     if (slotObjs[3].names.Length == slotObjs[3].vals.Length)
                         itm.SubItems.Add(slotObjs[3].vals[i]);
+                    else
+                        itm.SubItems.Add("");
                     lstViewSlot4.Items.Add(itm);
                 }
             }

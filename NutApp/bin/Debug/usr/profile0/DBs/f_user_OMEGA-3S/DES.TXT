@@ -1,0 +1,242 @@
+Fish, mackerel, salted
+Fish, herring, Atlantic, cooked, dry heat
+Fish, mackerel, Atlantic, raw
+Fish, mackerel, spanish, cooked, dry heat
+Fish, herring, Pacific, cooked, dry heat
+Fish, salmon, coho, farmed, cooked, dry heat
+Fish, salmon, Atlantic, farmed, cooked, dry heat
+Fish, salmon, Atlantic, wild, cooked, dry heat
+Fish, shad, american, raw
+Fish, tilefish, cooked, dry heat
+Fish, whitefish, mixed species, cooked, dry heat
+Fish, tuna, fresh, bluefin, cooked, dry heat
+Fish, salmon, Atlantic, wild, raw
+Fish, salmon, Atlantic, farmed, raw
+Fish, bass, striped, cooked, dry heat
+Fish, mackerel, spanish, raw
+Fish, salmon, chinook, raw
+Fish, whitefish, mixed species, raw
+Fish, mackerel, Pacific and jack, mixed species, raw
+Fish, sablefish, cooked, dry heat
+Fish, bluefish, raw
+Fish, bluefish, cooked, dry heat
+Fish, anchovy, european, raw
+Fish, sardine, Pacific, canned in tomato sauce, drained solids with bone
+Fish, herring, Atlantic, pickled
+Fish, sardine, Atlantic, canned in oil, drained solids with bone
+Fish, tuna, fresh, bluefin, raw
+Fish, trout, rainbow, wild, cooked, dry heat
+Fish, salmon, coho, wild, cooked, moist heat
+Fish, salmon, coho, farmed, raw
+Fish, salmon, pink, canned, without salt, solids with bone and liquid
+Fish, swordfish, cooked, dry heat
+Fish, salmon, sockeye, canned, drained solids
+Fish, salmon, pink, canned, drained solids
+Fish, salmon, chinook, cooked, dry heat
+Fish, mackerel, Atlantic, cooked, dry heat
+Fish, sablefish, raw
+Fish, caviar, black and red, granular
+Fish, salmon, chum, canned, drained solids with bone
+Fish, salmon, chum, canned, without salt, drained solids with bone
+Salmon, sockeye, canned, drained solids, without skin and bones
+Salmon, sockeye, canned, total can contents
+Fish, herring, Pacific, raw
+Fish, Salmon, pink, canned, drained solids, without skin and bones
+Fish, salmon, pink, canned, total can contents
+Fish, salmon, sockeye, canned, without salt, drained solids with bone
+Fish, sea bass, mixed species, cooked, dry heat
+Fish, sea bass, mixed species, raw
+Fish, salmon, coho, wild, cooked, dry heat
+Fish, salmon, coho, wild, raw
+Fish, swordfish, raw
+Fish, tuna, white, canned in water, drained solids
+Fish, tuna, white, canned in water, without salt, drained solids
+Fish, bass, striped, raw
+Fish, roe, mixed species, cooked, dry heat
+Fish, wolffish, Atlantic, cooked, dry heat
+Fish, salmon, sockeye, cooked, dry heat
+Fish, sucker, white, cooked, dry heat
+Fish, smelt, rainbow, cooked, dry heat
+Fish, scup, raw
+Fish, shark, mixed species, raw
+Fish, pompano, florida, cooked, dry heat
+Fish, trout, rainbow, farmed, cooked, dry heat
+Mollusks, mussel, blue, cooked, moist heat
+Fish, salmon, chum, cooked, dry heat
+Fish, halibut, greenland, cooked, dry heat
+Fish, trout, mixed species, cooked, dry heat
+Fish, trout, mixed species, raw
+Fish, trout, rainbow, farmed, raw
+Fish, pollock, Atlantic, cooked, dry heat
+Mollusks, mussel, blue, raw
+Fish, trout, brook, raw, New York State
+Fish, shark, mixed species, cooked, batter-dipped and fried
+Fish, anchovy, european, canned in oil, drained solids
+Fish, pike, walleye, cooked, dry heat
+Fish, trout, rainbow, wild, raw
+Fish, smelt, rainbow, raw
+Fish, rockfish, Pacific, mixed species, cooked, dry heat
+Fish, salmon, pink, cooked, dry heat
+Fish, mackerel, Pacific and jack, mixed species, cooked, dry heat
+Fish, salmon, chum, raw
+Fish, herring, Atlantic, kippered
+Fish, halibut, Greenland, raw
+Mollusks, squid, mixed species, cooked, fried
+Crustaceans, shrimp, mixed species, canned
+Fish, drum, freshwater, cooked, dry heat
+Fish, pollock, Atlantic, raw
+Fish, tilefish, raw
+Fish, bass, freshwater, mixed species, cooked, dry heat
+Fish, salmon, pink, raw
+Fish, bass, fresh water, mixed species, raw
+Fish, wolffish, Atlantic, raw
+Fish, sablefish, smoked
+Fish, spot, cooked, dry heat
+Fish, spot, raw
+Fish, pollock, Alaska, cooked, dry heat (may have been previously frozen)
+Fish, sucker, white, raw
+Fish, herring, Atlantic, raw
+Fish, drum, freshwater, raw
+Fish, snapper, mixed species, cooked, dry heat
+Mollusks, oyster, eastern, wild, cooked, moist heat
+Fish, mackerel, jack, canned, drained solids
+Fish, seatrout, mixed species, cooked, dry heat
+Fish, snapper, mixed species, raw
+Fish, whitefish, mixed species, smoked
+Fish, cisco, raw
+Fish, tuna, skipjack, fresh, cooked, dry heat
+Fish, catfish, channel, wild, raw
+Fish, catfish, channel, wild, cooked, dry heat
+Mollusks, oyster, eastern, canned
+Fish, catfish, channel, cooked, breaded and fried
+Fish, mackerel, king, cooked, dry heat
+Fish, pike, walleye, raw
+Fish, roe, mixed species, raw
+Fish, tuna, light, canned in water, without salt, drained solids
+Fish, grouper, mixed species, raw
+Mollusks, oyster, eastern, cooked, breaded and fried
+Fish, grouper, mixed species, cooked, dry heat
+Mollusks, oyster, eastern, farmed, cooked, dry heat
+Mollusks, oyster, eastern, wild, cooked, dry heat
+Fish, seatrout, mixed species, raw
+Fish, cisco, smoked
+Mollusks, oyster, eastern, farmed, raw
+Fish, whiting, mixed species, cooked, dry heat
+Fish, flatfish (flounder and sole species), cooked, dry heat
+Fish, rockfish, Pacific, mixed species, raw
+Fish, haddock, cooked, dry heat
+Crustaceans, crab, alaska king, cooked, moist heat
+Fish, tuna, fresh, skipjack, raw
+Fish, tuna, white, canned in oil, drained solids
+Fish, mackerel, king, raw
+Fish, tuna, light, canned in oil, drained solids
+Jellyfish, dried, salted
+Mollusks, octopus, common, cooked, moist heat
+Fish, mullet, striped, cooked, dry heat
+Fish, salmon, sockeye, raw
+Fish, halibut, Atlantic and Pacific, cooked, dry heat
+Fish, cod, Atlantic, cooked, dry heat
+Fish, cod, Atlantic, canned, solids and liquid
+Crustaceans, crab, blue, crab cakes, home recipe
+Crustaceans, crab, blue, raw
+USDA Commodity, salmon nuggets, breaded, frozen, heated
+Mollusks, oyster, Pacific, cooked, moist heat
+Mollusks, oyster, Pacific, raw
+Mollusks, clam, mixed species, cooked, moist heat
+Fish, carp, cooked, dry heat
+Crustaceans, crab, queen, cooked, moist heat
+Fish, whiting, mixed species, raw
+Fish, cod, Atlantic, dried and salted
+Crustaceans, shrimp, mixed species, cooked, moist heat (may have been previously frozen)
+Crustaceans, spiny lobster, mixed species, cooked, moist heat
+USDA Commodity, salmon nuggets, cooked as purchased, unheated
+Mollusks, oyster, eastern, wild, raw
+Crustaceans, lobster, northern, cooked, moist heat
+Fish, tilapia, cooked, dry heat
+Mollusks, cuttlefish, mixed species, cooked, moist heat
+Fish, pompano, florida, raw
+Fish, cod, Pacific, raw (may have been previously frozen)
+Fish, burbot, raw
+Fish, burbot, cooked, dry heat
+Fish, lingcod, cooked, dry heat
+Fish, halibut, Atlantic and Pacific, raw
+Fish, cod, Pacific, cooked, dry heat (may have been previously frozen)
+Crustaceans, shrimp, mixed species, cooked, breaded and fried
+Fish, sheepshead, raw
+Fish, perch, mixed species, raw
+Fish, perch, mixed species, cooked, dry heat
+Crustaceans, lobster, northern, raw
+Fish, cod, Atlantic, raw
+Fish, sturgeon, mixed species, cooked, dry heat
+Fish, tilapia, raw
+Fish, catfish, channel, farmed, cooked, dry heat
+Mollusks, squid, mixed species, raw
+Fish, carp, raw
+Fish, mahimahi, cooked, dry heat
+Crustaceans, crab, dungeness, cooked, moist heat
+Crustaceans, crab, queen, raw
+Fish, ocean perch, Atlantic, cooked, dry heat
+Crustaceans, spiny lobster, mixed species, raw
+Mollusks, conch, baked or broiled
+Fish, sheepshead, cooked, dry heat
+Crustaceans, crab, blue, canned
+Mollusks, clam, mixed species, canned, drained solids
+Fish, pollock, Alaska, raw (may have been previously frozen)
+Fish, tuna, yellowfin, fresh, cooked, dry heat
+Mollusks, scallop, (bay and sea), cooked, steamed
+Fish, tuna, light, canned in oil, without salt, drained solids
+Fish, pike, northern, cooked, dry heat
+Crustaceans, crab, blue, cooked, moist heat
+Fish, sturgeon, mixed species, raw
+Fish, croaker, Atlantic, cooked, breaded and fried
+Fish, croaker, Atlantic, raw
+Fish, salmon, chinook, smoked, (lox), regular
+Fish, salmon, chinook, smoked
+Fish, haddock, raw
+Fish, mahimahi, raw
+Crustaceans, crab, dungeness, raw
+Mollusks, octopus, common, raw
+Fish, surimi
+Fish, pike, northern, raw
+Mollusks, clam, mixed species, cooked, breaded and fried
+Mollusks, cuttlefish, mixed species, raw
+Fish, tuna, light, canned in water, drained solids
+Mollusks, clam, mixed species, raw
+Fish, eel, mixed species, raw
+Fish, pollock, Alaska, cooked (not previously frozen)
+Fish, fish sticks, frozen, prepared
+Fish, cod, Pacific, cooked (not previously frozen)
+Fish, catfish, channel, farmed, raw
+Fish, haddock, smoked
+Fish, tuna salad
+Fish, ocean perch, Atlantic, raw
+Crustaceans, crayfish, mixed species, wild, cooked, moist heat
+Fish, cod, Pacific, raw (not previously frozen)
+Fish, pollock, Alaska, raw (not previously frozen)
+Fish, sunfish, pumpkin seed, raw
+Fish, sunfish, pumpkin seed, cooked, dry heat
+Crustaceans, crayfish, mixed species, wild, raw
+Crustaceans, crayfish, mixed species, farmed, cooked, moist heat
+Mollusks, scallop, mixed species, cooked, breaded and fried
+Fish, mullet, striped, raw
+Fish, flatfish (flounder and sole species), raw
+Turtle, green, raw
+Fish, sturgeon, mixed species, smoked
+Crustaceans, shrimp, raw (not previously frozen)
+Fish, tuna, fresh, yellowfin, raw
+Crustaceans, crab, alaska king, imitation, made from surimi
+Fish, eel, mixed species, cooked, dry heat
+Crustaceans, crayfish, mixed species, farmed, raw
+Fish, roughy, orange, cooked, dry heat
+Fish, gefiltefish, commercial, sweet recipe
+Mollusks, scallop, mixed species, raw
+Fish, roughy, orange, raw
+Crustaceans, shrimp, cooked (not previously frozen)
+Mollusks, whelk, unspecified, cooked, moist heat
+Frog legs, raw
+Mollusks, whelk, unspecified, raw
+Crustaceans, shrimp, mixed species, raw (may have been previously frozen)
+Mollusks, clam, mixed species, canned, liquid
+Fish, lingcod, raw
+Mollusks, snail, raw
+Mollusks, abalone, mixed species, raw

@@ -108,8 +108,9 @@ namespace NutApp
                 goto nxt;
             }
             Directory.CreateDirectory(fp);
-            MessageBox.Show(fp.Split(new string[] { "f_user_" }, StringSplitOptions.None)[0]);
-            File.Create(fp.Split(new string[] { "f_user_" }, StringSplitOptions.None)[0] + "Slots.TXT");
+            //MessageBox.Show(fp.Split(new string[] { "f_user_" }, StringSplitOptions.None)[0]);
+            if (!File.Exists(fp.Split(new string[] { "f_user_" }, StringSplitOptions.None)[0] + "Slots.TXT"))
+                File.Create(fp.Split(new string[] { "f_user_" }, StringSplitOptions.None)[0] + "Slots.TXT");
             nxt:
             for (int i = 0; i < listBox1.Items.Count; i++)
             {
