@@ -185,65 +185,39 @@ namespace NutApp
                 if (f.name.Replace("f_user_", "") == comboFields.Text)
                 {
                     if (f.name != null)
-                    {
                         listView1.Columns.Add("Name of Food");
-                    }
                     if (f.value1 != null && f.value1.Length == f.z)
-                    {
                         listView1.Columns.Add("Value1");
-                    }
                     if (f.value2 != null && f.value2.Length == f.z)
-                    {
                         listView1.Columns.Add("Value2");
-                    }
                     if (f.value3 != null && f.value3.Length == f.z)
-                    {
                         listView1.Columns.Add("Value3");
-                    }
                     if (f.serving != null && f.serving.Length == f.z)
-                    {
                         listView1.Columns.Add("Serving");
-                    }
                     if (f.weight != null && f.weight.Length == f.z)
-                    {
                         listView1.Columns.Add("Weight");
-                    }
                     if (f.othUnits != null && f.othUnits.Length == f.z)
-                    {
                         listView1.Columns.Add("Other Units");
-                    }
 
                     for (int i = 0; i < f.z; i++)
                     {
                         ListViewItem itm = new ListViewItem();
+
                         if (f.name != null)
-                        {
                             itm.Text = f.nameOfFood[i];
-                        }
                         if (f.value1 != null && f.value1.Length == f.z)
-                        {
                             itm.SubItems.Add(f.value1[i]);
-                        }
                         if (f.value2 != null && f.value2.Length == f.z)
-                        {
                             itm.SubItems.Add(f.value2[i]);
-                        }
                         if (f.value3 != null && f.value3.Length == f.z)
-                        {
                             itm.SubItems.Add(f.value3[i]);
-                        }
                         if (f.serving != null && f.serving.Length == f.z)
-                        {
                             itm.SubItems.Add(f.serving[i]);
-                        }
                         if (f.weight != null && f.weight.Length == f.z)
-                        {
                             itm.SubItems.Add(f.weight[i]);
-                        }
                         if (f.othUnits != null && f.othUnits.Length == f.z)
-                        {
                             itm.SubItems.Add(f.othUnits[i]);
-                        }
+                    
                         listView1.Items.Add(itm);
                         //MessageBox.Show(f.ToString());
                     }
@@ -259,7 +233,9 @@ namespace NutApp
             txtVal3.Text = "";
             txtOthUn.Text = "";
             txtServ.Text = "";
-            txtWeight.Text = "";
+			txtWeight.Text = "";
+			chkCal.Checked = false;
+            chkGrams.Checked = false;
 
             lst = importArray(Application.StartupPath + $"{slash}usr{slash}profile" +
                               frmMain.profIndex.ToString() + $"{slash}DBs{slash}f_user_" + comboFields.Text + $"{slash}_nutKeyPairs.TXT");

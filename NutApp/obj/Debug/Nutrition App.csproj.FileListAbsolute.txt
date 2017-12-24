@@ -157,7 +157,6 @@ E:/MonoProjects/NutApp/NutApp/obj/Debug/NutApp.pdb
 /media/shane/RaptorWS/MonoProjects/NutApp/NutApp/bin/Debug/NutApp.exe.config
 /media/shane/RaptorWS/MonoProjects/NutApp/NutApp/bin/Debug/NutApp.exe
 /media/shane/RaptorWS/MonoProjects/NutApp/NutApp/bin/Debug/NutApp.pdb
-/media/shane/RaptorWS/MonoProjects/NutApp/NutApp/obj/Debug/Nutrition App.csprojResolveAssemblyReference.cache
 /media/shane/RaptorWS/MonoProjects/NutApp/NutApp/obj/Debug/NutApp.frmAddCommonFood.resources
 /media/shane/RaptorWS/MonoProjects/NutApp/NutApp/obj/Debug/NutApp.frmAddFood.resources
 /media/shane/RaptorWS/MonoProjects/NutApp/NutApp/obj/Debug/NutApp.frmBodyfatCalc.resources
@@ -181,29 +180,29 @@ E:/MonoProjects/NutApp/NutApp/obj/Debug/NutApp.pdb
 /media/shane/RaptorWS/MonoProjects/NutApp/NutApp/obj/Debug/Nutrition App.csproj.CoreCompileInputs.cache
 /media/shane/RaptorWS/MonoProjects/NutApp/NutApp/obj/Debug/NutApp.exe
 /media/shane/RaptorWS/MonoProjects/NutApp/NutApp/obj/Debug/NutApp.pdb
-D:\MonoProjects\NutApp\NutApp\obj\Debug\NutApp.frmAddCommonFood.resources
-D:\MonoProjects\NutApp\NutApp\obj\Debug\NutApp.frmAddFood.resources
-D:\MonoProjects\NutApp\NutApp\obj\Debug\NutApp.frmBodyfatCalc.resources
-D:\MonoProjects\NutApp\NutApp\obj\Debug\NutApp.frmCustomFood.resources
-D:\MonoProjects\NutApp\NutApp\obj\Debug\NutApp.frmDetailReport.resources
-D:\MonoProjects\NutApp\NutApp\obj\Debug\NutApp.frmLeanPotentialCalc.resources
-D:\MonoProjects\NutApp\NutApp\obj\Debug\NutApp.frmMain.resources
-D:\MonoProjects\NutApp\NutApp\obj\Debug\NutApp.frmManageDBfields.resources
-D:\MonoProjects\NutApp\NutApp\obj\Debug\NutApp.frmManageField.resources
-D:\MonoProjects\NutApp\NutApp\obj\Debug\NutApp.frmNewDB.resources
-D:\MonoProjects\NutApp\NutApp\obj\Debug\NutApp.frmNewField.resources
-D:\MonoProjects\NutApp\NutApp\obj\Debug\NutApp.frmParseCustomDatabase.resources
-D:\MonoProjects\NutApp\NutApp\obj\Debug\NutApp.frmProfile.resources
-D:\MonoProjects\NutApp\NutApp\obj\Debug\NutApp.frmSearchFind.resources
-D:\MonoProjects\NutApp\NutApp\obj\Debug\NutApp.frmSearchFoods.resources
-D:\MonoProjects\NutApp\NutApp\obj\Debug\NutApp.frmSearchReplace.resources
-D:\MonoProjects\NutApp\NutApp\obj\Debug\NutApp.frmSettings.resources
-D:\MonoProjects\NutApp\NutApp\obj\Debug\NutApp.interactionFileLocInput.resources
-D:\MonoProjects\NutApp\NutApp\obj\Debug\NutApp.Properties.Resources.resources
-D:\MonoProjects\NutApp\NutApp\obj\Debug\Nutrition App.csproj.GenerateResource.Cache
-D:\MonoProjects\NutApp\NutApp\obj\Debug\Nutrition App.csproj.CoreCompileInputs.cache
-D:\MonoProjects\NutApp\NutApp\obj\Debug\NutApp.exe
-D:\MonoProjects\NutApp\NutApp\obj\Debug\NutApp.pdb
-D:\MonoProjects\NutApp\NutApp\bin\Debug\NutApp.exe.config
-D:\MonoProjects\NutApp\NutApp\bin\Debug\NutApp.exe
-D:\MonoProjects\NutApp\NutApp\bin\Debug\NutApp.pdb
+D:/MonoProjects/NutApp/NutApp/obj/Debug/NutApp.frmAddCommonFood.resources
+D:/MonoProjects/NutApp/NutApp/obj/Debug/NutApp.frmAddFood.resources
+D:/MonoProjects/NutApp/NutApp/obj/Debug/NutApp.frmBodyfatCalc.resources
+D:/MonoProjects/NutApp/NutApp/obj/Debug/NutApp.frmCustomFood.resources
+D:/MonoProjects/NutApp/NutApp/obj/Debug/NutApp.frmDetailReport.resources
+D:/MonoProjects/NutApp/NutApp/obj/Debug/NutApp.frmLeanPotentialCalc.resources
+D:/MonoProjects/NutApp/NutApp/obj/Debug/NutApp.frmMain.resources
+D:/MonoProjects/NutApp/NutApp/obj/Debug/NutApp.frmManageDBfields.resources
+D:/MonoProjects/NutApp/NutApp/obj/Debug/NutApp.frmManageField.resources
+D:/MonoProjects/NutApp/NutApp/obj/Debug/NutApp.frmNewDB.resources
+D:/MonoProjects/NutApp/NutApp/obj/Debug/NutApp.frmNewField.resources
+D:/MonoProjects/NutApp/NutApp/obj/Debug/NutApp.frmParseCustomDatabase.resources
+D:/MonoProjects/NutApp/NutApp/obj/Debug/NutApp.frmProfile.resources
+D:/MonoProjects/NutApp/NutApp/obj/Debug/NutApp.frmSearchFind.resources
+D:/MonoProjects/NutApp/NutApp/obj/Debug/NutApp.frmSearchFoods.resources
+D:/MonoProjects/NutApp/NutApp/obj/Debug/NutApp.frmSearchReplace.resources
+D:/MonoProjects/NutApp/NutApp/obj/Debug/NutApp.frmSettings.resources
+D:/MonoProjects/NutApp/NutApp/obj/Debug/NutApp.interactionFileLocInput.resources
+D:/MonoProjects/NutApp/NutApp/obj/Debug/NutApp.Properties.Resources.resources
+D:/MonoProjects/NutApp/NutApp/obj/Debug/Nutrition App.csproj.GenerateResource.Cache
+D:/MonoProjects/NutApp/NutApp/obj/Debug/Nutrition App.csproj.CoreCompileInputs.cache
+D:/MonoProjects/NutApp/NutApp/obj/Debug/NutApp.exe
+D:/MonoProjects/NutApp/NutApp/obj/Debug/NutApp.pdb
+D:/MonoProjects/NutApp/NutApp/bin/Debug/NutApp.exe.config
+D:/MonoProjects/NutApp/NutApp/bin/Debug/NutApp.exe
+D:/MonoProjects/NutApp/NutApp/bin/Debug/NutApp.pdb
