@@ -248,6 +248,7 @@ namespace NutApp
 //            }
 
 			for (int i = 0; i < z; i++) { 
+				int n = 0;
 				ListViewItem itm = new ListViewItem (); 
 				string[] test = Directory.GetFiles (dr);
 				for (int j = 0; j < Directory.GetFiles (dr).Length - 1; j++) { 
@@ -256,9 +257,10 @@ namespace NutApp
 					}
                     if (keys.Contains(Directory.GetFiles(dr)[j].Replace(dr + $"{slash}", "")) && j > 0)
                     {
-                        try { itm.SubItems.Add(valls[j][i]); }
+                        try { itm.SubItems.Add(valls[n][i]); 
+							n++;}
                         catch (Exception ex){
-                            //MessageBox.Show(ex.ToString());
+                            MessageBox.Show(ex.ToString());
                         }
                     }
                 }
