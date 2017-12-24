@@ -1,2 +1,3 @@
 DES.TXT|Name of Food
 TOT.TXT|Value1
+WEI.TXT|Weight

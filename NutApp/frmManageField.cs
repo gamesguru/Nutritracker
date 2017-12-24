@@ -256,7 +256,10 @@ namespace NutApp
 					}
                     if (keys.Contains(Directory.GetFiles(dr)[j].Replace(dr + $"{slash}", "")) && j > 0)
                     {
-                        itm.SubItems.Add(valls[j][i]);
+                        try { itm.SubItems.Add(valls[j][i]); }
+                        catch (Exception ex){
+                            //MessageBox.Show(ex.ToString());
+                        }
                     }
                 }
 				listView1.Items.Add(itm); 

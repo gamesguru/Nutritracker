@@ -588,7 +588,7 @@ namespace NutApp
             lstViewSlot2.Items.Clear();
             for (int i = 0; i < slotObjs[1].names.Length; i++)
             {
-                if (slotObjs[1].names[i].ToUpper().Contains(txtUser1.Text.ToUpper()))
+                if (slotObjs[1].names[i].ToUpper().Contains(txtUser2.Text.ToUpper()))
                 {
                     ListViewItem itm = new ListViewItem(slotObjs[1].names[i]);
                     if (slotObjs[1].names.Length == slotObjs[1].weights.Length)
@@ -609,7 +609,7 @@ namespace NutApp
             lstViewSlot3.Items.Clear();
             for (int i = 0; i < slotObjs[2].names.Length; i++)
             {
-                if (slotObjs[2].names[i].ToUpper().Contains(txtUser1.Text.ToUpper()))
+                if (slotObjs[2].names[i].ToUpper().Contains(txtUser3.Text.ToUpper()))
                 {
                     ListViewItem itm = new ListViewItem(slotObjs[2].names[i]);
                     if (slotObjs[2].names.Length == slotObjs[2].weights.Length)
@@ -630,7 +630,7 @@ namespace NutApp
             lstViewSlot4.Items.Clear();
             for (int i = 0; i < slotObjs[3].names.Length; i++)
             {
-                if (slotObjs[3].names[i].ToUpper().Contains(txtUser1.Text.ToUpper()))
+                if (slotObjs[3].names[i].ToUpper().Contains(txtUser4.Text.ToUpper()))
                 {
                     ListViewItem itm = new ListViewItem(slotObjs[3].names[i]);
                     if (slotObjs[3].names.Length == slotObjs[3].weights.Length)
@@ -644,6 +644,14 @@ namespace NutApp
                     lstViewSlot4.Items.Add(itm);
                 }
             }
+        }
+
+        private void txtQty_TextChanged(object sender, EventArgs e)
+        {
+            txtUser1Qty.Text = txtQty.Text;
+            txtUser2Qty.Text = txtQty.Text;
+            txtUser3Qty.Text = txtQty.Text;
+            txtUser4Qty.Text = txtQty.Text;
         }
     }
 }

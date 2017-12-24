@@ -1,8 +1,9 @@
 ﻿<Properties StartupItem="NutApp/Nutrition App.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="NutApp/frmManageField.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="NutApp/frmSearchFoods.cs">
     <Files>
       <File FileName="NutApp/frmManageField.cs" Line="247" Column="44" />
+      <File FileName="NutApp/frmSearchFoods.cs" Line="633" Column="69" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
