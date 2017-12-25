@@ -350,7 +350,7 @@
             this.Controls.Add(this.lblEditExisting);
             this.Controls.Add(this.txtNewProfName);
             this.Controls.Add(this.lblCreateNew);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;

@@ -53,6 +53,13 @@ namespace NutApp
 
         private void frmSearchFoods_Load(object sender, EventArgs e)
         {
+            try
+            {
+                //MessageBox.Show(Application.StartupPath + slash + "usr" + slash + $"profile{frmMain.profIndex}" + slash + "DBs" + slash + "Meal.TXT");
+                comboMeal.SelectedIndex = Convert.ToInt32(File.ReadAllText(Application.StartupPath + slash + "usr" + slash + $"profile{frmMain.profIndex}" + slash + "DBs" + slash + "Meal.TXT"));
+            }
+            catch { }
+
             pubDBs = Directory.GetDirectories(Application.StartupPath + $"{slash}usr{slash}public{slash}DBs");
             userDBs = Directory.GetDirectories(Application.StartupPath + $"{slash}usr{slash}profile" + frmMain.profIndex.ToString() + $"{slash}DBs");
 
@@ -100,7 +107,6 @@ namespace NutApp
 
                     if (Directory.Exists(dir))
                     {
-                        //List<ListViewItem> itms;
                         if (slotMax == 0)
                         {
                             itms = new List<ListViewItem>();
@@ -737,6 +743,12 @@ namespace NutApp
             txtUser2Qty.Text = txtQty.Text;
             txtUser3Qty.Text = txtQty.Text;
             txtUser4Qty.Text = txtQty.Text;
+        }
+
+        private void comboMeal_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            //D:\MonoProjects\NutApp\NutApp\bin\Debug\usr\profile0\DBs
+            File.WriteAllText(Application.StartupPath + slash + "usr" + slash + $"profile{frmMain.profIndex}" + slash + "DBs" + slash + "Meal.TXT", comboMeal.SelectedIndex.ToString());
         }
     }
 }

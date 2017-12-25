@@ -97,7 +97,7 @@
             this.Controls.Add(this.btnRunReport);
             this.Controls.Add(this.chkLstBoxDays);
             this.Controls.Add(this.lblChooseDays);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimizeBox = false;
             this.Name = "frmDetailReport";

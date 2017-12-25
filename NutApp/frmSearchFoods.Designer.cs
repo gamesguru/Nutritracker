@@ -127,6 +127,7 @@
             this.comboMeal.Name = "comboMeal";
             this.comboMeal.Size = new System.Drawing.Size(127, 32);
             this.comboMeal.TabIndex = 21;
+            this.comboMeal.SelectedIndexChanged += new System.EventHandler(this.comboMeal_SelectedIndexChanged);
             // 
             // label6
             // 

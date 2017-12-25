@@ -34,6 +34,12 @@ namespace NutApp
         }
         List<string> list = new List<string>();
 
+        public enum Unit
+        {
+            g, mg, ug, kg, percent, iu, tbsp, tsp, cup
+        }
+
+
 		public class field {
 			public string[] nkLines;
 			public string name;
@@ -46,7 +52,8 @@ namespace NutApp
 			public string[] serving;
 			public string[] weight;
 			public string[] othUnits;
-		}
+            public Unit weightUnit;
+        }
 
 		List<field> Fields = new List<field>();
         string slash = Path.DirectorySeparatorChar.ToString();

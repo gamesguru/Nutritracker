@@ -85,7 +85,6 @@
             this.undoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addToLogToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addSearchCommonFoodsToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.addSearchExtendedFoodsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addExerciseToLogToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openGuesstimatorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -720,7 +719,6 @@
             // 
             this.addToLogToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.addSearchCommonFoodsToolStripMenuItem1,
-            this.addSearchExtendedFoodsToolStripMenuItem,
             this.addExerciseToLogToolStripMenuItem1});
             this.addToLogToolStripMenuItem.Name = "addToLogToolStripMenuItem";
             this.addToLogToolStripMenuItem.Size = new System.Drawing.Size(78, 20);
@@ -733,14 +731,6 @@
             this.addSearchCommonFoodsToolStripMenuItem1.Size = new System.Drawing.Size(244, 22);
             this.addSearchCommonFoodsToolStripMenuItem1.Text = "Add/Search Common Foods";
             this.addSearchCommonFoodsToolStripMenuItem1.Click += new System.EventHandler(this.addSearchCommonFoodsToolStripMenuItem1_Click);
-            // 
-            // addSearchExtendedFoodsToolStripMenuItem
-            // 
-            this.addSearchExtendedFoodsToolStripMenuItem.Name = "addSearchExtendedFoodsToolStripMenuItem";
-            this.addSearchExtendedFoodsToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F4;
-            this.addSearchExtendedFoodsToolStripMenuItem.Size = new System.Drawing.Size(244, 22);
-            this.addSearchExtendedFoodsToolStripMenuItem.Text = "Add/Search Extended Foods";
-            this.addSearchExtendedFoodsToolStripMenuItem.Click += new System.EventHandler(this.addSearchExtendedFoodsToolStripMenuItem_Click);
             // 
             // addExerciseToLogToolStripMenuItem1
             // 
