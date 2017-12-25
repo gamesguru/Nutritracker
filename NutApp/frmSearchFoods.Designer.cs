@@ -90,7 +90,6 @@
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.manageBasicFieldsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.swapOrManageUserFieldsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.swapOrManageExtendedDBsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.srchTmout = new System.Windows.Forms.Timer(this.components);
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.richTxtWarn = new System.Windows.Forms.RichTextBox();
@@ -652,8 +651,7 @@
             // 
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.manageBasicFieldsToolStripMenuItem,
-            this.swapOrManageUserFieldsToolStripMenuItem,
-            this.swapOrManageExtendedDBsToolStripMenuItem});
+            this.swapOrManageUserFieldsToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.fileToolStripMenuItem.Text = "File";
@@ -663,21 +661,16 @@
             this.manageBasicFieldsToolStripMenuItem.Enabled = false;
             this.manageBasicFieldsToolStripMenuItem.Name = "manageBasicFieldsToolStripMenuItem";
             this.manageBasicFieldsToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F2;
-            this.manageBasicFieldsToolStripMenuItem.Size = new System.Drawing.Size(236, 22);
+            this.manageBasicFieldsToolStripMenuItem.Size = new System.Drawing.Size(221, 22);
             this.manageBasicFieldsToolStripMenuItem.Text = "Visit Admin Center";
             this.manageBasicFieldsToolStripMenuItem.Click += new System.EventHandler(this.manageBasicFieldsToolStripMenuItem_Click);
             // 
             // swapOrManageUserFieldsToolStripMenuItem
             // 
             this.swapOrManageUserFieldsToolStripMenuItem.Name = "swapOrManageUserFieldsToolStripMenuItem";
-            this.swapOrManageUserFieldsToolStripMenuItem.Size = new System.Drawing.Size(236, 22);
+            this.swapOrManageUserFieldsToolStripMenuItem.Size = new System.Drawing.Size(221, 22);
             this.swapOrManageUserFieldsToolStripMenuItem.Text = "Swap or Manage User Fields";
-            // 
-            // swapOrManageExtendedDBsToolStripMenuItem
-            // 
-            this.swapOrManageExtendedDBsToolStripMenuItem.Name = "swapOrManageExtendedDBsToolStripMenuItem";
-            this.swapOrManageExtendedDBsToolStripMenuItem.Size = new System.Drawing.Size(236, 22);
-            this.swapOrManageExtendedDBsToolStripMenuItem.Text = "Swap or Manage Extended DBs";
+            this.swapOrManageUserFieldsToolStripMenuItem.Click += new System.EventHandler(this.swapOrManageUserFieldsToolStripMenuItem_Click);
             // 
             // srchTmout
             // 
@@ -783,7 +776,6 @@
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem swapOrManageUserFieldsToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem swapOrManageExtendedDBsToolStripMenuItem;
         private System.Windows.Forms.ListView lstViewSlot4;
         private System.Windows.Forms.ColumnHeader columnHeader56;
         private System.Windows.Forms.ColumnHeader columnHeader57;

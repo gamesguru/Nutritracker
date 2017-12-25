@@ -428,6 +428,9 @@ namespace NutApp
             frmMDB.ShowDialog();
         }
 
+
+
+
         private void button1_Click(object sender, EventArgs e)
         {
             this.Close();
@@ -749,6 +752,12 @@ namespace NutApp
         {
             //D:\MonoProjects\NutApp\NutApp\bin\Debug\usr\profile0\DBs
             File.WriteAllText(Application.StartupPath + slash + "usr" + slash + $"profile{frmMain.profIndex}" + slash + "DBs" + slash + "Meal.TXT", comboMeal.SelectedIndex.ToString());
+        }
+
+        private void swapOrManageUserFieldsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmManageField frmMF = new frmManageField(this);
+            frmMF.ShowDialog();
         }
     }
 }

@@ -1,3 +1,4 @@
 100 grams|Standardization
 NAM.TXT|Name of Food
 ORA.TXT|Value1
+WEI.TXT|Weight

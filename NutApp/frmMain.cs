@@ -402,7 +402,28 @@ dataDay.Rows.Add(row);*/
             comboExType.SelectedIndex = 0;
             dataExercise.Rows.Add("Existing");
             dataExercise.Rows[0].Height = 50;
-            dataExercise.Rows[0].Cells[1].Value = "Brisk";
+            string actLvl = "#NULL";
+			switch (activityLvl)
+			{
+				case 0:
+					actLvl = "Sedentary";
+                    break;
+				case 1:
+					actLvl = "Moderate";
+					break;
+				case 2:
+					actLvl = "Active";
+					break;
+				case 3:
+					actLvl = "Intense";
+					break;
+				case 4:
+					actLvl = "Extreme";
+					break;
+                default:
+                    break;
+            }
+            dataExercise.Rows[0].Cells[1].Value = actLvl;
             if (activityLvl == 0)
                 mFactor = 1.2;
             else if (activityLvl == 1)

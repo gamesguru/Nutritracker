@@ -36,7 +36,7 @@ namespace NutApp
 
         public enum Unit
         {
-            g, mg, ug, kg, percent, iu, tbsp, tsp, cup
+            g, mg, ug, kg, percent, iu, tbsp, tsp, cup, kcal
         }
 
 
@@ -205,8 +205,8 @@ namespace NutApp
                         listView1.Columns.Add("Weight");
                     if (f.othUnits != null && f.othUnits.Length == f.z)
                         listView1.Columns.Add("Other Units");
-
-                ListView.ListViewItemCollection itms = new ListView.ListViewItemCollection(listView1);
+                    
+                    List<ListViewItem> itms = new List<ListViewItem>();
                     for (int i = 0; i < f.z; i++)
                     {
                         ListViewItem itm = new ListViewItem();
@@ -227,14 +227,13 @@ namespace NutApp
                             itm.SubItems.Add(f.othUnits[i]);
 
                         itms.Add(itm);
-                        //listView1.Items.Add(itm);
                         //MessageBox.Show(f.ToString());
                     }
                     listView1.BeginUpdate();
-                    listView1.Items.AddRange(itms);
+                    foreach (ListViewItem itm in itms)
+                        listView1.Items.Add(itm);
                     listView1.EndUpdate();
                 }
-
             //MessageBox.Show(Fields[0].z.ToString());
         }
 
@@ -336,14 +335,86 @@ namespace NutApp
 
         private void chkCal_CheckedChanged(object sender, EventArgs e)
         {
+            string dr = Application.StartupPath + $"{slash}usr{slash}profile" + frmMain.profIndex.ToString() + $"{slash}DBs{slash}f_user_" + comboFields.Text;
             if (chkCal.Checked)
+            {
+                if (File.Exists(dr + slash + "SER.TXT") && MessageBox.Show("Are you sure you want to overwrite the old files? \n" + dr + slash + "SER.TXT", "", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.No)
+                {
+                    chkCal.Checked = false;
+                    return;
+                }
+
+
+                try
+                {
+                    int n = 0;
+                    foreach (string file in Directory.GetFiles(dr))
+                        if (!file.StartsWith("_"))
+                        {
+                            n = File.ReadAllLines(file).Length;
+                            break;
+                        }
+
+                    string[] servs = new string[n];
+                    for (int i = 0; i < n; i++)
+                        servs[i] = "200 kcal";
+                    File.WriteAllLines(dr + slash + "SER.TXT", servs);
+                    txtServ.Text = "SER.TXT";
+                }
+                catch
+                {
+
+                }
                 chkGrams.Checked = false;
+            }
+            else
+            {
+                if (MessageBox.Show("Also delete file?\n" + dr + slash + "SER.TXT", "", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                    File.Delete(dr + slash + "SER.TXT");
+                txtServ.Text = "";
+            }
         }
 
         private void chkGrams_CheckedChanged(object sender, EventArgs e)
         {
+            string dr = Application.StartupPath + $"{slash}usr{slash}profile" + frmMain.profIndex.ToString() + $"{slash}DBs{slash}f_user_" + comboFields.Text;
             if (chkGrams.Checked)
+            {
+                if (File.Exists(dr + slash + "WEI.TXT") && MessageBox.Show("Are you sure you want to overwrite the old files? \n" + dr + slash + "WEI.TXT", "", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.No)
+                {
+                    chkGrams.Checked = false;
+                    return;
+                }
+                try
+                {
+                    int n = 0;
+                    foreach (string file in Directory.GetFiles(dr))
+                        if (!file.StartsWith("_"))
+                        {
+                            n = File.ReadAllLines(file).Length;
+                            break;
+                        }
+
+                    string[] grams = new string[n];
+                    for (int i = 0; i < n; i++)
+                        grams[i] = "100 g";
+                    File.WriteAllLines(dr + slash + "WEI.TXT", grams);
+                    txtWeight.Text = "WEI.TXT";
+                }
+                catch
+                {
+
+                }
+
+
                 chkCal.Checked = false;
+            }
+            else
+            {
+                if (MessageBox.Show("Also delete file?\n" + dr + slash + "WEI.TXT", "", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                    File.Delete(dr + slash + "WEI.TXT");
+                txtWeight.Text = "";
+            }
         }
     }
 }
