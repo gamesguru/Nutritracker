@@ -73,9 +73,13 @@ namespace NutApp
                 pubDBs[i] = pubDBs[i].Replace(Application.StartupPath + $"{slash}usr{slash}public{slash}DBs{slash}", "");
                 comboDBs.Items.Add(pubDBs[i] + " (public)");
             }
-            if (comboDBs.Items.Count > 0)
-                comboDBs.SelectedIndex = comboDBs.Items.Count - 1;
 
+
+            if (comboDBs.Items.Count > 0 && File.Exists(Application.StartupPath + $"{slash}usr{slash}profile{frmMain.profIndex}{slash}DBs{slash}Default.TXT"))
+            {
+                int index = Convert.ToInt32(File.ReadAllLines(Application.StartupPath + $"{slash}usr{slash}profile{frmMain.profIndex}{slash}DBs{slash}Default.TXT")[0]);
+                comboDBs.SelectedIndex = index;
+            }
 
             //Loads the user-defined fields
             slotObjs[0] = new slotObj();
@@ -96,8 +100,10 @@ namespace NutApp
 
                     if (Directory.Exists(dir))
                     {
+                        ListView.ListViewItemCollection itms;
                         if (slotMax == 0)
                         {
+                            itms = new ListView.ListViewItemCollection(lstViewSlot1);
                             lblSlot1.Text = s.Replace("f_user_" , "");
                             foreach (string t in nkp)
                             {
@@ -130,12 +136,17 @@ namespace NutApp
                                 if (vals.Length == names.Length)
                                     itm.SubItems.Add(vals[i]);
                                 else
-                                    itm.SubItems.Add("");
-                                lstViewSlot1.Items.Add(itm);
+									itm.SubItems.Add("");
+								itms.Add(itm);
+                                //lstViewSlot1.Items.Add(itm);
                             }
+                            lstViewSlot1.BeginUpdate();
+                            lstViewSlot1.Items.AddRange(itms);
+                            lstViewSlot1.EndUpdate();
                         }
                         else if (slotMax == 1)
-                        {
+						{
+							itms = new ListView.ListViewItemCollection(lstViewSlot2);
                             lblSlot2.Text = s.Replace("f_user_", "");
                             foreach (string t in nkp)
                             {
@@ -172,12 +183,17 @@ namespace NutApp
                                 if (vals.Length == names.Length)
                                     itm.SubItems.Add(vals[i]);
                                 else
-                                    itm.SubItems.Add("");
-                                lstViewSlot2.Items.Add(itm);
-                            }
+									itm.SubItems.Add("");
+								itms.Add(itm);
+								//lstViewSlot2.Items.Add(itm);
+							}
+							lstViewSlot2.BeginUpdate();
+							lstViewSlot2.Items.AddRange(itms);
+							lstViewSlot2.EndUpdate();
                         }
                         else if (slotMax == 2)
-                        {
+						{
+							itms = new ListView.ListViewItemCollection(lstViewSlot3);
                             lblSlot3.Text = s.Replace("f_user_", "");
                             foreach (string t in nkp)
                             {
@@ -210,12 +226,17 @@ namespace NutApp
                                 if (vals.Length == names.Length)
                                     itm.SubItems.Add(vals[i]);
                                 else
-                                    itm.SubItems.Add("");
-                                lstViewSlot3.Items.Add(itm);
-                            }
+									itm.SubItems.Add("");
+								itms.Add(itm);
+								//lstViewSlot3.Items.Add(itm);
+							}
+							lstViewSlot3.BeginUpdate();
+							lstViewSlot3.Items.AddRange(itms);
+							lstViewSlot3.EndUpdate();
                         }
                         else if (slotMax == 3)
-                        {
+						{
+							itms = new ListView.ListViewItemCollection(lstViewSlot4);
                             lblSlot4.Text = s.Replace("f_user_", "");
                             foreach (string t in nkp)
                             {
@@ -250,8 +271,12 @@ namespace NutApp
                                     itm.SubItems.Add(vals[i]);
                                 else
                                     itm.SubItems.Add("");
-                                lstViewSlot4.Items.Add(itm);
-                            }
+                                itms.Add(itm);
+								//lstViewSlot4.Items.Add(itm);
+							}
+							lstViewSlot4.BeginUpdate();
+							lstViewSlot4.Items.AddRange(itms);
+							lstViewSlot4.EndUpdate();
                         }
                         slotMax++;
                     }
@@ -269,6 +294,7 @@ namespace NutApp
         private Dictionary<string, List<string>> mainDB;
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
+            File.WriteAllText(Application.StartupPath + $"{slash}usr{slash}profile{frmMain.profIndex}{slash}DBs{slash}Default.TXT", comboDBs.SelectedIndex.ToString());
             lstviewFoods.Clear();
             txtSrch.Clear();
             richTxtWarn.Text = "";
@@ -310,6 +336,7 @@ namespace NutApp
                         //MessageBox.Show("There are more than 800 entries.  Please search to turn something up.", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         return;
                     }
+                    itms = new ListView.ListViewItemCollection(lstviewFoods);
                     for (int j = 0; j < n; j++)
                     {
                         ListViewItem itm = new ListViewItem();
@@ -320,9 +347,13 @@ namespace NutApp
                             else
                                 itm.SubItems.Add(mainDB[nutKeyPairs[i].Split('|')[0]][j]);
                         }
-                        lstviewFoods.Items.Add(itm);
+                        itms.Add(itm);
+                        //lstviewFoods.Items.Add(itm);
                         //MessageBox.Show("wow");
                     }
+                    lstviewFoods.BeginUpdate();
+                    lstviewFoods.Items.AddRange(itms);
+                    lstviewFoods.EndUpdate();
 
                     //
 
@@ -397,7 +428,7 @@ namespace NutApp
 
         string lastQuery = "";
         BackgroundWorker bw = new BackgroundWorker();
-        List<ListViewItem> itms;
+        ListView.ListViewItemCollection itms;
         private void srchTmout_Tick(object sender, EventArgs e)
         {
             if (txtSrch.Text.Trim() == lastQuery)
@@ -425,7 +456,7 @@ namespace NutApp
             this.UseWaitCursor = false;
         }
 
-        int resultCount = 0;
+        //int resultCount = 0;
         private void search()
         {
             this.Invoke(new MethodInvoker(delegate { this.UseWaitCursor = true; }));
@@ -469,7 +500,8 @@ namespace NutApp
             if (q == 0)
                 return;
             int z = 0;
-            itms = new List<ListViewItem>();
+            itms = new ListView.ListViewItemCollection(lstviewFoods);
+            //itms = new List<ListViewItem>();
             for (int i = q; i > (q == 1 ? 0 : q - 1); i--)
                 for (int k = 0; k < range.Count; k++)
                     if (wCount[k] == i)
@@ -498,7 +530,7 @@ namespace NutApp
                 return;
             }
             
-            lstviewFoods.Invoke(new MethodInvoker(delegate { lstviewFoods.Items.AddRange(itms.ToArray()); }));
+            lstviewFoods.Invoke(new MethodInvoker(delegate { lstviewFoods.Items.AddRange(itms); }));
             for (int i = 0; i < nutKeyPairs.Length; i++)
                 if (nutKeyPairs[i].Contains("|Name of Food"))
                     lstviewFoods.Invoke(new MethodInvoker(delegate { lstviewFoods.Columns[i].AutoResize(ColumnHeaderAutoResizeStyle.ColumnContent); }));
@@ -548,7 +580,7 @@ namespace NutApp
                 bw.DoWork += delegate {
                     this.Invoke(new MethodInvoker(delegate { this.UseWaitCursor = true; }));
 
-                    lstviewFoods.Invoke(new MethodInvoker(delegate { lstviewFoods.Items.AddRange(itms.ToArray()); }));
+                    lstviewFoods.Invoke(new MethodInvoker(delegate { lstviewFoods.Items.AddRange(itms); }));
                     for (int i = 0; i < nutKeyPairs.Length; i++)
                         if (nutKeyPairs[i].Contains("|Name of Food"))
                             lstviewFoods.Invoke(new MethodInvoker(delegate { lstviewFoods.Columns[i].AutoResize(ColumnHeaderAutoResizeStyle.ColumnContent); }));
@@ -565,6 +597,7 @@ namespace NutApp
         private void txtUser1_TextChanged(object sender, EventArgs e)
         {
             lstViewSlot1.Items.Clear();
+            itms = new ListView.ListViewItemCollection(lstViewSlot1);
             for ( int i = 0;  i < slotObjs[0].names.Length; i++)
             {
                 if (slotObjs[0].names[i].ToUpper().Contains(txtUser1.Text.ToUpper()))
@@ -578,14 +611,19 @@ namespace NutApp
                         itm.SubItems.Add(slotObjs[0].vals[i]);
                     else
                         itm.SubItems.Add("");
-                    lstViewSlot1.Items.Add(itm);
+                    //lstViewSlot1.Items.Add(itm);
+                    itms.Add(itm);
                 }
             }
+            lstViewSlot1.BeginUpdate();
+            lstViewSlot1.Items.AddRange(itms);
+            lstViewSlot1.EndUpdate();
         }
 
         private void txtUser2_TextChanged(object sender, EventArgs e)
         {
-            lstViewSlot2.Items.Clear();
+			lstViewSlot2.Items.Clear();
+			itms = new ListView.ListViewItemCollection(lstViewSlot2);
             for (int i = 0; i < slotObjs[1].names.Length; i++)
             {
                 if (slotObjs[1].names[i].ToUpper().Contains(txtUser2.Text.ToUpper()))
@@ -599,14 +637,19 @@ namespace NutApp
                         itm.SubItems.Add(slotObjs[1].vals[i]);
                     else
                         itm.SubItems.Add("");
-                    lstViewSlot2.Items.Add(itm);
+					//lstViewSlot2.Items.Add(itm);
+					itms.Add(itm);
                 }
-            }
+			}
+			lstViewSlot2.BeginUpdate();
+			lstViewSlot2.Items.AddRange(itms);
+			lstViewSlot2.EndUpdate();
         }
 
         private void txtUser3_TextChanged(object sender, EventArgs e)
         {
-            lstViewSlot3.Items.Clear();
+			lstViewSlot3.Items.Clear();
+			itms = new ListView.ListViewItemCollection(lstViewSlot3);
             for (int i = 0; i < slotObjs[2].names.Length; i++)
             {
                 if (slotObjs[2].names[i].ToUpper().Contains(txtUser3.Text.ToUpper()))
@@ -620,14 +663,19 @@ namespace NutApp
                         itm.SubItems.Add(slotObjs[2].vals[i]);
                     else
                         itm.SubItems.Add("");
-                    lstViewSlot3.Items.Add(itm);
+					//lstViewSlot3.Items.Add(itm);
+					itms.Add(itm);
                 }
-            }
+			}
+			lstViewSlot3.BeginUpdate();
+			lstViewSlot3.Items.AddRange(itms);
+			lstViewSlot3.EndUpdate();
         }
 
         private void txtUser4_TextChanged(object sender, EventArgs e)
         {
-            lstViewSlot4.Items.Clear();
+			lstViewSlot4.Items.Clear();
+			itms = new ListView.ListViewItemCollection(lstViewSlot4);
             for (int i = 0; i < slotObjs[3].names.Length; i++)
             {
                 if (slotObjs[3].names[i].ToUpper().Contains(txtUser4.Text.ToUpper()))
@@ -641,9 +689,13 @@ namespace NutApp
                         itm.SubItems.Add(slotObjs[3].vals[i]);
                     else
                         itm.SubItems.Add("");
-                    lstViewSlot4.Items.Add(itm);
+					//lstViewSlot4.Items.Add(itm);
+					itms.Add(itm);
                 }
-            }
+			}
+			lstViewSlot4.BeginUpdate();
+			lstViewSlot4.Items.AddRange(itms);
+			lstViewSlot4.EndUpdate();
         }
 
         private void txtQty_TextChanged(object sender, EventArgs e)

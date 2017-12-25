@@ -223,9 +223,9 @@ namespace NutApp
                         //listView1.Items.Add(itm);
                         //MessageBox.Show(f.ToString());
                     }
-                listView1.BeginUpdate();
+                    listView1.BeginUpdate();
                     listView1.Items.AddRange(itms);
-                listView1.EndUpdate();
+                    listView1.EndUpdate();
                 }
 
             //MessageBox.Show(Fields[0].z.ToString());

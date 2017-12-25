@@ -1,7 +1,9 @@
 ﻿<Properties StartupConfiguration="{086472C5-DD1F-4872-9BF1-9F9B633A376F}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="NutApp/frmManageField.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="NutApp/frmSearchFoods.cs">
     <Files>
-      <File FileName="NutApp/frmManageField.cs" Line="247" Column="37" />
+      <File FileName="NutApp/frmManageField.cs" Line="151" Column="47" />
+      <File FileName="NutApp/frmSearchFoods.cs" Line="396" Column="14" />
+      <File FileName="NutApp/Program.cs" Line="19" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />

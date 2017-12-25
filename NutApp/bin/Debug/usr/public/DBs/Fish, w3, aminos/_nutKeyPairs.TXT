@@ -1,7 +1,0 @@
-FOO3.txt|Name of Food
-ENE10.txt|Calories
-PRO.txt|Protein
-FAP67.txt|EPA + DHA
-GLU.txt|Glutamic acid
-GLY.txt|Glycine
-PRO54.txt|Proline
