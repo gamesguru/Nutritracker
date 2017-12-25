@@ -199,6 +199,7 @@ namespace NutApp
                     if (f.othUnits != null && f.othUnits.Length == f.z)
                         listView1.Columns.Add("Other Units");
 
+                ListView.ListViewItemCollection itms = new ListView.ListViewItemCollection(listView1);
                     for (int i = 0; i < f.z; i++)
                     {
                         ListViewItem itm = new ListViewItem();
@@ -217,11 +218,16 @@ namespace NutApp
                             itm.SubItems.Add(f.weight[i]);
                         if (f.othUnits != null && f.othUnits.Length == f.z)
                             itm.SubItems.Add(f.othUnits[i]);
-                    
-                        listView1.Items.Add(itm);
+
+                        itms.Add(itm);
+                        //listView1.Items.Add(itm);
                         //MessageBox.Show(f.ToString());
                     }
+                listView1.BeginUpdate();
+                    listView1.Items.AddRange(itms);
+                listView1.EndUpdate();
                 }
+
             //MessageBox.Show(Fields[0].z.ToString());
         }
 
