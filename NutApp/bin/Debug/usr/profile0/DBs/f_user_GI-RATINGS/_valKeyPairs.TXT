@@ -1,0 +1,3 @@
+Value1|GI
+Value2|Glucose Load
+Value3|Carb (g)

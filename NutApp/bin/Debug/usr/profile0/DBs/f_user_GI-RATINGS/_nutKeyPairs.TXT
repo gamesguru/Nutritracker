@@ -1,3 +1,5 @@
 FOO.TXT|Name of Food
 GI .TXT|Value1
-SER.TXT|Weight
+GLX.TXT|Value2
+CAR.TXT|Value3
+SER.TXT|Serving

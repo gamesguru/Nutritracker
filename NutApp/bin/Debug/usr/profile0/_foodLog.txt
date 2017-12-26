@@ -1,8 +1,10 @@
-==========
+===========
 09-20-2017
-==========
-Breakfast|
+--Breakfast--
 CaliNutReview|158|35g
 USDAstock|35|20g
-Lunch|
-Dinner|
+profile0foods|10|25g
+
+--Lunch--
+
+--Dinner--

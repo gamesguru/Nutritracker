@@ -296,6 +296,8 @@ namespace NutApp
             openFileDialog1.InitialDirectory = Application.StartupPath + Path.DirectorySeparatorChar.ToString() + "lib";
             openFileDialog1.ShowDialog();
             textBox1.Text += openFileDialog1.FileName + "\r\n";
+            if (!File.Exists(openFileDialog1.FileName))
+                return;
             sourceInput = File.ReadAllLines(openFileDialog1.FileName);
             parseInput();
         }
