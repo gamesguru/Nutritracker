@@ -91,6 +91,12 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.button6 = new System.Windows.Forms.Button();
+            this.txtLutZea = new System.Windows.Forms.TextBox();
+            this.label74 = new System.Windows.Forms.Label();
+            this.txtLyco = new System.Windows.Forms.TextBox();
+            this.label75 = new System.Windows.Forms.Label();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
             this.txtLipoic = new System.Windows.Forms.TextBox();
             this.label63 = new System.Windows.Forms.Label();
@@ -195,12 +201,7 @@
             this.btnCancel = new System.Windows.Forms.Button();
             this.label71 = new System.Windows.Forms.Label();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.button6 = new System.Windows.Forms.Button();
-            this.txtLutZea = new System.Windows.Forms.TextBox();
-            this.label74 = new System.Windows.Forms.Label();
-            this.txtLyco = new System.Windows.Forms.TextBox();
-            this.label75 = new System.Windows.Forms.Label();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.grpSecondaryFields.SuspendLayout();
@@ -208,12 +209,13 @@
             this.grpBasics.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.tabPage2.SuspendLayout();
+            this.groupBox4.SuspendLayout();
             this.groupBox6.SuspendLayout();
             this.groupBox5.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.groupBox3.SuspendLayout();
-            this.groupBox4.SuspendLayout();
+            this.tabPage4.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -818,6 +820,63 @@
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Vits and Mins";
             this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // groupBox4
+            // 
+            this.groupBox4.Controls.Add(this.button6);
+            this.groupBox4.Controls.Add(this.txtLutZea);
+            this.groupBox4.Controls.Add(this.label74);
+            this.groupBox4.Controls.Add(this.txtLyco);
+            this.groupBox4.Controls.Add(this.label75);
+            this.groupBox4.Location = new System.Drawing.Point(6, 349);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(200, 121);
+            this.groupBox4.TabIndex = 7;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "Misc";
+            // 
+            // button6
+            // 
+            this.button6.Location = new System.Drawing.Point(3, 78);
+            this.button6.Name = "button6";
+            this.button6.Size = new System.Drawing.Size(75, 23);
+            this.button6.TabIndex = 73;
+            this.button6.Text = "Reset";
+            this.button6.UseVisualStyleBackColor = true;
+            // 
+            // txtLutZea
+            // 
+            this.txtLutZea.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtLutZea.Location = new System.Drawing.Point(81, 45);
+            this.txtLutZea.Name = "txtLutZea";
+            this.txtLutZea.Size = new System.Drawing.Size(100, 20);
+            this.txtLutZea.TabIndex = 70;
+            // 
+            // label74
+            // 
+            this.label74.AutoSize = true;
+            this.label74.Location = new System.Drawing.Point(13, 48);
+            this.label74.Name = "label74";
+            this.label74.Size = new System.Drawing.Size(56, 13);
+            this.label74.TabIndex = 69;
+            this.label74.Text = "Lut + Zea:";
+            // 
+            // txtLyco
+            // 
+            this.txtLyco.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtLyco.Location = new System.Drawing.Point(81, 19);
+            this.txtLyco.Name = "txtLyco";
+            this.txtLyco.Size = new System.Drawing.Size(100, 20);
+            this.txtLyco.TabIndex = 68;
+            // 
+            // label75
+            // 
+            this.label75.AutoSize = true;
+            this.label75.Location = new System.Drawing.Point(13, 22);
+            this.label75.Name = "label75";
+            this.label75.Size = new System.Drawing.Size(57, 13);
+            this.label75.TabIndex = 67;
+            this.label75.Text = "Lycopene:";
             // 
             // groupBox6
             // 
@@ -1762,6 +1821,7 @@
             // 
             // tabPage4
             // 
+            this.tabPage4.Controls.Add(this.textBox1);
             this.tabPage4.Location = new System.Drawing.Point(4, 22);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Size = new System.Drawing.Size(450, 507);
@@ -1809,62 +1869,14 @@
             this.comboBox1.TabIndex = 4;
             this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
-            // groupBox4
+            // textBox1
             // 
-            this.groupBox4.Controls.Add(this.button6);
-            this.groupBox4.Controls.Add(this.txtLutZea);
-            this.groupBox4.Controls.Add(this.label74);
-            this.groupBox4.Controls.Add(this.txtLyco);
-            this.groupBox4.Controls.Add(this.label75);
-            this.groupBox4.Location = new System.Drawing.Point(6, 349);
-            this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(200, 121);
-            this.groupBox4.TabIndex = 7;
-            this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "Misc";
-            // 
-            // button6
-            // 
-            this.button6.Location = new System.Drawing.Point(3, 78);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(75, 23);
-            this.button6.TabIndex = 73;
-            this.button6.Text = "Reset";
-            this.button6.UseVisualStyleBackColor = true;
-            // 
-            // txtLutZea
-            // 
-            this.txtLutZea.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtLutZea.Location = new System.Drawing.Point(81, 45);
-            this.txtLutZea.Name = "txtLutZea";
-            this.txtLutZea.Size = new System.Drawing.Size(100, 20);
-            this.txtLutZea.TabIndex = 70;
-            // 
-            // label74
-            // 
-            this.label74.AutoSize = true;
-            this.label74.Location = new System.Drawing.Point(13, 48);
-            this.label74.Name = "label74";
-            this.label74.Size = new System.Drawing.Size(56, 13);
-            this.label74.TabIndex = 69;
-            this.label74.Text = "Lut + Zea:";
-            // 
-            // txtLyco
-            // 
-            this.txtLyco.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtLyco.Location = new System.Drawing.Point(81, 19);
-            this.txtLyco.Name = "txtLyco";
-            this.txtLyco.Size = new System.Drawing.Size(100, 20);
-            this.txtLyco.TabIndex = 68;
-            // 
-            // label75
-            // 
-            this.label75.AutoSize = true;
-            this.label75.Location = new System.Drawing.Point(13, 22);
-            this.label75.Name = "label75";
-            this.label75.Size = new System.Drawing.Size(57, 13);
-            this.label75.TabIndex = 67;
-            this.label75.Text = "Lycopene:";
+            this.textBox1.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox1.Location = new System.Drawing.Point(23, 12);
+            this.textBox1.Multiline = true;
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(367, 428);
+            this.textBox1.TabIndex = 0;
             // 
             // frmManageDBfields
             // 
@@ -1894,6 +1906,8 @@
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.tabPage2.ResumeLayout(false);
+            this.groupBox4.ResumeLayout(false);
+            this.groupBox4.PerformLayout();
             this.groupBox6.ResumeLayout(false);
             this.groupBox6.PerformLayout();
             this.groupBox5.ResumeLayout(false);
@@ -1903,8 +1917,8 @@
             this.tabPage3.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
-            this.groupBox4.ResumeLayout(false);
-            this.groupBox4.PerformLayout();
+            this.tabPage4.ResumeLayout(false);
+            this.tabPage4.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -2084,5 +2098,6 @@
         private System.Windows.Forms.Label label74;
         private System.Windows.Forms.TextBox txtLyco;
         private System.Windows.Forms.Label label75;
+        private System.Windows.Forms.TextBox textBox1;
     }
 }

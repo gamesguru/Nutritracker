@@ -18,7 +18,7 @@ namespace NutApp
         public frmParseCustomDatabase()
         {
             InitializeComponent();
-        }
+            this.AllowDrop = true;     }
 
         public int getBiggestInt(string s)
         {
@@ -60,209 +60,19 @@ namespace NutApp
             return sr;
         }
 
-
-        List<string> headers;
-        List<string> lines;
-        private void button1_Click(object sender, EventArgs e)
-        {
-            btnParseTxt.Enabled = false;
-            lstViewResult.Clear();
-            comboColumns.Items.Clear();
-            lines = sourceInput.Split('\n').ToList<string>();//txtboxSource.Text.Split('\n').ToList<string>();
-
-            headers = lines[0].Split('\t').ToList<string>(); ;
-            int colSpan = headers.Count;
-
-
-            for (int i = 1; i < lines.Count; i++)
-                if (lines[i].Split('\t').Length > colSpan)
-                    colSpan = lines[i].Split('\t').Length;
-
-            int n = colSpan - headers.Count;
-            while (n > 0)
-            {
-                headers.Add("||");
-                n--;
-            }
-
-            for (int i = 0; i < colSpan; i++)
-            {
-                if (headers[i].Length < 1)
-                    continue;
-                lstViewResult.Columns.Add(headers[i]);
-                comboColumns.Items.Add(headers[i]);
-            }
-
-
-            List<string> names = new List<string>();
-            //string[,] core = new string[lines.Count, colSpan];
-            for (int i = 1; i < lines.Count; i++)
-            {
-                if (lines[i].Length < 2)
-                    continue;
-                names.Add(lines[i].Split('\t')[0]);
-                /*if (checkBox1.Checked)
-                    for (int k = 2; k < headers.Count; k++)
-                    {
-                        if (lines[i].Split('\t').Length < colSpan)
-                        {
-                            //MessageBox.Show(i.ToString());
-                            //newLineDelimit();
-                            //return;
-                        }
-                    }*/
-            }
-            progressBar1.Visible = true;
-            progressBar1.Value = 0;
-            progressBar1.Maximum = names.Count;
-            ListViewItem[] itms = new ListViewItem[names.Count];
-            for (int i = 0; i < names.Count; i++)
-            {
-                if (lines[i].Length < 2)
-                    continue;
-                if (i > lines.Count - 2)
-                    break;
-                ListViewItem itm = new ListViewItem(lines[i + 1].Split('\t')[0]);
-                if (itm.SubItems.Count < 1)
-                    continue;
-                //1.Items.Add(lines[i]);
-                for (int k = 1; k < headers.Count; k++)
-                {
-                    try { itm.SubItems.Add(lines[i + 1].Split('\t')[k]); }
-                    catch { }
-                }
-
-                itms[i] = itm;
-                progressBar1.Value++;
-            }
-            // itms[lines.Count - 1] = new ListViewItem();
-
-            lstViewResult.BeginUpdate();
-            lstViewResult.Items.AddRange(itms);
-            lstViewResult.EndUpdate();
-            progressBar1.Visible = false;
-
-            if (lstViewResult.Columns.Count > 0 && lstViewResult.Items.Count > 0)
-            {
-                //button2.Enabled = true;
-                comboColumns.Enabled = true;
-                //txtDelim.Enabled = true;
-                try { comboColumns.SelectedIndex = 0; }
-                catch { }
-            }
-            //label1.Text = string.Join(", ", core[3, 0]);
-            btnParseTxt.Enabled = true;
+        public class Column{
+            public string header;
+            public string[] items;
+			public string units;
         }
 
-        private void newLineDelimit()
-        {
-            /*double d;
-
-            lstViewResult.Clear();
-            comboBox1.Items.Clear();
-            lines = txtboxSource.Text.Split('\n').ToList<string>();
-
-            headers = lines[0].Split('\t').ToList<string>(); ;
-            int colSpan = headers.Count;
-
-            List<string> extendedLines = new List<string>();
-            for (int i = 0; i < lines.Count; i++)
-            {
-                if (lines[i].Length < 2 || double.TryParse(lines[i].Replace('\n', '\0'), out d))
-                {
-                    string st = "";
-                    for (int q=0;q<=colSpan;q++)
-                    {
-                        if (i + q >= lines.Count)
-                            break;
-                        if (lines[i + q].Length < 4 || double.TryParse(lines[i + q].Replace('\n', '\0'), out d))
-                        {
-                            MessageBox.Show(st);
-                            st += lines[i + q] + "\t";
-                        }
-                        else
-                        {
-                            i += q;
-                            break;
-                        }
-                                //extendedLines.add
-                    }
-                    MessageBox.Show("added: " + st);
-                    extendedLines.Add(st);
-                    continue;
-                }
-                else
-                    extendedLines.Add(lines[i]);
-            }
-
-            //MessageBox.Show(string.Join("||", lines));
-
-            for (int i = 1; i < extendedLines.Count; i++)
-                if (extendedLines[i].Split('\t').Length > colSpan)
-                    colSpan = extendedLines[i].Split('\t').Length;
-
-            int n = colSpan - headers.Count;
-            while (n > 0)
-            {
-                headers.Add("||");
-                n--;
-            }
-
-            for (int i = 0; i < colSpan; i++)
-            {
-                if (headers[i].Length < 1)
-                    continue;
-                lstViewResult.Columns.Add(headers[i]);
-                comboBox1.Items.Add(headers[i]);
-            }
-
-
-            List<string> names = new List<string>();
-            //string[,] core = new string[lines.Count, colSpan];
-            for (int i = 1; i < extendedLines.Count; i++)
-            {
-                if (extendedLines[i].Length < 4)
-                    continue;
-                ListViewItem itm = new ListViewItem(extendedLines[i].Split('\t')[0]);
-
-                //1.Items.Add(extendedLines[i]);
-                names.Add(extendedLines[i].Split('\t')[0]);
-                for (int k = 1; k < headers.Count; k++)
-                {
-                    try { itm.SubItems.Add(extendedLines[i].Split('\t')[k]); }
-                    catch { }
-                    //MessageBox.Show(extendedLines[i].Split('\t')[k]);
-                    // core[i - 1, k] = ;
-
-                }
-                if (checkBox1.Checked)
-                    for (int k = 2; k < headers.Count; k++)
-                    {
-                        if (extendedLines[i].Split('\t').Length < colSpan)
-                        {
-                            try { itm.SubItems.Add(extendedLines[i].Split('\n')[k]); }
-                            catch { }
-                        }
-                    }
-
-                lstViewResult.Items.Add(itm);
-            }
-            if (lstViewResult.Columns.Count > 0 && lstViewResult.Items.Count > 0)
-            {
-                //button2.Enabled = true;
-                comboBox1.Enabled = true;
-                //txtDelim.Enabled = true;
-                try { comboBox1.SelectedIndex = 0; }
-                catch { }
-            }*/
-        }
+        Column[] columns;
 
         private void frmParseCustomDatabase_Load(object sender, EventArgs e)
         {
             lstViewResult.FullRowSelect = true;
         }
-
-
+        
 
         private void listView1_KeyDown(object sender, KeyEventArgs e)
         {
@@ -276,97 +86,7 @@ namespace NutApp
 
         }
 
-        private void txtboxSource_MouseClick(object sender, MouseEventArgs e)
-        {
-            frmSearchReplace.j = txtboxSource.SelectionStart;
-            frmSearchFind.j = txtboxSource.SelectionStart;
-            //frmSearchR.
-            if (e.Button == MouseButtons.Right)
-                contextMenuStrip1.Show();
-        }
-
-        private void pasteToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            txtboxSource.SelectAll();
-            txtboxSource.Clear();
-            txtboxSource.Paste();
-            btnParseTxt.PerformClick();
-        }
-
-        public static string parseSource;
-        frmSearchReplace frmSearchR = new NutApp.frmSearchReplace(null);
-        private void txtboxSource_KeyDown(object sender, KeyEventArgs e)
-        {
-            frmSearchReplace.j = txtboxSource.SelectionStart;
-            frmSearchFind.j = txtboxSource.SelectionStart;
-            //frmSearchR.j = 
-            if (e.KeyCode == Keys.A && e.Modifiers == Keys.Control)
-            {
-                e.SuppressKeyPress = true;
-                txtboxSource.SelectAll();
-            }
-        }
-
-        private void txtboxSource_TextChanged(object sender, EventArgs e)
-        {
-            parseSource = txtboxSource.Text;
-            if (txtboxSource.Text.Split('\n').Length < 2 || txtboxSource.Text.Split('\t').Length < 2)
-                btnParseTxt.Enabled = false;
-            else
-                btnParseTxt.Enabled = true;
-        }
-
-        public int parentStartIndex
-        {
-            get { return txtboxSource.SelectionStart; }
-            set { txtboxSource.SelectionStart = value; }
-        }
-        public int parentSelectionLength
-        {
-            get { return txtboxSource.SelectionLength; }
-            set { txtboxSource.SelectionLength = value; }
-        }
-
-        public string parentSelection
-        {
-            get { return txtboxSource.Text.Substring(txtboxSource.SelectionStart, txtboxSource.SelectionLength); }
-            set { txtboxSource.Text = txtboxSource.Text.Remove(txtboxSource.SelectionStart, txtboxSource.SelectionLength).Insert(txtboxSource.SelectionStart, value); }
-        }
-        public string parentWholeText
-        {
-            get { return txtboxSource.Text; }
-            set { txtboxSource.Text = value; }
-        }
-
-        private void txtboxSource_MouseUp(object sender, MouseEventArgs e)
-        {
-            frmSearchReplace.j = txtboxSource.SelectionStart;
-            frmSearchFind.j = txtboxSource.SelectionStart;
-        }
-
-        private void txtboxSource_SelectionChanged(object sender, EventArgs e)
-        {
-            //frmSearchReplace.j = txtboxSource.SelectionStart;
-        }
-
-        private void findReplaceCtrlHToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            parseSource = txtboxSource.Text;
-            if (frmSearchReplace.busy)
-            {
-                frmSearchR.Activate();
-                return;
-            }
-            else if (frmSearchFind.busy)
-            {
-                frmSearchF.Activate();
-                return;
-            }
-            frmSearchR = new frmSearchReplace(this);
-            frmSearchR.StartPosition = this.StartPosition;
-            frmSearchR.Show(this);
-        }
-        frmSearchFind frmSearchF = new frmSearchFind(null);
+        //public static string parseSource;
         private void removeSelectedColumnToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (lstViewResult.Columns.Count > 0)
@@ -376,54 +96,14 @@ namespace NutApp
             }
         }
 
-        private void findToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            parseSource = txtboxSource.Text;
-            if (frmSearchFind.busy)
-            {
-                frmSearchF.Activate();
-                return;
-            }
-            else if (frmSearchReplace.busy)
-            {
-                frmSearchR.Activate();
-                return;
-            }
-            frmSearchF = new frmSearchFind(this);
-            frmSearchF.StartPosition = this.StartPosition;
-            frmSearchF.Show(this);
-        }
-
-        public void scrollToSelect()
-        {
-            txtboxSource.ScrollToCaret();
-        }
-
         private void button3_Click(object sender, EventArgs e)
         {
             this.Close();
         }
 
-        private void replaceToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (frmSearchReplace.busy)
-            {
-                frmSearchR.Activate();
-                return;
-            }
-            else if (frmSearchFind.busy)
-            {
-                frmSearchF.Activate();
-                return;
-            }
-            frmSearchR = new frmSearchReplace(this);
-            frmSearchR.StartPosition = this.StartPosition;
-            frmSearchR.Show(this);
-        }
-
-        List<string> knownUnits = new List<string>() { "mg", "g", "iu", "mcg", "%", "μg", "µg", "kj" };
+        List<string> knownUnits = new List<string>() { "mg", "g", "iu", "mcg", "%", "μg", "ug", "kj" , "cal" , "kcal" };
         List<string> gatheredUnits;
-        List<string> suspectedUnits;
+        //List<string> suspectedUnits;
         private void checkForColumnUnitsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (comboColumns.Items.Count == 0)
@@ -544,58 +224,99 @@ namespace NutApp
             else { MessageBox.Show("You haven't transferred more than 1 column to the list!"); }
         }
 
-        string sourceInput = "";
-
-        private void parseWithoutPastingquickerToolStripMenuItem_Click(object sender, EventArgs e)
+        private void parseInput()
         {
+            int colSpan = 0;
+
+            foreach (string s in sourceInput)
+                if (s.Split('\t').Length > colSpan)
+                    colSpan = s.Split('\t').Length;
+
+            textBox1.Text += "\r\n# of headers:\t" + sourceInput[0].Split('\t').Length.ToString();
+            textBox1.Text += "\r\n# of max columns:\t" + colSpan.ToString();
+            textBox1.Text += "\r\n# of rows:\t\t" + sourceInput.Length.ToString();
+
+            for (int i = 0; i < sourceInput.Length; i++)
+                if (sourceInput[i].Split('\t').Length != colSpan)
+                    if (MessageBox.Show($"Error on row #{i}\r\nonly has {sourceInput[i].Split('\t').Length} entries, {colSpan} expected!!\r\n{sourceInput[i]}", "", MessageBoxButtons.OKCancel, MessageBoxIcon.Error) == DialogResult.Cancel)
+                        break;
+
             try
             {
-                sourceInput = Clipboard.GetText(TextDataFormat.CommaSeparatedValue);
+                columns = new Column[colSpan];
+                for (int i = 0; i < colSpan; i++)
+                    columns[i] = new Column();
+                for (int i = 0; i < sourceInput[0].Split('\t').Length; i++)
+                {
+                    columns[i].header = sourceInput[0].Split('\t')[i];
+                    columns[i].items = new string[sourceInput.Length];
+                    for (int j = 0; j < sourceInput.Length; j++)
+                    {
+                        columns[i].items[j] = sourceInput[j].Split('\t')[i];
+                    }
+                }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Paste format exception\n\n" + ex.ToString(), "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Parse error.\n" + ex.ToString(), "", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
-            if (sourceInput.Split('\n').Length < 2 || sourceInput.Split('\t').Length < 2)
-                btnParseTxt.Enabled = false;
-            else
-                btnParseTxt.Enabled = true;
-            try
+            ListViewItem[] itms = new ListViewItem[sourceInput.Length - 1];
+            for (int j = 0; j < sourceInput.Length - 1; j++)
+                itms[j] = new ListViewItem();
+            lstViewResult.BeginUpdate();
+            for (int i = 0; i < colSpan; i++)
             {
-                btnParseTxt.PerformClick();
+                lstViewResult.Columns.Add(columns[i].header);
+                for (int j = 1; j < sourceInput.Length; j++)
+                {
+                    if (i == 0)
+                        itms[j - 1].Text = columns[0].items[j];
+                    else
+                        itms[j - 1].SubItems.Add(columns[i].items[j]);
+                }
             }
-            catch (Exception ex)
-            { MessageBox.Show("Parsing error\n\n" + ex.ToString(), "", MessageBoxButtons.OK, MessageBoxIcon.Error); }
+
+            lstViewResult.Items.AddRange(itms);
+            lstViewResult.EndUpdate();
         }
+
+        //string sourceInput = "";
+        string[] sourceInput;
 
         private void importFromtxtFilequickestToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            string fileLoc = "";
-            interactionFileLocInput frmFileLoc = new interactionFileLocInput();
-            while (true)
+            textBox1.Clear();
+            lstViewResult.Clear();
+            openFileDialog1.InitialDirectory = Application.StartupPath + Path.DirectorySeparatorChar.ToString() + "lib";
+            openFileDialog1.ShowDialog();
+            textBox1.Text += openFileDialog1.FileName + "\r\n";
+            sourceInput = File.ReadAllLines(openFileDialog1.FileName);
+            parseInput();
+        }
+
+        private void textBox1_DragEnter(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(DataFormats.FileDrop)) e.Effect = DragDropEffects.Copy;
+        }
+
+        private void textBox1_DragDrop(object sender, DragEventArgs e)
+        {
+            textBox1.Clear();
+            lstViewResult.Clear();
+            string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
+            if (files.Length != 1)
             {
-                frmFileLoc.ShowDialog();
-                fileLoc = frmFileLoc.fileLoc;
-                //fileLoc = Interaction.InputBox("Please input the location of the file, include the .txt", "Which file to import?", "C:/table.txt");
-                if (fileLoc.Length == 0) 
-                    return;
-                else if (File.Exists(fileLoc))
-                    break;
+                textBox1.Text += "Error: not exactly one file dropped onto pallete.";
+                foreach (string s in files)
+                    textBox1.Text += "\r\n" + s;
+                return;
             }
-            //MessageBox.Show(fileLoc);
-            sourceInput = File.ReadAllText(fileLoc);
-            if (sourceInput.Split('\n').Length < 2 || sourceInput.Split('\t').Length < 2)
-                btnParseTxt.Enabled = false;
-            else
-                btnParseTxt.Enabled = true;
-            try
-            {
-                btnParseTxt.PerformClick();
-            }
-            catch (Exception ex)
-            { MessageBox.Show("Parsing error\n\n" + ex.ToString(), "", MessageBoxButtons.OK, MessageBoxIcon.Error); }
+
+            textBox1.Text += files[0] + "\r\n";
+            sourceInput = File.ReadAllLines(files[0]);
+            parseInput();
         }
     }
 }

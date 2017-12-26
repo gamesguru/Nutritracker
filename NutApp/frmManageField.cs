@@ -40,22 +40,23 @@ namespace NutApp
         }
 
 
-		public class field {
-			public string[] nkLines;
-			public string name;
-			public int z;
-			public string standardization;
-			public string[] nameOfFood;
-			public string[] value1;
-			public string[] value2;
-			public string[] value3;
-			public string[] serving;
-			public string[] weight;
-			public string[] othUnits;
+        public class field
+        {
+            public string[] nkLines;
+            public string name;
+            public int z;
+            public string standardization;
+            public string[] nameOfFood;
+            public string[] value1;
+            public string[] value2;
+            public string[] value3;
+            public string[] serving;
+            public string[] weight;
+            public string[] othUnits;
             public Unit weightUnit;
         }
 
-		List<field> Fields = new List<field>();
+        List<field> Fields = new List<field>();
         string slash = Path.DirectorySeparatorChar.ToString();
         private void frmManageField_Load(object sender, EventArgs e)
         {
@@ -70,9 +71,9 @@ namespace NutApp
                     string field = fields[i].Remove(0, 7);
 
                     field f = new field();
-				    f.name = fields[i];
-				    Fields.Add (f);
-                    
+                    f.name = fields[i];
+                    Fields.Add(f);
+
                     comboBox1.Items.Add(field);
                     comboBox2.Items.Add(field);
                     comboBox3.Items.Add(field);
@@ -92,7 +93,7 @@ namespace NutApp
             {
                 Fields[i].nkLines = File.ReadAllLines(Application.StartupPath + $"{slash}usr{slash}profile" +
                                               frmMain.profIndex.ToString() + $"{slash}DBs{slash}{Fields[i].name}{slash}_nutKeyPairs.TXT");
-                for (int j= 0;j< Fields[i].nkLines.Length; j++)
+                for (int j = 0; j < Fields[i].nkLines.Length; j++)
                 {
                     if (Fields[i].nkLines[j].Split('|')[1] == "Name of Food")
                         Fields[i].nameOfFood = File.ReadAllLines(Application.StartupPath + $"{slash}usr{slash}profile" +
@@ -121,19 +122,20 @@ namespace NutApp
 
 
             comboFields.SelectedIndex = 0;
-			string[] slots = File.ReadAllLines (Application.StartupPath + $"{slash}usr{slash}profile" +
-				frmMain.profIndex.ToString() + $"{slash}DBs{slash}Slots.TXT");
-			//MessageBox.Show (string.Join ("\n", slots).Replace("f_user_", ""));
-			foreach (string s in slots) {
-				if (comboBox1.Items.Contains (s.Remove (0, 7)) && comboBox1.SelectedIndex == -1)
-					comboBox1.SelectedIndex = comboBox1.Items.IndexOf (s.Remove (0, 7));
-				else if (comboBox2.Items.Contains (s.Remove (0, 7)) && comboBox2.SelectedIndex == -1)
-					comboBox2.SelectedIndex = comboBox2.Items.IndexOf (s.Remove (0, 7));
-				else if (comboBox3.Items.Contains (s.Remove (0, 7)) && comboBox3.SelectedIndex == -1)
-					comboBox3.SelectedIndex = comboBox3.Items.IndexOf (s.Remove (0, 7));
-				else if (comboBox4.Items.Contains (s.Remove (0, 7)) && comboBox4.SelectedIndex == -1)
-					comboBox4.SelectedIndex = comboBox4.Items.IndexOf (s.Remove (0, 7));
-			}
+            string[] slots = File.ReadAllLines(Application.StartupPath + $"{slash}usr{slash}profile" +
+                frmMain.profIndex.ToString() + $"{slash}DBs{slash}Slots.TXT");
+            //MessageBox.Show (string.Join ("\n", slots).Replace("f_user_", ""));
+            foreach (string s in slots)
+            {
+                if (comboBox1.Items.Contains(s.Remove(0, 7)) && comboBox1.SelectedIndex == -1)
+                    comboBox1.SelectedIndex = comboBox1.Items.IndexOf(s.Remove(0, 7));
+                else if (comboBox2.Items.Contains(s.Remove(0, 7)) && comboBox2.SelectedIndex == -1)
+                    comboBox2.SelectedIndex = comboBox2.Items.IndexOf(s.Remove(0, 7));
+                else if (comboBox3.Items.Contains(s.Remove(0, 7)) && comboBox3.SelectedIndex == -1)
+                    comboBox3.SelectedIndex = comboBox3.Items.IndexOf(s.Remove(0, 7));
+                else if (comboBox4.Items.Contains(s.Remove(0, 7)) && comboBox4.SelectedIndex == -1)
+                    comboBox4.SelectedIndex = comboBox4.Items.IndexOf(s.Remove(0, 7));
+            }
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
@@ -147,6 +149,7 @@ namespace NutApp
         {
             listView1.Clear();
             source.Clear();
+            textBox1.Clear();
             renewFields();
             string dr = Application.StartupPath + $"{slash}usr{slash}profile" + frmMain.profIndex.ToString() + $"{slash}DBs{slash}f_user_" + comboFields.Text;
             string nkp = dr + $"{slash}_nutKeyPairs.TXT";
@@ -156,7 +159,13 @@ namespace NutApp
             {
                 files[i] = files[i].Replace(dr + $"{slash}", "");
                 if (!files[i].StartsWith("_"))
+                {
                     source.Add(files[i]);
+                    if (textBox1.Text == "" || textBox1.Text.EndsWith("\n"))
+                        textBox1.Text += files[i].Replace(dr + slash, "") + "\t";
+                    else if (textBox1.Text.EndsWith("\t"))
+                        textBox1.Text += files[i].Replace(dr + slash, "") + "\n";
+                }
             }
             #region autocompletes
             txtName.AutoCompleteCustomSource = source;
@@ -205,7 +214,7 @@ namespace NutApp
                         listView1.Columns.Add("Weight");
                     if (f.othUnits != null && f.othUnits.Length == f.z)
                         listView1.Columns.Add("Other Units");
-                    
+
                     List<ListViewItem> itms = new List<ListViewItem>();
                     for (int i = 0; i < f.z; i++)
                     {
@@ -245,21 +254,22 @@ namespace NutApp
             txtVal3.Text = "";
             txtOthUn.Text = "";
             txtServ.Text = "";
-			txtWeight.Text = "";
-			chkCal.Checked = false;
-            chkGrams.Checked = false;
+            txtWeight.Text = "";
 
             lst = importArray(Application.StartupPath + $"{slash}usr{slash}profile" +
                               frmMain.profIndex.ToString() + $"{slash}DBs{slash}f_user_" + comboFields.Text + $"{slash}_nutKeyPairs.TXT");
+            bool chkCalBool = false;
+            bool chkGramsBool = false;
+
             for (int i = 0; i < lst.Count; i++)
             {
                 string m = lst[i].Split('|')[0];
                 string l = lst[i].Split('|')[1];
 
                 if (m == "200 kcal")
-                    chkCal.Checked = true;
+                    chkCalBool = true;
                 else if (m == "100 grams")
-                    chkGrams.Checked = true;
+                    chkGramsBool = true;
                 else if (l == "Name of Food")
                     txtName.Text = m;
                 else if (l == "Value1")
@@ -275,6 +285,9 @@ namespace NutApp
                 else if (l == "Weight")
                     txtWeight.Text = m;
             }
+
+            chkCal.Checked = chkCalBool;
+            chkGrams.Checked = chkGramsBool;
         }
 
         private void button4_Click(object sender, EventArgs e)
@@ -315,21 +328,21 @@ namespace NutApp
                 text.Add(txtWeight.Text + "|Weight");
             File.WriteAllLines(dr + $"{slash}_nutKeyPairs.TXT", text);
 
-			text = new List<string> ();
-			if (comboBox1.SelectedIndex > -1) {
-				text.Add ("f_user_" + comboBox1.SelectedItem.ToString ());
-			}
-			if (comboBox2.SelectedIndex > -1) {
-				text.Add ("f_user_" + comboBox2.SelectedItem.ToString ());
-			}
-			if (comboBox3.SelectedIndex > -1) {
-				text.Add ("f_user_" + comboBox3.SelectedItem.ToString ());				
-			}
-			if (comboBox4.SelectedIndex > -1) {
-				text.Add ("f_user_" + comboBox4.SelectedItem.ToString ());				
-			}
-			File.WriteAllLines (Application.StartupPath +$"{slash}usr{slash}profile" + 
-			frmMain.profIndex.ToString () +$"{slash}DBs{slash}Slots.TXT", text);
+            text = new List<string>();
+            if (comboBox1.SelectedIndex > -1)
+                text.Add("f_user_" + comboBox1.SelectedItem.ToString());
+
+            if (comboBox2.SelectedIndex > -1)
+                text.Add("f_user_" + comboBox2.SelectedItem.ToString());
+
+            if (comboBox3.SelectedIndex > -1)
+                text.Add("f_user_" + comboBox3.SelectedItem.ToString());
+
+            if (comboBox4.SelectedIndex > -1)
+                text.Add("f_user_" + comboBox4.SelectedItem.ToString());
+
+            File.WriteAllLines(Application.StartupPath + $"{slash}usr{slash}profile" +
+            frmMain.profIndex.ToString() + $"{slash}DBs{slash}Slots.TXT", text);
             this.Close();
         }
 
@@ -378,42 +391,63 @@ namespace NutApp
         private void chkGrams_CheckedChanged(object sender, EventArgs e)
         {
             string dr = Application.StartupPath + $"{slash}usr{slash}profile" + frmMain.profIndex.ToString() + $"{slash}DBs{slash}f_user_" + comboFields.Text;
+            int n = 0;
+            try
+            {
+                foreach (string file in Directory.GetFiles(dr))
+                    if (!file.StartsWith("_"))
+                    {
+                        n = File.ReadAllLines(file).Length;
+                        break;
+                    }
+
+            }
+            catch
+            {
+
+            }
             if (chkGrams.Checked)
             {
-                if (File.Exists(dr + slash + "WEI.TXT") && MessageBox.Show("Are you sure you want to overwrite the old files? \n" + dr + slash + "WEI.TXT", "", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.No)
+                string[] grams = new string[n];
+                string[] readIN = new string[n];
+                try { readIN = File.ReadAllLines(dr + slash + "WEI.TXT"); }
+                catch { }
+                for (int i = 0; i < n; i++)
+                    grams[i] = "100 g";
+                bool fileMatch = true;
+                for (int i = 0; i < n; i++)
+                    if (grams[i] != readIN[i])
+                        fileMatch = false;
+                //MessageBox.Show(fileMatch.ToString());
+                if (File.Exists(dr + slash + "WEI.TXT") && !fileMatch && MessageBox.Show("Are you sure you want to overwrite the old files with 100g standardization? \n" + dr + slash + "WEI.TXT", "", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.No)
                 {
                     chkGrams.Checked = false;
                     return;
                 }
-                try
-                {
-                    int n = 0;
-                    foreach (string file in Directory.GetFiles(dr))
-                        if (!file.StartsWith("_"))
-                        {
-                            n = File.ReadAllLines(file).Length;
-                            break;
-                        }
 
-                    string[] grams = new string[n];
-                    for (int i = 0; i < n; i++)
-                        grams[i] = "100 g";
-                    File.WriteAllLines(dr + slash + "WEI.TXT", grams);
-                    txtWeight.Text = "WEI.TXT";
-                }
-                catch
-                {
-
-                }
-
+                File.WriteAllLines(dr + slash + "WEI.TXT", grams);
+                txtWeight.Text = "WEI.TXT";
 
                 chkCal.Checked = false;
             }
             else
             {
-                if (MessageBox.Show("Also delete file?\n" + dr + slash + "WEI.TXT", "", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                string[] grams = new string[n];
+                string[] readIN;
+                try { readIN = File.ReadAllLines(dr + slash + "WEI.TXT"); }
+                catch { return; }
+                for (int i = 0; i < n; i++)
+                    grams[i] = "100 g";
+                bool fileMatch = true;
+                for (int i = 0; i < n; i++)
+                    if (grams[i] != readIN[i])
+                        fileMatch = false;
+                if (File.Exists(dr + slash + "WEI.TXT") && fileMatch && MessageBox.Show("Shall we also delete the record of the file?\n" + dr + slash + "WEI.TXT", "", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                     File.Delete(dr + slash + "WEI.TXT");
                 txtWeight.Text = "";
+                //
+                //add code to modify _nutKeyPairs.TXT
+                //do the same for 200kcal standardization chunk of code
             }
         }
     }

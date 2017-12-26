@@ -57,7 +57,7 @@ namespace NutApp
                         s2 = s2.Replace(c, 'X');
                 
 
-                s2 = s2.Replace("(", i.ToString());
+                s2 = s2.Replace("(", i.ToString()).Replace(" ", "X");
 
                 if (!listBox2.Items.Contains(s2.ToUpper()))
                     listBox2.Items.Add(s2.ToUpper());

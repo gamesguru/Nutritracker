@@ -1,4 +1,4 @@
-Food	GI 	Serving Size	Carbohydrate* per Serving (g)	GL per Serving		
+﻿Food	GI	Serving Size	Carbohydrate* per Serving (g)	GL per Serving
 Russet potato, baked	111	1 medium	30	33
 Potato, white, boiled (average)	82	1 medium	30	25
 Puffed rice cakes	82	3 cakes	21	17
@@ -14,20 +14,20 @@ Table sugar (sucrose)	63	2 tsp	10	6
 Dates, dried	62	2 oz	40	25
 Spaghetti, white, boiled (20 min)	58	1 cup	44	25
 Honey, pure	58	1 Tbsp	17	10
-Pineapple, raw	58	½ cup	19	11
+Pineapple, raw	58	Â½ cup	19	11
 Banana, raw	55	1 cup	24	13
 Maple syrup, Canadian	54	1 Tbsp	14	7
-Parsnips, peeled, boiled	52	½ cup	10	5
+Parsnips, peeled, boiled	52	Â½Â cup	10	5
 Rice, brown, boiled	50	1 cup	42	20
 Spaghetti, white, boiled (average)	46	1 cup	44	20
 Whole-grain pumpernickel bread	46	1 large slice	12	5
-All-Bran™ cereal	45	1 cup	21	10
+All-Branâ„¢ cereal	45	1 cup	21	10
 Spaghetti, whole-meal, boiled	32	1 cup	37	14
 Orange, raw	42	1 medium	11	5
 Apple, raw	39	1 medium	15	6
 Pear, raw	38	1 medium	11	4
 Skim milk	33	8 fl oz	13	4
-Carrots, boiled	33	½ cup	4	1
+Carrots, boiled	33	Â½Â cup	4	1
 Lentils, dried, boiled	29	1 cup	24	7
 Kidney beans, dried, boiled	28	1 cup	29	8
 Pearled barley, boiled	28	1 cup	38	11

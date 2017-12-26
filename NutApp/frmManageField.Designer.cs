@@ -60,13 +60,17 @@
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.listView1 = new System.Windows.Forms.ListView();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             this.grpProperties.SuspendLayout();
             this.grpStandard.SuspendLayout();
             this.grpPreviewStatus.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnCancel
             // 
+            this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnCancel.Location = new System.Drawing.Point(115, 300);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(106, 35);
@@ -78,6 +82,7 @@
             // 
             // btnSave
             // 
+            this.btnSave.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnSave.Location = new System.Drawing.Point(12, 300);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(97, 35);
@@ -146,6 +151,7 @@
             // 
             // button4
             // 
+            this.button4.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.button4.Location = new System.Drawing.Point(6, 206);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(75, 23);
@@ -278,6 +284,7 @@
             this.chkGrams.Name = "chkGrams";
             this.chkGrams.Size = new System.Drawing.Size(75, 17);
             this.chkGrams.TabIndex = 1;
+            this.chkGrams.TabStop = false;
             this.chkGrams.Text = "100 grams";
             this.chkGrams.UseVisualStyleBackColor = true;
             this.chkGrams.CheckedChanged += new System.EventHandler(this.chkGrams_CheckedChanged);
@@ -289,6 +296,7 @@
             this.chkCal.Name = "chkCal";
             this.chkCal.Size = new System.Drawing.Size(67, 17);
             this.chkCal.TabIndex = 0;
+            this.chkCal.TabStop = false;
             this.chkCal.Text = "200 kcal";
             this.chkCal.UseVisualStyleBackColor = true;
             this.chkCal.CheckedChanged += new System.EventHandler(this.chkCal_CheckedChanged);
@@ -365,20 +373,44 @@
             // 
             // listView1
             // 
+            this.listView1.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.listView1.FullRowSelect = true;
             this.listView1.Location = new System.Drawing.Point(6, 19);
             this.listView1.Name = "listView1";
             this.listView1.Size = new System.Drawing.Size(252, 147);
             this.listView1.TabIndex = 0;
+            this.listView1.TabStop = false;
             this.listView1.UseCompatibleStateImageBehavior = false;
             this.listView1.View = System.Windows.Forms.View.Details;
-			this.listView1.FullRowSelect = true;
-			this.listView1.Cursor = System.Windows.Forms.Cursors.Hand;
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.textBox1);
+            this.groupBox1.Location = new System.Drawing.Point(334, 267);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(168, 70);
+            this.groupBox1.TabIndex = 10;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Available";
+            // 
+            // textBox1
+            // 
+            this.textBox1.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox1.Location = new System.Drawing.Point(7, 16);
+            this.textBox1.Multiline = true;
+            this.textBox1.Name = "textBox1";
+            this.textBox1.ReadOnly = true;
+            this.textBox1.Size = new System.Drawing.Size(144, 48);
+            this.textBox1.TabIndex = 0;
+            this.textBox1.TabStop = false;
             // 
             // frmManageField
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.CancelButton = this.btnCancel;
             this.ClientSize = new System.Drawing.Size(514, 349);
+            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.grpPreviewStatus);
             this.Controls.Add(this.grpStandard);
             this.Controls.Add(this.label1);
@@ -399,6 +431,8 @@
             this.grpStandard.PerformLayout();
             this.grpPreviewStatus.ResumeLayout(false);
             this.grpPreviewStatus.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -437,5 +471,7 @@
         private System.Windows.Forms.ComboBox comboBox2;
         private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.TextBox textBox1;
     }
 }

@@ -130,35 +130,17 @@
     <Compile Include="frmProfile.Designer.cs">
       <DependentUpon>frmProfile.cs</DependentUpon>
     </Compile>
-    <Compile Include="frmSearchFind.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="frmSearchFind.Designer.cs">
-      <DependentUpon>frmSearchFind.cs</DependentUpon>
-    </Compile>
     <Compile Include="frmSearchFoods.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="frmSearchFoods.Designer.cs">
       <DependentUpon>frmSearchFoods.cs</DependentUpon>
     </Compile>
-    <Compile Include="frmSearchReplace.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="frmSearchReplace.Designer.cs">
-      <DependentUpon>frmSearchReplace.cs</DependentUpon>
-    </Compile>
     <Compile Include="frmSettings.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="frmSettings.Designer.cs">
       <DependentUpon>frmSettings.cs</DependentUpon>
-    </Compile>
-    <Compile Include="interactionFileLocInput.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="interactionFileLocInput.Designer.cs">
-      <DependentUpon>interactionFileLocInput.cs</DependentUpon>
     </Compile>
     <Compile Include="ListSorter.cs" />
     <Compile Include="Program.cs" />
@@ -202,20 +184,11 @@
     <EmbeddedResource Include="frmProfile.resx">
       <DependentUpon>frmProfile.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmSearchFind.resx">
-      <DependentUpon>frmSearchFind.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="frmSearchFoods.resx">
       <DependentUpon>frmSearchFoods.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmSearchReplace.resx">
-      <DependentUpon>frmSearchReplace.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="frmSettings.resx">
       <DependentUpon>frmSettings.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="interactionFileLocInput.resx">
-      <DependentUpon>interactionFileLocInput.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
