@@ -52,6 +52,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="frmActiveFields.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmActiveFields.Designer.cs">
+      <DependentUpon>frmActiveFields.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmAddCommonFood.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -145,6 +151,9 @@
     <Compile Include="ListSorter.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="frmActiveFields.resx">
+      <DependentUpon>frmActiveFields.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmAddCommonFood.resx">
       <DependentUpon>frmAddCommonFood.cs</DependentUpon>
     </EmbeddedResource>

@@ -280,6 +280,9 @@ namespace NutApp
 
             lstViewResult.Items.AddRange(itms);
             lstViewResult.EndUpdate();
+            for (int i = 0; i < lstViewResult.Columns.Count; i++)
+                comboColumns.Items.Add(lstViewResult.Columns[i].Text);
+            
         }
 
         //string sourceInput = "";
@@ -289,6 +292,7 @@ namespace NutApp
         {
             textBox1.Clear();
             lstViewResult.Clear();
+            comboColumns.Items.Clear();
             openFileDialog1.InitialDirectory = Application.StartupPath + Path.DirectorySeparatorChar.ToString() + "lib";
             openFileDialog1.ShowDialog();
             textBox1.Text += openFileDialog1.FileName + "\r\n";
@@ -305,6 +309,7 @@ namespace NutApp
         {
             textBox1.Clear();
             lstViewResult.Clear();
+            comboColumns.Items.Clear();
             string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
             if (files.Length != 1)
             {
@@ -316,6 +321,18 @@ namespace NutApp
 
             textBox1.Text += files[0] + "\r\n";
             sourceInput = File.ReadAllLines(files[0]);
+            parseInput();
+        }
+
+        private void textBox1_DoubleClick(object sender, EventArgs e)
+        {
+            textBox1.Clear();
+            lstViewResult.Clear();
+            comboColumns.Items.Clear();
+            openFileDialog1.InitialDirectory = Application.StartupPath + Path.DirectorySeparatorChar.ToString() + "lib";
+            openFileDialog1.ShowDialog();
+            textBox1.Text += openFileDialog1.FileName + "\r\n";
+            sourceInput = File.ReadAllLines(openFileDialog1.FileName);
             parseInput();
         }
     }

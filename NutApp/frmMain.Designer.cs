@@ -94,12 +94,13 @@
             this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.bodyFatCalcToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.naturalPotentialCalcToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.button11 = new System.Windows.Forms.Button();
-            this.lblCurrentUser = new System.Windows.Forms.Label();
-            this.btnSearchUserD = new System.Windows.Forms.Button();
             this.databaseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.manageCustomFieldsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.manageStandaloneDatabaseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.button11 = new System.Windows.Forms.Button();
+            this.lblCurrentUser = new System.Windows.Forms.Label();
+            this.btnSearchUserD = new System.Windows.Forms.Button();
+            this.manageActiveFieldsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataDay)).BeginInit();
             this.groupBox2.SuspendLayout();
@@ -685,7 +686,8 @@
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.customFoodEntryToolStripMenuItem,
             this.editProfilesToolStripMenuItem,
-            this.undoToolStripMenuItem});
+            this.undoToolStripMenuItem,
+            this.manageActiveFieldsToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.fileToolStripMenuItem.Text = "File";
@@ -802,6 +804,29 @@
             this.naturalPotentialCalcToolStripMenuItem.Text = "Natural Bodybuilding Limits";
             this.naturalPotentialCalcToolStripMenuItem.Click += new System.EventHandler(this.naturalPotentialCalcToolStripMenuItem_Click);
             // 
+            // databaseToolStripMenuItem
+            // 
+            this.databaseToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.manageCustomFieldsToolStripMenuItem,
+            this.manageStandaloneDatabaseToolStripMenuItem});
+            this.databaseToolStripMenuItem.Name = "databaseToolStripMenuItem";
+            this.databaseToolStripMenuItem.Size = new System.Drawing.Size(67, 20);
+            this.databaseToolStripMenuItem.Text = "Database";
+            // 
+            // manageCustomFieldsToolStripMenuItem
+            // 
+            this.manageCustomFieldsToolStripMenuItem.Name = "manageCustomFieldsToolStripMenuItem";
+            this.manageCustomFieldsToolStripMenuItem.Size = new System.Drawing.Size(230, 22);
+            this.manageCustomFieldsToolStripMenuItem.Text = "Manage Custom Fields";
+            this.manageCustomFieldsToolStripMenuItem.Click += new System.EventHandler(this.manageCustomFieldsToolStripMenuItem_Click);
+            // 
+            // manageStandaloneDatabaseToolStripMenuItem
+            // 
+            this.manageStandaloneDatabaseToolStripMenuItem.Name = "manageStandaloneDatabaseToolStripMenuItem";
+            this.manageStandaloneDatabaseToolStripMenuItem.Size = new System.Drawing.Size(230, 22);
+            this.manageStandaloneDatabaseToolStripMenuItem.Text = "Manage Standalone Database";
+            this.manageStandaloneDatabaseToolStripMenuItem.Click += new System.EventHandler(this.manageStandaloneDatabaseToolStripMenuItem_Click);
+            // 
             // button11
             // 
             this.button11.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -836,28 +861,13 @@
             this.btnSearchUserD.UseVisualStyleBackColor = true;
             this.btnSearchUserD.Click += new System.EventHandler(this.btnSearchUserD_Click);
             // 
-            // databaseToolStripMenuItem
+            // manageActiveFieldsToolStripMenuItem
             // 
-            this.databaseToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.manageCustomFieldsToolStripMenuItem,
-            this.manageStandaloneDatabaseToolStripMenuItem});
-            this.databaseToolStripMenuItem.Name = "databaseToolStripMenuItem";
-            this.databaseToolStripMenuItem.Size = new System.Drawing.Size(67, 20);
-            this.databaseToolStripMenuItem.Text = "Database";
-            // 
-            // manageCustomFieldsToolStripMenuItem
-            // 
-            this.manageCustomFieldsToolStripMenuItem.Name = "manageCustomFieldsToolStripMenuItem";
-            this.manageCustomFieldsToolStripMenuItem.Size = new System.Drawing.Size(230, 22);
-            this.manageCustomFieldsToolStripMenuItem.Text = "Manage Custom Fields";
-            this.manageCustomFieldsToolStripMenuItem.Click += new System.EventHandler(this.manageCustomFieldsToolStripMenuItem_Click);
-            // 
-            // manageStandaloneDatabaseToolStripMenuItem
-            // 
-            this.manageStandaloneDatabaseToolStripMenuItem.Name = "manageStandaloneDatabaseToolStripMenuItem";
-            this.manageStandaloneDatabaseToolStripMenuItem.Size = new System.Drawing.Size(230, 22);
-            this.manageStandaloneDatabaseToolStripMenuItem.Text = "Manage Standalone Database";
-            this.manageStandaloneDatabaseToolStripMenuItem.Click += new System.EventHandler(this.manageStandaloneDatabaseToolStripMenuItem_Click);
+            this.manageActiveFieldsToolStripMenuItem.Name = "manageActiveFieldsToolStripMenuItem";
+            this.manageActiveFieldsToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F2;
+            this.manageActiveFieldsToolStripMenuItem.Size = new System.Drawing.Size(216, 22);
+            this.manageActiveFieldsToolStripMenuItem.Text = "Manage Active Fields";
+            this.manageActiveFieldsToolStripMenuItem.Click += new System.EventHandler(this.manageActiveFieldsToolStripMenuItem_Click);
             // 
             // frmMain
             // 
@@ -969,6 +979,7 @@
         private System.Windows.Forms.ToolStripMenuItem databaseToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem manageCustomFieldsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem manageStandaloneDatabaseToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem manageActiveFieldsToolStripMenuItem;
     }
 }
 

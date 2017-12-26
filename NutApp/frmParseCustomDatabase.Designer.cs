@@ -230,9 +230,9 @@
             this.label1.Location = new System.Drawing.Point(12, 30);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(387, 16);
+            this.label1.Size = new System.Drawing.Size(477, 16);
             this.label1.TabIndex = 5;
-            this.label1.Text = "Drag and Drop a .TXT file from your Computer (ctrl+T to browse):";
+            this.label1.Text = "Drag and Drop a .TXT file from your Computer (ctrl+T or double click to browse):";
             // 
             // label3
             // 
@@ -331,6 +331,7 @@
             this.textBox1.TabIndex = 19;
             this.textBox1.DragDrop += new System.Windows.Forms.DragEventHandler(this.textBox1_DragDrop);
             this.textBox1.DragEnter += new System.Windows.Forms.DragEventHandler(this.textBox1_DragEnter);
+            this.textBox1.DoubleClick += new System.EventHandler(this.textBox1_DoubleClick);
             // 
             // openFileDialog1
             // 

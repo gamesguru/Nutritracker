@@ -107,8 +107,9 @@
             this.btnCancel.Location = new System.Drawing.Point(991, 771);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(95, 63);
-            this.btnCancel.TabIndex = 29;
-            this.btnCancel.Text = "Exit";
+			this.btnCancel.TabIndex = 29;
+			this.btnCancel.Text = "Exit";
+            this.btnCancel.TabStop = false;
             this.btnCancel.UseVisualStyleBackColor = true;
             this.btnCancel.Click += new System.EventHandler(this.button1_Click);
             // 
@@ -277,6 +278,7 @@
             this.comboDBs.Name = "comboDBs";
             this.comboDBs.Size = new System.Drawing.Size(121, 21);
             this.comboDBs.TabIndex = 0;
+            this.comboDBs.TabStop = false;
             this.comboDBs.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
             // groupBox2
@@ -331,6 +333,7 @@
             this.txtUser4Qty.Name = "txtUser4Qty";
             this.txtUser4Qty.Size = new System.Drawing.Size(45, 20);
             this.txtUser4Qty.TabIndex = 33;
+            this.txtUser4Qty.TabStop = false;
             // 
             // label20
             // 
@@ -354,12 +357,13 @@
             // 
             this.txtUser3Qty.Location = new System.Drawing.Point(699, 182);
             this.txtUser3Qty.Name = "txtUser3Qty";
-            this.txtUser3Qty.Size = new System.Drawing.Size(45, 20);
-            this.txtUser3Qty.TabIndex = 30;
-            // 
-            // label18
-            // 
-            this.label18.AutoSize = true;
+			this.txtUser3Qty.Size = new System.Drawing.Size(45, 20);
+			this.txtUser3Qty.TabIndex = 30;
+            this.txtUser3Qty.TabStop = false;
+			// 
+			// label18
+			// 
+			this.label18.AutoSize = true;
             this.label18.Location = new System.Drawing.Point(667, 185);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(26, 13);
@@ -381,6 +385,8 @@
             this.txtUser2Qty.Name = "txtUser2Qty";
             this.txtUser2Qty.Size = new System.Drawing.Size(45, 20);
             this.txtUser2Qty.TabIndex = 27;
+            this.txtUser2Qty.TabStop = false;
+            this.txtUser1.TabStop = false;
             // 
             // label16
             // 
@@ -406,6 +412,7 @@
             this.txtUser1Qty.Name = "txtUser1Qty";
             this.txtUser1Qty.Size = new System.Drawing.Size(45, 20);
             this.txtUser1Qty.TabIndex = 24;
+            this.txtUser1Qty.TabStop = false;
             // 
             // label14
             // 
@@ -517,7 +524,8 @@
             this.txtUser4.Location = new System.Drawing.Point(819, 36);
             this.txtUser4.Name = "txtUser4";
             this.txtUser4.Size = new System.Drawing.Size(134, 20);
-            this.txtUser4.TabIndex = 13;
+			this.txtUser4.TabIndex = 13;
+			this.txtUser4.TabStop = false;
             this.txtUser4.TextChanged += new System.EventHandler(this.txtUser4_TextChanged);
             // 
             // lblSlot4
@@ -543,7 +551,8 @@
             this.txtUser3.Location = new System.Drawing.Point(548, 36);
             this.txtUser3.Name = "txtUser3";
             this.txtUser3.Size = new System.Drawing.Size(134, 20);
-            this.txtUser3.TabIndex = 9;
+			this.txtUser3.TabIndex = 9;
+			this.txtUser3.TabStop = false;
             this.txtUser3.TextChanged += new System.EventHandler(this.txtUser3_TextChanged);
             // 
             // lblSlot3
@@ -569,7 +578,8 @@
             this.txtUser2.Location = new System.Drawing.Point(277, 36);
             this.txtUser2.Name = "txtUser2";
             this.txtUser2.Size = new System.Drawing.Size(134, 20);
-            this.txtUser2.TabIndex = 5;
+			this.txtUser2.TabIndex = 5;
+			this.txtUser2.TabStop = false;
             this.txtUser2.TextChanged += new System.EventHandler(this.txtUser2_TextChanged);
             // 
             // lblSlot2
@@ -625,6 +635,7 @@
             this.txtUser1.Name = "txtUser1";
             this.txtUser1.Size = new System.Drawing.Size(134, 20);
             this.txtUser1.TabIndex = 1;
+            this.txtUser1.TabStop = false;
             this.txtUser1.TextChanged += new System.EventHandler(this.txtUser1_TextChanged);
             // 
             // lblSlot1

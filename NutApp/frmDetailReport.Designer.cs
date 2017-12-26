@@ -56,6 +56,7 @@
             this.chkLstBoxDays.Name = "chkLstBoxDays";
             this.chkLstBoxDays.Size = new System.Drawing.Size(237, 277);
             this.chkLstBoxDays.TabIndex = 1;
+            this.chkLstBoxDays.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.chkLstBoxDays_ItemCheck);
             // 
             // btnRunReport
             // 

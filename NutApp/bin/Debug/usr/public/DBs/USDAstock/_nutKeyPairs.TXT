@@ -38,3 +38,4 @@ CHO.TXT|Choline
 GMW49.TXT|Serving1
 GMW51.TXT|Serving2
 GMW.TXT|Weight1
+GMW50.TXT|Weight2

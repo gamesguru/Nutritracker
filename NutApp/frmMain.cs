@@ -1624,5 +1624,10 @@ dataExercise[0, x].Value == "Sprinting")
             frmManageDBfields frmMDB = new frmManageDBfields();
             frmMDB.ShowDialog();
         }
+
+        private void manageActiveFieldsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

@@ -171,7 +171,7 @@ namespace NutApp
                     txtServ2.Text = li;
                 else if (list[i].Contains("Weight1"))
                     txtWt1.Text = li;
-                else if (list[i].Contains("Weigth2"))
+                else if (list[i].Contains("Weight2"))
                     txtWt2.Text = li;
                 else if (list[i].Contains("Calories"))
                     txtCals.Text = li;
