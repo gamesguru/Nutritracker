@@ -1,0 +1,31 @@
+<File>NDB.TXT
+[Header]NDB_NO
+
+<File>DES.TXT
+[Header]Description
+[Nut]Name of  Food
+
+<File>WEI.TXT
+[Header]Weight (g)
+[Unit]g
+
+<File>MEA.TXT
+[Header]Measure
+
+<File>DHA.TXT
+[Header]DHA, g Per Measure
+[Unit]per measure
+
+<File>EPA.TXT
+[Header]EPA, g Per Measure
+[Unit]per measure
+
+<File>TOT.TXT
+[Header]Total Omega-3, g Per Measure
+[Nut]Value1
+[Unit]per measure
+
+<File>TOT7.TXT
+[Header]Total fat, g Per Measure
+[Unit]per measure
+

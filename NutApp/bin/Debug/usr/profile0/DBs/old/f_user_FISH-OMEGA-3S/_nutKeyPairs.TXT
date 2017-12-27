@@ -1,4 +1,0 @@
-DES.TXT|Name of Food
-TOT.TXT|Value1
-MEA.TXT|Serving
-WEI.TXT|Weight

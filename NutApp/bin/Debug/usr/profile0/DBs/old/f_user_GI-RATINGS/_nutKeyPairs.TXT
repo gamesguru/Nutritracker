@@ -1,5 +1,0 @@
-FOO.TXT|Name of Food
-GI .TXT|Value1
-GLX.TXT|Value2
-CAR.TXT|Value3
-SER.TXT|Serving

@@ -83,6 +83,7 @@
             this.customFoodEntryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editProfilesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.undoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.manageActiveFieldsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addToLogToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addSearchCommonFoodsToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.addExerciseToLogToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
@@ -100,7 +101,7 @@
             this.button11 = new System.Windows.Forms.Button();
             this.lblCurrentUser = new System.Windows.Forms.Label();
             this.btnSearchUserD = new System.Windows.Forms.Button();
-            this.manageActiveFieldsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.decomposeRecipeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataDay)).BeginInit();
             this.groupBox2.SuspendLayout();
@@ -687,7 +688,8 @@
             this.customFoodEntryToolStripMenuItem,
             this.editProfilesToolStripMenuItem,
             this.undoToolStripMenuItem,
-            this.manageActiveFieldsToolStripMenuItem});
+            this.manageActiveFieldsToolStripMenuItem,
+            this.decomposeRecipeToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.fileToolStripMenuItem.Text = "File";
@@ -716,6 +718,14 @@
             this.undoToolStripMenuItem.Size = new System.Drawing.Size(216, 22);
             this.undoToolStripMenuItem.Text = "Undo";
             this.undoToolStripMenuItem.Click += new System.EventHandler(this.undoToolStripMenuItem_Click);
+            // 
+            // manageActiveFieldsToolStripMenuItem
+            // 
+            this.manageActiveFieldsToolStripMenuItem.Name = "manageActiveFieldsToolStripMenuItem";
+            this.manageActiveFieldsToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F2;
+            this.manageActiveFieldsToolStripMenuItem.Size = new System.Drawing.Size(216, 22);
+            this.manageActiveFieldsToolStripMenuItem.Text = "Manage Active Fields";
+            this.manageActiveFieldsToolStripMenuItem.Click += new System.EventHandler(this.manageActiveFieldsToolStripMenuItem_Click);
             // 
             // addToLogToolStripMenuItem
             // 
@@ -861,13 +871,12 @@
             this.btnSearchUserD.UseVisualStyleBackColor = true;
             this.btnSearchUserD.Click += new System.EventHandler(this.btnSearchUserD_Click);
             // 
-            // manageActiveFieldsToolStripMenuItem
+            // decomposeRecipeToolStripMenuItem
             // 
-            this.manageActiveFieldsToolStripMenuItem.Name = "manageActiveFieldsToolStripMenuItem";
-            this.manageActiveFieldsToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F2;
-            this.manageActiveFieldsToolStripMenuItem.Size = new System.Drawing.Size(216, 22);
-            this.manageActiveFieldsToolStripMenuItem.Text = "Manage Active Fields";
-            this.manageActiveFieldsToolStripMenuItem.Click += new System.EventHandler(this.manageActiveFieldsToolStripMenuItem_Click);
+            this.decomposeRecipeToolStripMenuItem.Name = "decomposeRecipeToolStripMenuItem";
+            this.decomposeRecipeToolStripMenuItem.Size = new System.Drawing.Size(216, 22);
+            this.decomposeRecipeToolStripMenuItem.Text = "Decompose Recipe";
+            this.decomposeRecipeToolStripMenuItem.Click += new System.EventHandler(this.decomposeRecipeToolStripMenuItem_Click);
             // 
             // frmMain
             // 
@@ -980,6 +989,7 @@
         private System.Windows.Forms.ToolStripMenuItem manageCustomFieldsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem manageStandaloneDatabaseToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem manageActiveFieldsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem decomposeRecipeToolStripMenuItem;
     }
 }
 

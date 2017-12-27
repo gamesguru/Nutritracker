@@ -1,2 +1,0 @@
-FOO.TXT|Name of Food
-ORA.TXT|Value1

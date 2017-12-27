@@ -93,10 +93,53 @@ namespace NutApp
                 btnCreate.Enabled = true;
         }
 
+        class file {
+            public string fileName;
+            public string nuts;
+            public string headers;
+            public string units;
+        }
+        List<file> Files;
+
         private void btnCreate_Click(object sender, EventArgs e)
         {
-
             string fp = Application.StartupPath + txtLoc.Text;
+            List<string> files = new List<string>();
+            for (int i = 0; i < listBox2.Items.Count; i++)
+                files.Add(listBox2.Items[i].ToString() + ".TXT");
+            Files = new List<file>();
+            for (int i = 0; i < files.Count(); i++)
+            {
+                file f = new file();
+                f.fileName = files[i];
+                f.headers = frmParseCustomDatabase.columns[i].header;
+                if (f.fileName == searchKey)
+                    f.nuts = "Name of  Food";
+                else if (f.fileName == value1Key)
+                    f.nuts = "Value1";
+
+                string unit = "";
+                try
+                {
+                    unit = f.headers.Split('[')[1].Split(']')[0].ToLower().Replace(" ", "");
+                }
+                catch
+                {
+                    try
+                    {
+                        unit = f.headers.Split('(')[1].Split(')')[0].ToLower().Replace(" ", "");
+                    }
+                    catch
+                    {
+                        try { unit = "per " + f.headers.Split(new string[] { " per ", " Per ", " PER " }, StringSplitOptions.None)[1].Trim().ToLower(); }
+                        catch { }
+                    }
+                }
+                if (unit.Length > 0)
+                    f.units = unit;
+
+                Files.Add(f);
+            }
             if (Directory.Exists(fp))
             {
                 DialogResult dRG = MessageBox.Show("A directory with this name was already found, are you sure you want to overwrite it?", "Overwrite database?", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);
@@ -112,54 +155,72 @@ namespace NutApp
             if (!File.Exists(fp.Split(new string[] { "f_user_" }, StringSplitOptions.None)[0] + "Slots.TXT"))
                 File.Create(fp.Split(new string[] { "f_user_" }, StringSplitOptions.None)[0] + "Slots.TXT");
             nxt:
-            for (int i = 0; i < listBox1.Items.Count; i++)
+            for (int i = 0; i < files.Count; i++)
             {
                 string[] colVal = new string[n];
                 for (int j = 0; j < n; j++)
                     colVal[j] = mainForm.getVal(j, i).Replace('\r', '\0').Replace('\n', '\0');
-                File.WriteAllLines(fp + $"{slash}" + listBox2.Items[i].ToString() + ".TXT", colVal);
+                File.WriteAllLines(fp + $"{slash}" + files[i], colVal);
             }
-            //File.WriteAllLines(fp + $"{slash}_nameKeyPairs.txt", nameKeyPairs);
-            string[] firstCommit = { searchKey + "|Name of Food", value1Key + "|Value1" };
-            File.WriteAllLines(fp + $"{slash}_nutKeyPairs.TXT", firstCommit);
 
-			List<string> nameKeyPairs = new List<string>();
-			List<string> unitKeyPairs = new List<string>();
-
-			for (int i = 0; i < listBox2.Items.Count; i++)
-			{
-				string header = frmParseCustomDatabase.columns[i].header;
-				nameKeyPairs.Add(listBox2.Items[i].ToString() + ".TXT|" + header);
-
-				string unit = "";
-				try
-				{
-					unit = header.Split('[')[1].Split(']')[0].ToLower().Replace(" ", "");
-				}
-				catch
-				{
-                    try
-                    {
-                        unit = header.Split('(')[1].Split(')')[0].ToLower().Replace(" ", "");
-                    }
-                    catch
-                    {
-                        try { unit = "per " + header.Split(new string[] { " per ", " Per ", " PER " }, StringSplitOptions.None)[1].Trim().ToLower(); }
-                        catch{}
-                    }
-                    
-				}
-
-				if (unit.Length > 0)
-					unitKeyPairs.Add(listBox2.Items[i].ToString() + ".TXT|" + unit);
+            List<string> output = new List<string>();
+			foreach (file f in Files){
+				List<string> temp = new List<string>();
+				temp.Add($"<File>{f.fileName}");
+				temp.Add("[Header]" + f.headers);
+				if (f.nuts != null)
+					temp.Add("[Nut]" + f.nuts);
+				if (f.units != null)
+					temp.Add("[Unit]" + f.units);
+                temp.Add("");
+                output.Add(string.Join("\n", temp));
 			}
-			File.WriteAllLines(fp + slash + "_nameKeyPairs.TXT", nameKeyPairs); //writes the names (and often) the units
-			if (unitKeyPairs.Count() > 0)
-				File.WriteAllLines(fp + slash + "_unitKeyPairs.TXT", unitKeyPairs);
+            File.WriteAllLines(fp + slash + "_dbInfo.TXT", output);
 
 
-			//File.WriteAllText(fp + $"{slash}_searchKey.txt", searchKey + ".txt");
-			MessageBox.Show("Database created successfully.  Please use the search function on the main page to try it out.  Your first time using it, you will be asked to assign real nutrient names to the imported fields.  The software isn't able to do that yet.", "Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            #region nutKey, nameKey, unitKey
+			//File.WriteAllLines(fp + $"{slash}_nameKeyPairs.txt", nameKeyPairs);
+            //string[] firstCommit = { searchKey + "|Name of Food", value1Key + "|Value1" };
+            //File.WriteAllLines(fp + $"{slash}_nutKeyPairs.TXT", firstCommit);
+
+            //List<string> nameKeyPairs = new List<string>();
+            //List<string> unitKeyPairs = new List<string>();
+
+
+            //for (int i = 0; i < listBox2.Items.Count; i++)
+            //{
+            //	string header = frmParseCustomDatabase.columns[i].header;
+            //	nameKeyPairs.Add(listBox2.Items[i].ToString() + ".TXT|" + header);
+
+            //	string unit = "";
+            //	try
+            //	{
+            //		unit = header.Split('[')[1].Split(']')[0].ToLower().Replace(" ", "");
+            //	}
+            //	catch
+            //	{
+            //                 try
+            //                 {
+            //                     unit = header.Split('(')[1].Split(')')[0].ToLower().Replace(" ", "");
+            //                 }
+            //                 catch
+            //                 {
+            //                     try { unit = "per " + header.Split(new string[] { " per ", " Per ", " PER " }, StringSplitOptions.None)[1].Trim().ToLower(); }
+            //                     catch{}
+            //                 }
+
+            //	}
+
+            //	if (unit.Length > 0)
+            //		unitKeyPairs.Add(listBox2.Items[i].ToString() + ".TXT|" + unit);
+            //}
+            //File.WriteAllLines(fp + slash + "_nameKeyPairs.TXT", nameKeyPairs); //writes the names (and often) the units
+            //if (unitKeyPairs.Count() > 0)
+            //File.WriteAllLines(fp + slash + "_unitKeyPairs.TXT", unitKeyPairs);
+            #endregion
+
+            //File.WriteAllText(fp + $"{slash}_searchKey.txt", searchKey + ".txt");
+            MessageBox.Show("Database created successfully.  Please use the search function on the main page to try it out.  Your first time using it, you will be asked to assign real nutrient names to the imported fields.  The software isn't able to do that yet.", "Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
             this.Close();
         }
 

@@ -1627,7 +1627,14 @@ dataExercise[0, x].Value == "Sprinting")
 
         private void manageActiveFieldsToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            frmActiveFields frmAF = new frmActiveFields();
+            frmAF.ShowDialog();
+        }
 
+        private void decomposeRecipeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmDecomposeRecipe frmDR = new frmDecomposeRecipe();
+            frmDR.ShowDialog();
         }
     }
 }

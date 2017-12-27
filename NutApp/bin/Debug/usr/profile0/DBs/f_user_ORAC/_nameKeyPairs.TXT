@@ -1,2 +1,0 @@
-FOO.TXT|Food Name
-ORA.TXT|ORAC Value per 100g

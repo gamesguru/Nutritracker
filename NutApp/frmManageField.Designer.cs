@@ -32,6 +32,7 @@
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
             this.grpProperties = new System.Windows.Forms.GroupBox();
+            this.txtValName1 = new System.Windows.Forms.TextBox();
             this.txtVal2 = new System.Windows.Forms.TextBox();
             this.label64 = new System.Windows.Forms.Label();
             this.txtVal1 = new System.Windows.Forms.TextBox();
@@ -62,6 +63,8 @@
             this.listView1 = new System.Windows.Forms.ListView();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.textBox1 = new System.Windows.Forms.TextBox();
+            this.txtValName2 = new System.Windows.Forms.TextBox();
+            this.txtValName3 = new System.Windows.Forms.TextBox();
             this.grpProperties.SuspendLayout();
             this.grpStandard.SuspendLayout();
             this.grpPreviewStatus.SuspendLayout();
@@ -93,6 +96,9 @@
             // 
             // grpProperties
             // 
+            this.grpProperties.Controls.Add(this.txtValName3);
+            this.grpProperties.Controls.Add(this.txtValName2);
+            this.grpProperties.Controls.Add(this.txtValName1);
             this.grpProperties.Controls.Add(this.txtVal2);
             this.grpProperties.Controls.Add(this.label64);
             this.grpProperties.Controls.Add(this.txtVal1);
@@ -115,6 +121,15 @@
             this.grpProperties.TabStop = false;
             this.grpProperties.Text = "Basics";
             // 
+            // txtValName1
+            // 
+            this.txtValName1.Location = new System.Drawing.Point(6, 97);
+            this.txtValName1.Name = "txtValName1";
+            this.txtValName1.Size = new System.Drawing.Size(58, 20);
+            this.txtValName1.TabIndex = 73;
+            this.txtValName1.Text = "Value1";
+            this.txtValName1.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
             // txtVal2
             // 
             this.txtVal2.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
@@ -126,11 +141,11 @@
             // label64
             // 
             this.label64.AutoSize = true;
-            this.label64.Location = new System.Drawing.Point(6, 126);
+            this.label64.Location = new System.Drawing.Point(65, 126);
             this.label64.Name = "label64";
-            this.label64.Size = new System.Drawing.Size(43, 13);
+            this.label64.Size = new System.Drawing.Size(10, 13);
             this.label64.TabIndex = 72;
-            this.label64.Text = "Value2:";
+            this.label64.Text = ":";
             // 
             // txtVal1
             // 
@@ -143,11 +158,11 @@
             // label80
             // 
             this.label80.AutoSize = true;
-            this.label80.Location = new System.Drawing.Point(6, 100);
+            this.label80.Location = new System.Drawing.Point(65, 100);
             this.label80.Name = "label80";
-            this.label80.Size = new System.Drawing.Size(43, 13);
+            this.label80.Size = new System.Drawing.Size(10, 13);
             this.label80.TabIndex = 70;
-            this.label80.Text = "Value1:";
+            this.label80.Text = ":";
             // 
             // button4
             // 
@@ -172,11 +187,11 @@
             // label29
             // 
             this.label29.AutoSize = true;
-            this.label29.Location = new System.Drawing.Point(6, 152);
+            this.label29.Location = new System.Drawing.Point(65, 152);
             this.label29.Name = "label29";
-            this.label29.Size = new System.Drawing.Size(43, 13);
+            this.label29.Size = new System.Drawing.Size(10, 13);
             this.label29.TabIndex = 65;
-            this.label29.Text = "Value3:";
+            this.label29.Text = ":";
             // 
             // txtOthUn
             // 
@@ -404,6 +419,24 @@
             this.textBox1.TabIndex = 0;
             this.textBox1.TabStop = false;
             // 
+            // txtValName2
+            // 
+            this.txtValName2.Location = new System.Drawing.Point(6, 123);
+            this.txtValName2.Name = "txtValName2";
+            this.txtValName2.Size = new System.Drawing.Size(58, 20);
+            this.txtValName2.TabIndex = 74;
+            this.txtValName2.Text = "Value2";
+            this.txtValName2.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // txtValName3
+            // 
+            this.txtValName3.Location = new System.Drawing.Point(6, 149);
+            this.txtValName3.Name = "txtValName3";
+            this.txtValName3.Size = new System.Drawing.Size(58, 20);
+            this.txtValName3.TabIndex = 75;
+            this.txtValName3.Text = "Value3";
+            this.txtValName3.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
             // frmManageField
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -444,12 +477,9 @@
         private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.GroupBox grpProperties;
         private System.Windows.Forms.TextBox txtVal2;
-        private System.Windows.Forms.Label label64;
         private System.Windows.Forms.TextBox txtVal1;
-        private System.Windows.Forms.Label label80;
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.TextBox txtVal3;
-        private System.Windows.Forms.Label label29;
         private System.Windows.Forms.TextBox txtOthUn;
         private System.Windows.Forms.Label label44;
         private System.Windows.Forms.TextBox txtWeight;
@@ -473,5 +503,11 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox txtValName1;
+        private System.Windows.Forms.Label label64;
+        private System.Windows.Forms.Label label80;
+        private System.Windows.Forms.Label label29;
+        private System.Windows.Forms.TextBox txtValName3;
+        private System.Windows.Forms.TextBox txtValName2;
     }
 }
