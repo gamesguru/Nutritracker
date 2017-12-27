@@ -1,4 +1,4 @@
-Food Name	ORAC Value per 100g
+Food Name	ORAC Value (per 100g)
 Golden Berries / Cape Gooseberries / Inca Berries	3874
 100% Cranberry Juice Blend	865
 Acai Berry Pulp/Skin/Puree Powder	102700

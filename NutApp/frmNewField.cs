@@ -114,27 +114,30 @@ namespace NutApp
                 f.fileName = files[i];
                 f.headers = frmParseCustomDatabase.columns[i].header;
                 if (f.fileName == searchKey)
-                    f.nuts = "Name of  Food";
+                    f.nuts = "Name of Food";
                 else if (f.fileName == value1Key)
                     f.nuts = "Value1";
 
                 string unit = "";
                 try
                 {
-                    unit = f.headers.Split('[')[1].Split(']')[0].ToLower().Replace(" ", "");
+                    unit = f.headers.Split('(')[1].Split(')')[0].Trim();//.ToLower().Replace(" ", "");
+					f.headers = f.headers.Split('(')[0].Trim();
                 }
                 catch
                 {
                     try
                     {
-                        unit = f.headers.Split('(')[1].Split(')')[0].ToLower().Replace(" ", "");
+						unit = f.headers.Split('[')[1].Split(']')[0].Trim();//.ToLower().Replace(" ", "");
+						f.headers = f.headers.Split('[')[0].Trim();
                     }
                     catch
                     {
-                        try { unit = "per " + f.headers.Split(new string[] { " per ", " Per ", " PER " }, StringSplitOptions.None)[1].Trim().ToLower(); }
-                        catch { }
+                        //try { unit = "per " + f.headers.Split(new string[] { " per ", " Per ", " PER " }, StringSplitOptions.None)[1].Trim().ToLower(); }
+                        //catch { }
                     }
                 }
+
                 if (unit.Length > 0)
                     f.units = unit;
 
@@ -176,7 +179,6 @@ namespace NutApp
                 output.Add(string.Join("\n", temp));
 			}
             File.WriteAllLines(fp + slash + "_dbInfo.TXT", output);
-
 
             #region nutKey, nameKey, unitKey
 			//File.WriteAllLines(fp + $"{slash}_nameKeyPairs.txt", nameKeyPairs);

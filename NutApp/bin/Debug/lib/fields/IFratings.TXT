@@ -1,4 +1,4 @@
-Food name	Serving	Weight(g)	IF rating per Serving
+Food name	Serving	Weight(g)	IF rating (per Weight)
 Sablefish, baked	3 ounces	85	703
 Herring, Atlantic, pickled	3 ounces	85	697
 Salmon, sockeye, canned, drained	3 ounces	85	528

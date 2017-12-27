@@ -1,4 +1,4 @@
-Vegetable	Oxalic acid (g/100 g)
+Vegetable	Oxalic acid (g Per 100 g)
 Amaranth 	1.09
 Asparagus	0.13
 Beans, snap 	0.36
