@@ -77,8 +77,6 @@
             this.lstViewResult.Size = new System.Drawing.Size(692, 355);
             this.lstViewResult.TabIndex = 2;
             this.lstViewResult.UseCompatibleStateImageBehavior = false;
-            this.lstViewResult.AutoResizeColumns(System.Windows.Forms.ColumnHeaderAutoResizeStyle.HeaderSize);
-            //this.lstViewResult.AutoResizeColumns(System.Windows.Forms.ColumnHeaderAutoResizeStyle.ColumnContent);
             this.lstViewResult.View = System.Windows.Forms.View.Details;
             this.lstViewResult.KeyDown += new System.Windows.Forms.KeyEventHandler(this.listView1_KeyDown);
             // 

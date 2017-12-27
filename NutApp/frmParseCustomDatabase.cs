@@ -279,6 +279,7 @@ namespace NutApp
             }
 
             lstViewResult.Items.AddRange(itms);
+            lstViewResult.AutoResizeColumns(System.Windows.Forms.ColumnHeaderAutoResizeStyle.HeaderSize);
             lstViewResult.EndUpdate();
             for (int i = 0; i < lstViewResult.Columns.Count; i++)
                 comboColumns.Items.Add(lstViewResult.Columns[i].Text);

@@ -143,6 +143,20 @@ namespace NutApp
 
                 Files.Add(f);
             }
+
+            foreach (file f in Files){
+                try
+                {
+                    string[] perSplit = f.units.Split(new string[] { "Per ", "per " }, StringSplitOptions.RemoveEmptyEntries); 
+                    string perWhat = perSplit[perSplit.Length - 1].Trim();
+
+                    foreach (file fi in Files)
+                        if (fi.headers == perWhat)
+                            f.units = f.units.Replace(perWhat, "$" + perWhat);
+                }
+                catch{}
+            }
+
             if (Directory.Exists(fp))
             {
                 DialogResult dRG = MessageBox.Show("A directory with this name was already found, are you sure you want to overwrite it?", "Overwrite database?", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);
@@ -169,7 +183,7 @@ namespace NutApp
             List<string> output = new List<string>();
 			foreach (file f in Files){
 				List<string> temp = new List<string>();
-				temp.Add($"<File>{f.fileName}");
+				temp.Add($"[File]{f.fileName}");
 				temp.Add("[Header]" + f.headers);
 				if (f.nuts != null)
 					temp.Add("[Nut]" + f.nuts);

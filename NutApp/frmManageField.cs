@@ -43,6 +43,8 @@ namespace NutApp
         public class field
         {
             public string[] nkLines;
+            public string dbInfo;
+            public List<dbkey> dbKeys = new List<dbkey>();
             public string name;
             public int z;
             public string standardization;
@@ -53,7 +55,15 @@ namespace NutApp
             public string[] serving;
             public string[] weight;
             public string[] othUnits;
+            public string[] valueNames = new string[2];
             public Unit weightUnit;
+        }
+
+        public class dbkey{
+            public string fileName;
+            public string header;
+            public string nut;
+            public string unit;
         }
 
         List<field> Fields = new List<field>();
@@ -91,34 +101,25 @@ namespace NutApp
 
             for (int i = 0; i < Fields.Count; i++)
             {
-                Fields[i].nkLines = File.ReadAllLines(Application.StartupPath + $"{slash}usr{slash}profile" +
-                                              frmMain.profIndex.ToString() + $"{slash}DBs{slash}{Fields[i].name}{slash}_nutKeyPairs.TXT");
-                for (int j = 0; j < Fields[i].nkLines.Length; j++)
-                {
-                    if (Fields[i].nkLines[j].Split('|')[1] == "Name of Food")
-                        Fields[i].nameOfFood = File.ReadAllLines(Application.StartupPath + $"{slash}usr{slash}profile" +
-                                              frmMain.profIndex.ToString() + $"{slash}DBs{slash}{Fields[i].name}{slash}{Fields[i].nkLines[j].Split('|')[0]}");
-                    else if (Fields[i].nkLines[j].Split('|')[1] == "Value1")
-                        Fields[i].value1 = File.ReadAllLines(Application.StartupPath + $"{slash}usr{slash}profile" +
-                                              frmMain.profIndex.ToString() + $"{slash}DBs{slash}{Fields[i].name}{slash}{Fields[i].nkLines[j].Split('|')[0]}");
-                    else if (Fields[i].nkLines[j].Split('|')[1] == "Value2")
-                        Fields[i].value2 = File.ReadAllLines(Application.StartupPath + $"{slash}usr{slash}profile" +
-                                              frmMain.profIndex.ToString() + $"{slash}DBs{slash}{Fields[i].name}{slash}{Fields[i].nkLines[j].Split('|')[0]}");
-                    else if (Fields[i].nkLines[j].Split('|')[1] == "Value3")
-                        Fields[i].value3 = File.ReadAllLines(Application.StartupPath + $"{slash}usr{slash}profile" +
-                                              frmMain.profIndex.ToString() + $"{slash}DBs{slash}{Fields[i].name}{slash}{Fields[i].nkLines[j].Split('|')[0]}");
-                    else if (Fields[i].nkLines[j].Split('|')[1] == "Serving")
-                        Fields[i].serving = File.ReadAllLines(Application.StartupPath + $"{slash}usr{slash}profile" +
-                                              frmMain.profIndex.ToString() + $"{slash}DBs{slash}{Fields[i].name}{slash}{Fields[i].nkLines[j].Split('|')[0]}");
-                    else if (Fields[i].nkLines[j].Split('|')[1] == "Weight")
-                        Fields[i].weight = File.ReadAllLines(Application.StartupPath + $"{slash}usr{slash}profile" +
-                                              frmMain.profIndex.ToString() + $"{slash}DBs{slash}{Fields[i].name}{slash}{Fields[i].nkLines[j].Split('|')[0]}");
-                    else if (Fields[i].nkLines[j].Split('|')[1] == "Other Units")
-                        Fields[i].othUnits = File.ReadAllLines(Application.StartupPath + $"{slash}usr{slash}profile" +
-                                              frmMain.profIndex.ToString() + $"{slash}DBs{slash}{Fields[i].name}{slash}{Fields[i].nkLines[j].Split('|')[0]}");
+                Fields[i].dbInfo = File.ReadAllText(Application.StartupPath + $"{slash}usr{slash}profile{frmMain.profIndex.ToString()}{slash}DBs{slash}{Fields[i].name}{slash}_dbInfo.TXT");
+
+                string[] items = Fields[i].dbInfo.Split(new string[] {"[File]"}, StringSplitOptions.RemoveEmptyEntries);
+                foreach (string s in items){
+                    string[] lines = s.Split('\n');
+                    dbkey k = new dbkey();
+                    k.fileName = lines[0];
+                    k.header = lines[1].Replace("[Header]", "");
+					foreach (string st in lines)
+					{
+						if (st.Contains("[Nut]"))
+							k.nut = st.Replace("[Nut]", "");
+						else if (st.Contains("[Unit]"))
+							k.unit = st.Replace("[Unit]", "");
+					}
+                    Fields[i].dbKeys.Add(k);
+					//MessageBox.Show($"file:{k.fileName}\nheader:{k.header}\nnut:{k.nut}\nunit:{k.unit}");
                 }
-                Fields[i].z = Fields[i].nameOfFood.Length;
-            }
+			}
 
 
             comboFields.SelectedIndex = 0;
@@ -143,6 +144,8 @@ namespace NutApp
             this.Close();
         }
 
+        //string nkp;
+        string dbi;
         private List<string> lst = new List<string>();
         AutoCompleteStringCollection source = new AutoCompleteStringCollection();
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
@@ -150,9 +153,10 @@ namespace NutApp
             listView1.Clear();
             source.Clear();
             textBox1.Clear();
-            renewFields();
+            updateTextboxes();
             string dr = Application.StartupPath + $"{slash}usr{slash}profile" + frmMain.profIndex.ToString() + $"{slash}DBs{slash}f_user_" + comboFields.Text;
-            string nkp = dr + $"{slash}_nutKeyPairs.TXT";
+            //nkp = dr + $"{slash}_nutKeyPairs.TXT";
+            dbi = dr + slash + "_dbInfo.TXT";
             string[] files = Directory.GetFiles(dr);
 
             for (int i = 0; i < files.Length; i++)
@@ -246,7 +250,7 @@ namespace NutApp
             //MessageBox.Show(Fields[0].z.ToString());
         }
 
-        private void renewFields()
+        private void updateTextboxes()
         {
             txtName.Text = "";
             txtVal1.Text = "";
@@ -255,44 +259,66 @@ namespace NutApp
             txtOthUn.Text = "";
             txtServ.Text = "";
             txtWeight.Text = "";
-
-            lst = importArray(Application.StartupPath + $"{slash}usr{slash}profile" +
-                              frmMain.profIndex.ToString() + $"{slash}DBs{slash}f_user_" + comboFields.Text + $"{slash}_nutKeyPairs.TXT");
+            dbi = Application.StartupPath + $"{slash}usr{slash}profile" + frmMain.profIndex.ToString() + $"{slash}DBs{slash}f_user_" + comboFields.Text + $"{slash}_dbInfo.TXT";
+            foreach (field f in Fields){
+				if (f.name == "f_user_" + comboFields.Text)
+					foreach (dbkey k in f.dbKeys)
+				{
+					if (k.nut == "Name of Food")
+						txtName.Text = k.fileName;
+					else if (k.nut == "Value1")
+                        txtVal1.Text = k.fileName;
+					else if (k.nut == "Value2")
+						txtVal2.Text = k.fileName;
+					else if (k.nut == "Value3")
+						txtVal3.Text = k.fileName;
+					else if (k.nut == "Other Units")
+                        txtOthUn.Text = k.fileName;
+					else if (k.nut == "Serving")
+                        txtServ.Text = k.fileName;
+					else if (k.nut == "Weight")
+                        txtWeight.Text = k.fileName;
+				}
+            }
+                
+            
+            //lst = importArray(dbi); //importArray(Application.StartupPath + $"{slash}usr{slash}profile" + frmMain.profIndex.ToString() + $"{slash}DBs{slash}f_user_" + comboFields.Text + $"{slash}_nutKeyPairs.TXT");
             bool chkCalBool = false;
             bool chkGramsBool = false;
 
-            for (int i = 0; i < lst.Count; i++)
-            {
-                string m = lst[i].Split('|')[0];
-                string l = lst[i].Split('|')[1];
+            #region old
+            //for (int i = 0; i < lst.Count; i++)
+            //{
+            //    string m = lst[i].Split('|')[0];
+            //    string l = lst[i].Split('|')[1];
 
-                if (m == "200 kcal")
-                    chkCalBool = true;
-                else if (m == "100 grams")
-                    chkGramsBool = true;
-                else if (l == "Name of Food")
-                    txtName.Text = m;
-                else if (l == "Value1")
-                    txtVal1.Text = m;
-                else if (l == "Value2")
-                    txtVal2.Text = m;
-                else if (l == "Value3")
-                    txtVal3.Text = m;
-                else if (l == "Other Units")
-                    txtOthUn.Text = m;
-                else if (l == "Serving")
-                    txtServ.Text = m;
-                else if (l == "Weight")
-                    txtWeight.Text = m;
-            }
-
+            //    if (m == "200 kcal")
+            //        chkCalBool = true;
+            //    else if (m == "100 grams")
+            //        chkGramsBool = true;
+            //    else if (l == "Name of Food")
+            //        txtName.Text = m;
+            //    else if (l == "Value1")
+            //        txtVal1.Text = m;
+            //    else if (l == "Value2")
+            //        txtVal2.Text = m;
+            //    else if (l == "Value3")
+            //        txtVal3.Text = m;
+            //    else if (l == "Other Units")
+            //        txtOthUn.Text = m;
+            //    else if (l == "Serving")
+            //        txtServ.Text = m;
+            //    else if (l == "Weight")
+            //        txtWeight.Text = m;
+            //}
+            #endregion
             chkCal.Checked = chkCalBool;
             chkGrams.Checked = chkGramsBool;
         }
 
-        private void button4_Click(object sender, EventArgs e)
+        private void button4_Click(object sender, EventArgs e) //reset button
         {
-            renewFields();
+            updateTextboxes();
         }
 
         private void btnSave_Click(object sender, EventArgs e)
@@ -326,6 +352,7 @@ namespace NutApp
 
             if (txtWeight.TextLength > 0 && File.Exists(dr + $"{slash}" + txtWeight.Text))
                 text.Add(txtWeight.Text + "|Weight");
+            //work here
             File.WriteAllLines(dr + $"{slash}_nutKeyPairs.TXT", text);
 
             text = new List<string>();
