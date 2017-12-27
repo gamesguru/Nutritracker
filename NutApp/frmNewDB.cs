@@ -147,13 +147,19 @@ namespace NutApp
                 string[] colVal = new string[n];
                 for (int j = 0; j < n; j++)
                     colVal[j] = mainForm.getVal(j, i);
-                File.WriteAllLines(fp + $"{slash}" + listBox2.Items[i].ToString() + ".TXT", colVal);
+                File.WriteAllLines(fp + $"{slash}" + listBox2.Items[i].ToString() + ".TXT", colVal); //writes the stores for each unit
             }
             //File.WriteAllLines(fp + $"{slash}_nameKeyPairs.txt", nameKeyPairs);
             string[] firstCommit = { searchKey + "|Name of Food", calorieKey + "|Calories" };
-            File.WriteAllLines(fp + $"{slash}_nutKeyPairs.TXT", firstCommit);
+            File.WriteAllLines(fp + $"{slash}_nutKeyPairs.TXT", firstCommit); //writes the initial key pairs for nutrients and txt files
 
-            //File.WriteAllText(fp + $"{slash}_searchKey.txt", searchKey + ".txt");
+            List<string> nameKeyPairs = new List<string>();
+
+            for (int i = 0; i < listBox2.Items.Count; i++){
+                nameKeyPairs.Add(listBox2.Items[i].ToString() + ".TXT|" + frmParseCustomDatabase.columns[i].header);
+            }
+            File.WriteAllLines(fp + slash + "_nameKeyPairs.TXT", nameKeyPairs); //writes the names (and often) the units
+
             MessageBox.Show("Database created successfully.  Please use the search function on the main page to try it out.  Your first time using it, you will be asked to assign real nutrient names to the imported fields.  The software isn't able to do that yet.", "Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
             this.Close();
         }

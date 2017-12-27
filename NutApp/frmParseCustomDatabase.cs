@@ -66,7 +66,7 @@ namespace NutApp
 			public string units;
         }
 
-        Column[] columns;
+        public static Column[] columns;
 
         private void frmParseCustomDatabase_Load(object sender, EventArgs e)
         {
