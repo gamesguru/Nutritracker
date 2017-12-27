@@ -1,0 +1,2 @@
+VEG.TXT|Name of Food
+OXA.TXT|Value1

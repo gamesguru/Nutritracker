@@ -153,12 +153,32 @@ namespace NutApp
             string[] firstCommit = { searchKey + "|Name of Food", calorieKey + "|Calories" };
             File.WriteAllLines(fp + $"{slash}_nutKeyPairs.TXT", firstCommit); //writes the initial key pairs for nutrients and txt files
 
-            List<string> nameKeyPairs = new List<string>();
+			List<string> nameKeyPairs = new List<string>();
+			List<string> unitKeyPairs = new List<string>();
 
             for (int i = 0; i < listBox2.Items.Count; i++){
-                nameKeyPairs.Add(listBox2.Items[i].ToString() + ".TXT|" + frmParseCustomDatabase.columns[i].header);
+                string header = frmParseCustomDatabase.columns[i].header;
+                nameKeyPairs.Add(listBox2.Items[i].ToString() + ".TXT|" + header);
+
+                string unit = "";
+                try{
+                    unit = header.Split('[')[1].Split(']')[0].ToLower().Replace(" ", "");
+                }
+                catch{
+                    try{
+                        unit = header.Split('(')[1].Split(')')[0].ToLower().Replace(" ", "");
+                    }
+                    catch{
+                        unit = "per " + header.Split(new string[] { " per " }, StringSplitOptions.None)[1].Trim();
+                    }
+                }
+
+                if (unit.Length > 0)
+                    unitKeyPairs.Add(listBox2.Items[i].ToString() + ".TXT|" + unit);
             }
             File.WriteAllLines(fp + slash + "_nameKeyPairs.TXT", nameKeyPairs); //writes the names (and often) the units
+            if (unitKeyPairs.Count() > 0)
+                File.WriteAllLines(fp + slash + "_unitKeyPairs.TXT", unitKeyPairs);
 
             MessageBox.Show("Database created successfully.  Please use the search function on the main page to try it out.  Your first time using it, you will be asked to assign real nutrient names to the imported fields.  The software isn't able to do that yet.", "Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
             this.Close();

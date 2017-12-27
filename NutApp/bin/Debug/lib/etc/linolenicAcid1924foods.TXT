@@ -1,4 +1,4 @@
-NDB_NO	Description	ALA (g) Per 100 g
+NDB_NO	Description	ALA (g/100 g)
 42231	Oil, flaxseed, cold pressed	53.368
 4707	Oil, flaxseed, contains added sliced flaxseed	48.93
 12006	Seeds, chia seeds, dried	17.83

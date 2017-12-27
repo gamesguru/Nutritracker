@@ -1,0 +1,2 @@
+VEG.TXT|Vegetable
+OXA.TXT|Oxalic acid (g/100 g)
