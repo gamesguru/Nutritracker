@@ -93,14 +93,14 @@ namespace NutApp
                 btnCreate.Enabled = true;
         }
 
-        class file {
+        class dbKey {
             public string fileName;
-            public string nuts;
+            public string fields;
             public string metricName;
             public string headers;
             public string units;
         }
-        List<file> Files;
+        List<dbKey> dbKeys;
 
         private void btnCreate_Click(object sender, EventArgs e)
         {
@@ -108,52 +108,52 @@ namespace NutApp
             List<string> files = new List<string>();
             for (int i = 0; i < listBox2.Items.Count; i++)
                 files.Add(listBox2.Items[i].ToString() + ".TXT");
-            Files = new List<file>();
+            dbKeys = new List<dbKey>();
             for (int i = 0; i < files.Count(); i++)
             {
-                file f = new file();
-                f.fileName = files[i];
-                f.headers = frmParseCustomDatabase.columns[i].header;
-                if (f.fileName == searchKey)
-                    f.nuts = "Name of Food";
-                else if (f.fileName == value1Key)
-                    f.nuts = "Value1";
+                dbKey k = new dbKey();
+                k.fileName = files[i];
+                k.headers = frmParseCustomDatabase.columns[i].header;
+                if (k.fileName == searchKey)
+                    k.fields = "Name of Food";
+                else if (k.fileName == value1Key)
+                    k.fields = "Value1";
 
                 string unit = "";
                 try
                 {
-                    unit = f.headers.Split('(')[1].Split(')')[0].Trim();//.ToLower().Replace(" ", "");
-					f.headers = f.headers.Split('(')[0].Trim();
+                    unit = k.headers.Split('(')[1].Split(')')[0].Trim();//.ToLower().Replace(" ", "");
+					k.headers = k.headers.Split('(')[0].Trim();
                 }
                 catch
                 {
                     try
                     {
-						unit = f.headers.Split('[')[1].Split(']')[0].Trim();//.ToLower().Replace(" ", "");
-						f.headers = f.headers.Split('[')[0].Trim();
+						unit = k.headers.Split('[')[1].Split(']')[0].Trim();//.ToLower().Replace(" ", "");
+						k.headers = k.headers.Split('[')[0].Trim();
                     }
                     catch
                     {
-                        //try { unit = "per " + f.headers.Split(new string[] { " per ", " Per ", " PER " }, StringSplitOptions.None)[1].Trim().ToLower(); }
+                        //try { unit = "per " + k.headers.Split(new string[] { " per ", " Per ", " PER " }, StringSplitOptions.None)[1].Trim().ToLower(); }
                         //catch { }
                     }
                 }
 
                 if (unit.Length > 0)
-                    f.units = unit;
+                    k.units = unit;
 
-                Files.Add(f);
+                dbKeys.Add(k);
             }
 
-            foreach (file f in Files){
+            foreach (dbKey k in dbKeys){
                 try
                 {
-                    string[] perSplit = f.units.Split(new string[] { "Per ", "per " }, StringSplitOptions.RemoveEmptyEntries); 
+                    string[] perSplit = k.units.Split(new string[] { "Per ", "per " }, StringSplitOptions.RemoveEmptyEntries); 
                     string perWhat = perSplit[perSplit.Length - 1].Trim();
 
-                    foreach (file fi in Files)
-                        if (fi.headers == perWhat)
-                            f.units = f.units.Replace(perWhat, "$" + perWhat);
+                    foreach (dbKey ki in dbKeys)
+                        if (ki.headers == perWhat)
+                            k.units = k.units.Replace(perWhat, "$" + perWhat);
                 }
                 catch{}
             }
@@ -183,24 +183,24 @@ namespace NutApp
 
 			List<string> dbInit = new List<string>();
 			List<string> dbConfig = new List<string>();
-			foreach (file f in Files){
+			foreach (dbKey k in dbKeys){
 				List<string> temp = new List<string>();
-                temp.Add("[File]" + f.fileName);
-				temp.Add("[Header]" + f.headers);
-				if (f.units != null)
-					temp.Add("[Unit]" + f.units);
+                temp.Add("[File]" + k.fileName);
+				temp.Add("[Header]" + k.headers);
+				if (k.units != null)
+					temp.Add("[Unit]" + k.units);
 				temp.Add("");
                 dbInit.Add(string.Join("\r\n", temp));
             }
-            foreach (file f in Files){
+            foreach (dbKey k in dbKeys){
 				List<string> temp = new List<string>();
-				temp.Add("[File]" + f.fileName);
-				if (f.nuts != null)
-					temp.Add("[Nut]" + f.nuts);
-				if (f.nuts != null && (f.nuts == "Value1" || f.nuts == "Value2" || f.nuts == "Value3"))
+				temp.Add("[File]" + k.fileName);
+				if (k.fields != null)
+					temp.Add("[Field]" + k.fields);
+				if (k.fields != null && (k.fields == "Value1" || k.fields == "Value2" || k.fields == "Value3"))
 				{
-					f.metricName = f.nuts;
-					temp.Add("[MetricName]" + f.metricName);
+                    k.metricName = k.fields;
+					temp.Add("[MetricName]" + k.metricName);
 				}
 				temp.Add("");
                 dbConfig.Add(string.Join("\r\n", temp));
@@ -208,48 +208,6 @@ namespace NutApp
 			File.WriteAllLines(fp + slash + "_dbInit.TXT", dbInit);
 			File.WriteAllLines(fp + slash + "_dbConfig.TXT", dbConfig);
 
-            #region nutKey, nameKey, unitKey
-			//File.WriteAllLines(fp + $"{slash}_nameKeyPairs.txt", nameKeyPairs);
-            //string[] firstCommit = { searchKey + "|Name of Food", value1Key + "|Value1" };
-            //File.WriteAllLines(fp + $"{slash}_nutKeyPairs.TXT", firstCommit);
-
-            //List<string> nameKeyPairs = new List<string>();
-            //List<string> unitKeyPairs = new List<string>();
-
-
-            //for (int i = 0; i < listBox2.Items.Count; i++)
-            //{
-            //	string header = frmParseCustomDatabase.columns[i].header;
-            //	nameKeyPairs.Add(listBox2.Items[i].ToString() + ".TXT|" + header);
-
-            //	string unit = "";
-            //	try
-            //	{
-            //		unit = header.Split('[')[1].Split(']')[0].ToLower().Replace(" ", "");
-            //	}
-            //	catch
-            //	{
-            //                 try
-            //                 {
-            //                     unit = header.Split('(')[1].Split(')')[0].ToLower().Replace(" ", "");
-            //                 }
-            //                 catch
-            //                 {
-            //                     try { unit = "per " + header.Split(new string[] { " per ", " Per ", " PER " }, StringSplitOptions.None)[1].Trim().ToLower(); }
-            //                     catch{}
-            //                 }
-
-            //	}
-
-            //	if (unit.Length > 0)
-            //		unitKeyPairs.Add(listBox2.Items[i].ToString() + ".TXT|" + unit);
-            //}
-            //File.WriteAllLines(fp + slash + "_nameKeyPairs.TXT", nameKeyPairs); //writes the names (and often) the units
-            //if (unitKeyPairs.Count() > 0)
-            //File.WriteAllLines(fp + slash + "_unitKeyPairs.TXT", unitKeyPairs);
-            #endregion
-
-            //File.WriteAllText(fp + $"{slash}_searchKey.txt", searchKey + ".txt");
             MessageBox.Show("Database created successfully.  Please use the search function on the main page to try it out.  Your first time using it, you will be asked to assign real nutrient names to the imported fields.  The software isn't able to do that yet.", "Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
             this.Close();
         }

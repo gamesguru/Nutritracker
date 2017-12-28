@@ -70,7 +70,7 @@ namespace NutApp
 		{
 			public string fileName;
 			public string metricName;
-			public string nut;
+            public string field;
 		}
 
         List<field> Fields = new List<field>();
@@ -131,8 +131,8 @@ namespace NutApp
 					dc.fileName = lines[0];
 					foreach (string st in lines)
 					{
-						if (st.Contains("[Nut]"))
-							dc.nut = st.Replace("[Nut]", "");
+						if (st.Contains("[Field]"))
+                            dc.field = st.Replace("[Field]", "");
 						else if (st.Contains("[MetricName]"))
 							dc.metricName = st.Replace("[MetricName]", "");
 					}
@@ -162,8 +162,6 @@ namespace NutApp
             this.Close();
         }
 
-
-        //private List<string> lst = new List<string>();
         AutoCompleteStringCollection source = new AutoCompleteStringCollection();
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -172,8 +170,6 @@ namespace NutApp
             textBox1.Clear();
             updateTextboxes();
             string dr = Application.StartupPath + $"{slash}usr{slash}profile" + frmMain.profIndex.ToString() + $"{slash}DBs{slash}f_user_" + comboFields.Text;
-            //nkp = dr + $"{slash}_nutKeyPairs.TXT";
-            //dbi = dr + slash + "_dbInfo.TXT";
             string[] files = Directory.GetFiles(dr);
 
             for (int i = 0; i < files.Length; i++)
@@ -216,29 +212,30 @@ namespace NutApp
             txtOthUn.AutoCompleteCustomSource = source;
             txtOthUn.AutoCompleteSource = AutoCompleteSource.CustomSource;
             txtOthUn.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
-			#endregion
+            #endregion
 
-			List<ListViewItem> itms = new List<ListViewItem>();
+            List<ListViewItem> itms = new List<ListViewItem>();
             foreach (field f in Fields)
                 if (f.name == comboFields.Text)
                 {
                     foreach (dbc k in f.dbConfigKeys)
                     {
-                        if (k.nut == "Name of Food")
-                            listView1.Columns.Add(k.nut);
-                        else if (k.nut == "Value1")
+                        if (k.field == "Name of Food")
+                            listView1.Columns.Add(k.field);
+                        else if (k.field == "Value1")
                             listView1.Columns.Add(k.metricName);
-                        else if (k.nut == "Value2")
+                        else if (k.field == "Value2")
                             listView1.Columns.Add(k.metricName);
-                        else if (k.nut == "Value3")
+                        else if (k.field == "Value3")
                             listView1.Columns.Add(k.metricName);
-                        else if (k.nut == "Other Units")
-                            listView1.Columns.Add(k.nut);
-                        else if (k.nut == "Serving")
-                            listView1.Columns.Add(k.nut);
-                        else if (k.nut == "Weight")
-                            listView1.Columns.Add(k.nut);
+                        else if (k.field == "Other Units")
+                            listView1.Columns.Add(k.field);
+                        else if (k.field == "Serving")
+                            listView1.Columns.Add(k.field);
+                        else if (k.field == "Weight")
+                            listView1.Columns.Add(k.field);
                     }
+                    listView1.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
 
                     listView1.BeginUpdate();
                     foreach (ListViewItem itm in itms)
@@ -246,7 +243,6 @@ namespace NutApp
                     listView1.EndUpdate();
                 }
         }
-            //MessageBox.Show(Fields[0].z.ToString());
 
 
         private void updateTextboxes()
@@ -267,33 +263,32 @@ namespace NutApp
                 if (f.name == comboFields.Text)
                     foreach (dbc k in f.dbConfigKeys)
                     {
-                        if (k.nut == "Name of Food")
+                        if (k.field == "Name of Food")
                             txtName.Text = k.fileName;
-                        else if (k.nut == "Value1")
+                        else if (k.field == "Value1")
                         {
                             txtVal1.Text = k.fileName;
                             txtValName1.Text = k.metricName;
                         }
-                        else if (k.nut == "Value2")
+                        else if (k.field == "Value2")
                         {
                             txtVal2.Text = k.fileName;
                             txtValName2.Text = k.metricName;
                         }
-                        else if (k.nut == "Value3")
+                        else if (k.field == "Value3")
                         {
                             txtVal3.Text = k.fileName;
                             txtValName3.Text = k.metricName;
                         }
-                        else if (k.nut == "Other Units")
+                        else if (k.field == "Other Units")
                             txtOthUn.Text = k.fileName;
-                        else if (k.nut == "Serving")
+                        else if (k.field == "Serving")
                             txtServ.Text = k.fileName;
-                        else if (k.nut == "Weight")
+                        else if (k.field == "Weight")
                             txtWeight.Text = k.fileName;
                     }
             }
 
-            //lst = importArray(dbi); //importArray(Application.StartupPath + $"{slash}usr{slash}profile" + frmMain.profIndex.ToString() + $"{slash}DBs{slash}f_user_" + comboFields.Text + $"{slash}_nutKeyPairs.TXT");
             bool chkCalBool = false;
             bool chkGramsBool = false;
 
@@ -310,14 +305,10 @@ namespace NutApp
         private void btnSave_Click(object sender, EventArgs e)
         {
             string dr = Application.StartupPath + $"{slash}usr{slash}profile" + frmMain.profIndex.ToString() + $"{slash}DBs{slash}f_user_" + comboFields.Text;
-
-            //List<string> text = new List<string>();
-
             field f = new field();
             foreach (field F in Fields)
                 if (F.name == comboFields.Text)
                     f = F;
-
 
 			//marks updates to the log
 			//if (chkCal.Checked)
@@ -328,37 +319,59 @@ namespace NutApp
 			foreach (dbc ck in f.dbConfigKeys)
 			{
 				if (txtName.Text == ck.fileName)				
-					ck.nut = "Name of Food";				
+					ck.field = "Name of Food";				
 				else if (txtVal1.Text == ck.fileName)
 				{
-					ck.nut = "Value1";
+					ck.field = "Value1";
 					ck.metricName = txtValName1.Text;
 				}
 				else if (txtVal2.Text == ck.fileName)
 				{
-					ck.nut = "Value2";
+					ck.field = "Value2";
 					ck.metricName = txtValName2.Text;
 				}
 				else if (txtVal3.Text == ck.fileName)
 				{
-					ck.nut = "Value3";
+					ck.field = "Value3";
 					ck.metricName = txtValName3.Text;
 				}
 				else if (txtOthUn.Text == ck.fileName)
-					ck.nut = "Other Units";
+					ck.field = "Other Units";
 				else if (txtServ.Text == ck.fileName)
-					ck.nut = "Serving";
+					ck.field = "Serving";
+				else if (txtWeight.Text == ck.fileName)
+					ck.field = "Weight";
 			}
 
-            //saves to disk
+            List<string> activeFiles = new List<string>();
+            if (File.Exists(dr + slash + txtName.Text))
+                activeFiles.Add(txtName.Text);
+            if (File.Exists(dr + slash + txtVal1.Text))
+                activeFiles.Add(txtVal1.Text);
+            if (File.Exists(dr + slash + txtVal2.Text))
+                activeFiles.Add(txtVal2.Text);
+            if (File.Exists(dr + slash + txtVal3.Text))
+                activeFiles.Add(txtVal3.Text);
+            if (File.Exists(dr + slash + txtOthUn.Text))
+                activeFiles.Add(txtOthUn.Text);
+            if (File.Exists(dr + slash + txtServ.Text))
+                activeFiles.Add(txtServ.Text);
+            if (File.Exists(dr + slash + txtWeight.Text))
+                activeFiles.Add(txtWeight.Text);
+            
+			//does not allow user to delete entries?
+			//saves to disk
             List<string> output = new List<string>();
             foreach (dbc k in f.dbConfigKeys){
 				List<string> temp = new List<string>();
 				temp.Add($"[File]{k.fileName}");
-				if (k.nut != null)
-					temp.Add("[Nut]" + k.nut);
-				if (k.nut != null && (k.nut == "Value1" || k.nut == "Value2" || k.nut == "Value3"))
-					temp.Add("[MetricName]" + k.metricName);
+                if (activeFiles.Contains(k.fileName))
+                {
+                    if (k.field != null)
+                        temp.Add("[Field]" + k.field);
+                    if (k.field != null && (k.field == "Value1" || k.field == "Value2" || k.field == "Value3"))
+                        temp.Add("[MetricName]" + k.metricName);
+                }
 				temp.Add("");
 				output.Add(string.Join("\r\n", temp));
             }

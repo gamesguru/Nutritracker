@@ -1,0 +1,14 @@
+[File]FOO.TXT
+[Field]Name of Food
+
+[File]GIX.TXT
+[Field]Value1
+[MetricName]GI
+
+[File]SER.TXT
+[Field]Serving
+
+[File]CAR.TXT
+
+[File]GLX.TXT
+

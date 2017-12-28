@@ -1,11 +1,13 @@
 [File]FOO.TXT
-[Nut]Name of Food
+[Field]Name of Food
 
 [File]SER.TXT
+[Field]Serving
 
 [File]WEI.TXT
+[Field]Weight
 
 [File]IFX.TXT
-[Nut]Value1
-[MetricName]Value1
+[Field]Value1
+[MetricName]IF Rating
 
