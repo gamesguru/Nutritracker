@@ -3,12 +3,13 @@
 
 [File]GIX.TXT
 [Field]Value1
-[MetricName]GI
+[MetricName]GI rating
 
 [File]SER.TXT
-[Field]Serving
 
 [File]CAR.TXT
 
 [File]GLX.TXT
+[Field]Value2
+[MetricName]GL load
 

@@ -236,7 +236,42 @@ namespace NutApp
                             listView1.Columns.Add(k.field);
                     }
                     listView1.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
+                    foreach (dbc k in f.dbConfigKeys)
+                    {
+                        if (k.field == "Name of Food")
+                            f.nameOfFood = File.ReadAllLines(dr + slash + k.fileName);
+                        else if (k.field == "Value1")
+                            f.value1 = File.ReadAllLines(dr + slash + k.fileName);
+                        else if (k.field == "Value2")
+                            f.value2 = File.ReadAllLines(dr + slash + k.fileName);
+                        else if (k.field == "Value3")
+                            f.value3 = File.ReadAllLines(dr + slash + k.fileName);
+                        else if (k.field == "Other Units")
+                            f.othUnits = File.ReadAllLines(dr + slash + k.fileName);
+                        else if (k.field == "Serving")
+                            f.serving = File.ReadAllLines(dr + slash + k.fileName);
+                        else if (k.field == "Weight")
+                            f.weight = File.ReadAllLines(dr + slash + k.fileName);
+                    }
 
+                    for (int i = 0; i < f.z; i++)
+                    {
+                        ListViewItem itm = new ListViewItem();
+                        itm.Text = f.nameOfFood[i];
+                        if (f.value1 != null && f.value1.Count() == f.z)
+                            itm.SubItems.Add(f.value1[i]);
+                        if (f.value2 != null && f.value2.Count() == f.z)
+                            itm.SubItems.Add(f.value2[i]);
+                        if (f.value3 != null && f.value3.Count() == f.z)
+                            itm.SubItems.Add(f.value3[i]);
+                        if (f.othUnits != null && f.othUnits.Count() == f.z)
+                            itm.SubItems.Add(f.othUnits[i]);
+                        if (f.serving != null && f.serving.Count() == f.z)
+                            itm.SubItems.Add(f.serving[i]);
+                        if (f.weight != null && f.weight.Count() == f.z)
+                            itm.SubItems.Add(f.weight[i]);
+                        itms.Add(itm);
+                    }
                     listView1.BeginUpdate();
                     foreach (ListViewItem itm in itms)
                         listView1.Items.Add(itm);
@@ -344,6 +379,7 @@ namespace NutApp
 			}
 
             List<string> activeFiles = new List<string>();
+            #region activeTextBoxFiles
             if (File.Exists(dr + slash + txtName.Text))
                 activeFiles.Add(txtName.Text);
             if (File.Exists(dr + slash + txtVal1.Text))
@@ -358,14 +394,14 @@ namespace NutApp
                 activeFiles.Add(txtServ.Text);
             if (File.Exists(dr + slash + txtWeight.Text))
                 activeFiles.Add(txtWeight.Text);
-            
-			//does not allow user to delete entries?
-			//saves to disk
+            #endregion
+
+            //saves to disk
             List<string> output = new List<string>();
             foreach (dbc k in f.dbConfigKeys){
 				List<string> temp = new List<string>();
 				temp.Add($"[File]{k.fileName}");
-                if (activeFiles.Contains(k.fileName))
+                if (activeFiles.Contains(k.fileName)) //removes from database if txtBox is blank
                 {
                     if (k.field != null)
                         temp.Add("[Field]" + k.field);
@@ -375,23 +411,18 @@ namespace NutApp
 				temp.Add("");
 				output.Add(string.Join("\r\n", temp));
             }
-
-
             File.WriteAllLines(dr + slash+"_dbConfig.TXT", output);
 
+            //updates the active Slots on frmSearchFoods
 			output = new List<string>();
 			if (comboBox1.SelectedIndex > -1)
 			    output.Add("f_user_" + comboBox1.SelectedItem.ToString());
-
 			if (comboBox2.SelectedIndex > -1)
 			    output.Add("f_user_" + comboBox2.SelectedItem.ToString());
-
 			if (comboBox3.SelectedIndex > -1)
 			    output.Add("f_user_" + comboBox3.SelectedItem.ToString());
-
 			if (comboBox4.SelectedIndex > -1)
 			    output.Add("f_user_" + comboBox4.SelectedItem.ToString());
-
             File.WriteAllLines(Application.StartupPath + $"{slash}usr{slash}profile{frmMain.profIndex.ToString()}{slash}DBs{slash}Slots.TXT", output);
 			this.Close();
         }
