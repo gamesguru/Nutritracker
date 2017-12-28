@@ -39,12 +39,12 @@ namespace NutApp
             g, mg, ug, kg, percent, iu, tbsp, tsp, cup, kcal
         }
 
-
         public class field
         {
-            public string[] nkLines;
-            public string dbInfo;
-            public List<dbkey> dbKeys = new List<dbkey>();
+			public string dbInit;
+            public string dbConfig;
+			public List<dbi> dbInitKeys = new List<dbi>();
+			public List<dbc> dbConfigKeys = new List<dbc>();
             public string name;
             public int z;
             public string standardization;
@@ -55,18 +55,23 @@ namespace NutApp
             public string[] serving;
             public string[] weight;
             public string[] othUnits;
-            public string[] valueNames = new string[2];
-            public Unit weightUnit;
+			public string[] valueNames = new string[2];
+			public Unit weightUnit;
+			public Unit servUnit;
         }
 
-        public class dbkey
-        {
-            public string fileName;
-            public string metricName;
-            public string header;
-            public string nut;
-            public string unit;
-        }
+		public class dbi
+		{
+			public string fileName;
+			public string header;
+			public string unit;
+		}
+		public class dbc
+		{
+			public string fileName;
+			public string metricName;
+			public string nut;
+		}
 
         List<field> Fields = new List<field>();
         string slash = Path.DirectorySeparatorChar.ToString();
@@ -103,28 +108,37 @@ namespace NutApp
 
             for (int i = 0; i < Fields.Count; i++)
             {
-                Fields[i].dbInfo = File.ReadAllText(Application.StartupPath + $"{slash}usr{slash}profile{frmMain.profIndex.ToString()}{slash}DBs{slash}f_user_{Fields[i].name}{slash}_dbInfo.TXT");
-
-                string[] items = Fields[i].dbInfo.Split(new string[] {"[File]"}, StringSplitOptions.RemoveEmptyEntries);
+                Fields[i].dbInit = File.ReadAllText(Application.StartupPath + $"{slash}usr{slash}profile{frmMain.profIndex.ToString()}{slash}DBs{slash}f_user_{Fields[i].name}{slash}_dbInit.TXT");
+                string[] items = Fields[i].dbInit.Split(new string[] {"[File]"}, StringSplitOptions.RemoveEmptyEntries);
                 foreach (string s in items){
                     string[] lines = s.Replace("\r", "").Split('\n');
-                    dbkey k = new dbkey();
-                    k.fileName = lines[0];
-                    k.header = lines[1].Replace("[Header]", "");
+                    dbi di = new dbi();
+                    di.fileName = lines[0];
+                    di.header = lines[1].Replace("[Header]", "");
+					foreach (string st in lines)					
+						if (st.Contains("[Unit]"))
+                            di.unit = st.Replace("[Unit]", "");
+                    Fields[i].dbInitKeys.Add(di);
+                }
+
+
+				Fields[i].dbConfig = File.ReadAllText(Application.StartupPath + $"{slash}usr{slash}profile{frmMain.profIndex.ToString()}{slash}DBs{slash}f_user_{Fields[i].name}{slash}_dbConfig.TXT");
+				items = Fields[i].dbConfig.Split(new string[] { "[File]" }, StringSplitOptions.RemoveEmptyEntries);
+				foreach (string s in items)
+				{
+					string[] lines = s.Replace("\r", "").Split('\n');
+					dbc dc = new dbc();
+					dc.fileName = lines[0];
 					foreach (string st in lines)
 					{
 						if (st.Contains("[Nut]"))
-							k.nut = st.Replace("[Nut]", "");
-                        else if (st.Contains("[Unit]"))
-                            k.unit = st.Replace("[Unit]", "");
-                        else if (st.Contains("[MetricName]"))
-                            k.metricName = st.Replace("[MetricName]", "");
-                    }
-                    Fields[i].dbKeys.Add(k);
-					//MessageBox.Show($"file:{k.fileName}\nheader:{k.header}\nnut:{k.nut}\nunit:{k.unit}");
-                }
+							dc.nut = st.Replace("[Nut]", "");
+						else if (st.Contains("[MetricName]"))
+							dc.metricName = st.Replace("[MetricName]", "");
+					}
+                    Fields[i].dbConfigKeys.Add(dc);
+				}
 			}
-
 
             comboFields.SelectedIndex = 0;
             string[] slots = File.ReadAllLines(Application.StartupPath + $"{slash}usr{slash}profile" +
@@ -148,9 +162,8 @@ namespace NutApp
             this.Close();
         }
 
-        //string nkp;
-        string dbi;
-        private List<string> lst = new List<string>();
+
+        //private List<string> lst = new List<string>();
         AutoCompleteStringCollection source = new AutoCompleteStringCollection();
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -160,7 +173,7 @@ namespace NutApp
             updateTextboxes();
             string dr = Application.StartupPath + $"{slash}usr{slash}profile" + frmMain.profIndex.ToString() + $"{slash}DBs{slash}f_user_" + comboFields.Text;
             //nkp = dr + $"{slash}_nutKeyPairs.TXT";
-            dbi = dr + slash + "_dbInfo.TXT";
+            //dbi = dr + slash + "_dbInfo.TXT";
             string[] files = Directory.GetFiles(dr);
 
             for (int i = 0; i < files.Length; i++)
@@ -209,7 +222,7 @@ namespace NutApp
             foreach (field f in Fields)
                 if (f.name == comboFields.Text)
                 {
-                    foreach (dbkey k in f.dbKeys)
+                    foreach (dbc k in f.dbConfigKeys)
                     {
                         if (k.nut == "Name of Food")
                             listView1.Columns.Add(k.nut);
@@ -248,11 +261,11 @@ namespace NutApp
             txtOthUn.Text = "";
             txtServ.Text = "";
             txtWeight.Text = "";
-            dbi = Application.StartupPath + $"{slash}usr{slash}profile" + frmMain.profIndex.ToString() + $"{slash}DBs{slash}f_user_" + comboFields.Text + $"{slash}_dbInfo.TXT";
+            //dbi = Application.StartupPath + $"{slash}usr{slash}profile" + frmMain.profIndex.ToString() + $"{slash}DBs{slash}f_user_" + comboFields.Text + $"{slash}_dbInfo.TXT";
             foreach (field f in Fields)
             {
                 if (f.name == comboFields.Text)
-                    foreach (dbkey k in f.dbKeys)
+                    foreach (dbc k in f.dbConfigKeys)
                     {
                         if (k.nut == "Name of Food")
                             txtName.Text = k.fileName;
@@ -280,37 +293,10 @@ namespace NutApp
                     }
             }
 
-
             //lst = importArray(dbi); //importArray(Application.StartupPath + $"{slash}usr{slash}profile" + frmMain.profIndex.ToString() + $"{slash}DBs{slash}f_user_" + comboFields.Text + $"{slash}_nutKeyPairs.TXT");
             bool chkCalBool = false;
             bool chkGramsBool = false;
 
-            #region old
-            //for (int i = 0; i < lst.Count; i++)
-            //{
-            //    string m = lst[i].Split('|')[0];
-            //    string l = lst[i].Split('|')[1];
-
-            //    if (m == "200 kcal")
-            //        chkCalBool = true;
-            //    else if (m == "100 grams")
-            //        chkGramsBool = true;
-            //    else if (l == "Name of Food")
-            //        txtName.Text = m;
-            //    else if (l == "Value1")
-            //        txtVal1.Text = m;
-            //    else if (l == "Value2")
-            //        txtVal2.Text = m;
-            //    else if (l == "Value3")
-            //        txtVal3.Text = m;
-            //    else if (l == "Other Units")
-            //        txtOthUn.Text = m;
-            //    else if (l == "Serving")
-            //        txtServ.Text = m;
-            //    else if (l == "Weight")
-            //        txtWeight.Text = m;
-            //}
-            #endregion
             chkCal.Checked = chkCalBool;
             chkGrams.Checked = chkGramsBool;
         }
@@ -320,7 +306,7 @@ namespace NutApp
             updateTextboxes();
         }
 
-        //this is causing problems if the user switches values 2 and 3, or something similar.  the [Header] and [Units] are transposed
+        //this is causing problems if the user switches values 2 and 3, or something similar.  the [Header] and [Units]
         private void btnSave_Click(object sender, EventArgs e)
         {
             string dr = Application.StartupPath + $"{slash}usr{slash}profile" + frmMain.profIndex.ToString() + $"{slash}DBs{slash}f_user_" + comboFields.Text;
@@ -333,49 +319,44 @@ namespace NutApp
                     f = F;
 
 
-            //marks updates to the log
-            //if (chkCal.Checked)
-            //    text.Add("200 kcal|Standardization");
+			//marks updates to the log
+			//if (chkCal.Checked)
+			//    text.Add("200 kcal|Standardization");
 
-            //if (chkGrams.Checked)
-            //text.Add("100 grams|Standardization");
-            foreach (dbkey k in f.dbKeys){
-                if (k.nut == "Name of Food")
-					k.fileName = txtName.Text;
-				else if (k.nut == "Value1")
+			//if (chkGrams.Checked)
+			//text.Add("100 grams|Standardization");
+			foreach (dbc ck in f.dbConfigKeys)
+			{
+				if (txtName.Text == ck.fileName)				
+					ck.nut = "Name of Food";				
+				else if (txtVal1.Text == ck.fileName)
 				{
-                    k.nut = "Value1";
-					k.fileName = txtVal1.Text;
-					k.metricName = txtValName1.Text;
+					ck.nut = "Value1";
+					ck.metricName = txtValName1.Text;
 				}
-				else if (k.nut == "Value2") //null valued, must loop through another way, or assign it on the frmNewField, or it will never be assigned
-                {
-					k.fileName = txtVal2.Text;
-					k.metricName = txtValName2.Text;
-				}
-				else if (k.nut == "Value3")
+				else if (txtVal2.Text == ck.fileName)
 				{
-					k.fileName = txtVal3.Text;
-					k.metricName = txtValName3.Text;
+					ck.nut = "Value2";
+					ck.metricName = txtValName2.Text;
 				}
-				else if (k.nut == "Other Units")
-                    k.fileName = txtOthUn.Text;
-				else if (k.nut == "Serving")
-                    k.fileName = txtServ.Text;
-				else if (k.nut == "Weight")
-                    k.fileName = txtWeight.Text;
-            }
+				else if (txtVal3.Text == ck.fileName)
+				{
+					ck.nut = "Value3";
+					ck.metricName = txtValName3.Text;
+				}
+				else if (txtOthUn.Text == ck.fileName)
+					ck.nut = "Other Units";
+				else if (txtServ.Text == ck.fileName)
+					ck.nut = "Serving";
+			}
 
             //saves to disk
             List<string> output = new List<string>();
-            foreach (dbkey k in f.dbKeys){
+            foreach (dbc k in f.dbConfigKeys){
 				List<string> temp = new List<string>();
 				temp.Add($"[File]{k.fileName}");
-                temp.Add("[Header]" + k.header);
 				if (k.nut != null)
 					temp.Add("[Nut]" + k.nut);
-				if (k.unit != null)
-					temp.Add("[Unit]" + k.unit);
 				if (k.nut != null && (k.nut == "Value1" || k.nut == "Value2" || k.nut == "Value3"))
 					temp.Add("[MetricName]" + k.metricName);
 				temp.Add("");
@@ -383,7 +364,7 @@ namespace NutApp
             }
 
 
-            File.WriteAllLines(dr + slash+"_dbInfo.TXT", output);
+            File.WriteAllLines(dr + slash+"_dbConfig.TXT", output);
 
 			output = new List<string>();
 			if (comboBox1.SelectedIndex > -1)

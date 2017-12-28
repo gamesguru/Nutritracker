@@ -181,24 +181,30 @@ namespace NutApp
                 File.WriteAllLines(fp + $"{slash}" + files[i], colVal);
             }
 
-            List<string> output = new List<string>();
+			List<string> dbInit = new List<string>();
+			List<string> dbConfig = new List<string>();
 			foreach (file f in Files){
 				List<string> temp = new List<string>();
-				temp.Add($"[File]{f.fileName}");
+                temp.Add("[File]" + f.fileName);
 				temp.Add("[Header]" + f.headers);
-				if (f.nuts != null)
-					temp.Add("[Nut]" + f.nuts);
 				if (f.units != null)
 					temp.Add("[Unit]" + f.units);
-                if (f.nuts != null && (f.nuts == "Value1" || f.nuts == "Value2" || f.nuts == "Value3"))
-                {
-                    f.metricName = f.nuts;
-                    temp.Add("[MetricName]" + f.metricName);
-                }
-                temp.Add("");
-                output.Add(string.Join("\r\n", temp));
-			}
-
+				temp.Add("");
+                dbInit.Add(string.Join("\r\n", temp));
+            }
+            foreach (file f in Files){
+				List<string> temp = new List<string>();
+				temp.Add("[File]" + f.fileName);
+				if (f.nuts != null)
+					temp.Add("[Nut]" + f.nuts);
+				if (f.nuts != null && (f.nuts == "Value1" || f.nuts == "Value2" || f.nuts == "Value3"))
+				{
+					f.metricName = f.nuts;
+					temp.Add("[MetricName]" + f.metricName);
+				}
+				temp.Add("");
+                dbConfig.Add(string.Join("\r\n", temp));
+            }
 			File.WriteAllLines(fp + slash + "_dbInit.TXT", dbInit);
 			File.WriteAllLines(fp + slash + "_dbConfig.TXT", dbConfig);
 

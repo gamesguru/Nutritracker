@@ -1,0 +1,107 @@
+[File]FOO.TXT
+[Header]Food
+
+[File]SER.TXT
+[Header]Serving Size
+
+[File]WEI.TXT
+[Header]Weight
+[Unit]g
+
+[File]PER.TXT
+[Header]percent water
+
+[File]ENE.TXT
+[Header]Energy
+[Unit]kcal Per $Weight
+
+[File]PRO.TXT
+[Header]Protein
+[Unit]g Per $Weight
+
+[File]CAR.TXT
+[Header]Carbohydrate
+[Unit]g Per $Weight
+
+[File]FIB.TXT
+[Header]Fiber
+[Unit]g Per $Weight
+
+[File]CHO.TXT
+[Header]Cholesterol
+[Unit]mg Per $Weight
+
+[File]TOT.TXT
+[Header]Total Fat
+[Unit]g Per $Weight
+
+[File]SAT.TXT
+[Header]Saturate Fat
+[Unit]g Per $Weight
+
+[File]MON.TXT
+[Header]Monosat Fat
+[Unit]g Per $Weight
+
+[File]POL.TXT
+[Header]Polyunsat Fat
+[Unit]g Per $Weight
+
+[File]CAL.TXT
+[Header]Calcium
+[Unit]mg Per $Weight
+
+[File]IRO.TXT
+[Header]Iron
+[Unit]mg Per $Weight
+
+[File]MAG.TXT
+[Header]Magnesium
+[Unit]mg Per $Weight
+
+[File]SOD.TXT
+[Header]Sodium
+[Unit]mg Per $Weight
+
+[File]PHO.TXT
+[Header]Phosphorous
+[Unit]mg Per $Weight
+
+[File]CAX.TXT
+[Header]Ca:P ratio
+
+[File]POT.TXT
+[Header]Potassium
+[Unit]mg Per $Weight
+
+[File]ZIN.TXT
+[Header]Zinc
+[Unit]mg Per $Weight
+
+[File]NIA.TXT
+[Header]Niacin
+[Unit]mg Per $Weight
+
+[File]THI.TXT
+[Header]Thiamin
+[Unit]mg Per $Weight
+
+[File]RIB.TXT
+[Header]Riboflavin
+[Unit]mg Per $Weight
+
+[File]VIT.TXT
+[Header]Vit A
+[Unit]RE Per $Weight
+
+[File]VIT25.TXT
+[Header]Vit B6
+[Unit]mg Per $Weight
+
+[File]VIT26.TXT
+[Header]Vit C
+[Unit]mg Per $Weight
+
+[File]FOO27.TXT
+[Header]Food type
+

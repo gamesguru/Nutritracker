@@ -1,0 +1,11 @@
+[File]FOO.TXT
+[Nut]Name of Food
+
+[File]SER.TXT
+
+[File]WEI.TXT
+
+[File]IFX.TXT
+[Nut]Value1
+[MetricName]Value1
+
