@@ -107,9 +107,9 @@
             this.btnCancel.Location = new System.Drawing.Point(991, 771);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(95, 63);
-			this.btnCancel.TabIndex = 29;
-			this.btnCancel.Text = "Exit";
+            this.btnCancel.TabIndex = 29;
             this.btnCancel.TabStop = false;
+            this.btnCancel.Text = "Exit";
             this.btnCancel.UseVisualStyleBackColor = true;
             this.btnCancel.Click += new System.EventHandler(this.button1_Click);
             // 
@@ -357,13 +357,13 @@
             // 
             this.txtUser3Qty.Location = new System.Drawing.Point(699, 182);
             this.txtUser3Qty.Name = "txtUser3Qty";
-			this.txtUser3Qty.Size = new System.Drawing.Size(45, 20);
-			this.txtUser3Qty.TabIndex = 30;
+            this.txtUser3Qty.Size = new System.Drawing.Size(45, 20);
+            this.txtUser3Qty.TabIndex = 30;
             this.txtUser3Qty.TabStop = false;
-			// 
-			// label18
-			// 
-			this.label18.AutoSize = true;
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
             this.label18.Location = new System.Drawing.Point(667, 185);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(26, 13);
@@ -386,7 +386,6 @@
             this.txtUser2Qty.Size = new System.Drawing.Size(45, 20);
             this.txtUser2Qty.TabIndex = 27;
             this.txtUser2Qty.TabStop = false;
-            this.txtUser1.TabStop = false;
             // 
             // label16
             // 
@@ -524,8 +523,8 @@
             this.txtUser4.Location = new System.Drawing.Point(819, 36);
             this.txtUser4.Name = "txtUser4";
             this.txtUser4.Size = new System.Drawing.Size(134, 20);
-			this.txtUser4.TabIndex = 13;
-			this.txtUser4.TabStop = false;
+            this.txtUser4.TabIndex = 13;
+            this.txtUser4.TabStop = false;
             this.txtUser4.TextChanged += new System.EventHandler(this.txtUser4_TextChanged);
             // 
             // lblSlot4
@@ -533,9 +532,9 @@
             this.lblSlot4.AutoSize = true;
             this.lblSlot4.Location = new System.Drawing.Point(820, 20);
             this.lblSlot4.Name = "lblSlot4";
-            this.lblSlot4.Size = new System.Drawing.Size(92, 13);
+            this.lblSlot4.Size = new System.Drawing.Size(95, 13);
             this.lblSlot4.TabIndex = 12;
-            this.lblSlot4.Text = "Omega-3 content:";
+            this.lblSlot4.Text = "[User-defined field]";
             // 
             // label10
             // 
@@ -551,8 +550,8 @@
             this.txtUser3.Location = new System.Drawing.Point(548, 36);
             this.txtUser3.Name = "txtUser3";
             this.txtUser3.Size = new System.Drawing.Size(134, 20);
-			this.txtUser3.TabIndex = 9;
-			this.txtUser3.TabStop = false;
+            this.txtUser3.TabIndex = 9;
+            this.txtUser3.TabStop = false;
             this.txtUser3.TextChanged += new System.EventHandler(this.txtUser3_TextChanged);
             // 
             // lblSlot3
@@ -560,9 +559,9 @@
             this.lblSlot3.AutoSize = true;
             this.lblSlot3.Location = new System.Drawing.Point(549, 20);
             this.lblSlot3.Name = "lblSlot3";
-            this.lblSlot3.Size = new System.Drawing.Size(82, 13);
+            this.lblSlot3.Size = new System.Drawing.Size(95, 13);
             this.lblSlot3.TabIndex = 8;
-            this.lblSlot3.Text = "Glycemic Index:";
+            this.lblSlot3.Text = "[User-defined field]";
             // 
             // label8
             // 
@@ -578,8 +577,8 @@
             this.txtUser2.Location = new System.Drawing.Point(277, 36);
             this.txtUser2.Name = "txtUser2";
             this.txtUser2.Size = new System.Drawing.Size(134, 20);
-			this.txtUser2.TabIndex = 5;
-			this.txtUser2.TabStop = false;
+            this.txtUser2.TabIndex = 5;
+            this.txtUser2.TabStop = false;
             this.txtUser2.TextChanged += new System.EventHandler(this.txtUser2_TextChanged);
             // 
             // lblSlot2
@@ -587,9 +586,9 @@
             this.lblSlot2.AutoSize = true;
             this.lblSlot2.Location = new System.Drawing.Point(278, 20);
             this.lblSlot2.Name = "lblSlot2";
-            this.lblSlot2.Size = new System.Drawing.Size(48, 13);
+            this.lblSlot2.Size = new System.Drawing.Size(95, 13);
             this.lblSlot2.TabIndex = 4;
-            this.lblSlot2.Text = "IF rating:";
+            this.lblSlot2.Text = "[User-defined field]";
             // 
             // lblUser1
             // 
@@ -643,9 +642,9 @@
             this.lblSlot1.AutoSize = true;
             this.lblSlot1.Location = new System.Drawing.Point(7, 20);
             this.lblSlot1.Name = "lblSlot1";
-            this.lblSlot1.Size = new System.Drawing.Size(74, 13);
+            this.lblSlot1.Size = new System.Drawing.Size(95, 13);
             this.lblSlot1.TabIndex = 0;
-            this.lblSlot1.Text = "ORAC values:";
+            this.lblSlot1.Text = "[User-defined field]";
             // 
             // menuStrip1
             // 

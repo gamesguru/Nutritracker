@@ -6,8 +6,11 @@
 [MetricName]GI rating
 
 [File]SER.TXT
+[Field]Serving
 
 [File]CAR.TXT
+[Field]Value3
+[MetricName]Carbs
 
 [File]GLX.TXT
 [Field]Value2

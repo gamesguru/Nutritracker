@@ -214,6 +214,7 @@ namespace NutApp
             txtOthUn.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
             #endregion
 
+            //adds columns and reads arrays from disk
             List<ListViewItem> itms = new List<ListViewItem>();
             foreach (field f in Fields)
                 if (f.name == comboFields.Text)
@@ -221,39 +222,45 @@ namespace NutApp
                     foreach (dbc k in f.dbConfigKeys)
                     {
                         if (k.field == "Name of Food")
+                        {
                             listView1.Columns.Add(k.field);
+                            f.nameOfFood = File.ReadAllLines(dr + slash + k.fileName);
+                            f.z = f.nameOfFood.Length;
+                        }
                         else if (k.field == "Value1")
+                        {
                             listView1.Columns.Add(k.metricName);
+                            f.value1 = File.ReadAllLines(dr + slash + k.fileName);
+                        }
                         else if (k.field == "Value2")
+                        {
                             listView1.Columns.Add(k.metricName);
+                            f.value2 = File.ReadAllLines(dr + slash + k.fileName);
+                        }
                         else if (k.field == "Value3")
+                        {
                             listView1.Columns.Add(k.metricName);
+                            f.value3 = File.ReadAllLines(dr + slash + k.fileName);
+                        }
                         else if (k.field == "Other Units")
+                        {
                             listView1.Columns.Add(k.field);
+                            f.othUnits = File.ReadAllLines(dr + slash + k.fileName);
+                        }
                         else if (k.field == "Serving")
+                        {
                             listView1.Columns.Add(k.field);
+                            f.serving = File.ReadAllLines(dr + slash + k.fileName);
+                        }
                         else if (k.field == "Weight")
+                        {
                             listView1.Columns.Add(k.field);
+                            f.weight = File.ReadAllLines(dr + slash + k.fileName);
+                        }
                     }
                     listView1.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
-                    foreach (dbc k in f.dbConfigKeys)
-                    {
-                        if (k.field == "Name of Food")
-                            f.nameOfFood = File.ReadAllLines(dr + slash + k.fileName);
-                        else if (k.field == "Value1")
-                            f.value1 = File.ReadAllLines(dr + slash + k.fileName);
-                        else if (k.field == "Value2")
-                            f.value2 = File.ReadAllLines(dr + slash + k.fileName);
-                        else if (k.field == "Value3")
-                            f.value3 = File.ReadAllLines(dr + slash + k.fileName);
-                        else if (k.field == "Other Units")
-                            f.othUnits = File.ReadAllLines(dr + slash + k.fileName);
-                        else if (k.field == "Serving")
-                            f.serving = File.ReadAllLines(dr + slash + k.fileName);
-                        else if (k.field == "Weight")
-                            f.weight = File.ReadAllLines(dr + slash + k.fileName);
-                    }
-
+                    
+                    
                     for (int i = 0; i < f.z; i++)
                     {
                         ListViewItem itm = new ListViewItem();

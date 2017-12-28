@@ -73,7 +73,7 @@ namespace NutApp
         {
             try
             {
-                comboMeal.SelectedIndex = Convert.ToInt32(File.ReadAllText(Application.StartupPath +$"{slash}usr{slash}profile{frmMain.profIndex}{slash}DBs{slash}Meal.TXT"));
+                comboMeal.SelectedIndex = Convert.ToInt32(File.ReadAllText(Application.StartupPath + $"{slash}usr{slash}profile{frmMain.profIndex}{slash}DBs{slash}Meal.TXT"));
             }
             catch { }
 
@@ -111,284 +111,254 @@ namespace NutApp
             slotObjs[2] = new slotObj();
             slotObjs[3] = new slotObj();
 
-            try
+            //try
+            // {
+            string[] slots = File.ReadAllLines(Application.StartupPath + $"{slash}usr{slash}profile{frmMain.profIndex.ToString()}{slash}DBs{slash}Slots.TXT");
+            int n = slots.Length > 4 ? 4 : slots.Length;
+            for (int i = 0; i < n; i++)
             {
-                string[] slots = File.ReadAllLines(Application.StartupPath + $"{slash}usr{slash}profile{frmMain.profIndex.ToString()}{slash}DBs{slash}Slots.TXT");
-                int n = slots.Length > 4 ? 4 : slots.Length;
-                for (int i = 0; i < n; i++)
+                string dir = Application.StartupPath + $"{slash}usr{slash}profile{frmMain.profIndex.ToString()}{slash}DBs{slash}{slots[i]}";
+                slotObjs[i]._dbConfig = File.ReadAllText(dir + slash + "_dbConfig.TXT").Replace("\r", "");
+                slotObjs[i]._dbInit = File.ReadAllText(dir + slash + "_dbInit.TXT").Replace("\r", "");
+                string[] splitConfig = slotObjs[i]._dbConfig.Split(new string[] { "[File]" }, StringSplitOptions.RemoveEmptyEntries);
+                string[] splitInit = slotObjs[i]._dbInit.Split(new string[] { "[File]" }, StringSplitOptions.RemoveEmptyEntries);
+
+                foreach (string s in splitConfig)
                 {
-                    string dir = Application.StartupPath + $"{slash}usr{slash}profile{frmMain.profIndex.ToString()}{slash}DBs{slash}{slots[i]}";
-                    slotObjs[i]._dbConfig = File.ReadAllText(dir + slash + "_dbConfig.TXT").Replace("\r", "");
-                    slotObjs[i]._dbInit = File.ReadAllText(dir + slash + "_dbInit.TXT").Replace("\r", "");
-                    string[] splitConfig = slotObjs[i]._dbConfig.Split(new string[] { "[File]" }, StringSplitOptions.RemoveEmptyEntries);
-                    string[] splitInit = slotObjs[i]._dbInit.Split(new string[] { "[File]" }, StringSplitOptions.RemoveEmptyEntries);
-
-                    foreach (string s in splitConfig)
+                    string[] lines = s.Split('\n');
+                    dbc kc = new dbc();
+                    kc.file = lines[0];
+                    foreach (string st in lines)
                     {
-                        string[] lines = s.Split('\n');
-                        dbc kc = new dbc();
-                        kc.file = splitConfig[0];
-                        foreach (string st in lines)
-                        {
-                            if (st.Contains("[Field]"))
-                                kc.field = st.Replace("[Filed]", "");
-                            if (st.Contains("[MetricName]"))
-                                kc.field = st.Replace("[MetricName]", "");
-                        }
-                        slotObjs[i].dbConfigKeys.Add(kc);
+                        if (st.Contains("[Field]"))
+                            kc.field = st.Replace("[Field]", "");
+                        if (st.Contains("[MetricName]"))
+                            kc.metricName = st.Replace("[MetricName]", "");
                     }
+                    slotObjs[i].dbConfigKeys.Add(kc);
+                }
 
-                    foreach (string s in splitConfig)
+                foreach (string s in splitInit)
+                {
+                    string[] lines = s.Split('\n');
+                    dbi ki = new dbi();
+                    ki.file = lines[0];
+                    ki.header = lines[1].Replace("[Header]", "");
+                    foreach (string st in lines)
+                        if (st.Contains("[Unit]"))
+                            ki.unit = st.Replace("[Unit]", "");
+                    slotObjs[i].dbInitKeys.Add(ki);
+                }
+
+                dbc nameFile = new dbc();
+                foreach (dbc kc in slotObjs[i].dbConfigKeys)
+                    if (kc.field == "Name of Food")
+                        slotObjs[i].z = File.ReadAllLines(dir + slash + kc.file).Length;
+
+                //reads files and prepares the listViews
+                if (i == 0)
+                {
+                    lstViewSlot1.Clear();
+                    lblSlot1.Text = slots[i].Replace("f_user_", "");
+                }
+                else if (i == 1)
+                {
+                    lstViewSlot2.Clear();
+                    lblSlot2.Text = slots[i].Replace("f_user_", "");
+                }
+                else if (i == 2)
+                {
+                    lstViewSlot3.Clear();
+                    lblSlot3.Text = slots[i].Replace("f_user_", "");
+                }
+                else if (i == 3)
+                {
+                    lstViewSlot4.Clear();
+                    lblSlot4.Text = slots[i].Replace("f_user_", "");
+                }
+                foreach (dbc kc in slotObjs[i].dbConfigKeys)
+                {
+                    if (i == 0)
                     {
-                        string[] lines = s.Split('\n');
-                        dbi ki = new dbi();
-                        ki.file = lines[0];
-                        ki.header = lines[1].Replace("[Header]", "");
-                        foreach (string st in lines)
-                        {
-                            if (st.Contains("[Unit]"))
-                                ki.unit = st.Replace("[Unit]", "");
-                        }
-                        slotObjs[i].dbInitKeys.Add(ki);
-                    }
-
-                    dbc nameFile = new dbc();
-                    foreach (dbc kc in slotObjs[i].dbConfigKeys)
                         if (kc.field == "Name of Food")
-                            slotObjs[i].z = File.ReadAllLines(dir + slash + kc.file).Length;
-
-                    List<ListViewItem> itms = new List<ListViewItem>();
-
-
-                    if (i == 1)
+                        {
+                            slotObjs[i].names = File.ReadAllLines(dir + slash + kc.file);
+                            lstViewSlot1.Columns.Add(kc.field);
+                        }
+                        if (kc.field == "Value1")
+                        {
+                            slotObjs[i].vals = File.ReadAllLines(dir + slash + kc.file);
+                            lstViewSlot1.Columns.Add(kc.metricName);
+                        }
+                        if (kc.field == "Weight")
+                        {
+                            slotObjs[i].weights = File.ReadAllLines(dir + slash + kc.file);
+                            lstViewSlot1.Columns.Add(kc.field);
+                        }
+                    }
+                    else if (i == 1)
                     {
-
+                        if (kc.field == "Name of Food")
+                        {
+                            slotObjs[i].names = File.ReadAllLines(dir + slash + kc.file);
+                            lstViewSlot2.Columns.Add(kc.field);
+                        }
+                        if (kc.field == "Value1")
+                        {
+                            slotObjs[i].vals = File.ReadAllLines(dir + slash + kc.file);
+                            lstViewSlot2.Columns.Add(kc.metricName);
+                        }
+                        if (kc.field == "Weight")
+                        {
+                            slotObjs[i].weights = File.ReadAllLines(dir + slash + kc.file);
+                            lstViewSlot2.Columns.Add(kc.field);
+                        }
                     }
                     else if (i == 2)
                     {
-
+                        if (kc.field == "Name of Food")
+                        {
+                            slotObjs[i].names = File.ReadAllLines(dir + slash + kc.file);
+                            lstViewSlot3.Columns.Add(kc.field);
+                        }
+                        if (kc.field == "Value1")
+                        {
+                            slotObjs[i].vals = File.ReadAllLines(dir + slash + kc.file);
+                            lstViewSlot3.Columns.Add(kc.metricName);
+                        }
+                        if (kc.field == "Weight")
+                        {
+                            slotObjs[i].weights = File.ReadAllLines(dir + slash + kc.file);
+                            lstViewSlot3.Columns.Add(kc.field);
+                        }
                     }
                     else if (i == 3)
                     {
-
+                        if (kc.field == "Name of Food")
+                        {
+                            slotObjs[i].names = File.ReadAllLines(dir + slash + kc.file);
+                            lstViewSlot4.Columns.Add(kc.field);
+                        }
+                        if (kc.field == "Value1")
+                        {
+                            slotObjs[i].vals = File.ReadAllLines(dir + slash + kc.file);
+                            lstViewSlot4.Columns.Add(kc.metricName);
+                        }
+                        if (kc.field == "Weight")
+                        {
+                            slotObjs[i].weights = File.ReadAllLines(dir + slash + kc.file);
+                            lstViewSlot4.Columns.Add(kc.field);
+                        }
                     }
-                    else if (i == 4)
-                    {
-
-                    }
-
                 }
+
+                if (i == 0)
+                    lstViewSlot1.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
+                else if (i == 1)
+                    lstViewSlot2.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
+                else if (i == 2)
+                    lstViewSlot3.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
+                else if (i == 3)
+                    lstViewSlot4.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
+
+                //populates the listViews
+                List<ListViewItem> itms;
+                if (i == 0)
+                {
+                    itms = new List<ListViewItem>();
+
+                    for (int j = 0; j < slotObjs[i].z; j++)
+                    {
+                        ListViewItem itm = new ListViewItem();
+                        foreach (dbc kc in slotObjs[i].dbConfigKeys)
+                        {
+                            if (kc.field == "Name of Food")                            
+                                itm.Text = slotObjs[i].names[j];                            
+                            else if (kc.field == "Value1")                            
+                                itm.SubItems.Add(slotObjs[i].vals[j]);                            
+                            else if (kc.field == "Weight")                            
+                                itm.SubItems.Add(slotObjs[i].weights[j]);                            
+                        }
+                        itms.Add(itm);
+                    }
+                    lstViewSlot1.BeginUpdate();
+                    foreach (ListViewItem itm in itms)
+                        lstViewSlot1.Items.Add(itm);
+                    lstViewSlot1.EndUpdate();
+                }
+                else if (i == 1)
+                {
+                    itms = new List<ListViewItem>();
+
+                    for (int j = 0; j < slotObjs[i].z; j++)
+                    {
+                        ListViewItem itm = new ListViewItem();
+                        foreach (dbc kc in slotObjs[i].dbConfigKeys)
+                        {
+                            if (kc.field == "Name of Food")
+                                itm.Text = slotObjs[i].names[j];
+                            else if (kc.field == "Value1")
+                                itm.SubItems.Add(slotObjs[i].vals[j]);
+                            else if (kc.field == "Weight")
+                                itm.SubItems.Add(slotObjs[i].weights[j]);
+                        }
+                        itms.Add(itm);
+                    }
+                    lstViewSlot2.BeginUpdate();
+                    foreach (ListViewItem itm in itms)
+                        lstViewSlot2.Items.Add(itm);
+                    lstViewSlot2.EndUpdate();
+                }
+                else if (i == 2)
+                {
+                    itms = new List<ListViewItem>();
+
+                    for (int j = 0; j < slotObjs[i].z; j++)
+                    {
+                        ListViewItem itm = new ListViewItem();
+                        foreach (dbc kc in slotObjs[i].dbConfigKeys)
+                        {
+                            if (kc.field == "Name of Food")
+                                itm.Text = slotObjs[i].names[j];
+                            else if (kc.field == "Value1")
+                                itm.SubItems.Add(slotObjs[i].vals[j]);
+                            else if (kc.field == "Weight")
+                                itm.SubItems.Add(slotObjs[i].weights[j]);
+                        }
+                        itms.Add(itm);
+                    }
+                    lstViewSlot3.BeginUpdate();
+                    foreach (ListViewItem itm in itms)
+                        lstViewSlot3.Items.Add(itm);
+                    lstViewSlot3.EndUpdate();
+                }
+                else if (i == 3)
+                {
+                    itms = new List<ListViewItem>();
+
+                    for (int j = 0; j < slotObjs[i].z; j++)
+                    {
+                        ListViewItem itm = new ListViewItem();
+                        foreach (dbc kc in slotObjs[i].dbConfigKeys)
+                        {
+                            if (kc.field == "Name of Food")
+                                itm.Text = slotObjs[i].names[j];
+                            else if (kc.field == "Value1")
+                                itm.SubItems.Add(slotObjs[i].vals[j]);
+                            else if (kc.field == "Weight")
+                                itm.SubItems.Add(slotObjs[i].weights[j]);
+                        }
+                        itms.Add(itm);
+                    }
+                    lstViewSlot4.BeginUpdate();
+                    foreach (ListViewItem itm in itms)
+                        lstViewSlot4.Items.Add(itm);
+                    lstViewSlot4.EndUpdate();
+                }
+
             }
-				catch{}
-
-            #region old
-            //if (File.Exists(Application.StartupPath + $"{slash}usr{slash}profile" + frmMain.profIndex.ToString() + $"{slash}DBs" + slash + "Slots.TXT"))
-            //{
-            //    string[] slots = File.ReadAllLines(Application.StartupPath + $"{slash}usr{slash}profile{frmMain.profIndex.ToString()}{slash}DBs{slash}Slots.TXT");
-            //    int slotMax = 0;
-            //    foreach (string s in slots)
-            //    {
-            //        string dir = Application.StartupPath + $"{slash}usr{slash}profile{frmMain.profIndex.ToString()}{slash}DBs{slash}{s}";
-            //        string dbConfig = File.ReadAllText(dir + slash + "_dbConfig.TXT");
-            //        string dbInit = File.ReadAllText(dir + slash + "_dbInit.TXT");
-
-
-
-            //        string[] names = new string[0];
-            //        string[] vals = new string[0];
-            //        string[] weights = new string[0];
-
-            //        if (Directory.Exists(dir))
-            //        {
-            //            if (slotMax == 0)
-            //            {
-            //                itms = new List<ListViewItem>();
-            //                lblSlot1.Text = s.Replace("f_user_", "");
-            //                foreach (string t in nkp)
-            //                {
-            //                    if (t.Split('|')[1] == "Name of Food")
-            //                    {
-            //                        names = File.ReadAllLines(dir + slash + t.Split('|')[0]);
-            //                        slotObjs[0].names = names;
-            //                    }
-            //                    else if (t.Split('|')[1] == "Value1")
-            //                    {
-            //                        vals = File.ReadAllLines(dir + slash + t.Split('|')[0]);
-            //                        slotObjs[0].vals = vals;
-            //                    }
-
-            //                    else if (t.Split('|')[1] == "Weight")
-            //                    {
-            //                        weights = File.ReadAllLines(dir + slash + t.Split('|')[0]);
-            //                        slotObjs[0].weights = weights;
-            //                    }
-            //                }
-
-            //                //adds to list
-            //                for (int i = 0; i < names.Length; i++)
-            //                {
-            //                    ListViewItem itm = new ListViewItem(names[i]);
-            //                    if (weights != null && names != null && weights.Length == names.Length)
-            //                        itm.SubItems.Add(weights[i]);
-            //                    else
-            //                        itm.SubItems.Add("");
-            //                    if (vals != null && names != null && vals.Length == names.Length)
-            //                        itm.SubItems.Add(vals[i]);
-            //                    else
-            //                        itm.SubItems.Add("");
-            //                    itms.Add(itm);
-            //                    //lstViewSlot1.Items.Add(itm);
-            //                }
-            //                lstViewSlot1.BeginUpdate();
-            //                foreach (ListViewItem itm in itms)
-            //                    lstViewSlot1.Items.Add(itm);
-            //                lstViewSlot1.EndUpdate();
-            //            }
-            //            else if (slotMax == 1)
-            //            {
-            //                itms = new List<ListViewItem>();
-            //                lblSlot2.Text = s.Replace("f_user_", "");
-            //                foreach (string t in nkp)
-            //                {
-            //                    if (t.Split('|')[1] == "Name of Food")
-            //                    {
-            //                        names = File.ReadAllLines(dir + slash + t.Split('|')[0]);
-            //                        slotObjs[1].names = names;
-            //                    }
-            //                    else if (t.Split('|')[1] == "Value1")
-            //                    {
-            //                        vals = File.ReadAllLines(dir + slash + t.Split('|')[0]);
-            //                        slotObjs[1].vals = vals;
-            //                    }
-            //                    else if (t.Split('|')[1] == "Weight")
-            //                    {
-            //                        weights = File.ReadAllLines(dir + slash + t.Split('|')[0]);
-            //                        slotObjs[1].weights = weights;
-            //                    }
-            //                }
-
-            //                //adds to list
-            //                for (int i = 0; i < names.Length; i++)
-            //                {
-            //                    //if (names.Length != weights.Length || weights.Length != vals.Length)
-            //                    //{
-            //                    //    MessageBox.Show($"the {s} field is corrupt, not all entries have the same length\nameLength: {names.Length}\nweightsLength: {weights.Length}\nvalueLength: {vals.Length}");
-            //                    //    break;
-            //                    //}
-            //                    ListViewItem itm = new ListViewItem(names[i]);
-            //                    if (weights.Length == names.Length)
-            //                        itm.SubItems.Add(weights[i]);
-            //                    else
-            //                        itm.SubItems.Add("");
-            //                    if (vals.Length == names.Length)
-            //                        itm.SubItems.Add(vals[i]);
-            //                    else
-            //                        itm.SubItems.Add("");
-            //                    itms.Add(itm);
-            //                    //lstViewSlot2.Items.Add(itm);
-            //                }
-            //                lstViewSlot2.BeginUpdate();
-            //                foreach (ListViewItem itm in itms)
-            //                    lstViewSlot2.Items.Add(itm);
-            //                lstViewSlot2.EndUpdate();
-            //            }
-            //            else if (slotMax == 2)
-            //            {
-            //                itms = new List<ListViewItem>();
-            //                lblSlot3.Text = s.Replace("f_user_", "");
-            //                foreach (string t in nkp)
-            //                {
-            //                    if (t.Split('|')[1] == "Name of Food")
-            //                    {
-            //                        names = File.ReadAllLines(dir + slash + t.Split('|')[0]);
-            //                        slotObjs[2].names = names;
-            //                    }
-            //                    else if (t.Split('|')[1] == "Value1")
-            //                    {
-            //                        vals = File.ReadAllLines(dir + slash + t.Split('|')[0]);
-            //                        slotObjs[2].vals = vals;
-            //                    }
-
-            //                    else if (t.Split('|')[1] == "Weight")
-            //                    {
-            //                        weights = File.ReadAllLines(dir + slash + t.Split('|')[0]);
-            //                        slotObjs[2].weights = weights;
-            //                    }
-            //                }
-
-            //                //adds to list
-            //                for (int i = 0; i < names.Length; i++)
-            //                {
-            //                    ListViewItem itm = new ListViewItem(names[i]);
-            //                    if (weights.Length == names.Length)
-            //                        itm.SubItems.Add(weights[i]);
-            //                    else
-            //                        itm.SubItems.Add("");
-            //                    if (vals.Length == names.Length)
-            //                        itm.SubItems.Add(vals[i]);
-            //                    else
-            //                        itm.SubItems.Add("");
-            //                    itms.Add(itm);
-            //                    //lstViewSlot3.Items.Add(itm);
-            //                }
-            //                lstViewSlot3.BeginUpdate();
-            //                foreach (ListViewItem itm in itms)
-            //                    lstViewSlot3.Items.Add(itm);
-            //                lstViewSlot3.EndUpdate();
-            //            }
-            //            else if (slotMax == 3)
-            //            {
-            //                itms = new List<ListViewItem>();
-            //                lblSlot4.Text = s.Replace("f_user_", "");
-            //                foreach (string t in nkp)
-            //                {
-            //                    if (t.Split('|')[1] == "Name of Food")
-            //                    {
-            //                        names = File.ReadAllLines(dir + slash + t.Split('|')[0]);
-            //                        slotObjs[3].names = names;
-            //                    }
-
-            //                    else if (t.Split('|')[1] == "Value1")
-            //                    {
-            //                        vals = File.ReadAllLines(dir + slash + t.Split('|')[0]);
-            //                        slotObjs[3].vals = vals;
-            //                    }
-
-            //                    else if (t.Split('|')[1] == "Weight")
-            //                    {
-            //                        weights = File.ReadAllLines(dir + slash + t.Split('|')[0]);
-            //                        slotObjs[3].weights = weights;
-            //                    }
-            //                }
-
-            //                //adds to list
-            //                for (int i = 0; i < names.Length; i++)
-            //                {
-            //                    ListViewItem itm = new ListViewItem(names[i]);
-            //                    if (weights.Length == names.Length)
-            //                        itm.SubItems.Add(weights[i]);
-            //                    else
-            //                        itm.SubItems.Add("");
-            //                    if (vals.Length == names.Length)
-            //                        itm.SubItems.Add(vals[i]);
-            //                    else
-            //                        itm.SubItems.Add("");
-            //                    itms.Add(itm);
-            //                    //lstViewSlot4.Items.Add(itm);
-            //                }
-            //                lstViewSlot4.BeginUpdate();
-
-            //                foreach (ListViewItem itm in itms)
-            //                    lstViewSlot4.Items.Add(itm);
-            //                lstViewSlot4.EndUpdate();
-            //            }
-            //            slotMax++;
-            //        }
-            //        if (slotMax >= 4)
-            //            break;
-            //    }
             //}
-            #endregion
+            //catch { }            
         }
 
         private string nameKeyPath = "";
@@ -718,6 +688,8 @@ namespace NutApp
 
         private void txtUser1_TextChanged(object sender, EventArgs e)
         {
+            if (slotObjs[0].names == null)
+                return;
             lstViewSlot1.Items.Clear();
             itms = new List<ListViewItem>();
             for ( int i = 0;  i < slotObjs[0].names.Length; i++)
@@ -725,27 +697,27 @@ namespace NutApp
                 if (slotObjs[0].names[i].ToUpper().Contains(txtUser1.Text.ToUpper()))
                 {
                     ListViewItem itm = new ListViewItem(slotObjs[0].names[i]);
-                    if (slotObjs[0].names.Length == slotObjs[0].weights.Length)
+                    if (slotObjs[0].weights != null && slotObjs[0].names.Length == slotObjs[0].weights.Length)
                         itm.SubItems.Add(slotObjs[0].weights[i]);
-                    else
-                        itm.SubItems.Add("");
-                    if (slotObjs[0].names.Length == slotObjs[0].vals.Length)
+                    if (slotObjs[0].vals != null && slotObjs[0].names.Length == slotObjs[0].vals.Length)
                         itm.SubItems.Add(slotObjs[0].vals[i]);
-                    else
-                        itm.SubItems.Add("");
-                    //lstViewSlot1.Items.Add(itm);
                     itms.Add(itm);
                 }
             }
             lstViewSlot1.BeginUpdate();
             foreach (ListViewItem itm in itms)
                 lstViewSlot1.Items.Add(itm);
-            //lstViewSlot1.Items.AddRange(itms);
             lstViewSlot1.EndUpdate();
+            if (itms.Count == 0)
+                lstViewSlot1.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
+            else
+                lstViewSlot1.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
         }
 
         private void txtUser2_TextChanged(object sender, EventArgs e)
         {
+            if (slotObjs[1].names == null)
+                return;
 			lstViewSlot2.Items.Clear();
             itms = new List<ListViewItem>();
             for (int i = 0; i < slotObjs[1].names.Length; i++)
@@ -753,27 +725,27 @@ namespace NutApp
                 if (slotObjs[1].names[i].ToUpper().Contains(txtUser2.Text.ToUpper()))
                 {
                     ListViewItem itm = new ListViewItem(slotObjs[1].names[i]);
-                    if (slotObjs[1].names.Length == slotObjs[1].weights.Length)
+                    if (slotObjs[1].weights != null && slotObjs[1].names.Length == slotObjs[1].weights.Length)
                         itm.SubItems.Add(slotObjs[1].weights[i]);
-                    else
-                        itm.SubItems.Add("");
-                    if (slotObjs[1].names.Length == slotObjs[1].vals.Length)
+                    if (slotObjs[1].vals != null && slotObjs[1].names.Length == slotObjs[1].vals.Length)
                         itm.SubItems.Add(slotObjs[1].vals[i]);
-                    else
-                        itm.SubItems.Add("");
-					//lstViewSlot2.Items.Add(itm);
 					itms.Add(itm);
                 }
 			}
 			lstViewSlot2.BeginUpdate();
             foreach (ListViewItem itm in itms)
                 lstViewSlot2.Items.Add(itm);
-            //lstViewSlot2.Items.AddRange(itms);
 			lstViewSlot2.EndUpdate();
+            if (itms.Count == 0)
+                lstViewSlot2.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
+            else
+                lstViewSlot2.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
         }
 
         private void txtUser3_TextChanged(object sender, EventArgs e)
         {
+            if (slotObjs[2].names == null)
+                return;
 			lstViewSlot3.Items.Clear();
             itms = new List<ListViewItem>();
             for (int i = 0; i < slotObjs[2].names.Length; i++)
@@ -781,51 +753,49 @@ namespace NutApp
                 if (slotObjs[2].names[i].ToUpper().Contains(txtUser3.Text.ToUpper()))
                 {
                     ListViewItem itm = new ListViewItem(slotObjs[2].names[i]);
-                    if (slotObjs[2].names.Length == slotObjs[2].weights.Length)
+                    if (slotObjs[2].weights!=null && slotObjs[2].names.Length == slotObjs[2].weights.Length)
                         itm.SubItems.Add(slotObjs[2].weights[i]);
-                    else
-                        itm.SubItems.Add("");
-                    if (slotObjs[2].names.Length == slotObjs[2].vals.Length)
+                    if (slotObjs[2].vals != null && slotObjs[2].names.Length == slotObjs[2].vals.Length)
                         itm.SubItems.Add(slotObjs[2].vals[i]);
-                    else
-                        itm.SubItems.Add("");
-					//lstViewSlot3.Items.Add(itm);
 					itms.Add(itm);
                 }
 			}
 			lstViewSlot3.BeginUpdate();
             foreach (ListViewItem itm in itms)
                 lstViewSlot3.Items.Add(itm);
-            //lstViewSlot3.Items.AddRange(itms);
 			lstViewSlot3.EndUpdate();
+            if (itms.Count == 0)
+                lstViewSlot3.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
+            else
+                lstViewSlot3.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
         }
 
         private void txtUser4_TextChanged(object sender, EventArgs e)
         {
-			lstViewSlot4.Items.Clear();
             itms = new List<ListViewItem>();
+            if (slotObjs[3].names == null)
+                return;
+			lstViewSlot4.Items.Clear();
             for (int i = 0; i < slotObjs[3].names.Length; i++)
             {
                 if (slotObjs[3].names[i].ToUpper().Contains(txtUser4.Text.ToUpper()))
                 {
                     ListViewItem itm = new ListViewItem(slotObjs[3].names[i]);
-                    if (slotObjs[3].names.Length == slotObjs[3].weights.Length)
+                    if (slotObjs[3].weights != null && slotObjs[3].names.Length == slotObjs[3].weights.Length)
                         itm.SubItems.Add(slotObjs[3].weights[i]);
-                    else
-                        itm.SubItems.Add("");
-                    if (slotObjs[3].names.Length == slotObjs[3].vals.Length)
+                    if (slotObjs[3].vals != null && slotObjs[3].names.Length == slotObjs[3].vals.Length)
                         itm.SubItems.Add(slotObjs[3].vals[i]);
-                    else
-                        itm.SubItems.Add("");
-					//lstViewSlot4.Items.Add(itm);
 					itms.Add(itm);
                 }
 			}
 			lstViewSlot4.BeginUpdate();
             foreach (ListViewItem itm in itms)
                 lstViewSlot4.Items.Add(itm);
-            //lstViewSlot4.Items.AddRange(itms);
 			lstViewSlot4.EndUpdate();
+            if (itms.Count == 0)
+                lstViewSlot4.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
+            else
+                lstViewSlot4.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
         }
 
         private void txtQty_TextChanged(object sender, EventArgs e)
