@@ -157,6 +157,7 @@ E:/MonoProjects/NutApp/NutApp/obj/Debug/NutApp.pdb
 D:/MonoProjects/NutApp/NutApp/bin/Debug/NutApp.exe.config
 D:/MonoProjects/NutApp/NutApp/bin/Debug/NutApp.exe
 D:/MonoProjects/NutApp/NutApp/bin/Debug/NutApp.pdb
+D:/MonoProjects/NutApp/NutApp/obj/Debug/Nutrition App.csprojResolveAssemblyReference.cache
 D:/MonoProjects/NutApp/NutApp/obj/Debug/NutApp.frmActiveFields.resources
 D:/MonoProjects/NutApp/NutApp/obj/Debug/NutApp.frmAddCommonFood.resources
 D:/MonoProjects/NutApp/NutApp/obj/Debug/NutApp.frmAddFood.resources

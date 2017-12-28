@@ -1,12 +1,12 @@
 ﻿<Properties StartupConfiguration="{086472C5-DD1F-4872-9BF1-9F9B633A376F}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="NutApp/frmNewField.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="NutApp/frmManageField.cs">
     <Files>
-      <File FileName="NutApp/frmManageField.cs" Line="284" Column="13" />
+      <File FileName="NutApp/frmManageField.cs" Line="260" Column="26" />
       <File FileName="NutApp/frmSearchFoods.cs" Line="81" Column="58" />
       <File FileName="NutApp/frmParseCustomDatabase.cs" Line="69" Column="22" />
       <File FileName="NutApp/frmDetailReport.cs" Line="58" Column="32" />
       <File FileName="NutApp/frmNewDB.cs" Line="165" Column="72" />
-      <File FileName="NutApp/frmNewField.cs" Line="128" Column="18" />
+      <File FileName="NutApp/frmNewField.cs" Line="224" Column="35" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />

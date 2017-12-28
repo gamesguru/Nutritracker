@@ -96,6 +96,7 @@ namespace NutApp
         class file {
             public string fileName;
             public string nuts;
+            public string metricName;
             public string headers;
             public string units;
         }
@@ -189,10 +190,17 @@ namespace NutApp
 					temp.Add("[Nut]" + f.nuts);
 				if (f.units != null)
 					temp.Add("[Unit]" + f.units);
+                if (f.nuts != null && (f.nuts == "Value1" || f.nuts == "Value2" || f.nuts == "Value3"))
+                {
+                    f.metricName = f.nuts;
+                    temp.Add("[MetricName]" + f.metricName);
+                }
                 temp.Add("");
-                output.Add(string.Join("\n", temp));
+                output.Add(string.Join("\r\n", temp));
 			}
-            File.WriteAllLines(fp + slash + "_dbInfo.TXT", output);
+
+			File.WriteAllLines(fp + slash + "_dbInit.TXT", dbInit);
+			File.WriteAllLines(fp + slash + "_dbConfig.TXT", dbConfig);
 
             #region nutKey, nameKey, unitKey
 			//File.WriteAllLines(fp + $"{slash}_nameKeyPairs.txt", nameKeyPairs);

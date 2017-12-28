@@ -32,6 +32,8 @@
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
             this.grpProperties = new System.Windows.Forms.GroupBox();
+            this.txtValName3 = new System.Windows.Forms.TextBox();
+            this.txtValName2 = new System.Windows.Forms.TextBox();
             this.txtValName1 = new System.Windows.Forms.TextBox();
             this.txtVal2 = new System.Windows.Forms.TextBox();
             this.label64 = new System.Windows.Forms.Label();
@@ -63,8 +65,6 @@
             this.listView1 = new System.Windows.Forms.ListView();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.textBox1 = new System.Windows.Forms.TextBox();
-            this.txtValName2 = new System.Windows.Forms.TextBox();
-            this.txtValName3 = new System.Windows.Forms.TextBox();
             this.grpProperties.SuspendLayout();
             this.grpStandard.SuspendLayout();
             this.grpPreviewStatus.SuspendLayout();
@@ -121,9 +121,30 @@
             this.grpProperties.TabStop = false;
             this.grpProperties.Text = "Basics";
             // 
+            // txtValName3
+            // 
+            this.txtValName3.Location = new System.Drawing.Point(6, 149);
+            this.txtValName3.MaxLength = 15;
+            this.txtValName3.Name = "txtValName3";
+            this.txtValName3.Size = new System.Drawing.Size(58, 20);
+            this.txtValName3.TabIndex = 75;
+            this.txtValName3.Text = "Value3";
+            this.txtValName3.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // txtValName2
+            // 
+            this.txtValName2.Location = new System.Drawing.Point(6, 123);
+            this.txtValName2.MaxLength = 15;
+            this.txtValName2.Name = "txtValName2";
+            this.txtValName2.Size = new System.Drawing.Size(58, 20);
+            this.txtValName2.TabIndex = 74;
+            this.txtValName2.Text = "Value2";
+            this.txtValName2.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
             // txtValName1
             // 
             this.txtValName1.Location = new System.Drawing.Point(6, 97);
+            this.txtValName1.MaxLength = 15;
             this.txtValName1.Name = "txtValName1";
             this.txtValName1.Size = new System.Drawing.Size(58, 20);
             this.txtValName1.TabIndex = 73;
@@ -269,7 +290,8 @@
             this.comboFields.Location = new System.Drawing.Point(12, 25);
             this.comboFields.Name = "comboFields";
             this.comboFields.Size = new System.Drawing.Size(209, 28);
-            this.comboFields.TabIndex = 6;
+            this.comboFields.TabIndex = 0;
+            this.comboFields.TabStop = false;
             this.comboFields.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
             // label1
@@ -349,6 +371,7 @@
             this.comboBox4.Name = "comboBox4";
             this.comboBox4.Size = new System.Drawing.Size(87, 21);
             this.comboBox4.TabIndex = 5;
+            this.comboBox4.TabStop = false;
             // 
             // comboBox3
             // 
@@ -357,7 +380,8 @@
             this.comboBox3.Location = new System.Drawing.Point(78, 206);
             this.comboBox3.Name = "comboBox3";
             this.comboBox3.Size = new System.Drawing.Size(87, 21);
-            this.comboBox3.TabIndex = 4;
+			this.comboBox3.TabIndex = 4;
+			this.comboBox3.TabStop = false;
             // 
             // comboBox2
             // 
@@ -366,7 +390,8 @@
             this.comboBox2.Location = new System.Drawing.Point(171, 179);
             this.comboBox2.Name = "comboBox2";
             this.comboBox2.Size = new System.Drawing.Size(87, 21);
-            this.comboBox2.TabIndex = 3;
+			this.comboBox2.TabIndex = 3;
+			this.comboBox2.TabStop = false;
             // 
             // comboBox1
             // 
@@ -375,7 +400,8 @@
             this.comboBox1.Location = new System.Drawing.Point(78, 179);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(87, 21);
-            this.comboBox1.TabIndex = 2;
+			this.comboBox1.TabIndex = 2;
+			this.comboBox1.TabStop = false;
             // 
             // label2
             // 
@@ -418,24 +444,6 @@
             this.textBox1.Size = new System.Drawing.Size(144, 48);
             this.textBox1.TabIndex = 0;
             this.textBox1.TabStop = false;
-            // 
-            // txtValName2
-            // 
-            this.txtValName2.Location = new System.Drawing.Point(6, 123);
-            this.txtValName2.Name = "txtValName2";
-            this.txtValName2.Size = new System.Drawing.Size(58, 20);
-            this.txtValName2.TabIndex = 74;
-            this.txtValName2.Text = "Value2";
-            this.txtValName2.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // txtValName3
-            // 
-            this.txtValName3.Location = new System.Drawing.Point(6, 149);
-            this.txtValName3.Name = "txtValName3";
-            this.txtValName3.Size = new System.Drawing.Size(58, 20);
-            this.txtValName3.TabIndex = 75;
-            this.txtValName3.Text = "Value3";
-            this.txtValName3.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // frmManageField
             // 

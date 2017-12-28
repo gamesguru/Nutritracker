@@ -59,8 +59,10 @@ namespace NutApp
             public Unit weightUnit;
         }
 
-        public class dbkey{
+        public class dbkey
+        {
             public string fileName;
+            public string metricName;
             public string header;
             public string nut;
             public string unit;
@@ -81,7 +83,7 @@ namespace NutApp
                     string field = fields[i].Remove(0, 7);
 
                     field f = new field();
-                    f.name = fields[i];
+                    f.name = fields[i].Replace("f_user_", "");
                     Fields.Add(f);
 
                     comboBox1.Items.Add(field);
@@ -101,11 +103,11 @@ namespace NutApp
 
             for (int i = 0; i < Fields.Count; i++)
             {
-                Fields[i].dbInfo = File.ReadAllText(Application.StartupPath + $"{slash}usr{slash}profile{frmMain.profIndex.ToString()}{slash}DBs{slash}{Fields[i].name}{slash}_dbInfo.TXT");
+                Fields[i].dbInfo = File.ReadAllText(Application.StartupPath + $"{slash}usr{slash}profile{frmMain.profIndex.ToString()}{slash}DBs{slash}f_user_{Fields[i].name}{slash}_dbInfo.TXT");
 
                 string[] items = Fields[i].dbInfo.Split(new string[] {"[File]"}, StringSplitOptions.RemoveEmptyEntries);
                 foreach (string s in items){
-                    string[] lines = s.Split('\n');
+                    string[] lines = s.Replace("\r", "").Split('\n');
                     dbkey k = new dbkey();
                     k.fileName = lines[0];
                     k.header = lines[1].Replace("[Header]", "");
@@ -113,9 +115,11 @@ namespace NutApp
 					{
 						if (st.Contains("[Nut]"))
 							k.nut = st.Replace("[Nut]", "");
-						else if (st.Contains("[Unit]"))
-							k.unit = st.Replace("[Unit]", "");
-					}
+                        else if (st.Contains("[Unit]"))
+                            k.unit = st.Replace("[Unit]", "");
+                        else if (st.Contains("[MetricName]"))
+                            k.metricName = st.Replace("[MetricName]", "");
+                    }
                     Fields[i].dbKeys.Add(k);
 					//MessageBox.Show($"file:{k.fileName}\nheader:{k.header}\nnut:{k.nut}\nunit:{k.unit}");
                 }
@@ -199,56 +203,38 @@ namespace NutApp
             txtOthUn.AutoCompleteCustomSource = source;
             txtOthUn.AutoCompleteSource = AutoCompleteSource.CustomSource;
             txtOthUn.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
-            #endregion
+			#endregion
 
+			List<ListViewItem> itms = new List<ListViewItem>();
             foreach (field f in Fields)
-                if (f.name.Replace("f_user_", "") == comboFields.Text)
+                if (f.name == comboFields.Text)
                 {
-                    if (f.name != null)
-                        listView1.Columns.Add("Name of Food");
-                    if (f.value1 != null && f.value1.Length == f.z)
-                        listView1.Columns.Add("Value1");
-                    if (f.value2 != null && f.value2.Length == f.z)
-                        listView1.Columns.Add("Value2");
-                    if (f.value3 != null && f.value3.Length == f.z)
-                        listView1.Columns.Add("Value3");
-                    if (f.serving != null && f.serving.Length == f.z)
-                        listView1.Columns.Add("Serving");
-                    if (f.weight != null && f.weight.Length == f.z)
-                        listView1.Columns.Add("Weight");
-                    if (f.othUnits != null && f.othUnits.Length == f.z)
-                        listView1.Columns.Add("Other Units");
-
-                    List<ListViewItem> itms = new List<ListViewItem>();
-                    for (int i = 0; i < f.z; i++)
+                    foreach (dbkey k in f.dbKeys)
                     {
-                        ListViewItem itm = new ListViewItem();
-
-                        if (f.name != null)
-                            itm.Text = f.nameOfFood[i];
-                        if (f.value1 != null && f.value1.Length == f.z)
-                            itm.SubItems.Add(f.value1[i]);
-                        if (f.value2 != null && f.value2.Length == f.z)
-                            itm.SubItems.Add(f.value2[i]);
-                        if (f.value3 != null && f.value3.Length == f.z)
-                            itm.SubItems.Add(f.value3[i]);
-                        if (f.serving != null && f.serving.Length == f.z)
-                            itm.SubItems.Add(f.serving[i]);
-                        if (f.weight != null && f.weight.Length == f.z)
-                            itm.SubItems.Add(f.weight[i]);
-                        if (f.othUnits != null && f.othUnits.Length == f.z)
-                            itm.SubItems.Add(f.othUnits[i]);
-
-                        itms.Add(itm);
-                        //MessageBox.Show(f.ToString());
+                        if (k.nut == "Name of Food")
+                            listView1.Columns.Add(k.nut);
+                        else if (k.nut == "Value1")
+                            listView1.Columns.Add(k.metricName);
+                        else if (k.nut == "Value2")
+                            listView1.Columns.Add(k.metricName);
+                        else if (k.nut == "Value3")
+                            listView1.Columns.Add(k.metricName);
+                        else if (k.nut == "Other Units")
+                            listView1.Columns.Add(k.nut);
+                        else if (k.nut == "Serving")
+                            listView1.Columns.Add(k.nut);
+                        else if (k.nut == "Weight")
+                            listView1.Columns.Add(k.nut);
                     }
+
                     listView1.BeginUpdate();
                     foreach (ListViewItem itm in itms)
                         listView1.Items.Add(itm);
                     listView1.EndUpdate();
                 }
-            //MessageBox.Show(Fields[0].z.ToString());
         }
+            //MessageBox.Show(Fields[0].z.ToString());
+
 
         private void updateTextboxes()
         {
@@ -256,32 +242,45 @@ namespace NutApp
             txtVal1.Text = "";
             txtVal2.Text = "";
             txtVal3.Text = "";
+            txtValName1.Text = "";
+            txtValName2.Text = "";
+            txtValName3.Text = "";
             txtOthUn.Text = "";
             txtServ.Text = "";
             txtWeight.Text = "";
             dbi = Application.StartupPath + $"{slash}usr{slash}profile" + frmMain.profIndex.ToString() + $"{slash}DBs{slash}f_user_" + comboFields.Text + $"{slash}_dbInfo.TXT";
-            foreach (field f in Fields){
-				if (f.name == "f_user_" + comboFields.Text)
-					foreach (dbkey k in f.dbKeys)
-				{
-					if (k.nut == "Name of Food")
-						txtName.Text = k.fileName;
-					else if (k.nut == "Value1")
-                        txtVal1.Text = k.fileName;
-					else if (k.nut == "Value2")
-						txtVal2.Text = k.fileName;
-					else if (k.nut == "Value3")
-						txtVal3.Text = k.fileName;
-					else if (k.nut == "Other Units")
-                        txtOthUn.Text = k.fileName;
-					else if (k.nut == "Serving")
-                        txtServ.Text = k.fileName;
-					else if (k.nut == "Weight")
-                        txtWeight.Text = k.fileName;
-				}
+            foreach (field f in Fields)
+            {
+                if (f.name == comboFields.Text)
+                    foreach (dbkey k in f.dbKeys)
+                    {
+                        if (k.nut == "Name of Food")
+                            txtName.Text = k.fileName;
+                        else if (k.nut == "Value1")
+                        {
+                            txtVal1.Text = k.fileName;
+                            txtValName1.Text = k.metricName;
+                        }
+                        else if (k.nut == "Value2")
+                        {
+                            txtVal2.Text = k.fileName;
+                            txtValName2.Text = k.metricName;
+                        }
+                        else if (k.nut == "Value3")
+                        {
+                            txtVal3.Text = k.fileName;
+                            txtValName3.Text = k.metricName;
+                        }
+                        else if (k.nut == "Other Units")
+                            txtOthUn.Text = k.fileName;
+                        else if (k.nut == "Serving")
+                            txtServ.Text = k.fileName;
+                        else if (k.nut == "Weight")
+                            txtWeight.Text = k.fileName;
+                    }
             }
-                
-            
+
+
             //lst = importArray(dbi); //importArray(Application.StartupPath + $"{slash}usr{slash}profile" + frmMain.profIndex.ToString() + $"{slash}DBs{slash}f_user_" + comboFields.Text + $"{slash}_nutKeyPairs.TXT");
             bool chkCalBool = false;
             bool chkGramsBool = false;
@@ -321,61 +320,91 @@ namespace NutApp
             updateTextboxes();
         }
 
+        //this is causing problems if the user switches values 2 and 3, or something similar.  the [Header] and [Units] are transposed
         private void btnSave_Click(object sender, EventArgs e)
         {
             string dr = Application.StartupPath + $"{slash}usr{slash}profile" + frmMain.profIndex.ToString() + $"{slash}DBs{slash}f_user_" + comboFields.Text;
-            List<string> text = new List<string>();
 
-            if (chkCal.Checked)
-                text.Add("200 kcal|Standardization");
+            //List<string> text = new List<string>();
 
-            if (chkGrams.Checked)
-                text.Add("100 grams|Standardization");
+            field f = new field();
+            foreach (field F in Fields)
+                if (F.name == comboFields.Text)
+                    f = F;
 
-            if (txtName.TextLength > 0 && File.Exists(dr + $"{slash}" + txtName.Text))
-                text.Add(txtName.Text + "|Name of Food");
 
-            if (txtVal1.TextLength > 0 && File.Exists(dr + $"{slash}" + txtVal1.Text))
-                text.Add(txtVal1.Text + "|Value1");
+            //marks updates to the log
+            //if (chkCal.Checked)
+            //    text.Add("200 kcal|Standardization");
 
-            if (txtVal2.TextLength > 0 && File.Exists(dr + $"{slash}" + txtVal2.Text))
-                text.Add(txtVal2.Text + "|Value2");
+            //if (chkGrams.Checked)
+            //text.Add("100 grams|Standardization");
+            foreach (dbkey k in f.dbKeys){
+                if (k.nut == "Name of Food")
+					k.fileName = txtName.Text;
+				else if (k.nut == "Value1")
+				{
+                    k.nut = "Value1";
+					k.fileName = txtVal1.Text;
+					k.metricName = txtValName1.Text;
+				}
+				else if (k.nut == "Value2") //null valued, must loop through another way, or assign it on the frmNewField, or it will never be assigned
+                {
+					k.fileName = txtVal2.Text;
+					k.metricName = txtValName2.Text;
+				}
+				else if (k.nut == "Value3")
+				{
+					k.fileName = txtVal3.Text;
+					k.metricName = txtValName3.Text;
+				}
+				else if (k.nut == "Other Units")
+                    k.fileName = txtOthUn.Text;
+				else if (k.nut == "Serving")
+                    k.fileName = txtServ.Text;
+				else if (k.nut == "Weight")
+                    k.fileName = txtWeight.Text;
+            }
 
-            if (txtVal3.TextLength > 0 && File.Exists(dr + $"{slash}" + txtVal3.Text))
-                text.Add(txtVal3.Text + "|Value3");
+            //saves to disk
+            List<string> output = new List<string>();
+            foreach (dbkey k in f.dbKeys){
+				List<string> temp = new List<string>();
+				temp.Add($"[File]{k.fileName}");
+                temp.Add("[Header]" + k.header);
+				if (k.nut != null)
+					temp.Add("[Nut]" + k.nut);
+				if (k.unit != null)
+					temp.Add("[Unit]" + k.unit);
+				if (k.nut != null && (k.nut == "Value1" || k.nut == "Value2" || k.nut == "Value3"))
+					temp.Add("[MetricName]" + k.metricName);
+				temp.Add("");
+				output.Add(string.Join("\r\n", temp));
+            }
 
-            if (txtOthUn.TextLength > 0 && File.Exists(dr + $"{slash}" + txtOthUn.Text))
-                text.Add(txtOthUn.Text + "|Other Units");
 
-            if (txtServ.TextLength > 0 && File.Exists(dr + $"{slash}" + txtServ.Text))
-                text.Add(txtServ.Text + "|Serving");
+            File.WriteAllLines(dr + slash+"_dbInfo.TXT", output);
 
-            if (txtWeight.TextLength > 0 && File.Exists(dr + $"{slash}" + txtWeight.Text))
-                text.Add(txtWeight.Text + "|Weight");
-            //work here
-            File.WriteAllLines(dr + $"{slash}_nutKeyPairs.TXT", text);
+			output = new List<string>();
+			if (comboBox1.SelectedIndex > -1)
+			    output.Add("f_user_" + comboBox1.SelectedItem.ToString());
 
-            text = new List<string>();
-            if (comboBox1.SelectedIndex > -1)
-                text.Add("f_user_" + comboBox1.SelectedItem.ToString());
+			if (comboBox2.SelectedIndex > -1)
+			    output.Add("f_user_" + comboBox2.SelectedItem.ToString());
 
-            if (comboBox2.SelectedIndex > -1)
-                text.Add("f_user_" + comboBox2.SelectedItem.ToString());
+			if (comboBox3.SelectedIndex > -1)
+			    output.Add("f_user_" + comboBox3.SelectedItem.ToString());
 
-            if (comboBox3.SelectedIndex > -1)
-                text.Add("f_user_" + comboBox3.SelectedItem.ToString());
+			if (comboBox4.SelectedIndex > -1)
+			    output.Add("f_user_" + comboBox4.SelectedItem.ToString());
 
-            if (comboBox4.SelectedIndex > -1)
-                text.Add("f_user_" + comboBox4.SelectedItem.ToString());
-
-            File.WriteAllLines(Application.StartupPath + $"{slash}usr{slash}profile" +
-            frmMain.profIndex.ToString() + $"{slash}DBs{slash}Slots.TXT", text);
-            this.Close();
+            File.WriteAllLines(Application.StartupPath + $"{slash}usr{slash}profile{frmMain.profIndex.ToString()}{slash}DBs{slash}Slots.TXT", output);
+			this.Close();
         }
 
         private void chkCal_CheckedChanged(object sender, EventArgs e)
         {
-            string dr = Application.StartupPath + $"{slash}usr{slash}profile" + frmMain.profIndex.ToString() + $"{slash}DBs{slash}f_user_" + comboFields.Text;
+            string dr = Application.StartupPath + $"{slash}usr{slash}profile{frmMain.profIndex.ToString()}{slash}DBs{slash}f_user_" + comboFields.Text;
             if (chkCal.Checked)
             {
                 if (File.Exists(dr + slash + "SER.TXT") && MessageBox.Show("Are you sure you want to overwrite the old files? \n" + dr + slash + "SER.TXT", "", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.No)

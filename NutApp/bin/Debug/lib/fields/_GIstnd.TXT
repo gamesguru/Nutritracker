@@ -1,4 +1,4 @@
-Food	GI	Serving	Carbohydrate (g per Serving)	GL (per Serving)
+﻿Food	GI (Per Serving)	Serving	Carbohydrate (g Per Serving)	GL (Per Serving)
 Russet potato, baked	111	1 medium	30	33
 Potato, white, boiled (average)	82	1 medium	30	25
 Puffed rice cakes	82	3 cakes	21	17

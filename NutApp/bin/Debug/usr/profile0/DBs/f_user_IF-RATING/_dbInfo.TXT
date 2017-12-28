@@ -1,0 +1,17 @@
+[File]FOO.TXT
+[Header]Food name
+[Nut]Name of Food
+
+[File]SER.TXT
+[Header]Serving
+
+[File]WEI.TXT
+[Header]Weight
+[Unit]g
+
+[File]IFX.TXT
+[Header]IF rating
+[Nut]Value1
+[Unit]Per $Weight
+[MetricName]IF rating
+
