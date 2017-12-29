@@ -43,8 +43,8 @@ namespace NutApp
         string[] userDBs;
         private void frmManageDBfields_Load(object sender, EventArgs e)
         {
-            pubDBs = Directory.GetDirectories(Application.StartupPath + $"{slash}usr{slash}share{slash}DBs");
-            userDBs = Directory.GetDirectories(Application.StartupPath + $"{slash}usr{slash}profile{frmMain.profIndex.ToString()}{slash}DBs");
+            pubDBs = Directory.GetDirectories($"{Application.StartupPath}{slash}usr{slash}share{slash}DBs");
+            userDBs = Directory.GetDirectories($"{Application.StartupPath}{slash}usr{slash}profile{frmMain.profIndex.ToString()}{slash}DBs");
 
             if (pubDBs.Length == 0 && userDBs.Length == 0)
             {
@@ -55,19 +55,19 @@ namespace NutApp
 
             for (int i = 0; i < userDBs.Length; i++)
             {
-                userDBs[i] = userDBs[i].Replace(Application.StartupPath + $"{slash}usr{slash}profile{frmMain.profIndex.ToString()}{slash}DBs{slash}", "");
+                userDBs[i] = userDBs[i].Replace($"{Application.StartupPath}{slash}usr{slash}profile{frmMain.profIndex.ToString()}{slash}DBs{slash}", "");
                 if (!userDBs[i].StartsWith("f_user"))
                     comboBox1.Items.Add(userDBs[i] + " (user)");
             }
             for (int i = 0; i < pubDBs.Length; i++)
             {
-                pubDBs[i] = pubDBs[i].Replace(Application.StartupPath + $"{slash}usr{slash}share{slash}DBs{slash}", "");
+                pubDBs[i] = pubDBs[i].Replace($"{Application.StartupPath}{slash}usr{slash}share{slash}DBs{slash}", "");
                 comboBox1.Items.Add(pubDBs[i] + " (share)");
             }
             
-            if (comboBox1.Items.Count > 0 && File.Exists(Application.StartupPath + $"{slash}usr{slash}profile{frmMain.profIndex}{slash}DBs{slash}Default.TXT"))
+            if (comboBox1.Items.Count > 0 && File.Exists($"{Application.StartupPath}{slash}usr{slash}profile{frmMain.profIndex}{slash}DBs{slash}Default.TXT"))
             {
-                int index = Convert.ToInt32(File.ReadAllLines(Application.StartupPath + $"{slash}usr{slash}profile{frmMain.profIndex}{slash}DBs{slash}Default.TXT")[0]);
+                int index = Convert.ToInt32(File.ReadAllLines($"{Application.StartupPath}{slash}usr{slash}profile{frmMain.profIndex}{slash}DBs{slash}Default.TXT")[0]);
                 comboBox1.SelectedIndex = index;
             }
 
@@ -632,154 +632,154 @@ namespace NutApp
         {
             List<string> text = new List<string>();
             #region write new lines
-            if (txtNDB.TextLength > 0 && File.Exists(dbDir + $"{slash}" + txtNDB.Text))
+            if (txtNDB.TextLength > 0 && File.Exists($"{dbDir}{slash}{txtNDB.Text}"))
                 text.Add(txtNDB.Text + "|NDB No.");
-            if (txtname.TextLength > 0 && File.Exists(dbDir + $"{slash}" + txtname.Text))
+            if (txtname.TextLength > 0 && File.Exists($"{dbDir}{slash}{txtname.Text}"))
                 text.Add(txtname.Text + "|Name of Food");
-            if (txtCals.TextLength > 0 && File.Exists(dbDir + $"{slash}" + txtCals.Text))
+            if (txtCals.TextLength > 0 && File.Exists($"{dbDir}{slash}{txtCals.Text}"))
                 text.Add(txtCals.Text + "|Calories");
-            if (txtProtein.TextLength > 0 && File.Exists(dbDir + $"{slash}" + txtProtein.Text))
+            if (txtProtein.TextLength > 0 && File.Exists($"{dbDir}{slash}{txtProtein.Text}"))
                 text.Add(txtProtein.Text + "|Protein");
-            if (txtCarbs.TextLength > 0 && File.Exists(dbDir + $"{slash}" + txtCarbs.Text))
+            if (txtCarbs.TextLength > 0 && File.Exists($"{dbDir}{slash}{txtCarbs.Text}"))
                 text.Add(txtCarbs.Text + "|Carbs");
-            if (txtFiber.TextLength > 0 && File.Exists(dbDir + $"{slash}" + txtFiber.Text))
+            if (txtFiber.TextLength > 0 && File.Exists($"{dbDir}{slash}{txtFiber.Text}"))
                 text.Add(txtFiber.Text + "|Fiber");
-            if (txtSugar.TextLength > 0 && File.Exists(dbDir + $"{slash}" + txtSugar.Text))
+            if (txtSugar.TextLength > 0 && File.Exists($"{dbDir}{slash}{txtSugar.Text}"))
                 text.Add(txtSugar.Text + "|Sugar");
-            if (txtFat.TextLength > 0 && File.Exists(dbDir + $"{slash}" + txtFat.Text))
+            if (txtFat.TextLength > 0 && File.Exists($"{dbDir}{slash}{txtFat.Text}"))
                 text.Add(txtFat.Text + "|Total Fat");
-            if (txttransFat.TextLength > 0 && File.Exists(dbDir + $"{slash}" + txttransFat.Text))
+            if (txttransFat.TextLength > 0 && File.Exists($"{dbDir}{slash}{txttransFat.Text}"))
                 text.Add(txttransFat.Text + "|Trans Fat");
-            if (txtsatFat.TextLength > 0 && File.Exists(dbDir + $"{slash}" + txtsatFat.Text))
+            if (txtsatFat.TextLength > 0 && File.Exists($"{dbDir}{slash}{txtsatFat.Text}"))
                 text.Add(txtsatFat.Text + "|Sat Fat");
-            if (txtpolyFat.TextLength > 0 && File.Exists(dbDir + $"{slash}" + txtpolyFat.Text))
+            if (txtpolyFat.TextLength > 0 && File.Exists($"{dbDir}{slash}{txtpolyFat.Text}"))
                 text.Add(txtpolyFat.Text + "|Poly Fat");
-            if (txtmonoFat.TextLength > 0 && File.Exists(dbDir + $"{slash}" + txtmonoFat.Text))
+            if (txtmonoFat.TextLength > 0 && File.Exists($"{dbDir}{slash}{txtmonoFat.Text}"))
                 text.Add(txtmonoFat.Text + "|Mono Fat");
-            if (txtala.TextLength > 0 && File.Exists(dbDir + $"{slash}" + txtala.Text))
+            if (txtala.TextLength > 0 && File.Exists($"{dbDir}{slash}{txtala.Text}"))
                 text.Add(txtala.Text + "|ALA");
-            if (txtepadha.TextLength > 0 && File.Exists(dbDir + $"{slash}" + txtepadha.Text))
+            if (txtepadha.TextLength > 0 && File.Exists($"{dbDir}{slash}{txtepadha.Text}"))
                 text.Add(txtepadha.Text + "|EPA + DHA");
-            if (txtK.TextLength > 0 && File.Exists(dbDir + $"{slash}" + txtK.Text))
+            if (txtK.TextLength > 0 && File.Exists($"{dbDir}{slash}{txtK.Text}"))
                 text.Add(txtK.Text + "|Potassium");
-            if (txtMg.TextLength > 0 && File.Exists(dbDir + $"{slash}" + txtMg.Text))
+            if (txtMg.TextLength > 0 && File.Exists($"{dbDir}{slash}{txtMg.Text}"))
                 text.Add(txtMg.Text + "|Magnesium");
-            if (txtCholesterol.TextLength > 0 && File.Exists(dbDir + $"{slash}" + txtCholesterol.Text))
+            if (txtCholesterol.TextLength > 0 && File.Exists($"{dbDir}{slash}{txtCholesterol.Text}"))
                 text.Add(txtCholesterol.Text + "|Cholesterol");
-            if (txtSodium.TextLength > 0 && File.Exists(dbDir + $"{slash}" + txtSodium.Text))
+            if (txtSodium.TextLength > 0 && File.Exists($"{dbDir}{slash}{txtSodium.Text}"))
                 text.Add(txtSodium.Text + "|Sodium");
-            if (txtCalcium.TextLength > 0 && File.Exists(dbDir + $"{slash}" + txtCalcium.Text))
+            if (txtCalcium.TextLength > 0 && File.Exists($"{dbDir}{slash}{txtCalcium.Text}"))
                 text.Add(txtCalcium.Text + "|Calcium");
-            if (txtIron.TextLength > 0 && File.Exists(dbDir + $"{slash}" + txtIron.Text))
+            if (txtIron.TextLength > 0 && File.Exists($"{dbDir}{slash}{txtIron.Text}"))
                 text.Add(txtIron.Text + "|Iron");
-            if (txtVitA.TextLength > 0 && File.Exists(dbDir + $"{slash}" + txtVitA.Text))
+            if (txtVitA.TextLength > 0 && File.Exists($"{dbDir}{slash}{txtVitA.Text}"))
                 text.Add(txtVitA.Text + "|Vit A");
-            if (txtVitC.TextLength > 0 && File.Exists(dbDir + $"{slash}" + txtVitC.Text))
+            if (txtVitC.TextLength > 0 && File.Exists($"{dbDir}{slash}{txtVitC.Text}"))
                 text.Add(txtVitC.Text + "|Vit C");
 
             //tab 2
-            if (txtVitD.TextLength > 0 && File.Exists(dbDir + $"{slash}" + txtVitD.Text))
+            if (txtVitD.TextLength > 0 && File.Exists($"{dbDir}{slash}{txtVitD.Text}"))
                 text.Add(txtVitD.Text + "|Vit D");
-            if (txtVitE.TextLength > 0 && File.Exists(dbDir + $"{slash}" + txtVitE.Text))
+            if (txtVitE.TextLength > 0 && File.Exists($"{dbDir}{slash}{txtVitE.Text}"))
                 text.Add(txtVitE.Text + "|Vit E");
-            if (txtVitK.TextLength > 0 && File.Exists(dbDir + $"{slash}" + txtVitK.Text))
+            if (txtVitK.TextLength > 0 && File.Exists($"{dbDir}{slash}{txtVitK.Text}"))
                 text.Add(txtVitK.Text + "|Vit K");
-            if (txtB1.TextLength > 0 && File.Exists(dbDir + $"{slash}" + txtB1.Text))
+            if (txtB1.TextLength > 0 && File.Exists($"{dbDir}{slash}{txtB1.Text}"))
                 text.Add(txtB1.Text + "|B1, Thiamine");
-            if (txtB2.TextLength > 0 && File.Exists(dbDir + $"{slash}" + txtB2.Text))
+            if (txtB2.TextLength > 0 && File.Exists($"{dbDir}{slash}{txtB2.Text}"))
                 text.Add(txtB2.Text + "|B2, Riboflavin");
-            if (txtB3.TextLength > 0 && File.Exists(dbDir + $"{slash}" + txtB3.Text))
+            if (txtB3.TextLength > 0 && File.Exists($"{dbDir}{slash}{txtB3.Text}"))
                 text.Add(txtB3.Text + "|B3, Niacin");
-            if (txtB5.TextLength > 0 && File.Exists(dbDir + $"{slash}" + txtB5.Text))
+            if (txtB5.TextLength > 0 && File.Exists($"{dbDir}{slash}{txtB5.Text}"))
                 text.Add(txtB5.Text + "|B5, Pantothenate");
-            if (txtB6.TextLength > 0 && File.Exists(dbDir + $"{slash}" + txtB6.Text))
+            if (txtB6.TextLength > 0 && File.Exists($"{dbDir}{slash}{txtB6.Text}"))
                 text.Add(txtB6.Text + "|B6, Pyridoxine");
-            if (txtB7.TextLength > 0 && File.Exists(dbDir + $"{slash}" + txtB7.Text))
+            if (txtB7.TextLength > 0 && File.Exists($"{dbDir}{slash}{txtB7.Text}"))
                 text.Add(txtB7.Text + "|B7, Biotin");
-            if (txtB9.TextLength > 0 && File.Exists(dbDir + $"{slash}" + txtB9.Text))
+            if (txtB9.TextLength > 0 && File.Exists($"{dbDir}{slash}{txtB9.Text}"))
                 text.Add(txtB9.Text + "|B9, Folate");
-            if (txtB12.TextLength > 0 && File.Exists(dbDir + $"{slash}" + txtB12.Text))
+            if (txtB12.TextLength > 0 && File.Exists($"{dbDir}{slash}{txtB12.Text}"))
                 text.Add(txtB12.Text + "|B12, Cobalamins");
 
-            if (txtZn.TextLength > 0 && File.Exists(dbDir + $"{slash}" + txtZn.Text))
+            if (txtZn.TextLength > 0 && File.Exists($"{dbDir}{slash}{txtZn.Text}"))
                 text.Add(txtZn.Text + "|Zinc");
-            if (txtSe.TextLength > 0 && File.Exists(dbDir + $"{slash}" + txtSe.Text))
+            if (txtSe.TextLength > 0 && File.Exists($"{dbDir}{slash}{txtSe.Text}"))
                 text.Add(txtSe.Text + "|Selenium");
-            if (txtB.TextLength > 0 && File.Exists(dbDir + $"{slash}" + txtB.Text))
+            if (txtB.TextLength > 0 && File.Exists($"{dbDir}{slash}{txtB.Text}"))
                 text.Add(txtB.Text + "|Boron");
-            if (txtP.TextLength > 0 && File.Exists(dbDir + $"{slash}" + txtP.Text))
+            if (txtP.TextLength > 0 && File.Exists($"{dbDir}{slash}{txtP.Text}"))
                 text.Add(txtP.Text + "|Phosphorus");
-            if (txtMn.TextLength > 0 && File.Exists(dbDir + $"{slash}" + txtMn.Text))
+            if (txtMn.TextLength > 0 && File.Exists($"{dbDir}{slash}{txtMn.Text}"))
                 text.Add(txtMn.Text + "|Manganese");
-            if (txtFl.TextLength > 0 && File.Exists(dbDir + $"{slash}" + txtFl.Text))
+            if (txtFl.TextLength > 0 && File.Exists($"{dbDir}{slash}{txtFl.Text}"))
                 text.Add(txtFl.Text + "|Fluoride");
-            if (txtCu.TextLength > 0 && File.Exists(dbDir + $"{slash}" + txtCu.Text))
+            if (txtCu.TextLength > 0 && File.Exists($"{dbDir}{slash}{txtCu.Text}"))
                 text.Add(txtCu.Text + "|Copper");
-            if (txtCr.TextLength > 0 && File.Exists(dbDir + $"{slash}" + txtCr.Text))
+            if (txtCr.TextLength > 0 && File.Exists($"{dbDir}{slash}{txtCr.Text}"))
                 text.Add(txtCr.Text + "|Chromium");
-            if (txtMo.TextLength > 0 && File.Exists(dbDir + $"{slash}" + txtMo.Text))
+            if (txtMo.TextLength > 0 && File.Exists($"{dbDir}{slash}{txtMo.Text}"))
                 text.Add(txtMo.Text + "|Molybdenum");
-            if (txtCho.TextLength > 0 && File.Exists(dbDir + $"{slash}" + txtCho.Text))
+            if (txtCho.TextLength > 0 && File.Exists($"{dbDir}{slash}{txtCho.Text}"))
                 text.Add(txtCho.Text + "|Lycopene");
-            if (txtCho.TextLength > 0 && File.Exists(dbDir + $"{slash}" + txtLyco.Text))
+            if (txtCho.TextLength > 0 && File.Exists($"{dbDir}{slash}{txtLyco.Text}"))
                 text.Add(txtCho.Text + "|LutZea");
-            if (txtCho.TextLength > 0 && File.Exists(dbDir + $"{slash}" + txtLutZea.Text))
+            if (txtCho.TextLength > 0 && File.Exists($"{dbDir}{slash}{txtLutZea.Text}"))
                 text.Add(txtCho.Text + "|Choline");
-            if (txtIno.TextLength > 0 && File.Exists(dbDir + $"{slash}" + txtIno.Text))
+            if (txtIno.TextLength > 0 && File.Exists($"{dbDir}{slash}{txtIno.Text}"))
                 text.Add(txtIno.Text + "|Inositol IP6");
-            if (txtCarn.TextLength > 0 && File.Exists(dbDir + $"{slash}" + txtCarn.Text))
+            if (txtCarn.TextLength > 0 && File.Exists($"{dbDir}{slash}{txtCarn.Text}"))
                 text.Add(txtCarn.Text + "|Carnitine");
-            if (txtLipoic.TextLength > 0 && File.Exists(dbDir + $"{slash}" + txtLipoic.Text))
+            if (txtLipoic.TextLength > 0 && File.Exists($"{dbDir}{slash}{txtLipoic.Text}"))
                 text.Add(txtLipoic.Text + "|Lipoic acid");
 
             //tab 3
-            if (txtalan.TextLength > 0 && File.Exists(dbDir + $"{slash}" + txtalan.Text))
+            if (txtalan.TextLength > 0 && File.Exists($"{dbDir}{slash}{txtalan.Text}"))
                 text.Add(txtalan.Text + "|Alanine");
-            if (txtarg.TextLength > 0 && File.Exists(dbDir + $"{slash}" + txtarg.Text))
+            if (txtarg.TextLength > 0 && File.Exists($"{dbDir}{slash}{txtarg.Text}"))
                 text.Add(txtarg.Text + "|Arginine");
-            if (txtasparag.TextLength > 0 && File.Exists(dbDir + $"{slash}" + txtasparag.Text))
+            if (txtasparag.TextLength > 0 && File.Exists($"{dbDir}{slash}{txtasparag.Text}"))
                 text.Add(txtasparag.Text + "|Asparagine");
-            if (txtaspartic.TextLength > 0 && File.Exists(dbDir + $"{slash}" + txtaspartic.Text))
+            if (txtaspartic.TextLength > 0 && File.Exists($"{dbDir}{slash}{txtaspartic.Text}"))
                 text.Add(txtaspartic.Text + "|Aspartic acid");
-            if (txtcys.TextLength > 0 && File.Exists(dbDir + $"{slash}" + txtcys.Text))
+            if (txtcys.TextLength > 0 && File.Exists($"{dbDir}{slash}{txtcys.Text}"))
                 text.Add(txtcys.Text + "|Cystine");
-            if (txtglutamine.TextLength > 0 && File.Exists(dbDir + $"{slash}" + txtglutamine.Text))
+            if (txtglutamine.TextLength > 0 && File.Exists($"{dbDir}{slash}{txtglutamine.Text}"))
                 text.Add(txtglutamine.Text + "|Glutamine");
-            if (txtgluacid.TextLength > 0 && File.Exists(dbDir + $"{slash}" + txtgluacid.Text))
+            if (txtgluacid.TextLength > 0 && File.Exists($"{dbDir}{slash}{txtgluacid.Text}"))
                 text.Add(txtgluacid.Text + "|Glutamic acid");
-            if (txtgly.TextLength > 0 && File.Exists(dbDir + $"{slash}" + txtgly.Text))
+            if (txtgly.TextLength > 0 && File.Exists($"{dbDir}{slash}{txtgly.Text}"))
                 text.Add(txtgly.Text + "|Glycine");
-            if (txthis.TextLength > 0 && File.Exists(dbDir + $"{slash}" + txthis.Text))
+            if (txthis.TextLength > 0 && File.Exists($"{dbDir}{slash}{txthis.Text}"))
                 text.Add(txthis.Text + "|Histidine");
-            if (txtisoleu.TextLength > 0 && File.Exists(dbDir + $"{slash}" + txtisoleu.Text))
+            if (txtisoleu.TextLength > 0 && File.Exists($"{dbDir}{slash}{txtisoleu.Text}"))
                 text.Add(txtisoleu.Text + "|Isoleucine");
-            if (txtleu.TextLength > 0 && File.Exists(dbDir + $"{slash}" + txtleu.Text))
+            if (txtleu.TextLength > 0 && File.Exists($"{dbDir}{slash}{txtleu.Text}"))
                 text.Add(txtleu.Text + "|Leucine");
-            if (txtmeth.TextLength > 0 && File.Exists(dbDir + $"{slash}" + txtmeth.Text))
+            if (txtmeth.TextLength > 0 && File.Exists($"{dbDir}{slash}{txtmeth.Text}"))
                 text.Add(txtmeth.Text + "|Methionine");
-            if (txtphen.TextLength > 0 && File.Exists(dbDir + $"{slash}" + txtphen.Text))
+            if (txtphen.TextLength > 0 && File.Exists($"{dbDir}{slash}{txtphen.Text}"))
                 text.Add(txtphen.Text + "|Phenylalanine");
-            if (txtproline.TextLength > 0 && File.Exists(dbDir + $"{slash}" + txtproline.Text))
+            if (txtproline.TextLength > 0 && File.Exists($"{dbDir}{slash}{txtproline.Text}"))
                 text.Add(txtproline.Text + "|Proline");
-            if (txtserine.TextLength > 0 && File.Exists(dbDir + $"{slash}" + txtserine.Text))
+            if (txtserine.TextLength > 0 && File.Exists($"{dbDir}{slash}{txtserine.Text}"))
                 text.Add(txtserine.Text + "|Serine");
-            if (txtthreo.TextLength > 0 && File.Exists(dbDir + $"{slash}" + txtthreo.Text))
+            if (txtthreo.TextLength > 0 && File.Exists($"{dbDir}{slash}{txtthreo.Text}"))
                 text.Add(txtthreo.Text + "|Threonine");
-            if (txttrypto.TextLength > 0 && File.Exists(dbDir + $"{slash}" + txttrypto.Text))
+            if (txttrypto.TextLength > 0 && File.Exists($"{dbDir}{slash}{txttrypto.Text}"))
                 text.Add(txttrypto.Text + "|Tryptophan");
-            if (txttyro.TextLength > 0 && File.Exists(dbDir + $"{slash}" + txttyro.Text))
+            if (txttyro.TextLength > 0 && File.Exists($"{dbDir}{slash}{txttyro.Text}"))
                 text.Add(txttyro.Text + "|Tyrosine");
-            if (txtvaline.TextLength > 0 && File.Exists(dbDir + $"{slash}" + txtvaline.Text))
+            if (txtvaline.TextLength > 0 && File.Exists($"{dbDir}{slash}{txtvaline.Text}"))
                 text.Add(txtvaline.Text + "|Valine");
 
             //last to display
-            if (txtServ1.TextLength > 0 && File.Exists(dbDir + $"{slash}" + txtServ1.Text))
+            if (txtServ1.TextLength > 0 && File.Exists($"{dbDir}{slash}{txtServ1.Text}"))
                 text.Add(txtServ1.Text + "|Serving1");
-            if (txtServ2.TextLength > 0 && File.Exists(dbDir + $"{slash}" + txtServ2.Text))
+            if (txtServ2.TextLength > 0 && File.Exists($"{dbDir}{slash}{txtServ2.Text}"))
                 text.Add(txtServ2.Text + "|Serving2");
-            if (txtWt1.TextLength > 0 && File.Exists(dbDir + $"{slash}" + txtWt1.Text))
+            if (txtWt1.TextLength > 0 && File.Exists($"{dbDir}{slash}{txtWt1.Text}"))
                 text.Add(txtWt1.Text + "|Weight1");
-            if (txtWt2.TextLength > 0 && File.Exists(dbDir + $"{slash}" + txtWt2.Text))
+            if (txtWt2.TextLength > 0 && File.Exists($"{dbDir}{slash}{txtWt2.Text}"))
                 text.Add(txtWt2.Text + "|Weight2");
             #endregion
             //MessageBox.Show(text);
@@ -795,9 +795,9 @@ namespace NutApp
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (comboBox1.Text.Contains("(share)"))
-                nutkeyPath = Application.StartupPath + $"{slash}usr{slash}share{slash}DBs{slash}{comboBox1.Text.Replace(" (share)", "")}{slash}_nutKeyPairs.TXT";
+                nutkeyPath = $"{Application.StartupPath}{slash}usr{slash}share{slash}DBs{slash}{comboBox1.Text.Replace(" (share)", "")}{slash}_nutKeyPairs.TXT";
             else
-                nutkeyPath = Application.StartupPath + $"{slash}usr{slash}profile{frmMain.profIndex.ToString()}{slash}DBs{slash}{comboBox1.Text.Replace(" (user)", "")}{slash}_nutKeyPairs.TXT";            
+                nutkeyPath = $"{Application.StartupPath}{slash}usr{slash}profile{frmMain.profIndex.ToString()}{slash}DBs{slash}{comboBox1.Text.Replace(" (user)", "")}{slash}_nutKeyPairs.TXT";            
             refresh();
         }
     }

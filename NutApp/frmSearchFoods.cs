@@ -73,12 +73,12 @@ namespace NutApp
         {
             try
             {
-                comboMeal.SelectedIndex = Convert.ToInt32(File.ReadAllText(Application.StartupPath + $"{slash}usr{slash}profile{frmMain.profIndex}{slash}DBs{slash}Meal.TXT"));
+                comboMeal.SelectedIndex = Convert.ToInt32(File.ReadAllText($"{Application.StartupPath}{slash}usr{slash}profile{frmMain.profIndex}{slash}DBs{slash}Meal.TXT"));
             }
             catch { }
 
-            pubDBs = Directory.GetDirectories(Application.StartupPath + $"{slash}usr{slash}share{slash}DBs");
-            userDBs = Directory.GetDirectories(Application.StartupPath + $"{slash}usr{slash}profile{frmMain.profIndex.ToString()}{slash}DBs");
+            pubDBs = Directory.GetDirectories($"{Application.StartupPath}{slash}usr{slash}share{slash}DBs");
+            userDBs = Directory.GetDirectories($"{Application.StartupPath}{slash}usr{slash}profile{frmMain.profIndex.ToString()}{slash}DBs");
 
             if (pubDBs.Length == 0 && userDBs.Length == 0)
             {
@@ -89,22 +89,22 @@ namespace NutApp
 
             for (int i = 0; i < userDBs.Length; i++)
             {
-                userDBs[i] = userDBs[i].Replace(Application.StartupPath + $"{slash}usr{slash}profile" + frmMain.profIndex.ToString() + $"{slash}DBs{slash}", "");
+                userDBs[i] = userDBs[i].Replace($"{Application.StartupPath}{slash}usr{slash}profile" + frmMain.profIndex.ToString() + $"{slash}DBs{slash}", "");
                 if (!userDBs[i].StartsWith("f_user"))
                     comboDBs.Items.Add(userDBs[i] + " (user)");
             }
             for (int i = 0; i < pubDBs.Length; i++)
             {
-                pubDBs[i] = pubDBs[i].Replace(Application.StartupPath + $"{slash}usr{slash}share{slash}DBs{slash}", "");
+                pubDBs[i] = pubDBs[i].Replace($"{Application.StartupPath}{slash}usr{slash}share{slash}DBs{slash}", "");
                 comboDBs.Items.Add(pubDBs[i] + " (share)");
             }
 
 
 
 
-            if (comboDBs.Items.Count > 0 && File.Exists(Application.StartupPath + $"{slash}usr{slash}profile{frmMain.profIndex}{slash}DBs{slash}Default.TXT"))
+            if (comboDBs.Items.Count > 0 && File.Exists($"{Application.StartupPath}{slash}usr{slash}profile{frmMain.profIndex}{slash}DBs{slash}Default.TXT"))
             {
-                int index = Convert.ToInt32(File.ReadAllLines(Application.StartupPath + $"{slash}usr{slash}profile{frmMain.profIndex}{slash}DBs{slash}Default.TXT")[0]);
+                int index = Convert.ToInt32(File.ReadAllLines($"{Application.StartupPath}{slash}usr{slash}profile{frmMain.profIndex}{slash}DBs{slash}Default.TXT")[0]);
                 comboDBs.SelectedIndex = index;
             }
 
@@ -116,11 +116,11 @@ namespace NutApp
 
             //try
             // {
-            string[] slots = File.ReadAllLines(Application.StartupPath + $"{slash}usr{slash}profile{frmMain.profIndex.ToString()}{slash}DBs{slash}Slots.TXT");
+            string[] slots = File.ReadAllLines($"{Application.StartupPath}{slash}usr{slash}profile{frmMain.profIndex.ToString()}{slash}DBs{slash}Slots.TXT");
             int n = slots.Length > 4 ? 4 : slots.Length;
             for (int i = 0; i < n; i++)
             {
-                string dir = Application.StartupPath + $"{slash}usr{slash}profile{frmMain.profIndex.ToString()}{slash}DBs{slash}{slots[i]}";
+                string dir = $"{Application.StartupPath}{slash}usr{slash}profile{frmMain.profIndex.ToString()}{slash}DBs{slash}{slots[i]}";
                 slotObjs[i]._dbConfig = File.ReadAllText(dir + slash + "_dbConfig.TXT").Replace("\r", "");
                 slotObjs[i]._dbInit = File.ReadAllText(dir + slash + "_dbInit.TXT").Replace("\r", "");
                 string[] splitConfig = slotObjs[i]._dbConfig.Split(new string[] { "[File]" }, StringSplitOptions.RemoveEmptyEntries);
@@ -372,38 +372,32 @@ namespace NutApp
         private Dictionary<string, List<string>> mainDB;
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            File.WriteAllText(Application.StartupPath + $"{slash}usr{slash}profile{frmMain.profIndex}{slash}DBs{slash}Default.TXT", comboDBs.SelectedIndex.ToString());
+            File.WriteAllText($"{Application.StartupPath}{slash}usr{slash}profile{frmMain.profIndex}{slash}DBs{slash}Default.TXT", comboDBs.SelectedIndex.ToString());
             lstviewFoods.Clear();
             txtSrch.Clear();
             richTxtWarn.Text = "";
-            //richTxtWarn.Enabled = false;
             warning = true;
             db = comboDBs.Text.Replace(" (share)", "").Replace(" (user)", "");
             if (comboDBs.Text.Contains("(share)"))
             {
+                string[] files = Directory.GetFiles($"{Application.StartupPath}{slash}usr{slash}share{slash}DBs{slash}{db}");
+                
 
-                string[] files = Directory.GetFiles(Application.StartupPath + $"{slash}usr{slash}share{slash}DBs{slash}" + db);
-
-
-                if (File.Exists(Application.StartupPath + $"{slash}usr{slash}share{slash}DBs{slash}" + db + $"{slash}_nutKeyPairs.TXT"))
+                if (File.Exists($"{Application.StartupPath}{slash}usr{slash}share{slash}DBs{slash}{db}{slash}_nutKeyPairs.TXT"))
 
                 {
                     mainDB = new Dictionary<string, List<string>>();
                     for (int i = 0; i < files.Length; i++)
+                        mainDB.Add(files[i].Replace($"{Application.StartupPath}{slash}usr{slash}share{slash}DBs{slash}{db}{slash}", ""), importArray(files[i]));
 
-                        mainDB.Add(files[i].Replace(Application.StartupPath + $"{slash}usr{slash}share{slash}DBs{slash}" + db + $"{slash}", "")/*.ToUpper()*/, importArray(files[i]));
-
-
-                    nutKeyPairs = importArray(Application.StartupPath + $"{slash}usr{slash}share{slash}DBs{slash}" + db + $"{slash}_nutKeyPairs.TXT").ToArray();
+                    nutKeyPairs = importArray($"{Application.StartupPath}{slash}usr{slash}share{slash}DBs{slash}{db}{slash}_nutKeyPairs.TXT").ToArray();
 
 
-                    //MessageBox.Show("hmm");
-                    n = importArray(Application.StartupPath + $"{slash}usr{slash}share{slash}DBs{slash}{db}{slash}" + nutKeyPairs[0].Split('|')[0]).Count;
+                    n = importArray($"{Application.StartupPath}{slash}usr{slash}share{slash}DBs{slash}{db}{slash}{nutKeyPairs[0].Split('|')[0]}").Count;
 
-                    //MessageBox.Show("ok");
                     for (int i = 0; i < nutKeyPairs.Length; i++)
                         if (nutKeyPairs[i].Contains("|Name of Food"))
-                            nameKeyPath = Application.StartupPath + $"{slash}usr{slash}share{slash}DBs{slash}{db}{slash}" +
+                            nameKeyPath = $"{Application.StartupPath}{slash}usr{slash}share{slash}DBs{slash}{db}{slash}" +
                                           nutKeyPairs[i].Replace("|Name of Food", "");
                     for (int i = 0; i < nutKeyPairs.Length; i++)
                         lstviewFoods.Columns.Add(nutKeyPairs[i].Split('|')[1]);
@@ -420,7 +414,6 @@ namespace NutApp
                     if (n > 800)
                     {
                         richTxtWarn.Text = "There are more than 800 entries.\nPlease search to turn something up.";
-                        //MessageBox.Show("There are more than 800 entries.  Please search to turn something up.", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         return;
                     }
                     itms = new List<ListViewItem>();
@@ -435,20 +428,15 @@ namespace NutApp
                                 itm.SubItems.Add(mainDB[nutKeyPairs[i].Split('|')[0]][j]);
                         }
                         itms.Add(itm);
-                        //lstviewFoods.Items.Add(itm);
-                        //MessageBox.Show("wow");
                     }
                     lstviewFoods.BeginUpdate();
                     foreach (ListViewItem itm in itms)
                         lstviewFoods.Items.Add(itm);
-                    //lstviewFoods.Items.AddRange(itms); 
                     lstviewFoods.EndUpdate();
 
                     //
 
                     //
-
-
                 }
                 else
                 {
@@ -461,26 +449,23 @@ namespace NutApp
 
             else
             {
-                string[] files = Directory.GetFiles(Application.StartupPath + $"{slash}usr{slash}profile" + frmMain.profIndex.ToString() + $"{slash}DBs{slash}"
-                    + db);
-                if (File.Exists(Application.StartupPath + $"{slash}usr{slash}profile" + frmMain.profIndex.ToString() + $"{slash}DBs{slash}" + db + "_nutKeyPairs.TXT"))
+                string[] files = Directory.GetFiles($"{Application.StartupPath}{slash}usr{slash}profile" + frmMain.profIndex.ToString() + $"{slash}DBs{slash}{db}");
+                if (File.Exists($"{Application.StartupPath}{slash}usr{slash}profile" + frmMain.profIndex.ToString() + $"{slash}DBs{slash}{db}_nutKeyPairs.TXT"))
                 {
                     Dictionary<string, List<string>> mainDB = new Dictionary<string, List<string>>();
                     for (int i = 0; i < files.Length; i++)
-                        mainDB.Add(files[i].Replace(Application.StartupPath + $"{slash}usr{slash}profile{frmMain.profIndex.ToString()}{slash}DBs{slash}" + db + $"{slash}", ""), importArray(files[i]));
+                        mainDB.Add(files[i].Replace($"{Application.StartupPath}{slash}usr{slash}profile{frmMain.profIndex.ToString()}{slash}DBs{slash}{db}{slash}", ""), importArray(files[i]));
 
-                    List<string> nutKeyPairs = importArray(Application.StartupPath + $"{slash}usr{slash}profile{frmMain.profIndex.ToString()}{slash}DBs{slash}" + db + "_nutKeyPairs.TXT");
+                    List<string> nutKeyPairs = importArray($"{Application.StartupPath}{slash}usr{slash}profile{frmMain.profIndex.ToString()}{slash}DBs{slash}{db}_nutKeyPairs.TXT");
                     for (int i = 0; i < nutKeyPairs.Count; i++)
-                        lstviewFoods.Columns.Add(nutKeyPairs[i].Split('|')[1]);
-                    
-
+                        lstviewFoods.Columns.Add(nutKeyPairs[i].Split('|')[1]);                  
                 }
 
                 else
                 {
                     MessageBox.Show("The nutrient keys have not been paired for this database.  You will be taken to the admin center.", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     frmManageDB frmMDB = new frmManageDB();
-                    frmMDB.nutkeyPath = Application.StartupPath + $"{slash}usr{slash}share{slash}DBs{slash}{db}{slash}_nutKeyPairs.TXT";
+                    frmMDB.nutkeyPath = $"{Application.StartupPath}{slash}usr{slash}share{slash}DBs{slash}{db}{slash}_nutKeyPairs.TXT";
                     frmMDB.ShowDialog();
                 }
 
@@ -489,7 +474,7 @@ namespace NutApp
 
         private void NewMethod(frmManageDB frmMDB)
         {
-            frmMDB.nutkeyPath = Application.StartupPath + $"{slash}usr{slash}share{slash}DBs{slash}{db}{slash}_nutKeyPairs.TXT";
+            frmMDB.nutkeyPath = $"{Application.StartupPath}{slash}usr{slash}share{slash}DBs{slash}{db}{slash}_nutKeyPairs.TXT";
 
         }
 
@@ -497,7 +482,7 @@ namespace NutApp
         {
             string db = comboDBs.Text.Replace(" (share)", "");
             frmManageDB frmMDB = new frmManageDB();
-            frmMDB.nutkeyPath = Application.StartupPath + $"{slash}usr{slash}share{slash}DBs{slash}{db}{slash}_nutKeyPairs.TXT";
+            frmMDB.nutkeyPath = $"{Application.StartupPath}{slash}usr{slash}share{slash}DBs{slash}{db}{slash}_nutKeyPairs.TXT";
             frmMDB.ShowDialog();
         }
 

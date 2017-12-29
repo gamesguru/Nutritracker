@@ -25,7 +25,7 @@ namespace NutApp
         private void frmNewDBrel_Load(object sender, EventArgs e)
         {
             shareDBdir = $"{Application.StartupPath}{slash}usr{slash}share{slash}DBs";
-            txtLoc.Text = $"{slash}usr{slash}share{slash}DBs{slash}rel{slash}";//$"{slash}usr{slash}profile{frmMain.profIndex.ToString()}{slash}DBs{slash}rel{slash}";
+            txtLoc.Text = $"{slash}usr{slash}share{slash}DBs{slash}rel{slash}";
 
             foreach (string s in Directory.GetDirectories(shareDBdir))
                 comboBox1.Items.Add(s.Replace(shareDBdir + slash, ""));
@@ -41,7 +41,7 @@ namespace NutApp
             txtLoc.Text = $"{slash}usr{slash}share{slash}DBs{slash}rel{slash}" + txtName.Text;         
             
 
-            if (txtName.TextLength > 2)//&& lblSearchField.Text != "N/A" && lblCalories.Text != "N/A")
+            if (txtName.TextLength > 2)
                 btnCreate.Enabled = true;
             if (txtName.TextLength < 2)
                 btnCreate.Enabled = false;

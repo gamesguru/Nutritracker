@@ -135,7 +135,7 @@ namespace NutApp
                 if (dataDay.Rows[i].Cells[0].Value.ToString() == "Totals")
                     tDay = i + 1;
 
-            string fp = $"{Application.StartupPath}{slash}usr{slash}profile{profIndex.ToString()}{slash}foodlog{slash}" + dte + ".TXT";
+            string fp = $"{Application.StartupPath}{slash}usr{slash}profile{profIndex}{slash}foodlog{slash}{dte}.TXT";
             string textB = "";
             textB += dataDay.Rows[bDay - 1].Cells[0].Value.ToString() + "|";
             for (int m = bDay; m < lDay - 2; m++)
@@ -251,7 +251,7 @@ dataDay.Rows.Add(row);*/
             dte = DateTime.Today.ToString("MM-dd-yyyy");
             try
             {
-                foreach (string f in Directory.GetFiles($"{Application.StartupPath}{slash}usr{slash}profile{profIndex.ToString()}{slash}foodlog"))
+                foreach (string f in Directory.GetFiles($"{Application.StartupPath}{slash}usr{slash}profile{profIndex}{slash}foodlog"))
                     if (f.EndsWith(".TXT") && f.Contains("-"))
                         comboLoggedDays.Items.Add(f.Split(new char[] { '/', '\\' })[f.Split(new char[] { '/', '\\' }).Length - 1].Replace(".TXT", ""));
 
@@ -328,9 +328,9 @@ dataDay.Rows.Add(row);*/
             dataDay.Rows[8].ReadOnly = true;
 
             
-            string breakfast = importArray(Application.StartupPath + "\\usr\\profile" + profIndex.ToString() + "\\foodlog\\" + dte + ".txt")[0];
-            string lunch = importArray(Application.StartupPath + "\\usr\\profile" + profIndex.ToString() + "\\foodlog\\" + dte + ".txt")[1];
-            string dinner = importArray(Application.StartupPath + "\\usr\\profile" + profIndex.ToString() + "\\foodlog\\" + dte + ".txt")[2];
+            string breakfast = importArray(Application.StartupPath + "\\usr\\profile" + profIndex + "\\foodlog\\" + dte + ".txt")[0];
+            string lunch = importArray(Application.StartupPath + "\\usr\\profile" + profIndex + "\\foodlog\\" + dte + ".txt")[1];
+            string dinner = importArray(Application.StartupPath + "\\usr\\profile" + profIndex + "\\foodlog\\" + dte + ".txt")[2];
             breakfast = breakfast.Replace("Breakfast|", "");
             lunch = lunch.Replace("Lunch|", "");
             dinner = dinner.Replace("Dinner|", "");
@@ -468,10 +468,10 @@ dataDay.Rows.Add(row);*/
             comboMeal.SelectedIndex = 0;
 
             //MessageBox.Show(root + "\\usr\\profile" + loadIndex.ToString() + "\\foods\\names.txt");
-            if (File.Exists(root + $"{slash}profile{profIndex.ToString()}{slash}foods{slash}names.TXT"))
+            if (File.Exists($"{root}{slash}profile{profIndex}{slash}foods{slash}names.TXT"))
             {
                 lstCustFoods = new List<string>();
-                lstCustFoods = importArray(root + $"{slash}profile{profIndex.ToString()}{slash}foods{slash}names.TXT");
+                lstCustFoods = importArray($"{root}{slash}profile{profIndex}{slash}foods{slash}names.TXT");
                 for (int i = 0; i < lstCustFoods.Count; i++)
                     lstBoxRecipes.Items.Add(lstCustFoods[i]);
             }
@@ -524,12 +524,12 @@ dataDay.Rows.Add(row);*/
             frm.ShowDialog();
 
             comboLoggedDays.Items.Clear();
-            foreach (string f in Directory.GetFiles($"{Application.StartupPath}{slash}usr{slash}profile{profIndex.ToString()}{slash}foodlog"))
+            foreach (string f in Directory.GetFiles($"{Application.StartupPath}{slash}usr{slash}profile{profIndex}{slash}foodlog"))
                 if (f.EndsWith(".TXT") && f.Contains("-"))
                     comboLoggedDays.Items.Add(f.Split(new char[] { '/', '\\' })[f.Split(new char[] { '/', '\\' }).Length - 1].Replace(".TXT", ""));
 
             lblCurrentUser.Text = "Current User: " +
-                                  importArray($"{Application.StartupPath}{slash}usr{slash}profile{profIndex.ToString()}{slash}profile{profIndex.ToString()}.TXT")[0];
+                                  importArray($"{Application.StartupPath}{slash}usr{slash}profile{profIndex}{slash}profile{profIndex}.TXT")[0];
             dataDay.Rows.Clear();
             dataDay.Rows.Add("Breakfast");
             dataDay.Rows.Add("", "");
@@ -556,14 +556,14 @@ dataDay.Rows.Add(row);*/
             dataDay.Rows[7].ReadOnly = true;
             dataDay.Rows[8].ReadOnly = true;
 
-            if (!File.Exists($"{Application.StartupPath}{slash}usr{slash}profile{profIndex.ToString()}{slash}foodlog{slash}" + dte + ".TXT"))
+            if (!File.Exists($"{Application.StartupPath}{slash}usr{slash}profile{profIndex}{slash}foodlog{slash}{dte}.TXT"))
             {
                 MessageBox.Show("No food data found for this day, add something to create a log.", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
-            string breakfast = importArray($"{Application.StartupPath}{slash}usr{slash}profile{profIndex.ToString()}{slash}foodlog{slash}" + dte + ".TXT")[0];
-            string lunch = importArray($"{Application.StartupPath}{slash}usr{slash}profile{profIndex.ToString()}{slash}foodlog{slash}" + dte + ".TXT")[1];
-            string dinner = importArray($"{Application.StartupPath}{slash}usr{slash}profile{profIndex.ToString()}{slash}foodlog{slash}" + dte + ".TXT")[2];
+            string breakfast = importArray($"{Application.StartupPath}{slash}usr{slash}profile{profIndex}{slash}foodlog{slash}{dte}.TXT")[0];
+            string lunch = importArray($"{Application.StartupPath}{slash}usr{slash}profile{profIndex}{slash}foodlog{slash}{dte}.TXT")[1];
+            string dinner = importArray($"{Application.StartupPath}{slash}usr{slash}profile{profIndex}{slash}foodlog{slash}{dte}.TXT")[2];
             breakfast = breakfast.Replace("Breakfast|", "");
             lunch = lunch.Replace("Lunch|", "");
             dinner = dinner.Replace("Dinner|", "");
@@ -775,7 +775,7 @@ dataDay.Rows.Add(row);*/
                     if (dataDay.Rows[i].Cells[0].Value.ToString() == "Totals")
                         tDay = i + 1;
 
-                string fp = $"{Application.StartupPath}{slash}usr{slash}profile{profIndex.ToString()}{slash}foodlog{slash}" + dte + ".TXT";
+                string fp = $"{Application.StartupPath}{slash}usr{slash}profile{profIndex}{slash}foodlog{slash}{dte}.TXT";
                 string textB = "";
                 textB += dataDay.Rows[bDay - 1].Cells[0].Value.ToString() + "|";
                 for (int m = bDay; m < lDay - 2; m++)
@@ -876,7 +876,7 @@ dataDay.Rows.Add(row);*/
                         if (dataDay.Rows[i].Cells[0].Value.ToString() == "Totals")
                             tDay = i + 1;
 
-                    string fp = $"{Application.StartupPath}{slash}usr{slash}profile{profIndex.ToString()}{slash}foodlog{slash}" + dte + ".TXT";
+                    string fp = $"{Application.StartupPath}{slash}usr{slash}profile{profIndex}{slash}foodlog{slash}{dte}.TXT";
                     string textB = "";
                     textB += dataDay.Rows[bDay - 1].Cells[0].Value.ToString() + "|";
                     for (int m = bDay; m < lDay - 2; m++)
@@ -966,7 +966,7 @@ dataDay.Rows.Add(row);*/
                 if (dataDay.Rows[i].Cells[0].Value.ToString() == "Lunch")
                     lDay = i;
 
-            string fp = $"{Application.StartupPath}{slash}usr{slash}profile{profIndex.ToString()}{slash}foodlog{slash}" + dte + ".TXT";
+            string fp = $"{Application.StartupPath}{slash}usr{slash}profile{profIndex}{slash}foodlog{slash}{dte}.TXT";
             string textB = "";
             textB += dataDay.Rows[bDay].Cells[0].Value.ToString() + "|";
             for (int m = bDay + 1; m < lDay - 1; m++)
@@ -1246,8 +1246,6 @@ dataDay.Rows.Add(row);*/
                     dataExercise[3, y].Value = val.ToString() + " min";
                 else if (dataExercise[0, y].Value == "Other")
                     dataExercise[3, y].Value = val.ToString() + " kcal";
-
-
             }
             catch
             {
@@ -1445,12 +1443,12 @@ dataExercise[0, x].Value == "Sprinting")
         private void bodyFatCalcToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
-            frmBodyfatCalc.currentName = importArray($"{Application.StartupPath}{slash}usr{slash}profile{profIndex.ToString()}{slash}profile" + profIndex.ToString() + ".TXT")[0];
+            frmBodyfatCalc.currentName = importArray($"{Application.StartupPath}{slash}usr{slash}profile{profIndex}{slash}profile{profIndex}.TXT")[0];
             frmBodyfatCalc frmBFC = new NutApp.frmBodyfatCalc();
-            frmBFC.gender = importArray($"{Application.StartupPath}{slash}usr{slash}profile{profIndex.ToString()}{slash}profile" + profIndex.ToString() + ".TXT")[1];
-            frmBFC.age = Convert.ToInt32(importArray($"{Application.StartupPath}{slash}usr{slash}profile{profIndex.ToString()}{slash}profile" + profIndex.ToString() + ".TXT")[2]);
-            frmBFC.wt = Convert.ToInt32(importArray($"{Application.StartupPath}{slash}usr{slash}profile{profIndex.ToString()}{slash}profile" + profIndex.ToString() + ".TXT")[4]);
-            frmBFC.ht = Convert.ToInt32(importArray($"{Application.StartupPath}{slash}usr{slash}profile{profIndex.ToString()}{slash}profile" + profIndex.ToString() + ".TXT")[5]);
+            frmBFC.gender = importArray($"{Application.StartupPath}{slash}usr{slash}profile{profIndex}{slash}profile{profIndex}.TXT")[1];
+            frmBFC.age = Convert.ToInt32(importArray($"{Application.StartupPath}{slash}usr{slash}profile{profIndex}{slash}profile{profIndex}.TXT")[2]);
+            frmBFC.wt = Convert.ToInt32(importArray($"{Application.StartupPath}{slash}usr{slash}profile{profIndex}{slash}profile{profIndex}.TXT")[4]);
+            frmBFC.ht = Convert.ToInt32(importArray($"{Application.StartupPath}{slash}usr{slash}profile{profIndex}{slash}profile{profIndex}.TXT")[5]);
             frmBFC.ShowDialog();
         }
 
@@ -1461,9 +1459,9 @@ dataExercise[0, x].Value == "Sprinting")
 
         private void naturalPotentialCalcToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            frmLeanPotentialCalc.bodyfat = Convert.ToInt32(importArray($"{Application.StartupPath}{slash}usr{slash}profile{profIndex.ToString()}{slash}profile" + profIndex.ToString() + ".TXT")[3]);
-            frmLeanPotentialCalc.weight = Convert.ToInt32(importArray($"{Application.StartupPath}{slash}usr{slash}profile{profIndex.ToString()}{slash}profile" + profIndex.ToString() + ".TXT")[4]);
-            frmLeanPotentialCalc.height = Convert.ToInt32(importArray($"{Application.StartupPath}{slash}usr{slash}profile{profIndex.ToString()}{slash}profile" + profIndex.ToString() + ".TXT")[5]);
+            frmLeanPotentialCalc.bodyfat = Convert.ToInt32(importArray($"{Application.StartupPath}{slash}usr{slash}profile{profIndex}{slash}profile{profIndex}.TXT")[3]);
+            frmLeanPotentialCalc.weight = Convert.ToInt32(importArray($"{Application.StartupPath}{slash}usr{slash}profile{profIndex}{slash}profile{profIndex}.TXT")[4]);
+            frmLeanPotentialCalc.height = Convert.ToInt32(importArray($"{Application.StartupPath}{slash}usr{slash}profile{profIndex}{slash}profile{profIndex}.TXT")[5]);
             frmLeanPotentialCalc frmNatPot = new NutApp.frmLeanPotentialCalc();            
             frmNatPot.ShowDialog();
         }
@@ -1476,7 +1474,7 @@ dataExercise[0, x].Value == "Sprinting")
 
         private void btnSearchUserD_Click(object sender, EventArgs e)
         {
-            if (!Directory.Exists($"{Application.StartupPath}{slash}usr{slash}share{slash}DBs") && !Directory.Exists($"{Application.StartupPath}{slash}usr{slash}profile" + profIndex.ToString() + "{slash}DBs"))
+            if (!Directory.Exists($"{Application.StartupPath}{slash}usr{slash}share{slash}DBs") && !Directory.Exists($"{Application.StartupPath}{slash}usr{slash}profile{profIndex}{slash}DBs"))
             {
                 MessageBox.Show("There don't seem to be any shared OR user loaded databases.  Try going to the spreadsheet wizard (under tools) to import some, or manually copy some from another user.", "Nothing found", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
@@ -1540,9 +1538,9 @@ dataExercise[0, x].Value == "Sprinting")
             string dinner = "";
             try
             {
-                breakfast = importArray($"{Application.StartupPath}{slash}usr{slash}profile{profIndex.ToString()}{slash}foodlog{slash}{dte}.TXT")[0];
-                lunch = importArray($"{Application.StartupPath}{slash}usr{slash}profile{profIndex.ToString()}{slash}foodlog{slash}{dte}.TXT")[1];
-                dinner = importArray($"{Application.StartupPath}{slash}usr{slash}profile{profIndex.ToString()}{slash}foodlog{slash}{dte}.TXT")[2];
+                breakfast = importArray($"{Application.StartupPath}{slash}usr{slash}profile{profIndex}{slash}foodlog{slash}{dte}.TXT")[0];
+                lunch = importArray($"{Application.StartupPath}{slash}usr{slash}profile{profIndex}{slash}foodlog{slash}{dte}.TXT")[1];
+                dinner = importArray($"{Application.StartupPath}{slash}usr{slash}profile{profIndex}{slash}foodlog{slash}{dte}.TXT")[2];
                 breakfast = breakfast.Replace("Breakfast|", "");
                 lunch = lunch.Replace("Lunch|", "");
                 dinner = dinner.Replace("Dinner|", "");

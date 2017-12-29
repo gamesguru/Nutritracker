@@ -41,8 +41,8 @@ namespace NutApp
         public int n = 0;
         private void frmNewDB_Load(object sender, EventArgs e)
         {
-            txtLoc.Text = $"{slash}usr{slash}profile" + frmMain.profIndex.ToString() + $"{slash}DBs{slash}";
-            lblRowCount.Text = "Your database will have " + n.ToString() + " entries";
+            txtLoc.Text = $"{slash}usr{slash}profile{frmMain.profIndex.ToString()}{slash}DBs{slash}";
+            lblRowCount.Text = $"Your database will have {n} entries";
             for (int i = 0; i < arr.Count; i++)
             {
                 string s = arr[i];
@@ -68,15 +68,15 @@ namespace NutApp
                 nameKeyPairs.Add(listBox1.Items[i].ToString() + "|" + listBox2.Items[i].ToString());
 
             
-            lblColumnCount.Text = "Your " + listBox1.Items.Count.ToString() + " columns and their abbreviations";
+            lblColumnCount.Text = $"Your {listBox1.Items.Count} columns and their abbreviations";
         }
 
         private void txtName_TextChanged(object sender, EventArgs e)
         {
             if (radioShared.Checked)            
-                txtLoc.Text = $"{slash}usr{slash}share{slash}DBs{slash}" + txtName.Text;            
+                txtLoc.Text = $"{slash}usr{slash}share{slash}DBs{slash}{txtName.Text}";            
             else            
-                txtLoc.Text = $"{slash}usr{slash}profile{frmMain.profIndex.ToString()}{slash}DBs{slash}" + txtName.Text;
+                txtLoc.Text = $"{slash}usr{slash}profile{frmMain.profIndex.ToString()}{slash}DBs{slash}{txtName.Text}";
 
             if (txtName.TextLength > 2 && lblSearchField.Text != "N/A" && lblCalories.Text != "N/A")
                 btnCreate.Enabled = true;
@@ -88,9 +88,9 @@ namespace NutApp
         private void radioShared_CheckedChanged(object sender, EventArgs e)
         {
             if (radioShared.Checked)
-                txtLoc.Text = $"{slash}usr{slash}share{slash}DBs{slash}" + txtName.Text;
+                txtLoc.Text = $"{slash}usr{slash}share{slash}DBs{slash}{txtName.Text}";
             else
-                txtLoc.Text = $"{slash}usr{slash}profile{frmMain.profIndex.ToString()}{slash}DBs{slash}" + txtName.Text;
+                txtLoc.Text = $"{slash}usr{slash}profile{frmMain.profIndex.ToString()}{slash}DBs{slash}{txtName.Text}";
         }
 
 
@@ -149,11 +149,11 @@ namespace NutApp
                 string[] colVal = new string[n];
                 for (int j = 0; j < n; j++)
                     colVal[j] = mainForm.getVal(j, i);
-                File.WriteAllLines(fp + $"{slash}" + listBox2.Items[i].ToString() + ".TXT", colVal); //writes the stores for each unit
+                File.WriteAllLines($"{fp}{slash}{listBox2.Items[i]}.TXT", colVal); //writes the stores for each unit
             }
             //File.WriteAllLines(fp + $"{slash}_nameKeyPairs.txt", nameKeyPairs);
             string[] firstCommit = { searchKey + "|Name of Food", calorieKey + "|Calories" };
-            File.WriteAllLines(fp + $"{slash}_nutKeyPairs.TXT", firstCommit); //writes the initial key pairs for nutrients and txt files
+            File.WriteAllLines($"{fp}{slash}_nutKeyPairs.TXT", firstCommit); //writes the initial key pairs for nutrients and txt files
 
 			List<string> nameKeyPairs = new List<string>();
 			List<string> unitKeyPairs = new List<string>();
@@ -176,11 +176,11 @@ namespace NutApp
                 }
 
                 if (unit.Length > 0)
-                    unitKeyPairs.Add(listBox2.Items[i].ToString() + ".TXT|" + unit);
+                    unitKeyPairs.Add($"{listBox2.Items[i]}.TXT|" + unit);
             }
-            File.WriteAllLines(fp + slash + "_nameKeyPairs.TXT", nameKeyPairs); //writes the names (and often) the units
+            File.WriteAllLines($"{fp}{slash}_nameKeyPairs.TXT", nameKeyPairs); //writes the names (and often) the units
             if (unitKeyPairs.Count() > 0)
-                File.WriteAllLines(fp + slash + "_unitKeyPairs.TXT", unitKeyPairs);
+                File.WriteAllLines($"{fp}{slash}_unitKeyPairs.TXT", unitKeyPairs);
 
             MessageBox.Show("Database created successfully.  Please use the search function on the main page to try it out.  Your first time using it, you will be asked to assign real nutrient names to the imported fields.  The software isn't able to do that yet.", "Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
             this.Close();
