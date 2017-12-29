@@ -126,8 +126,8 @@ namespace NutApp
                 column c = new column();            
                 
                 string f = s.Split(new char[] { '/', '\\'})[s.Split(new char[] { '/', '\\' }).Length - 1];
-                txtOutput.Text += f + ":\r\n";
-                txtOutput.Text += $"schemas: [{string.Join("], [", r.headers)}]\r\n\r\n";
+                txtOutput.Text += f + " (schemas):\r\n";
+                txtOutput.Text += $"{string.Join("\r\n", r.headers)}\r\n\r\n";
                 relFiles.Add(r);
             }
 
@@ -153,7 +153,8 @@ namespace NutApp
                 foreach (Header h in Headers)
                     if (h.occcurance == i)
                         suspKeys.Add(h.header);
-            txtOutput.Text += $"Recurrent keys:\r\n{string.Join("\r\n", suspKeys)}";
+            txtOutput.Text = $"Recurrent keys:\r\n{string.Join("\r\n", suspKeys)}\r\n\r\n" + txtOutput.Text;
+            
 
             string[] parentHeaders = File.ReadAllLines(activeDBdir + slash + "_nameKeyPairs.TXT");
             for (int i = 0; i < parentHeaders.Length; i++)
@@ -199,8 +200,6 @@ namespace NutApp
         {
             activeDBdir = shareDBdir + slash + comboBox1.Text;
             listBox1.Items.Clear();
-            listBox1.Items.Add("<no matches>");
-            listBox1.Items.Add("<drop a.TXT>");
             btnCreate.Enabled = false;
         }
 
@@ -216,6 +215,8 @@ namespace NutApp
             Directory.CreateDirectory(newRelDir);
 
 			string unit = "";
+            string ndb = "";
+            string nutrNo = "";
             foreach (relFile r in relFiles)
             {
                 string f = r.file.Split(new char[] { '/', '\\' })[r.file.Split(new char[] { '/', '\\' }).Length - 1].Replace(".TXT", "");
@@ -240,17 +241,24 @@ namespace NutApp
                 }
                 nutrNos = nutrNos.ToArray().Distinct().ToList();
                 nutrNos.Sort();
-                File.WriteAllText(newRelDir + slash + "_dbInit.TXT", $"[Flav_Val]{flavVal}\r\n[NDB_No]{txtNdb.Text}\r\n[Nutr_No]{txtNutrNo.Text}\r\n[NutrDesc]{txtNutrDesc.Text}\r\n[Units]{unit}\r\n\r\n[Fields]\r\n{string.Join("\r\n", nutrNos)}");
+                File.WriteAllText(newRelDir + slash + "_dbInit.TXT", $"[ParentDB]{comboBox1.Text}\r\n[Flav_Val]{txtFlavVal.Text}.TXT\r\n[NDB_No]$NDB_No\r\n[Nutr_No]$Nutr_No\r\n[NutrDesc]{txtNutrDesc.Text}.TXT\r\n[Units]{unit}");
             }
 
-
-            MessageBox.Show("Database created successfully!");
+            files = Directory.GetFiles(newRelDir, "*.TXT", SearchOption.AllDirectories);
+            foreach (string s in files)
+            {
+                if (s.EndsWith(txtFlavVal.Text + ".TXT"))
+                    ndb = s.Replace(txtFlavVal.Text + ".TXT", txtNdb.Text + ".TXT");
+                else if (s.EndsWith(txtNutrDesc.Text + ".TXT"))
+                    nutrNo = s.Replace(txtNutrDesc.Text + ".TXT", txtNutrNo.Text + ".TXT");
+            }
+            ndb = ndb.Replace(newRelDir, "").Replace(slash, "/");
+            nutrNo =  nutrNo.Replace(newRelDir, "").Replace(slash, "/");
+            string text = File.ReadAllText(newRelDir + slash + "_dbInit.TXT");
+            text = text.Replace("$NDB_No", ndb).Replace("$Nutr_No", nutrNo);
+            File.WriteAllText(newRelDir + slash + "_dbInit.TXT", text);
+            MessageBox.Show($"Database created successfully! Go to the extended tab of the {comboBox1.Text} database to configure it");
             //this.Close();
-        }
-
-        private void listBox1_MouseUp(object sender, MouseEventArgs e)
-        {
-            txtNdb.Text = listBox1.Text;
         }
     }
 }

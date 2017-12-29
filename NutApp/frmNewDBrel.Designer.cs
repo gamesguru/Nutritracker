@@ -174,14 +174,10 @@
             this.listBox1.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.listBox1.FormattingEnabled = true;
             this.listBox1.ItemHeight = 14;
-            this.listBox1.Items.AddRange(new object[] {
-            "<no matches>",
-            "<drop a .TXT>"});
             this.listBox1.Location = new System.Drawing.Point(107, 152);
             this.listBox1.Name = "listBox1";
             this.listBox1.Size = new System.Drawing.Size(109, 46);
             this.listBox1.TabIndex = 10;
-            this.listBox1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.listBox1_MouseUp);
             // 
             // label5
             // 
