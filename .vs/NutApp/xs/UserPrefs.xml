@@ -1,8 +1,10 @@
 ﻿<Properties StartupConfiguration="{086472C5-DD1F-4872-9BF1-9F9B633A376F}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="NutApp/frmManageField.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="NutApp/frmNewDBrel.cs">
     <Files>
-      <File FileName="NutApp/frmManageField.cs" Line="99" Column="10" />
-      <File FileName="NutApp/frmSearchFoods.cs" Line="1" Column="1" />
+      <File FileName="NutApp/frmManageField.cs" Line="358" Column="21" />
+      <File FileName="NutApp/frmSearchFoods.cs" Line="102" Column="1" />
+      <File FileName="NutApp/frmNewDBrel.cs" Line="127" Column="14" />
+      <File FileName="NutApp/frmMain.cs" Line="680" Column="21" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
@@ -10,6 +12,7 @@
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <AuthorInfo Name="Shane" Email="mathmuncher11@gmail.com" Copyright="" Company="" Trademark="" />
   <MultiItemStartupConfigurations />
   <MonoDevelop.Ide.ItemProperties.Nutrition_220App PreferredExecutionTarget="MonoDevelop.Default" />
 </Properties>

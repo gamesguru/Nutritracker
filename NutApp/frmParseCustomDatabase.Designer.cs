@@ -56,9 +56,6 @@
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnNewField = new System.Windows.Forms.Button();
             this.btnNewDB = new System.Windows.Forms.Button();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.btnInsertValue = new System.Windows.Forms.Button();
-            this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.contextMenuStrip1.SuspendLayout();
@@ -71,7 +68,7 @@
             this.lstViewResult.AllowDrop = true;
             this.lstViewResult.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.lstViewResult.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.lstViewResult.Location = new System.Drawing.Point(13, 237);
+            this.lstViewResult.Location = new System.Drawing.Point(13, 236);
             this.lstViewResult.Margin = new System.Windows.Forms.Padding(4);
             this.lstViewResult.Name = "lstViewResult";
             this.lstViewResult.Size = new System.Drawing.Size(692, 355);
@@ -264,12 +261,12 @@
             this.btnCancel.TabIndex = 12;
             this.btnCancel.Text = "Exit";
             this.btnCancel.UseVisualStyleBackColor = true;
-            this.btnCancel.Click += new System.EventHandler(this.button3_Click);
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
             // btnNewField
             // 
             this.btnNewField.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.btnNewField.Location = new System.Drawing.Point(169, 599);
+            this.btnNewField.Location = new System.Drawing.Point(110, 599);
             this.btnNewField.Name = "btnNewField";
             this.btnNewField.Size = new System.Drawing.Size(111, 51);
             this.btnNewField.TabIndex = 14;
@@ -280,45 +277,13 @@
             // btnNewDB
             // 
             this.btnNewDB.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.btnNewDB.Location = new System.Drawing.Point(286, 599);
+            this.btnNewDB.Location = new System.Drawing.Point(276, 599);
             this.btnNewDB.Name = "btnNewDB";
-            this.btnNewDB.Size = new System.Drawing.Size(151, 30);
+            this.btnNewDB.Size = new System.Drawing.Size(151, 51);
             this.btnNewDB.TabIndex = 15;
             this.btnNewDB.Text = "Create new Database";
             this.btnNewDB.UseVisualStyleBackColor = true;
-            this.btnNewDB.Click += new System.EventHandler(this.button4_Click);
-            // 
-            // checkBox1
-            // 
-            this.checkBox1.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Enabled = false;
-            this.checkBox1.Location = new System.Drawing.Point(286, 635);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(149, 20);
-            this.checkBox1.TabIndex = 16;
-            this.checkBox1.Text = "Relational database";
-            this.checkBox1.UseVisualStyleBackColor = true;
-            // 
-            // btnInsertValue
-            // 
-            this.btnInsertValue.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.btnInsertValue.Enabled = false;
-            this.btnInsertValue.Location = new System.Drawing.Point(16, 599);
-            this.btnInsertValue.Name = "btnInsertValue";
-            this.btnInsertValue.Size = new System.Drawing.Size(117, 51);
-            this.btnInsertValue.TabIndex = 17;
-            this.btnInsertValue.Text = "Insert Values to an Existing Field";
-            this.btnInsertValue.UseVisualStyleBackColor = true;
-            // 
-            // progressBar1
-            // 
-            this.progressBar1.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.progressBar1.Location = new System.Drawing.Point(22, 194);
-            this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(152, 23);
-            this.progressBar1.TabIndex = 18;
-            this.progressBar1.Visible = false;
+            this.btnNewDB.Click += new System.EventHandler(this.btnNewDB_Click);
             // 
             // textBox1
             // 
@@ -344,9 +309,6 @@
             this.CancelButton = this.btnCancel;
             this.ClientSize = new System.Drawing.Size(723, 662);
             this.Controls.Add(this.textBox1);
-            this.Controls.Add(this.progressBar1);
-            this.Controls.Add(this.btnInsertValue);
-            this.Controls.Add(this.checkBox1);
             this.Controls.Add(this.btnNewDB);
             this.Controls.Add(this.btnNewField);
             this.Controls.Add(this.btnCancel);
@@ -396,10 +358,7 @@
         private System.Windows.Forms.ToolStripMenuItem convertToGramsToolStripMenuItem;
         private System.Windows.Forms.Button btnNewField;
         private System.Windows.Forms.Button btnNewDB;
-        private System.Windows.Forms.CheckBox checkBox1;
-        private System.Windows.Forms.Button btnInsertValue;
         private System.Windows.Forms.ToolStripMenuItem rowSelectingEngineToolStripMenuItem;
-        private System.Windows.Forms.ProgressBar progressBar1;
         private System.Windows.Forms.ToolStripMenuItem importFromtxtFilequickestToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem removeSelectedColumnToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem dataToolStripMenuItem;

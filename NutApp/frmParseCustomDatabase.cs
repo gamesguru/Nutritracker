@@ -96,7 +96,7 @@ namespace NutApp
             }
         }
 
-        private void button3_Click(object sender, EventArgs e)
+        private void btnCancel_Click(object sender, EventArgs e)
         {
             this.Close();
         }
@@ -187,7 +187,7 @@ namespace NutApp
         }
 
 
-        private void button4_Click(object sender, EventArgs e)
+        private void btnNewDB_Click(object sender, EventArgs e)
         {
             int n = lstViewResult.Columns.Count;
 
@@ -204,9 +204,10 @@ namespace NutApp
             }
             else { MessageBox.Show("You haven't transferred more than 1 column to the list!"); }
         }
-        public string getVal(int i, int j)
+
+        private void btnNewDBrel_Click(object sender, EventArgs e)
         {
-            return lstViewResult.Items[i].SubItems[j].Text;
+
         }
 
         private void btnNewField_Click(object sender, EventArgs e)
@@ -223,6 +224,12 @@ namespace NutApp
             }
             else { MessageBox.Show("You haven't transferred more than 1 column to the list!"); }
         }
+
+        public string getVal(int i, int j)
+        {
+            return lstViewResult.Items[i].SubItems[j].Text;
+        }
+
 
         private void parseInput()
         {
@@ -335,6 +342,8 @@ namespace NutApp
             openFileDialog1.InitialDirectory = Application.StartupPath + Path.DirectorySeparatorChar.ToString() + "lib";
             openFileDialog1.ShowDialog();
             textBox1.Text += openFileDialog1.FileName + "\r\n";
+            if (!File.Exists(openFileDialog1.FileName))
+                return;
             sourceInput = File.ReadAllLines(openFileDialog1.FileName);
             parseInput();
         }

@@ -77,12 +77,13 @@ namespace NutApp
             }
             catch { }
 
-            pubDBs = Directory.GetDirectories(Application.StartupPath + $"{slash}usr{slash}public{slash}DBs");
+            pubDBs = Directory.GetDirectories(Application.StartupPath + $"{slash}usr{slash}share{slash}DBs");
             userDBs = Directory.GetDirectories(Application.StartupPath + $"{slash}usr{slash}profile{frmMain.profIndex.ToString()}{slash}DBs");
 
             if (pubDBs.Length == 0 && userDBs.Length == 0)
             {
                 MessageBox.Show("No databases found, try going to the spreadsheet wizard or reinstalling the program.");
+
                 this.Close();
             }
 
@@ -94,9 +95,11 @@ namespace NutApp
             }
             for (int i = 0; i < pubDBs.Length; i++)
             {
-                pubDBs[i] = pubDBs[i].Replace(Application.StartupPath + $"{slash}usr{slash}public{slash}DBs{slash}", "");
-                comboDBs.Items.Add(pubDBs[i] + " (public)");
+                pubDBs[i] = pubDBs[i].Replace(Application.StartupPath + $"{slash}usr{slash}share{slash}DBs{slash}", "");
+                comboDBs.Items.Add(pubDBs[i] + " (share)");
             }
+
+
 
 
             if (comboDBs.Items.Count > 0 && File.Exists(Application.StartupPath + $"{slash}usr{slash}profile{frmMain.profIndex}{slash}DBs{slash}Default.TXT"))
@@ -375,30 +378,39 @@ namespace NutApp
             richTxtWarn.Text = "";
             //richTxtWarn.Enabled = false;
             warning = true;
-            db = comboDBs.Text.Replace(" (public)", "").Replace(" (user)", "");
-            if (comboDBs.Text.Contains("(public)"))
+            db = comboDBs.Text.Replace(" (share)", "").Replace(" (user)", "");
+            if (comboDBs.Text.Contains("(share)"))
             {
-                string[] files = Directory.GetFiles(Application.StartupPath + $"{slash}usr{slash}public{slash}DBs{slash}" + db);
 
-                if (File.Exists(Application.StartupPath + $"{slash}usr{slash}public{slash}DBs{slash}" + db + $"{slash}_nutKeyPairs.TXT"))
+                string[] files = Directory.GetFiles(Application.StartupPath + $"{slash}usr{slash}share{slash}DBs{slash}" + db);
+
+
+                if (File.Exists(Application.StartupPath + $"{slash}usr{slash}share{slash}DBs{slash}" + db + $"{slash}_nutKeyPairs.TXT"))
+
                 {
                     mainDB = new Dictionary<string, List<string>>();
                     for (int i = 0; i < files.Length; i++)
-                        mainDB.Add(files[i].Replace(Application.StartupPath + $"{slash}usr{slash}public{slash}DBs{slash}" + db + $"{slash}", "")/*.ToUpper()*/, importArray(files[i]));
 
-                    nutKeyPairs = importArray(Application.StartupPath + $"{slash}usr{slash}public{slash}DBs{slash}" + db + $"{slash}_nutKeyPairs.TXT").ToArray();
+                        mainDB.Add(files[i].Replace(Application.StartupPath + $"{slash}usr{slash}share{slash}DBs{slash}" + db + $"{slash}", "")/*.ToUpper()*/, importArray(files[i]));
+
+
+                    nutKeyPairs = importArray(Application.StartupPath + $"{slash}usr{slash}share{slash}DBs{slash}" + db + $"{slash}_nutKeyPairs.TXT").ToArray();
+
 
                     //MessageBox.Show("hmm");
-                    n = importArray(Application.StartupPath + $"{slash}usr{slash}public{slash}DBs{slash}" + db + $"{slash}" + nutKeyPairs[0].Split('|')[0]).Count;
+                    n = importArray(Application.StartupPath + $"{slash}usr{slash}share{slash}DBs{slash}{db}{slash}" + nutKeyPairs[0].Split('|')[0]).Count;
+
                     //MessageBox.Show("ok");
                     for (int i = 0; i < nutKeyPairs.Length; i++)
                         if (nutKeyPairs[i].Contains("|Name of Food"))
-                            nameKeyPath = Application.StartupPath + $"{slash}usr{slash}public{slash}DBs{slash}" + db + $"{slash}" +
+                            nameKeyPath = Application.StartupPath + $"{slash}usr{slash}share{slash}DBs{slash}{db}{slash}" +
                                           nutKeyPairs[i].Replace("|Name of Food", "");
                     for (int i = 0; i < nutKeyPairs.Length; i++)
                         lstviewFoods.Columns.Add(nutKeyPairs[i].Split('|')[1]);
 
                     txtSrch.Enabled = true;
+
+
                     manageBasicFieldsToolStripMenuItem.Enabled = true;
 
 
@@ -441,7 +453,7 @@ namespace NutApp
                 else
                 {
                     MessageBox.Show("The nutrient keys have not been paired for this database.  You will be taken to the admin center.", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    frmManageDBfields frmMDB = new frmManageDBfields();
+                    frmManageDB frmMDB = new frmManageDB();
                     NewMethod(frmMDB);
                     frmMDB.ShowDialog();
                 }
@@ -455,36 +467,40 @@ namespace NutApp
                 {
                     Dictionary<string, List<string>> mainDB = new Dictionary<string, List<string>>();
                     for (int i = 0; i < files.Length; i++)
-                        mainDB.Add(files[i].Replace(Application.StartupPath + $"{slash}usr{slash}profile" + frmMain.profIndex.ToString() + $"{slash}DBs{slash}" + db + $"{slash}", ""), importArray(files[i]));
+                        mainDB.Add(files[i].Replace(Application.StartupPath + $"{slash}usr{slash}profile{frmMain.profIndex.ToString()}{slash}DBs{slash}" + db + $"{slash}", ""), importArray(files[i]));
 
-                    List<string> nutKeyPairs = importArray(Application.StartupPath + $"{slash}usr{slash}profile" + frmMain.profIndex.ToString() + $"{slash}DBs{slash}" + db + "_nutKeyPairs.TXT");
+                    List<string> nutKeyPairs = importArray(Application.StartupPath + $"{slash}usr{slash}profile{frmMain.profIndex.ToString()}{slash}DBs{slash}" + db + "_nutKeyPairs.TXT");
                     for (int i = 0; i < nutKeyPairs.Count; i++)
                         lstviewFoods.Columns.Add(nutKeyPairs[i].Split('|')[1]);
                     
 
                 }
+
                 else
                 {
                     MessageBox.Show("The nutrient keys have not been paired for this database.  You will be taken to the admin center.", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    frmManageDBfields frmMDB = new frmManageDBfields();
-                    frmMDB.nutkeyPath = Application.StartupPath + $"{slash}usr{slash}public{slash}DBs{slash}" + db + $"{slash}_nutKeyPairs.TXT";
+                    frmManageDB frmMDB = new frmManageDB();
+                    frmMDB.nutkeyPath = Application.StartupPath + $"{slash}usr{slash}share{slash}DBs{slash}{db}{slash}_nutKeyPairs.TXT";
                     frmMDB.ShowDialog();
                 }
+
             }
         }
 
-        private void NewMethod(frmManageDBfields frmMDB)
+        private void NewMethod(frmManageDB frmMDB)
         {
-            frmMDB.nutkeyPath = Application.StartupPath + $"{slash}usr{slash}public{slash}DBs{slash}" + db + $"{slash}_nutKeyPairs.TXT";
+            frmMDB.nutkeyPath = Application.StartupPath + $"{slash}usr{slash}share{slash}DBs{slash}{db}{slash}_nutKeyPairs.TXT";
+
         }
 
         private void manageBasicFieldsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            string db = comboDBs.Text.Replace(" (public)", "");
-            frmManageDBfields frmMDB = new frmManageDBfields();
-            frmMDB.nutkeyPath = Application.StartupPath + $"{slash}usr{slash}public{slash}DBs{slash}" + db + $"{slash}_nutKeyPairs.TXT";
+            string db = comboDBs.Text.Replace(" (share)", "");
+            frmManageDB frmMDB = new frmManageDB();
+            frmMDB.nutkeyPath = Application.StartupPath + $"{slash}usr{slash}share{slash}DBs{slash}{db}{slash}_nutKeyPairs.TXT";
             frmMDB.ShowDialog();
         }
+
 
 
 

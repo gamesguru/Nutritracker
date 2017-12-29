@@ -1595,21 +1595,24 @@ dataExercise[0, x].Value == "Sprinting")
 
         private void btnSearchUserD_Click(object sender, EventArgs e)
         {
-            if (!Directory.Exists(Application.StartupPath + $"{slash}usr{slash}public{slash}DBs") && !Directory.Exists(Application.StartupPath + $"{slash}usr{slash}profile" + profIndex.ToString() + "{slash}DBs"))
+            if (!Directory.Exists(Application.StartupPath + $"{slash}usr{slash}share{slash}DBs") && !Directory.Exists(Application.StartupPath + $"{slash}usr{slash}profile" + profIndex.ToString() + "{slash}DBs"))
             {
-                MessageBox.Show("There don't seem to be any public OR user loaded databases.  Try going to the spreadsheet wizard (under tools) to import some, or manually copy some from another user.", "Nothing found", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("There don't seem to be any shared OR user loaded databases.  Try going to the spreadsheet wizard (under tools) to import some, or manually copy some from another user.", "Nothing found", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
             else
+
             {
+
                 frmSearchFoods frmAddSFood = new frmSearchFoods();
                 frmAddSFood.Show(this);
             }
-            //else if (importArray(Application.StartupPath + "\\usr\\public"))
+            //else if (importArray(Application.StartupPath + "\\usr\\share"))
         }
 
         private void addSearchCommonFoodsToolStripMenuItem1_Click(object sender, EventArgs e)
         {
+
             btnSearchUserD.PerformClick();
         }
 
@@ -1621,7 +1624,7 @@ dataExercise[0, x].Value == "Sprinting")
 
         private void manageStandaloneDatabaseToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            frmManageDBfields frmMDB = new frmManageDBfields();
+            frmManageDB frmMDB = new frmManageDB();
             frmMDB.ShowDialog();
         }
 
@@ -1635,6 +1638,12 @@ dataExercise[0, x].Value == "Sprinting")
         {
             frmDecomposeRecipe frmDR = new frmDecomposeRecipe();
             frmDR.ShowDialog();
+        }
+
+        private void relationalDatabaseWizardToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmNewDBrel frmNDBr = new frmNewDBrel();
+            frmNDBr.ShowDialog();
         }
     }
 }

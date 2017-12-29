@@ -70,22 +70,22 @@
             // radioPersonal
             // 
             this.radioPersonal.AutoSize = true;
-            this.radioPersonal.Checked = true;
             this.radioPersonal.Location = new System.Drawing.Point(6, 42);
             this.radioPersonal.Name = "radioPersonal";
             this.radioPersonal.Size = new System.Drawing.Size(126, 17);
             this.radioPersonal.TabIndex = 1;
-            this.radioPersonal.TabStop = true;
             this.radioPersonal.Text = "Personal (your profile)";
             this.radioPersonal.UseVisualStyleBackColor = true;
             // 
             // radioShared
             // 
             this.radioShared.AutoSize = true;
+            this.radioShared.Checked = true;
             this.radioShared.Location = new System.Drawing.Point(6, 19);
             this.radioShared.Name = "radioShared";
             this.radioShared.Size = new System.Drawing.Size(86, 17);
             this.radioShared.TabIndex = 0;
+            this.radioShared.TabStop = true;
             this.radioShared.Text = "Shared (root)";
             this.radioShared.UseVisualStyleBackColor = true;
             this.radioShared.CheckedChanged += new System.EventHandler(this.radioShared_CheckedChanged);
@@ -101,12 +101,13 @@
             // 
             // txtLoc
             // 
-            this.txtLoc.Enabled = false;
             this.txtLoc.Location = new System.Drawing.Point(65, 39);
             this.txtLoc.MaxLength = 100;
             this.txtLoc.Name = "txtLoc";
+            this.txtLoc.ReadOnly = true;
             this.txtLoc.Size = new System.Drawing.Size(182, 20);
             this.txtLoc.TabIndex = 2;
+            this.txtLoc.TabStop = false;
             // 
             // txtName
             // 

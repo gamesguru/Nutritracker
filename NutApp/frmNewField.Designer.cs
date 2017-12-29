@@ -206,12 +206,13 @@
             // 
             // txtLoc
             // 
-            this.txtLoc.Enabled = false;
             this.txtLoc.Location = new System.Drawing.Point(65, 39);
             this.txtLoc.MaxLength = 100;
             this.txtLoc.Name = "txtLoc";
+            this.txtLoc.ReadOnly = true;
             this.txtLoc.Size = new System.Drawing.Size(324, 20);
             this.txtLoc.TabIndex = 2;
+            this.txtLoc.TabStop = false;
             // 
             // txtName
             // 

@@ -1,0 +1,14 @@
+[Flav_Val]/ISFL_DAT/Isfl_Val.TXT
+[NDB_No]NDB_No
+[Nutr_No]Nutr_No
+[NutrDesc]NutrDesc
+[Units]mg Per 100g
+
+[Fields]
+710
+711
+712
+713
+714
+715
+716

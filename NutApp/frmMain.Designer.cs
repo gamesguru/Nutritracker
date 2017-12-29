@@ -84,6 +84,7 @@
             this.editProfilesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.undoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.manageActiveFieldsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.decomposeRecipeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addToLogToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addSearchCommonFoodsToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.addExerciseToLogToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
@@ -101,7 +102,7 @@
             this.button11 = new System.Windows.Forms.Button();
             this.lblCurrentUser = new System.Windows.Forms.Label();
             this.btnSearchUserD = new System.Windows.Forms.Button();
-            this.decomposeRecipeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.relationalDatabaseWizardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataDay)).BeginInit();
             this.groupBox2.SuspendLayout();
@@ -727,6 +728,13 @@
             this.manageActiveFieldsToolStripMenuItem.Text = "Manage Active Fields";
             this.manageActiveFieldsToolStripMenuItem.Click += new System.EventHandler(this.manageActiveFieldsToolStripMenuItem_Click);
             // 
+            // decomposeRecipeToolStripMenuItem
+            // 
+            this.decomposeRecipeToolStripMenuItem.Name = "decomposeRecipeToolStripMenuItem";
+            this.decomposeRecipeToolStripMenuItem.Size = new System.Drawing.Size(216, 22);
+            this.decomposeRecipeToolStripMenuItem.Text = "Decompose Recipe";
+            this.decomposeRecipeToolStripMenuItem.Click += new System.EventHandler(this.decomposeRecipeToolStripMenuItem_Click);
+            // 
             // addToLogToolStripMenuItem
             // 
             this.addToLogToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -757,6 +765,7 @@
             this.openGuesstimatorToolStripMenuItem,
             this.advancedExerciseCalcToolStripMenuItem,
             this.parseExcelSpreadsheetToolStripMenuItem,
+            this.relationalDatabaseWizardToolStripMenuItem,
             this.viewDetailReportToolStripMenuItem,
             this.settingsToolStripMenuItem,
             this.bodyFatCalcToolStripMenuItem,
@@ -769,48 +778,48 @@
             // 
             this.openGuesstimatorToolStripMenuItem.Enabled = false;
             this.openGuesstimatorToolStripMenuItem.Name = "openGuesstimatorToolStripMenuItem";
-            this.openGuesstimatorToolStripMenuItem.Size = new System.Drawing.Size(225, 22);
+            this.openGuesstimatorToolStripMenuItem.Size = new System.Drawing.Size(241, 22);
             this.openGuesstimatorToolStripMenuItem.Text = "Open Guesstimator";
             // 
             // advancedExerciseCalcToolStripMenuItem
             // 
             this.advancedExerciseCalcToolStripMenuItem.Enabled = false;
             this.advancedExerciseCalcToolStripMenuItem.Name = "advancedExerciseCalcToolStripMenuItem";
-            this.advancedExerciseCalcToolStripMenuItem.Size = new System.Drawing.Size(225, 22);
+            this.advancedExerciseCalcToolStripMenuItem.Size = new System.Drawing.Size(241, 22);
             this.advancedExerciseCalcToolStripMenuItem.Text = "Advanced Exercise Calc";
             // 
             // parseExcelSpreadsheetToolStripMenuItem
             // 
             this.parseExcelSpreadsheetToolStripMenuItem.Name = "parseExcelSpreadsheetToolStripMenuItem";
             this.parseExcelSpreadsheetToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F9;
-            this.parseExcelSpreadsheetToolStripMenuItem.Size = new System.Drawing.Size(225, 22);
+            this.parseExcelSpreadsheetToolStripMenuItem.Size = new System.Drawing.Size(241, 22);
             this.parseExcelSpreadsheetToolStripMenuItem.Text = "Import Excel Spreadsheet";
             this.parseExcelSpreadsheetToolStripMenuItem.Click += new System.EventHandler(this.parseExcelSpreadsheetToolStripMenuItem_Click);
             // 
             // viewDetailReportToolStripMenuItem
             // 
             this.viewDetailReportToolStripMenuItem.Name = "viewDetailReportToolStripMenuItem";
-            this.viewDetailReportToolStripMenuItem.Size = new System.Drawing.Size(225, 22);
+            this.viewDetailReportToolStripMenuItem.Size = new System.Drawing.Size(241, 22);
             this.viewDetailReportToolStripMenuItem.Text = "View Detail Report";
             this.viewDetailReportToolStripMenuItem.Click += new System.EventHandler(this.viewDetailReportToolStripMenuItem_Click);
             // 
             // settingsToolStripMenuItem
             // 
             this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
-            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(225, 22);
+            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(241, 22);
             this.settingsToolStripMenuItem.Text = "Settings";
             // 
             // bodyFatCalcToolStripMenuItem
             // 
             this.bodyFatCalcToolStripMenuItem.Name = "bodyFatCalcToolStripMenuItem";
-            this.bodyFatCalcToolStripMenuItem.Size = new System.Drawing.Size(225, 22);
+            this.bodyFatCalcToolStripMenuItem.Size = new System.Drawing.Size(241, 22);
             this.bodyFatCalcToolStripMenuItem.Text = "Bodyfat Calculator";
             this.bodyFatCalcToolStripMenuItem.Click += new System.EventHandler(this.bodyFatCalcToolStripMenuItem_Click);
             // 
             // naturalPotentialCalcToolStripMenuItem
             // 
             this.naturalPotentialCalcToolStripMenuItem.Name = "naturalPotentialCalcToolStripMenuItem";
-            this.naturalPotentialCalcToolStripMenuItem.Size = new System.Drawing.Size(225, 22);
+            this.naturalPotentialCalcToolStripMenuItem.Size = new System.Drawing.Size(241, 22);
             this.naturalPotentialCalcToolStripMenuItem.Text = "Natural Bodybuilding Limits";
             this.naturalPotentialCalcToolStripMenuItem.Click += new System.EventHandler(this.naturalPotentialCalcToolStripMenuItem_Click);
             // 
@@ -871,12 +880,13 @@
             this.btnSearchUserD.UseVisualStyleBackColor = true;
             this.btnSearchUserD.Click += new System.EventHandler(this.btnSearchUserD_Click);
             // 
-            // decomposeRecipeToolStripMenuItem
+            // relationalDatabaseWizardToolStripMenuItem
             // 
-            this.decomposeRecipeToolStripMenuItem.Name = "decomposeRecipeToolStripMenuItem";
-            this.decomposeRecipeToolStripMenuItem.Size = new System.Drawing.Size(216, 22);
-            this.decomposeRecipeToolStripMenuItem.Text = "Decompose Recipe";
-            this.decomposeRecipeToolStripMenuItem.Click += new System.EventHandler(this.decomposeRecipeToolStripMenuItem_Click);
+            this.relationalDatabaseWizardToolStripMenuItem.Name = "relationalDatabaseWizardToolStripMenuItem";
+            this.relationalDatabaseWizardToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F10;
+            this.relationalDatabaseWizardToolStripMenuItem.Size = new System.Drawing.Size(241, 22);
+            this.relationalDatabaseWizardToolStripMenuItem.Text = "Relational Database Wizard";
+            this.relationalDatabaseWizardToolStripMenuItem.Click += new System.EventHandler(this.relationalDatabaseWizardToolStripMenuItem_Click);
             // 
             // frmMain
             // 
@@ -990,6 +1000,7 @@
         private System.Windows.Forms.ToolStripMenuItem manageStandaloneDatabaseToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem manageActiveFieldsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem decomposeRecipeToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem relationalDatabaseWizardToolStripMenuItem;
     }
 }
 

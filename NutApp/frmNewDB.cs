@@ -74,12 +74,13 @@ namespace NutApp
         private void txtName_TextChanged(object sender, EventArgs e)
         {
             if (radioShared.Checked)            
-                txtLoc.Text = $"{slash}usr{slash}public{slash}DBs{slash}" + txtName.Text;            
+                txtLoc.Text = $"{slash}usr{slash}share{slash}DBs{slash}" + txtName.Text;            
             else            
-                txtLoc.Text = $"{slash}usr{slash}profile" + frmMain.profIndex.ToString() + $"{slash}DBs{slash}" + txtName.Text;
+                txtLoc.Text = $"{slash}usr{slash}profile{frmMain.profIndex.ToString()}{slash}DBs{slash}" + txtName.Text;
 
             if (txtName.TextLength > 2 && lblSearchField.Text != "N/A" && lblCalories.Text != "N/A")
                 btnCreate.Enabled = true;
+
             if (txtName.TextLength < 2)
                 btnCreate.Enabled = false;
 
@@ -87,10 +88,11 @@ namespace NutApp
         private void radioShared_CheckedChanged(object sender, EventArgs e)
         {
             if (radioShared.Checked)
-                txtLoc.Text = $"{slash}usr{slash}public{slash}DBs{slash}" + txtName.Text;
+                txtLoc.Text = $"{slash}usr{slash}share{slash}DBs{slash}" + txtName.Text;
             else
-                txtLoc.Text = $"{slash}usr{slash}profile" + frmMain.profIndex.ToString() + $"{slash}DBs{slash}" + txtName.Text;
+                txtLoc.Text = $"{slash}usr{slash}profile{frmMain.profIndex.ToString()}{slash}DBs{slash}" + txtName.Text;
         }
+
 
         private void txtName_KeyPress(object sender, KeyPressEventArgs e)
         {

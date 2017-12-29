@@ -299,7 +299,6 @@ namespace NutApp
             txtOthUn.Text = "";
             txtServ.Text = "";
             txtWeight.Text = "";
-            //dbi = Application.StartupPath + $"{slash}usr{slash}profile" + frmMain.profIndex.ToString() + $"{slash}DBs{slash}f_user_" + comboFields.Text + $"{slash}_dbInfo.TXT";
             foreach (field f in Fields)
             {
                 if (f.name == comboFields.Text)
