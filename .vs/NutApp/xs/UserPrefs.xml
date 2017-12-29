@@ -1,10 +1,11 @@
 ﻿<Properties StartupConfiguration="{086472C5-DD1F-4872-9BF1-9F9B633A376F}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="NutApp/frmNewDBrel.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="NutApp/frmNewDBrel.Designer.cs">
     <Files>
+      <File FileName="NutApp/frmMain.cs" Line="1646" Column="1" />
       <File FileName="NutApp/frmManageField.cs" Line="358" Column="21" />
       <File FileName="NutApp/frmSearchFoods.cs" Line="102" Column="1" />
-      <File FileName="NutApp/frmNewDBrel.cs" Line="250" Column="58" />
-      <File FileName="NutApp/frmMain.cs" Line="1646" Column="1" />
+      <File FileName="NutApp/frmNewDBrel.cs" Line="266" Column="17" />
+      <File FileName="NutApp/frmNewDBrel.Designer.cs" Line="32" Column="10" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />

@@ -135,7 +135,7 @@ namespace NutApp
                 if (dataDay.Rows[i].Cells[0].Value.ToString() == "Totals")
                     tDay = i + 1;
 
-            string fp = Application.StartupPath + $"{slash}usr{slash}profile" + profIndex.ToString() + $"{slash}foodlog{slash}" + dte + ".TXT";
+            string fp = $"{Application.StartupPath}{slash}usr{slash}profile{profIndex.ToString()}{slash}foodlog{slash}" + dte + ".TXT";
             string textB = "";
             textB += dataDay.Rows[bDay - 1].Cells[0].Value.ToString() + "|";
             for (int m = bDay; m < lDay - 2; m++)
@@ -249,12 +249,28 @@ dataDay.Rows.Add(row);*/
         private void frmMain_Load(object sender, EventArgs e)
         {
             dte = DateTime.Today.ToString("MM-dd-yyyy");
-            dateTimePicker1.Text = dte.Replace("-", "/");
+            try
+            {
+                foreach (string f in Directory.GetFiles($"{Application.StartupPath}{slash}usr{slash}profile{profIndex.ToString()}{slash}foodlog"))
+                    if (f.EndsWith(".TXT") && f.Contains("-"))
+                        comboLoggedDays.Items.Add(f.Split(new char[] { '/', '\\' })[f.Split(new char[] { '/', '\\' }).Length - 1].Replace(".TXT", ""));
+
+                //for (int i=0;i< comboLoggedDays.Items.Count;i++)
+                //    if (comboLoggedDays.Items[)
+                comboLoggedDays.SelectedIndex = comboLoggedDays.Items.Count - 1;
+
+                foreach (string s in comboLoggedDays.Items)
+                    if (s == dte)
+                        comboLoggedDays.SelectedText = s;
+            }
+            catch { MessageBox.Show("Warning: no data found for this user.", "", MessageBoxButtons.OK, MessageBoxIcon.Warning); }
+            
+            //dateTimePicker1.Text = dte.Replace("-", "/");
 
             //if (defaultIndex > -1)
             //    loadIndex = defaultIndex;
 
-            string root = Application.StartupPath + $"{slash}usr";
+            string root = $"{Application.StartupPath}{slash}usr";
             profIndex = Convert.ToInt16(Directory.GetFiles(root)[0].Replace($"{root}{slash}default", ""));
             string[] directs = Directory.GetDirectories(root);
             profDirects = new List<string>();
@@ -452,10 +468,10 @@ dataDay.Rows.Add(row);*/
             comboMeal.SelectedIndex = 0;
 
             //MessageBox.Show(root + "\\usr\\profile" + loadIndex.ToString() + "\\foods\\names.txt");
-            if (File.Exists(root + $"{slash}profile" + profIndex.ToString() + $"{slash}foods{slash}names.TXT"))
+            if (File.Exists(root + $"{slash}profile{profIndex.ToString()}{slash}foods{slash}names.TXT"))
             {
                 lstCustFoods = new List<string>();
-                lstCustFoods = importArray(root + $"{slash}profile" + profIndex.ToString() + $"{slash}foods{slash}names.TXT");
+                lstCustFoods = importArray(root + $"{slash}profile{profIndex.ToString()}{slash}foods{slash}names.TXT");
                 for (int i = 0; i < lstCustFoods.Count; i++)
                     lstBoxRecipes.Items.Add(lstCustFoods[i]);
             }
@@ -502,14 +518,18 @@ dataDay.Rows.Add(row);*/
 
         //static public int loadIndex = 0;
 
-        private void button5_Click(object sender, EventArgs e)
+        private void btnProfile_Click(object sender, EventArgs e)
         {
             frmProfile frm = new frmProfile();
             frm.ShowDialog();
 
+            comboLoggedDays.Items.Clear();
+            foreach (string f in Directory.GetFiles($"{Application.StartupPath}{slash}usr{slash}profile{profIndex.ToString()}{slash}foodlog"))
+                if (f.EndsWith(".TXT") && f.Contains("-"))
+                    comboLoggedDays.Items.Add(f.Split(new char[] { '/', '\\' })[f.Split(new char[] { '/', '\\' }).Length - 1].Replace(".TXT", ""));
+
             lblCurrentUser.Text = "Current User: " +
-                                  importArray(Application.StartupPath + $"{slash}usr{slash}profile" + profIndex.ToString() + $"{slash}profile" + profIndex.ToString() +
-                                              ".TXT")[0];
+                                  importArray($"{Application.StartupPath}{slash}usr{slash}profile{profIndex.ToString()}{slash}profile{profIndex.ToString()}.TXT")[0];
             dataDay.Rows.Clear();
             dataDay.Rows.Add("Breakfast");
             dataDay.Rows.Add("", "");
@@ -536,14 +556,14 @@ dataDay.Rows.Add(row);*/
             dataDay.Rows[7].ReadOnly = true;
             dataDay.Rows[8].ReadOnly = true;
 
-            if (!File.Exists(Application.StartupPath + $"{slash}usr{slash}profile" + profIndex.ToString() + $"{slash}foodlog{slash}" + dte + ".TXT"))
+            if (!File.Exists($"{Application.StartupPath}{slash}usr{slash}profile{profIndex.ToString()}{slash}foodlog{slash}" + dte + ".TXT"))
             {
                 MessageBox.Show("No food data found for this day, add something to create a log.", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
-            string breakfast = importArray(Application.StartupPath + $"{slash}usr{slash}profile" + profIndex.ToString() + $"{slash}foodlog{slash}" + dte + ".TXT")[0];
-            string lunch = importArray(Application.StartupPath + $"{slash}usr{slash}profile" + profIndex.ToString() + $"{slash}foodlog{slash}" + dte + ".TXT")[1];
-            string dinner = importArray(Application.StartupPath + $"{slash}usr{slash}profile" + profIndex.ToString() + $"{slash}foodlog{slash}" + dte + ".TXT")[2];
+            string breakfast = importArray($"{Application.StartupPath}{slash}usr{slash}profile{profIndex.ToString()}{slash}foodlog{slash}" + dte + ".TXT")[0];
+            string lunch = importArray($"{Application.StartupPath}{slash}usr{slash}profile{profIndex.ToString()}{slash}foodlog{slash}" + dte + ".TXT")[1];
+            string dinner = importArray($"{Application.StartupPath}{slash}usr{slash}profile{profIndex.ToString()}{slash}foodlog{slash}" + dte + ".TXT")[2];
             breakfast = breakfast.Replace("Breakfast|", "");
             lunch = lunch.Replace("Lunch|", "");
             dinner = dinner.Replace("Dinner|", "");
@@ -755,7 +775,7 @@ dataDay.Rows.Add(row);*/
                     if (dataDay.Rows[i].Cells[0].Value.ToString() == "Totals")
                         tDay = i + 1;
 
-                string fp = Application.StartupPath + $"{slash}usr{slash}profile" + profIndex.ToString() + $"{slash}foodlog{slash}" + dte + ".TXT";
+                string fp = $"{Application.StartupPath}{slash}usr{slash}profile{profIndex.ToString()}{slash}foodlog{slash}" + dte + ".TXT";
                 string textB = "";
                 textB += dataDay.Rows[bDay - 1].Cells[0].Value.ToString() + "|";
                 for (int m = bDay; m < lDay - 2; m++)
@@ -856,7 +876,7 @@ dataDay.Rows.Add(row);*/
                         if (dataDay.Rows[i].Cells[0].Value.ToString() == "Totals")
                             tDay = i + 1;
 
-                    string fp = Application.StartupPath + $"{slash}usr{slash}profile" + profIndex.ToString() + $"{slash}foodlog{slash}" + dte + ".TXT";
+                    string fp = $"{Application.StartupPath}{slash}usr{slash}profile{profIndex.ToString()}{slash}foodlog{slash}" + dte + ".TXT";
                     string textB = "";
                     textB += dataDay.Rows[bDay - 1].Cells[0].Value.ToString() + "|";
                     for (int m = bDay; m < lDay - 2; m++)
@@ -926,7 +946,7 @@ dataDay.Rows.Add(row);*/
         {
             if (e.KeyCode.ToString() == "Delete")
             {
-                button11.PerformClick();
+                btnRemoveFood.PerformClick();
             }
         }
         #endregion
@@ -946,7 +966,7 @@ dataDay.Rows.Add(row);*/
                 if (dataDay.Rows[i].Cells[0].Value.ToString() == "Lunch")
                     lDay = i;
 
-            string fp = Application.StartupPath + $"{slash}usr{slash}profile" + profIndex.ToString() + $"{slash}foodlog{slash}" + dte + ".TXT";
+            string fp = $"{Application.StartupPath}{slash}usr{slash}profile{profIndex.ToString()}{slash}foodlog{slash}" + dte + ".TXT";
             string textB = "";
             textB += dataDay.Rows[bDay].Cells[0].Value.ToString() + "|";
             for (int m = bDay + 1; m < lDay - 1; m++)
@@ -1402,12 +1422,12 @@ dataExercise[0, x].Value == "Sprinting")
         //private static List<string> lstCustFood;
         private void customFoodEntryToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            button6.PerformClick();
+            btnEditCustFoods.PerformClick();
         }
 
         private void editProfilesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            button5.PerformClick();
+            btnProfile.PerformClick();
         }
 
         private void button6_Click(object sender, EventArgs e)
@@ -1416,29 +1436,113 @@ dataExercise[0, x].Value == "Sprinting")
             frmCust.Show(this);
         }
 
-        private void button3_Click(object sender, EventArgs e)
+        private void btnDetailReport_Click(object sender, EventArgs e)
         {
             frmDetailReport frmDet = new frmDetailReport();
             frmDet.ShowDialog();
         }
-
-        private void dateTimePicker1_Enter(object sender, EventArgs e)
+        
+        private void bodyFatCalcToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
+            frmBodyfatCalc.currentName = importArray($"{Application.StartupPath}{slash}usr{slash}profile{profIndex.ToString()}{slash}profile" + profIndex.ToString() + ".TXT")[0];
+            frmBodyfatCalc frmBFC = new NutApp.frmBodyfatCalc();
+            frmBFC.gender = importArray($"{Application.StartupPath}{slash}usr{slash}profile{profIndex.ToString()}{slash}profile" + profIndex.ToString() + ".TXT")[1];
+            frmBFC.age = Convert.ToInt32(importArray($"{Application.StartupPath}{slash}usr{slash}profile{profIndex.ToString()}{slash}profile" + profIndex.ToString() + ".TXT")[2]);
+            frmBFC.wt = Convert.ToInt32(importArray($"{Application.StartupPath}{slash}usr{slash}profile{profIndex.ToString()}{slash}profile" + profIndex.ToString() + ".TXT")[4]);
+            frmBFC.ht = Convert.ToInt32(importArray($"{Application.StartupPath}{slash}usr{slash}profile{profIndex.ToString()}{slash}profile" + profIndex.ToString() + ".TXT")[5]);
+            frmBFC.ShowDialog();
         }
 
-        private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
+        private void viewDetailReportToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            string dteNew = dateTimePicker1.Value.ToString("MM-dd-yyyy");
-            dte = dteNew;
+            btnDetailReport.PerformClick();
+        }
+
+        private void naturalPotentialCalcToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmLeanPotentialCalc.bodyfat = Convert.ToInt32(importArray($"{Application.StartupPath}{slash}usr{slash}profile{profIndex.ToString()}{slash}profile" + profIndex.ToString() + ".TXT")[3]);
+            frmLeanPotentialCalc.weight = Convert.ToInt32(importArray($"{Application.StartupPath}{slash}usr{slash}profile{profIndex.ToString()}{slash}profile" + profIndex.ToString() + ".TXT")[4]);
+            frmLeanPotentialCalc.height = Convert.ToInt32(importArray($"{Application.StartupPath}{slash}usr{slash}profile{profIndex.ToString()}{slash}profile" + profIndex.ToString() + ".TXT")[5]);
+            frmLeanPotentialCalc frmNatPot = new NutApp.frmLeanPotentialCalc();            
+            frmNatPot.ShowDialog();
+        }
+
+        private void parseExcelSpreadsheetToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmParseCustomDatabase frmParse = new frmParseCustomDatabase();
+            frmParse.Show(this);
+        }
+
+        private void btnSearchUserD_Click(object sender, EventArgs e)
+        {
+            if (!Directory.Exists($"{Application.StartupPath}{slash}usr{slash}share{slash}DBs") && !Directory.Exists($"{Application.StartupPath}{slash}usr{slash}profile" + profIndex.ToString() + "{slash}DBs"))
+            {
+                MessageBox.Show("There don't seem to be any shared OR user loaded databases.  Try going to the spreadsheet wizard (under tools) to import some, or manually copy some from another user.", "Nothing found", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+            else
+
+            {
+
+                frmSearchFoods frmAddSFood = new frmSearchFoods();
+                frmAddSFood.Show(this);
+            }
+            //else if (importArray(Application.StartupPath + "\\usr\\share"))
+        }
+
+        private void addSearchCommonFoodsToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+
+            btnSearch.PerformClick();
+        }
+
+        private void manageCustomFieldsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmManageField frmMF = new frmManageField(this);
+            frmMF.ShowDialog();
+        }
+
+        private void manageStandaloneDatabaseToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmManageDB frmMDB = new frmManageDB();
+            frmMDB.ShowDialog();
+        }
+
+        private void manageActiveFieldsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmActiveFields frmAF = new frmActiveFields();
+            frmAF.ShowDialog();
+        }
+
+        private void decomposeRecipeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmDecomposeRecipe frmDR = new frmDecomposeRecipe();
+            frmDR.ShowDialog();
+        }
+
+        private void relationalDatabaseWizardToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmNewDBrel frmNDBr = new frmNewDBrel();
+            frmNDBr.ShowDialog();
+        }
+
+        private void btnExit_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void comboLoggedDays_SelectedIndexChanged(object sender, EventArgs e)
+        {            
+            dte = comboLoggedDays.SelectedItem.ToString();
             string breakfast = "";
             string lunch = "";
             string dinner = "";
             try
             {
-                breakfast = importArray(Application.StartupPath + $"{slash}usr{slash}profile" + profIndex.ToString() + $"{slash}foodlog{slash}" + dteNew + ".TXT")[0];
-                lunch = importArray(Application.StartupPath + $"{slash}usr{slash}profile" + profIndex.ToString() + $"{slash}foodlog{slash}" + dteNew + ".TXT")[1];
-                dinner = importArray(Application.StartupPath + $"{slash}usr{slash}profile" + profIndex.ToString() + $"{slash}foodlog{slash}" + dteNew + ".TXT")[2];
+                breakfast = importArray($"{Application.StartupPath}{slash}usr{slash}profile{profIndex.ToString()}{slash}foodlog{slash}{dte}.TXT")[0];
+                lunch = importArray($"{Application.StartupPath}{slash}usr{slash}profile{profIndex.ToString()}{slash}foodlog{slash}{dte}.TXT")[1];
+                dinner = importArray($"{Application.StartupPath}{slash}usr{slash}profile{profIndex.ToString()}{slash}foodlog{slash}{dte}.TXT")[2];
                 breakfast = breakfast.Replace("Breakfast|", "");
                 lunch = lunch.Replace("Lunch|", "");
                 dinner = dinner.Replace("Dinner|", "");
@@ -1557,93 +1661,6 @@ dataExercise[0, x].Value == "Sprinting")
                 catch { }
 
             tabulateNutrientColumns();
-
-
-        }
-
-        private void bodyFatCalcToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-            frmBodyfatCalc.currentName = importArray(Application.StartupPath + $"{slash}usr{slash}profile" + profIndex.ToString() + $"{slash}profile" + profIndex.ToString() + ".TXT")[0];
-            frmBodyfatCalc frmBFC = new NutApp.frmBodyfatCalc();
-            frmBFC.gender = importArray(Application.StartupPath + $"{slash}usr{slash}profile" + profIndex.ToString() + $"{slash}profile" + profIndex.ToString() + ".TXT")[1];
-            frmBFC.age = Convert.ToInt32(importArray(Application.StartupPath + $"{slash}usr{slash}profile" + profIndex.ToString() + $"{slash}profile" + profIndex.ToString() + ".TXT")[2]);
-            frmBFC.wt = Convert.ToInt32(importArray(Application.StartupPath + $"{slash}usr{slash}profile" + profIndex.ToString() + $"{slash}profile" + profIndex.ToString() + ".TXT")[4]);
-            frmBFC.ht = Convert.ToInt32(importArray(Application.StartupPath + $"{slash}usr{slash}profile" + profIndex.ToString() + $"{slash}profile" + profIndex.ToString() + ".TXT")[5]);
-            frmBFC.ShowDialog();
-        }
-
-        private void viewDetailReportToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            button3.PerformClick();
-        }
-
-        private void naturalPotentialCalcToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            frmLeanPotentialCalc.bodyfat = Convert.ToInt32(importArray(Application.StartupPath + $"{slash}usr{slash}profile" + profIndex.ToString() + $"{slash}profile" + profIndex.ToString() + ".TXT")[3]);
-            frmLeanPotentialCalc.weight = Convert.ToInt32(importArray(Application.StartupPath + $"{slash}usr{slash}profile" + profIndex.ToString() + $"{slash}profile" + profIndex.ToString() + ".TXT")[4]);
-            frmLeanPotentialCalc.height = Convert.ToInt32(importArray(Application.StartupPath + $"{slash}usr{slash}profile" + profIndex.ToString() + $"{slash}profile" + profIndex.ToString() + ".TXT")[5]);
-            frmLeanPotentialCalc frmNatPot = new NutApp.frmLeanPotentialCalc();            
-            frmNatPot.ShowDialog();
-        }
-
-        private void parseExcelSpreadsheetToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            frmParseCustomDatabase frmParse = new frmParseCustomDatabase();
-            frmParse.Show(this);
-        }
-
-        private void btnSearchUserD_Click(object sender, EventArgs e)
-        {
-            if (!Directory.Exists(Application.StartupPath + $"{slash}usr{slash}share{slash}DBs") && !Directory.Exists(Application.StartupPath + $"{slash}usr{slash}profile" + profIndex.ToString() + "{slash}DBs"))
-            {
-                MessageBox.Show("There don't seem to be any shared OR user loaded databases.  Try going to the spreadsheet wizard (under tools) to import some, or manually copy some from another user.", "Nothing found", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                return;
-            }
-            else
-
-            {
-
-                frmSearchFoods frmAddSFood = new frmSearchFoods();
-                frmAddSFood.Show(this);
-            }
-            //else if (importArray(Application.StartupPath + "\\usr\\share"))
-        }
-
-        private void addSearchCommonFoodsToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-
-            btnSearchUserD.PerformClick();
-        }
-
-        private void manageCustomFieldsToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            frmManageField frmMF = new frmManageField(this);
-            frmMF.ShowDialog();
-        }
-
-        private void manageStandaloneDatabaseToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            frmManageDB frmMDB = new frmManageDB();
-            frmMDB.ShowDialog();
-        }
-
-        private void manageActiveFieldsToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            frmActiveFields frmAF = new frmActiveFields();
-            frmAF.ShowDialog();
-        }
-
-        private void decomposeRecipeToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            frmDecomposeRecipe frmDR = new frmDecomposeRecipe();
-            frmDR.ShowDialog();
-        }
-
-        private void relationalDatabaseWizardToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            frmNewDBrel frmNDBr = new frmNewDBrel();
-            frmNDBr.ShowDialog();
         }
     }
 }

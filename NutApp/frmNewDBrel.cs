@@ -38,10 +38,8 @@ namespace NutApp
 
         private void txtName_TextChanged(object sender, EventArgs e)
         {
-            if (radioShared.Checked)
-                txtLoc.Text = $"{slash}usr{slash}share{slash}DBs{slash}rel{slash}" + txtName.Text;
-            else
-                txtLoc.Text = $"{slash}usr{slash}profile{frmMain.profIndex.ToString()}{slash}DBs{slash}" + txtName.Text;
+            txtLoc.Text = $"{slash}usr{slash}share{slash}DBs{slash}rel{slash}" + txtName.Text;         
+            
 
             if (txtName.TextLength > 2)//&& lblSearchField.Text != "N/A" && lblCalories.Text != "N/A")
                 btnCreate.Enabled = true;
@@ -49,7 +47,7 @@ namespace NutApp
                 btnCreate.Enabled = false;
         }       
 
-        private void textBox1_DragEnter(object sender, DragEventArgs e)
+        private void txtOutput_DragEnter(object sender, DragEventArgs e)
         {
             if (e.Data.GetDataPresent(DataFormats.FileDrop)) e.Effect = DragDropEffects.Copy;
         }
@@ -60,11 +58,12 @@ namespace NutApp
             public string[] lines;
             public string[] headers;
             public List<column> columns = new List<column>();
-            public string unit = "";
+            public string unit = ""; //for multi
         }
         private class Header
         {
             public string header;
+            public string unit; //for single
             public int occcurance = 0;
         }
         private class column
@@ -72,15 +71,19 @@ namespace NutApp
             public string header;
             public List<string> rows = new List<string>();
         }
+
         List<relFile> relFiles;
+        relFile relf;
         List<string> headers;
         List<Header> Headers;
         List<string> nutrNos;
         string flavVal;
         string[] files;
-        private void textBox1_DragDrop(object sender, DragEventArgs e)
+
+        private void txtOutput_DragDrop(object sender, DragEventArgs e)
         {
             relFiles = new List<relFile>();
+            relf = new relFile();
             headers = new List<string>();
             Headers = new List<Header>();
             nutrNos = new List<string>();
@@ -92,108 +95,178 @@ namespace NutApp
             txtNutrNo.Clear();
             listBox1.Items.Clear();
 
-            string folder = ((string[])e.Data.GetData(DataFormats.FileDrop))[0];
-            if (!Directory.Exists(folder))
+            if (radioMultiKey.Checked)
             {
-                MessageBox.Show("Is not a valid directory\n" + folder);
-                return;
-            }
-            files = Directory.GetFiles(((string[])e.Data.GetData(DataFormats.FileDrop))[0]);
-            folder = folder.Split(new char[] { '/', '\\' })[folder.Split(new char[] { '/', '\\' }).Length - 1];
-            txtName.Text = folder.ToUpper();
-            foreach (string s in files)
-            {
-                relFile r = new relFile();
-                r.file = s;
-                r.lines = File.ReadAllLines(s);
-                r.headers = r.lines[0].Split('\t');
-                
-                for (int i = 0; i < r.headers.Length; i++)
-                //foreach (string st in r.headers)
+                string folder = ((string[])e.Data.GetData(DataFormats.FileDrop))[0];
+                if (!Directory.Exists(folder))
                 {
-                    if (r.unit == "")
-                    {
-                        try
-                        {
-                            r.unit = r.headers[i].Split('(')[1].Split(')')[0];
-                            r.headers[i] = r.headers[i].Split('(')[0].Trim();
-                        }
-                        catch { }
-                    }
-                    if (!headers.Contains(r.headers[i]))
-                        headers.Add(r.headers[i]);
+                    MessageBox.Show("Is not a valid directory\n" + folder);
+                    txtOutput.Text = "<Drag and drop>\r\n<the folder>\r\n<contains *.TXT files>\r\n<more than one!!>";
+                    return;
                 }
-                column c = new column();            
-                
-                string f = s.Split(new char[] { '/', '\\'})[s.Split(new char[] { '/', '\\' }).Length - 1];
-                txtOutput.Text += f + " (schemas):\r\n";
-                txtOutput.Text += $"{string.Join("\r\n", r.headers)}\r\n\r\n";
-                relFiles.Add(r);
-            }
+                files = Directory.GetFiles(((string[])e.Data.GetData(DataFormats.FileDrop))[0]);
+                folder = folder.Split(new char[] { '/', '\\' })[folder.Split(new char[] { '/', '\\' }).Length - 1];
+                txtName.Text = folder.ToUpper();
+                foreach (string s in files)
+                {
+                    relFile r = new relFile();
+                    r.file = s;
+                    r.lines = File.ReadAllLines(s);
+                    r.headers = r.lines[0].Split('\t');
 
-            foreach (string s in headers)
-            {
-                Header h = new Header();
-                h.header = s;
-                Headers.Add(h);
-            }
+                    for (int i = 0; i < r.headers.Length; i++)
+                    {
+                        if (r.unit == "")
+                        {
+                            try
+                            {
+                                r.unit = r.headers[i].Split('(')[1].Split(')')[0];
+                                r.headers[i] = r.headers[i].Split('(')[0].Trim();
+                            }
+                            catch { }
+                        }
+                        if (!headers.Contains(r.headers[i]))
+                            headers.Add(r.headers[i]);
+                    }
+                    column c = new column();
 
-            foreach (Header h in Headers)
-                foreach (relFile r in relFiles)
-                    if (r.headers.Contains(h.header))
-                        h.occcurance++;
+                    string f = s.Split(new char[] { '/', '\\' })[s.Split(new char[] { '/', '\\' }).Length - 1];
+                    txtOutput.Text += f + "\r\n";
+                    txtOutput.Text += $"{string.Join("\r\n", r.headers)}\r\n\r\n";
+                    relFiles.Add(r);
+                }
 
-            int hMax = 0;
-            foreach (Header h in Headers)
-                if (h.occcurance > hMax)
-                    hMax = h.occcurance;
+                foreach (string s in headers)
+                {
+                    Header h = new Header();
+                    h.header = s;
+                    Headers.Add(h);
+                }
 
-            List<string> suspKeys = new List<string>();
-            for (int i = hMax; i > 1; i--)
                 foreach (Header h in Headers)
-                    if (h.occcurance == i)
-                        suspKeys.Add(h.header);
-            txtOutput.Text = $"Recurrent keys:\r\n{string.Join("\r\n", suspKeys)}\r\n\r\n" + txtOutput.Text;
-            
+                    foreach (relFile r in relFiles)
+                        if (r.headers.Contains(h.header))
+                            h.occcurance++;
 
-            string[] parentHeaders = File.ReadAllLines(activeDBdir + slash + "_nameKeyPairs.TXT");
-            for (int i = 0; i < parentHeaders.Length; i++)
-                parentHeaders[i] = parentHeaders[i].Split('|')[1];
+                int hMax = 0;
+                foreach (Header h in Headers)
+                    if (h.occcurance > hMax)
+                        hMax = h.occcurance;
 
-            foreach (string s in parentHeaders)
-                foreach (string st in headers)
-                    if (s == st)
-                        listBox1.Items.Add(s);
+                List<string> suspKeys = new List<string>();
+                for (int i = hMax; i > 1; i--)
+                    foreach (Header h in Headers)
+                        if (h.occcurance == i)
+                            suspKeys.Add(h.header);
+                txtOutput.Text = $"Recurrent keys:\r\n{string.Join("\r\n", suspKeys)}\r\n\r\n" + txtOutput.Text;
 
-            AutoCompleteStringCollection source = new AutoCompleteStringCollection();
-            foreach (string s in headers)
-            {
-                source.Add(s);
-                if (s == "NDB_No")
-                    txtNdb.Text = s;
-                else if (s == "NutrDesc")
-                    txtNutrDesc.Text = s;
-                else if (s == "Nutr_No")
-                    txtNutrNo.Text = s;
-                else if (s == "Flav_Val" || s == "Isfl_Val")
-                    txtFlavVal.Text = s;
+
+                string[] parentHeaders = File.ReadAllLines(activeDBdir + slash + "_nameKeyPairs.TXT");
+                for (int i = 0; i < parentHeaders.Length; i++)
+                    parentHeaders[i] = parentHeaders[i].Split('|')[1];
+
+                foreach (string s in parentHeaders)
+                    foreach (string st in headers)
+                        if (s == st)
+                            listBox1.Items.Add(s);
+
+                AutoCompleteStringCollection source = new AutoCompleteStringCollection();
+                foreach (string s in headers)
+                {
+                    source.Add(s);
+                    if (s == "NDB_No")
+                        txtNdb.Text = s;
+                    else if (s == "NutrDesc")
+                        txtNutrDesc.Text = s;
+                    else if (s == "Nutr_No")
+                        txtNutrNo.Text = s;
+                    else if (s == "Flav_Val" || s == "Isfl_Val")
+                        txtFlavVal.Text = s;
+                }
+
+                txtNutrDesc.AutoCompleteCustomSource = source;
+                txtNutrDesc.AutoCompleteSource = AutoCompleteSource.CustomSource;
+                txtNutrDesc.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+
+                txtNutrNo.AutoCompleteCustomSource = source;
+                txtNutrNo.AutoCompleteSource = AutoCompleteSource.CustomSource;
+                txtNutrNo.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+
+                txtFlavVal.AutoCompleteCustomSource = source;
+                txtFlavVal.AutoCompleteSource = AutoCompleteSource.CustomSource;
+                txtFlavVal.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+
+                txtNdb.AutoCompleteCustomSource = source;
+                txtNdb.AutoCompleteSource = AutoCompleteSource.CustomSource;
+                txtNdb.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
             }
+            else
+            {
+                string file = ((string[])e.Data.GetData(DataFormats.FileDrop))[0];
+                if (!File.Exists(file) || !file.EndsWith(".TXT"))
+                {
+                    MessageBox.Show("Is not a valid .TXT file\n" + file);
+                    txtOutput.Text = "<Drag and drop>\r\n<a single .TXT file>";
+                    return;
+                }
 
-            txtNutrDesc.AutoCompleteCustomSource = source;
-            txtNutrDesc.AutoCompleteSource = AutoCompleteSource.CustomSource;
-            txtNutrDesc.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+                relFile r = new relFile();
+                r.file = file;
+                r.lines = File.ReadAllLines(file);
+                r.headers = r.lines[0].Split('\t');
+                relf = r;
+                foreach (string s in r.headers)
+                {
+                    Header H = new Header();
+                    H.header = s.Split('(')[0].Trim();
+                    try {
+                        H.unit = s.Split('(')[1].Split(')')[0];
+                    }
+                    catch { }
+                    if (!headers.Contains(s.Split('(')[0].Trim()))
+                        headers.Add(s.Split('(')[0].Trim());
+                    Headers.Add(H);
+                }
 
-            txtNutrNo.AutoCompleteCustomSource = source;
-            txtNutrNo.AutoCompleteSource = AutoCompleteSource.CustomSource;
-            txtNutrNo.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
 
-            txtFlavVal.AutoCompleteCustomSource = source;
-            txtFlavVal.AutoCompleteSource = AutoCompleteSource.CustomSource;
-            txtFlavVal.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+                file = file.Split(new char[] { '/', '\\' })[file.Split(new char[] { '/', '\\' }).Length - 1].Replace(".TXT", "");
+                txtName.Text = file;
 
-            txtNdb.AutoCompleteCustomSource = source;
-            txtNdb.AutoCompleteSource = AutoCompleteSource.CustomSource;
-            txtNdb.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+
+                txtOutput.Text += file + ".TXT\r\n";
+                foreach (Header H in Headers)
+                    txtOutput.Text += H.header + "\r\n";
+
+                txtOutput.Text += "\r\nUnits detected:\r\n";
+                foreach (Header H in Headers)
+                    if (H.unit != null && H.unit != "")
+                        txtOutput.Text += H.unit + "\r\n";
+
+                string[] parentHeaders = File.ReadAllLines(activeDBdir + slash + "_nameKeyPairs.TXT");
+                for (int i = 0; i < parentHeaders.Length; i++)
+                    parentHeaders[i] = parentHeaders[i].Split('|')[1];
+
+                foreach (string s in parentHeaders)
+                    foreach (string st in headers)
+                        if (s == st)
+                            listBox1.Items.Add(s);
+
+                AutoCompleteStringCollection source = new AutoCompleteStringCollection();
+                foreach (Header H in Headers)
+                {
+                    string s = H.header;
+                    source.Add(s);
+                    if (s == "NDB_No")
+                        txtNdb.Text = s;
+                }
+                txtFlavVal.AutoCompleteCustomSource = source;
+                txtFlavVal.AutoCompleteSource = AutoCompleteSource.CustomSource;
+                txtFlavVal.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+
+                txtNdb.AutoCompleteCustomSource = source;
+                txtNdb.AutoCompleteSource = AutoCompleteSource.CustomSource;
+                txtNdb.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+            }
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
@@ -205,60 +278,105 @@ namespace NutApp
 
         private void btnCreate_Click(object sender, EventArgs e)
         {
-            if (!headers.Contains(txtNutrNo.Text) || !headers.Contains(txtNutrDesc.Text) || !headers.Contains(txtNdb.Text) || !headers.Contains(txtFlavVal.Text))
+            if (radioMultiKey.Checked)
             {
-                MessageBox.Show("Please fill everything out.  Not all the fields match.");
-                return;
-            }
-
-            string newRelDir = $"{Application.StartupPath}{slash}usr{slash}share{slash}rel{slash}{txtName.Text}";
-            Directory.CreateDirectory(newRelDir);
-
-			string unit = "";
-            string ndb = "";
-            string nutrNo = "";
-            foreach (relFile r in relFiles)
-            {
-                string f = r.file.Split(new char[] { '/', '\\' })[r.file.Split(new char[] { '/', '\\' }).Length - 1].Replace(".TXT", "");
-                Directory.CreateDirectory(newRelDir + slash + f);
-                for (int i = 0; i < r.headers.Length; i++)
+                if (!headers.Contains(txtNutrNo.Text) || !headers.Contains(txtNutrDesc.Text) || !headers.Contains(txtNdb.Text) || !headers.Contains(txtFlavVal.Text))
                 {
-                    column c = new column();
-                    c.header = r.headers[i];
-                    for (int j = 1; j < r.lines.Length; j++)
-                        c.rows.Add(r.lines[j].Split('\t')[i]);
-                    r.columns.Add(c);
+                    MessageBox.Show("Please fill everything out.  Not all the fields match.");
+                    return;
                 }
-                foreach (column c in r.columns)
-                {
-                    File.WriteAllLines(newRelDir + slash + f + slash + c.header + ".TXT", c.rows);
-                    if (c.header == txtNutrNo.Text)
-                        nutrNos = c.rows;
-                    else if (c.header == txtFlavVal.Text)
-                        flavVal = $"{slash}{f}{slash}{c.header}.TXT";
-                    if (r.unit != "")
-                        unit = r.unit;
-                }
-                nutrNos = nutrNos.ToArray().Distinct().ToList();
-                nutrNos.Sort();
-                File.WriteAllText(newRelDir + slash + "_dbInit.TXT", $"[ParentDB]{comboBox1.Text}\r\n[Flav_Val]{txtFlavVal.Text}.TXT\r\n[NDB_No]$NDB_No\r\n[Nutr_No]$Nutr_No\r\n[NutrDesc]{txtNutrDesc.Text}.TXT\r\n[Units]{unit}");
-            }
 
-            files = Directory.GetFiles(newRelDir, "*.TXT", SearchOption.AllDirectories);
-            foreach (string s in files)
-            {
-                if (s.EndsWith(txtFlavVal.Text + ".TXT"))
-                    ndb = s.Replace(txtFlavVal.Text + ".TXT", txtNdb.Text + ".TXT");
-                else if (s.EndsWith(txtNutrDesc.Text + ".TXT"))
-                    nutrNo = s.Replace(txtNutrDesc.Text + ".TXT", txtNutrNo.Text + ".TXT");
+                string newRelDir = $"{Application.StartupPath}{slash}usr{slash}share{slash}rel{slash}{txtName.Text}";
+                Directory.CreateDirectory(newRelDir);
+
+                string unit = "";
+                string ndb = "";
+                string nutrNo = "";
+                foreach (relFile r in relFiles)
+                {
+                    string f = r.file.Split(new char[] { '/', '\\' })[r.file.Split(new char[] { '/', '\\' }).Length - 1].Replace(".TXT", "");
+                    Directory.CreateDirectory(newRelDir + slash + f);
+                    for (int i = 0; i < r.headers.Length; i++)
+                    {
+                        column c = new column();
+                        c.header = r.headers[i];
+                        for (int j = 1; j < r.lines.Length; j++)
+                            c.rows.Add(r.lines[j].Split('\t')[i]);
+                        r.columns.Add(c);
+                    }
+                    foreach (column c in r.columns)
+                    {
+                        File.WriteAllLines(newRelDir + slash + f + slash + c.header + ".TXT", c.rows);
+                        if (c.header == txtNutrNo.Text)
+                            nutrNos = c.rows;
+                        else if (c.header == txtFlavVal.Text)
+                            flavVal = $"{slash}{f}{slash}{c.header}.TXT";
+                        if (r.unit != "")
+                            unit = r.unit;
+                    }
+                    nutrNos = nutrNos.ToArray().Distinct().ToList();
+                    nutrNos.Sort();
+                    File.WriteAllText(newRelDir + slash + "_dbInit.TXT", $"[ParentDB]{comboBox1.Text}\r\n[Flav_Val]{txtFlavVal.Text}.TXT\r\n[Units]{unit}\r\n[NDB_No]$NDB_No\r\n[Nutr_No]$Nutr_No\r\n[NutrDesc]{txtNutrDesc.Text}.TXT");
+                    txtOutput.Text = "Units: " + unit + txtOutput.Text;
+                }
+
+                files = Directory.GetFiles(newRelDir, "*.TXT", SearchOption.AllDirectories);
+                foreach (string s in files)
+                {
+                    if (s.EndsWith(txtFlavVal.Text + ".TXT"))
+                        ndb = s.Replace(txtFlavVal.Text + ".TXT", txtNdb.Text + ".TXT");
+                    else if (s.EndsWith(txtNutrDesc.Text + ".TXT"))
+                        nutrNo = s.Replace(txtNutrDesc.Text + ".TXT", txtNutrNo.Text + ".TXT");
+                }
+                ndb = ndb.Replace(newRelDir, "").Replace(slash, "/");
+                nutrNo = nutrNo.Replace(newRelDir, "").Replace(slash, "/");
+                string text = File.ReadAllText(newRelDir + slash + "_dbInit.TXT");
+                text = text.Replace("$NDB_No", ndb).Replace("$Nutr_No", nutrNo);
+                File.WriteAllText(newRelDir + slash + "_dbInit.TXT", text);
+                MessageBox.Show($"Database created successfully! Go to the extended tab of the {comboBox1.Text} database to configure it");
+                //this.Close();
             }
-            ndb = ndb.Replace(newRelDir, "").Replace(slash, "/");
-            nutrNo =  nutrNo.Replace(newRelDir, "").Replace(slash, "/");
-            string text = File.ReadAllText(newRelDir + slash + "_dbInit.TXT");
-            text = text.Replace("$NDB_No", ndb).Replace("$Nutr_No", nutrNo);
-            File.WriteAllText(newRelDir + slash + "_dbInit.TXT", text);
-            MessageBox.Show($"Database created successfully! Go to the extended tab of the {comboBox1.Text} database to configure it");
-            //this.Close();
+            else
+            {
+                if (!headers.Contains(txtNdb.Text) || !headers.Contains(txtFlavVal.Text))
+                {
+                    MessageBox.Show("Please fill everything out.  Not all the fields match.");
+                    return;
+                }
+
+                string newRelDir = $"{Application.StartupPath}{slash}usr{slash}share{slash}rel{slash}{txtName.Text}";
+
+                Directory.CreateDirectory(newRelDir);
+
+                string unit = "";
+                string ndb = "";
+                string nutrNo = "";
+
+                string f = relf.file.Split(new char[] { '/', '\\' })[r.file.Split(new char[] { '/', '\\' }).Length - 1].Replace(".TXT", "");
+
+            }
+        }
+
+        private void radioMultiKey_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radioMultiKey.Checked)
+            {
+                txtOutput.Text = "<Drag and drop>\r\n<the folder>\r\n<contains *.TXT files>\r\n<more than one!!>";
+                lblNutrNo.Visible = true;
+                lblNutrDesc.Visible = true;
+                txtNutrNo.Visible = true;
+                txtNutrDesc.Visible = true;
+                lblFLavVal.Text = "Flav_Val:";
+            }
+            else
+            {
+                txtOutput.Text = "<Drag and drop>\r\n<a single .TXT file>";
+                lblNutrNo.Visible = false;
+                lblNutrDesc.Visible = false;
+                txtNutrNo.Visible = false;
+                txtNutrDesc.Visible = false;
+                lblFLavVal.Text = "Value:";
+            }
         }
     }
 }

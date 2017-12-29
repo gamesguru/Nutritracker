@@ -1,4 +1,6 @@
-﻿namespace NutApp
+﻿using System;
+
+namespace NutApp
 {
     partial class frmNewDBrel
     {
@@ -29,19 +31,18 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmNewDBrel));
-            this.label3 = new System.Windows.Forms.Label();
-            this.btnClearChoices = new System.Windows.Forms.Button();
-            this.label2 = new System.Windows.Forms.Label();
+            this.lblNutrDesc = new System.Windows.Forms.Label();
+            this.lblNutrNo = new System.Windows.Forms.Label();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.txtNdb = new System.Windows.Forms.TextBox();
-            this.label7 = new System.Windows.Forms.Label();
+            this.lblNDBNo = new System.Windows.Forms.Label();
             this.txtFlavVal = new System.Windows.Forms.TextBox();
             this.txtNutrDesc = new System.Windows.Forms.TextBox();
             this.txtNutrNo = new System.Windows.Forms.TextBox();
-            this.label8 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
+            this.lblFLavVal = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
             this.listBox1 = new System.Windows.Forms.ListBox();
-            this.label5 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
@@ -52,60 +53,49 @@
             this.txtLoc = new System.Windows.Forms.TextBox();
             this.txtName = new System.Windows.Forms.TextBox();
             this.btnCreate = new System.Windows.Forms.Button();
-            this.radioPersonal = new System.Windows.Forms.RadioButton();
-            this.radioShared = new System.Windows.Forms.RadioButton();
+            this.radioSingle = new System.Windows.Forms.RadioButton();
+            this.radioMultiKey = new System.Windows.Forms.RadioButton();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.label1 = new System.Windows.Forms.Label();
+            this.lblHeader = new System.Windows.Forms.Label();
             this.groupBox4.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // label3
+            // lblNutrDesc
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(7, 60);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(55, 13);
-            this.label3.TabIndex = 5;
-            this.label3.Text = "NutrDesc:";
+            this.lblNutrDesc.AutoSize = true;
+            this.lblNutrDesc.Location = new System.Drawing.Point(7, 60);
+            this.lblNutrDesc.Name = "lblNutrDesc";
+            this.lblNutrDesc.Size = new System.Drawing.Size(55, 13);
+            this.lblNutrDesc.TabIndex = 5;
+            this.lblNutrDesc.Text = "NutrDesc:";
             // 
-            // btnClearChoices
+            // lblNutrNo
             // 
-            this.btnClearChoices.Enabled = false;
-            this.btnClearChoices.Location = new System.Drawing.Point(8, 179);
-            this.btnClearChoices.Name = "btnClearChoices";
-            this.btnClearChoices.Size = new System.Drawing.Size(75, 23);
-            this.btnClearChoices.TabIndex = 4;
-            this.btnClearChoices.Text = "Clear";
-            this.btnClearChoices.UseVisualStyleBackColor = true;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(7, 20);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(50, 13);
-            this.label2.TabIndex = 0;
-            this.label2.Text = "Nutr_No:";
+            this.lblNutrNo.AutoSize = true;
+            this.lblNutrNo.Location = new System.Drawing.Point(7, 20);
+            this.lblNutrNo.Name = "lblNutrNo";
+            this.lblNutrNo.Size = new System.Drawing.Size(50, 13);
+            this.lblNutrNo.TabIndex = 0;
+            this.lblNutrNo.Text = "Nutr_No:";
             // 
             // groupBox4
             // 
             this.groupBox4.Controls.Add(this.txtNdb);
-            this.groupBox4.Controls.Add(this.label7);
+            this.groupBox4.Controls.Add(this.lblNDBNo);
             this.groupBox4.Controls.Add(this.txtFlavVal);
             this.groupBox4.Controls.Add(this.txtNutrDesc);
             this.groupBox4.Controls.Add(this.txtNutrNo);
-            this.groupBox4.Controls.Add(this.label8);
-            this.groupBox4.Controls.Add(this.label6);
+            this.groupBox4.Controls.Add(this.lblFLavVal);
+            this.groupBox4.Controls.Add(this.label2);
             this.groupBox4.Controls.Add(this.listBox1);
-            this.groupBox4.Controls.Add(this.label5);
+            this.groupBox4.Controls.Add(this.label1);
             this.groupBox4.Controls.Add(this.comboBox1);
             this.groupBox4.Controls.Add(this.label4);
-            this.groupBox4.Controls.Add(this.label3);
-            this.groupBox4.Controls.Add(this.btnClearChoices);
-            this.groupBox4.Controls.Add(this.label2);
+            this.groupBox4.Controls.Add(this.lblNutrDesc);
+            this.groupBox4.Controls.Add(this.lblNutrNo);
             this.groupBox4.Location = new System.Drawing.Point(219, 130);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(216, 208);
@@ -120,14 +110,14 @@
             this.txtNdb.Size = new System.Drawing.Size(73, 20);
             this.txtNdb.TabIndex = 17;
             // 
-            // label7
+            // lblNDBNo
             // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(135, 97);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(53, 13);
-            this.label7.TabIndex = 16;
-            this.label7.Text = "NDB_No:";
+            this.lblNDBNo.AutoSize = true;
+            this.lblNDBNo.Location = new System.Drawing.Point(135, 97);
+            this.lblNDBNo.Name = "lblNDBNo";
+            this.lblNDBNo.Size = new System.Drawing.Size(53, 13);
+            this.lblNDBNo.TabIndex = 16;
+            this.lblNDBNo.Text = "NDB_No:";
             // 
             // txtFlavVal
             // 
@@ -150,23 +140,23 @@
             this.txtNutrNo.Size = new System.Drawing.Size(73, 20);
             this.txtNutrNo.TabIndex = 13;
             // 
-            // label8
+            // lblFLavVal
             // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(8, 97);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(51, 13);
-            this.label8.TabIndex = 12;
-            this.label8.Text = "Flav_Val:";
+            this.lblFLavVal.AutoSize = true;
+            this.lblFLavVal.Location = new System.Drawing.Point(8, 97);
+            this.lblFLavVal.Name = "lblFLavVal";
+            this.lblFLavVal.Size = new System.Drawing.Size(51, 13);
+            this.lblFLavVal.TabIndex = 12;
+            this.lblFLavVal.Text = "Flav_Val:";
             // 
-            // label6
+            // label2
             // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(106, 136);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(98, 13);
-            this.label6.TabIndex = 11;
-            this.label6.Text = "MATCHING KEYS:";
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(106, 136);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(98, 13);
+            this.label2.TabIndex = 11;
+            this.label2.Text = "MATCHING KEYS:";
             // 
             // listBox1
             // 
@@ -176,23 +166,23 @@
             this.listBox1.ItemHeight = 14;
             this.listBox1.Location = new System.Drawing.Point(107, 152);
             this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(109, 46);
+            this.listBox1.Size = new System.Drawing.Size(103, 46);
             this.listBox1.TabIndex = 10;
             // 
-            // label5
+            // label1
             // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(5, 136);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(88, 13);
-            this.label5.TabIndex = 9;
-            this.label5.Text = "Parent database:";
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(5, 141);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(88, 13);
+            this.label1.TabIndex = 9;
+            this.label1.Text = "Parent database:";
             // 
             // comboBox1
             // 
             this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(8, 152);
+            this.comboBox1.Location = new System.Drawing.Point(8, 157);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(85, 21);
             this.comboBox1.TabIndex = 8;
@@ -229,9 +219,9 @@
             this.txtOutput.ShortcutsEnabled = false;
             this.txtOutput.Size = new System.Drawing.Size(189, 249);
             this.txtOutput.TabIndex = 10;
-            this.txtOutput.Text = "<Drag and drop>\r\n<the folder>\r\n<contains *.TXT files>\r\n\r\n";
-            this.txtOutput.DragDrop += new System.Windows.Forms.DragEventHandler(this.textBox1_DragDrop);
-            this.txtOutput.DragEnter += new System.Windows.Forms.DragEventHandler(this.textBox1_DragEnter);
+            this.txtOutput.Text = "<Drag and drop>\r\n<the folder>\r\n<contains *.TXT files>";
+            this.txtOutput.DragDrop += new System.Windows.Forms.DragEventHandler(this.txtOutput_DragDrop);
+            this.txtOutput.DragEnter += new System.Windows.Forms.DragEventHandler(this.txtOutput_DragEnter);
             // 
             // groupBox2
             // 
@@ -294,56 +284,57 @@
             this.btnCreate.UseVisualStyleBackColor = true;
             this.btnCreate.Click += new System.EventHandler(this.btnCreate_Click);
             // 
-            // radioPersonal
+            // radioSingle
             // 
-            this.radioPersonal.AutoSize = true;
-            this.radioPersonal.Enabled = false;
-            this.radioPersonal.Location = new System.Drawing.Point(6, 42);
-            this.radioPersonal.Name = "radioPersonal";
-            this.radioPersonal.Size = new System.Drawing.Size(126, 17);
-            this.radioPersonal.TabIndex = 1;
-            this.radioPersonal.Text = "Personal (your profile)";
-            this.radioPersonal.UseVisualStyleBackColor = true;
+            this.radioSingle.AutoSize = true;
+            this.radioSingle.Location = new System.Drawing.Point(6, 42);
+            this.radioSingle.Name = "radioSingle";
+            this.radioSingle.Size = new System.Drawing.Size(103, 17);
+            this.radioSingle.TabIndex = 1;
+            this.radioSingle.Text = "Single (only one)";
+            this.radioSingle.UseVisualStyleBackColor = true;
             // 
-            // radioShared
+            // radioMultiKey
             // 
-            this.radioShared.AutoSize = true;
-            this.radioShared.Checked = true;
-            this.radioShared.Location = new System.Drawing.Point(6, 19);
-            this.radioShared.Name = "radioShared";
-            this.radioShared.Size = new System.Drawing.Size(86, 17);
-            this.radioShared.TabIndex = 0;
-            this.radioShared.TabStop = true;
-            this.radioShared.Text = "Shared (root)";
-            this.radioShared.UseVisualStyleBackColor = true;
+            this.radioMultiKey.AutoSize = true;
+            this.radioMultiKey.Checked = true;
+            this.radioMultiKey.Location = new System.Drawing.Point(6, 19);
+            this.radioMultiKey.Name = "radioMultiKey";
+            this.radioMultiKey.Size = new System.Drawing.Size(123, 17);
+            this.radioMultiKey.TabIndex = 0;
+            this.radioMultiKey.TabStop = true;
+            this.radioMultiKey.Text = "Multiple keys (tables)";
+            this.radioMultiKey.UseVisualStyleBackColor = true;
+            this.radioMultiKey.CheckedChanged += new System.EventHandler(this.radioMultiKey_CheckedChanged);
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.radioPersonal);
-            this.groupBox1.Controls.Add(this.radioShared);
+            this.groupBox1.Controls.Add(this.radioSingle);
+            this.groupBox1.Controls.Add(this.radioMultiKey);
             this.groupBox1.Location = new System.Drawing.Point(12, 57);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(142, 67);
             this.groupBox1.TabIndex = 12;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Type and Location";
+            this.groupBox1.Text = "Type and Key Number";
             // 
-            // label1
+            // lblHeader
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 9);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(369, 39);
-            this.label1.TabIndex = 8;
-            this.label1.Text = "You cannot search these by name, they must be paired up by key (e.g. NDB)\r\n\r\nThis" +
+            this.lblHeader.AutoSize = true;
+            this.lblHeader.Location = new System.Drawing.Point(12, 9);
+            this.lblHeader.Name = "lblHeader";
+            this.lblHeader.Size = new System.Drawing.Size(369, 39);
+            this.lblHeader.TabIndex = 8;
+            this.lblHeader.Text = "You cannot search these by name, they must be paired up by key (e.g. NDB)\r\n\r\nThis" +
     " is designed mostly for use with the USDAstock and CANfiles\r\n";
+            this.lblHeader.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // frmNewDBrel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(464, 419);
-            this.Controls.Add(this.label1);
+            this.ClientSize = new System.Drawing.Size(452, 419);
+            this.Controls.Add(this.lblHeader);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
@@ -370,9 +361,8 @@
         }
 
         #endregion
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Button btnClearChoices;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label lblNutrDesc;
+        private System.Windows.Forms.Label lblNutrNo;
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.GroupBox groupBox2;
@@ -381,21 +371,21 @@
         private System.Windows.Forms.TextBox txtLoc;
         private System.Windows.Forms.TextBox txtName;
         private System.Windows.Forms.Button btnCreate;
-        private System.Windows.Forms.RadioButton radioPersonal;
-        private System.Windows.Forms.RadioButton radioShared;
+        private System.Windows.Forms.RadioButton radioSingle;
+        private System.Windows.Forms.RadioButton radioMultiKey;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lblHeader;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.TextBox txtOutput;
         private System.Windows.Forms.ListBox listBox1;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label lblFLavVal;
         private System.Windows.Forms.TextBox txtFlavVal;
         private System.Windows.Forms.TextBox txtNutrDesc;
         private System.Windows.Forms.TextBox txtNutrNo;
         private System.Windows.Forms.TextBox txtNdb;
-        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label lblNDBNo;
     }
 }

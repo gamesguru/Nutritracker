@@ -31,10 +31,9 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMain));
             this.btnAddEx = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.button10 = new System.Windows.Forms.Button();
-            this.checkBoxTraffLight = new System.Windows.Forms.CheckBox();
+            this.btnGuesstimate = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
-            this.button3 = new System.Windows.Forms.Button();
+            this.btnDetailReport = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.dataDay = new System.Windows.Forms.DataGridView();
@@ -66,18 +65,17 @@
             this.column = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.columnTotCal = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label3 = new System.Windows.Forms.Label();
-            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
-            this.button5 = new System.Windows.Forms.Button();
+            this.btnProfile = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.comboMeal = new System.Windows.Forms.ComboBox();
             this.label6 = new System.Windows.Forms.Label();
             this.txtQty = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
-            this.button9 = new System.Windows.Forms.Button();
+            this.btnLogCustFood = new System.Windows.Forms.Button();
             this.label7 = new System.Windows.Forms.Label();
-            this.button7 = new System.Windows.Forms.Button();
-            this.button6 = new System.Windows.Forms.Button();
+            this.btnEditRecipe = new System.Windows.Forms.Button();
             this.lstBoxRecipes = new System.Windows.Forms.ListBox();
+            this.btnEditCustFoods = new System.Windows.Forms.Button();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.customFoodEntryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -92,6 +90,8 @@
             this.openGuesstimatorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.advancedExerciseCalcToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.parseExcelSpreadsheetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.relationalDatabaseWizardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.generateRelationalDatabaseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.viewDetailReportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.bodyFatCalcToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -99,10 +99,11 @@
             this.databaseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.manageCustomFieldsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.manageStandaloneDatabaseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.button11 = new System.Windows.Forms.Button();
+            this.btnRemoveFood = new System.Windows.Forms.Button();
             this.lblCurrentUser = new System.Windows.Forms.Label();
-            this.btnSearchUserD = new System.Windows.Forms.Button();
-            this.relationalDatabaseWizardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnSearch = new System.Windows.Forms.Button();
+            this.btnExit = new System.Windows.Forms.Button();
+            this.comboLoggedDays = new System.Windows.Forms.ComboBox();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataDay)).BeginInit();
             this.groupBox2.SuspendLayout();
@@ -129,78 +130,63 @@
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox1.Controls.Add(this.button10);
-            this.groupBox1.Controls.Add(this.checkBoxTraffLight);
+            this.groupBox1.Controls.Add(this.btnGuesstimate);
             this.groupBox1.Controls.Add(this.label4);
-            this.groupBox1.Controls.Add(this.button3);
+            this.groupBox1.Controls.Add(this.btnDetailReport);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.dataDay);
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.Location = new System.Drawing.Point(12, 108);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(956, 491);
+            this.groupBox1.Size = new System.Drawing.Size(956, 469);
             this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Daily nutrition";
             // 
-            // button10
+            // btnGuesstimate
             // 
-            this.button10.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button10.Enabled = false;
-            this.button10.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button10.Location = new System.Drawing.Point(627, 422);
-            this.button10.Name = "button10";
-            this.button10.Size = new System.Drawing.Size(158, 32);
-            this.button10.TabIndex = 9;
-            this.button10.TabStop = false;
-            this.button10.Text = "Open Guesstimator";
-            this.button10.UseVisualStyleBackColor = true;
-            // 
-            // checkBoxTraffLight
-            // 
-            this.checkBoxTraffLight.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.checkBoxTraffLight.AutoSize = true;
-            this.checkBoxTraffLight.Enabled = false;
-            this.checkBoxTraffLight.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxTraffLight.Location = new System.Drawing.Point(281, 461);
-            this.checkBoxTraffLight.Name = "checkBoxTraffLight";
-            this.checkBoxTraffLight.Size = new System.Drawing.Size(199, 24);
-            this.checkBoxTraffLight.TabIndex = 8;
-            this.checkBoxTraffLight.TabStop = false;
-            this.checkBoxTraffLight.Text = "Enable traffic light mode";
-            this.checkBoxTraffLight.UseVisualStyleBackColor = true;
+            this.btnGuesstimate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnGuesstimate.Enabled = false;
+            this.btnGuesstimate.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnGuesstimate.Location = new System.Drawing.Point(627, 400);
+            this.btnGuesstimate.Name = "btnGuesstimate";
+            this.btnGuesstimate.Size = new System.Drawing.Size(158, 32);
+            this.btnGuesstimate.TabIndex = 9;
+            this.btnGuesstimate.TabStop = false;
+            this.btnGuesstimate.Text = "Open Guesstimator";
+            this.btnGuesstimate.UseVisualStyleBackColor = true;
             // 
             // label4
             // 
             this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(277, 428);
+            this.label4.Location = new System.Drawing.Point(277, 406);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(118, 20);
             this.label4.TabIndex = 7;
             this.label4.Text = "Overall Grade:";
             // 
-            // button3
+            // btnDetailReport
             // 
-            this.button3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button3.Location = new System.Drawing.Point(791, 422);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(158, 32);
-            this.button3.TabIndex = 3;
-            this.button3.TabStop = false;
-            this.button3.Text = "Run Detail Report";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
+            this.btnDetailReport.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnDetailReport.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnDetailReport.Location = new System.Drawing.Point(791, 400);
+            this.btnDetailReport.Name = "btnDetailReport";
+            this.btnDetailReport.Size = new System.Drawing.Size(158, 32);
+            this.btnDetailReport.TabIndex = 3;
+            this.btnDetailReport.TabStop = false;
+            this.btnDetailReport.Text = "Run Detail Report";
+            this.btnDetailReport.UseVisualStyleBackColor = true;
+            this.btnDetailReport.Click += new System.EventHandler(this.btnDetailReport_Click);
             // 
             // label2
             // 
             this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(6, 457);
+            this.label2.Location = new System.Drawing.Point(6, 435);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(117, 20);
             this.label2.TabIndex = 2;
@@ -211,7 +197,7 @@
             this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(6, 428);
+            this.label1.Location = new System.Drawing.Point(6, 406);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(98, 20);
             this.label1.TabIndex = 1;
@@ -243,7 +229,7 @@
             this.dataDay.Location = new System.Drawing.Point(10, 28);
             this.dataDay.MultiSelect = false;
             this.dataDay.Name = "dataDay";
-            this.dataDay.Size = new System.Drawing.Size(944, 388);
+            this.dataDay.Size = new System.Drawing.Size(944, 366);
             this.dataDay.TabIndex = 0;
             this.dataDay.TabStop = false;
             this.dataDay.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataDay_CellValueChanged);
@@ -376,7 +362,7 @@
             this.groupBox2.Controls.Add(this.dataExercise);
             this.groupBox2.Controls.Add(this.btnAddEx);
             this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox2.Location = new System.Drawing.Point(13, 605);
+            this.groupBox2.Location = new System.Drawing.Point(13, 586);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(627, 357);
             this.groupBox2.TabIndex = 4;
@@ -399,6 +385,7 @@
             // 
             // btnRemEx
             // 
+            this.btnRemEx.Enabled = false;
             this.btnRemEx.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnRemEx.Location = new System.Drawing.Point(6, 313);
             this.btnRemEx.Name = "btnRemEx";
@@ -516,31 +503,18 @@
             this.label3.TabIndex = 4;
             this.label3.Text = "Load Previous Day:";
             // 
-            // dateTimePicker1
+            // btnProfile
             // 
-            this.dateTimePicker1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dateTimePicker1.Location = new System.Drawing.Point(494, 74);
-            this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(127, 29);
-            this.dateTimePicker1.TabIndex = 6;
-            this.dateTimePicker1.TabStop = false;
-            this.dateTimePicker1.Value = new System.DateTime(2017, 9, 5, 12, 16, 0, 0);
-            this.dateTimePicker1.ValueChanged += new System.EventHandler(this.dateTimePicker1_ValueChanged);
-            this.dateTimePicker1.Enter += new System.EventHandler(this.dateTimePicker1_Enter);
-            // 
-            // button5
-            // 
-            this.button5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button5.Location = new System.Drawing.Point(770, 71);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(192, 31);
-            this.button5.TabIndex = 5;
-            this.button5.TabStop = false;
-            this.button5.Text = "Switch or Edit Profiles";
-            this.button5.UseVisualStyleBackColor = true;
-            this.button5.Click += new System.EventHandler(this.button5_Click);
+            this.btnProfile.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnProfile.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnProfile.Location = new System.Drawing.Point(770, 71);
+            this.btnProfile.Name = "btnProfile";
+            this.btnProfile.Size = new System.Drawing.Size(192, 31);
+            this.btnProfile.TabIndex = 5;
+            this.btnProfile.TabStop = false;
+            this.btnProfile.Text = "Switch or Edit Profiles";
+            this.btnProfile.UseVisualStyleBackColor = true;
+            this.btnProfile.Click += new System.EventHandler(this.btnProfile_Click);
             // 
             // groupBox3
             // 
@@ -550,21 +524,22 @@
             this.groupBox3.Controls.Add(this.label6);
             this.groupBox3.Controls.Add(this.txtQty);
             this.groupBox3.Controls.Add(this.label5);
-            this.groupBox3.Controls.Add(this.button9);
+            this.groupBox3.Controls.Add(this.btnLogCustFood);
             this.groupBox3.Controls.Add(this.label7);
-            this.groupBox3.Controls.Add(this.button7);
-            this.groupBox3.Controls.Add(this.button6);
+            this.groupBox3.Controls.Add(this.btnEditRecipe);
             this.groupBox3.Controls.Add(this.lstBoxRecipes);
+            this.groupBox3.Controls.Add(this.btnEditCustFoods);
             this.groupBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox3.Location = new System.Drawing.Point(646, 605);
+            this.groupBox3.Location = new System.Drawing.Point(646, 586);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(323, 357);
+            this.groupBox3.Size = new System.Drawing.Size(323, 331);
             this.groupBox3.TabIndex = 7;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Recipes and Custom Foods";
             // 
             // comboMeal
             // 
+            this.comboMeal.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.comboMeal.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboMeal.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.comboMeal.FormattingEnabled = true;
@@ -572,7 +547,7 @@
             "Breakfast",
             "Lunch",
             "Dinner"});
-            this.comboMeal.Location = new System.Drawing.Point(195, 317);
+            this.comboMeal.Location = new System.Drawing.Point(195, 293);
             this.comboMeal.Name = "comboMeal";
             this.comboMeal.Size = new System.Drawing.Size(120, 32);
             this.comboMeal.TabIndex = 21;
@@ -583,7 +558,7 @@
             this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(191, 290);
+            this.label6.Location = new System.Drawing.Point(191, 264);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(56, 24);
             this.label6.TabIndex = 20;
@@ -592,8 +567,9 @@
             // txtQty
             // 
             this.txtQty.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.txtQty.Enabled = false;
             this.txtQty.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtQty.Location = new System.Drawing.Point(51, 265);
+            this.txtQty.Location = new System.Drawing.Point(51, 239);
             this.txtQty.MaxLength = 5;
             this.txtQty.Name = "txtQty";
             this.txtQty.Size = new System.Drawing.Size(74, 29);
@@ -606,68 +582,68 @@
             this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(131, 268);
+            this.label5.Location = new System.Drawing.Point(131, 242);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(21, 24);
             this.label5.TabIndex = 18;
             this.label5.Text = "g";
             // 
-            // button9
+            // btnLogCustFood
             // 
-            this.button9.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.button9.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button9.Location = new System.Drawing.Point(6, 313);
-            this.button9.Name = "button9";
-            this.button9.Size = new System.Drawing.Size(147, 38);
-            this.button9.TabIndex = 17;
-            this.button9.TabStop = false;
-            this.button9.Text = "Add to Log";
-            this.button9.UseVisualStyleBackColor = true;
+            this.btnLogCustFood.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnLogCustFood.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnLogCustFood.Location = new System.Drawing.Point(6, 287);
+            this.btnLogCustFood.Name = "btnLogCustFood";
+            this.btnLogCustFood.Size = new System.Drawing.Size(147, 38);
+            this.btnLogCustFood.TabIndex = 17;
+            this.btnLogCustFood.TabStop = false;
+            this.btnLogCustFood.Text = "Add to Log";
+            this.btnLogCustFood.UseVisualStyleBackColor = true;
             // 
             // label7
             // 
             this.label7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(2, 268);
+            this.label7.Location = new System.Drawing.Point(6, 242);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(43, 24);
             this.label7.TabIndex = 16;
             this.label7.Text = "Qty:";
             // 
-            // button7
+            // btnEditRecipe
             // 
-            this.button7.Enabled = false;
-            this.button7.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button7.Location = new System.Drawing.Point(184, 29);
-            this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(139, 28);
-            this.button7.TabIndex = 3;
-            this.button7.TabStop = false;
-            this.button7.Text = "Manage Recipes";
-            this.button7.UseVisualStyleBackColor = true;
-            // 
-            // button6
-            // 
-            this.button6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button6.Location = new System.Drawing.Point(2, 29);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(176, 28);
-            this.button6.TabIndex = 2;
-            this.button6.TabStop = false;
-            this.button6.Text = "Mange Custom Foods";
-            this.button6.UseVisualStyleBackColor = true;
-            this.button6.Click += new System.EventHandler(this.button6_Click);
+            this.btnEditRecipe.Enabled = false;
+            this.btnEditRecipe.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnEditRecipe.Location = new System.Drawing.Point(20, 26);
+            this.btnEditRecipe.Name = "btnEditRecipe";
+            this.btnEditRecipe.Size = new System.Drawing.Size(137, 28);
+            this.btnEditRecipe.TabIndex = 3;
+            this.btnEditRecipe.TabStop = false;
+            this.btnEditRecipe.Text = "Edit Recipes";
+            this.btnEditRecipe.UseVisualStyleBackColor = true;
             // 
             // lstBoxRecipes
             // 
             this.lstBoxRecipes.FormattingEnabled = true;
             this.lstBoxRecipes.ItemHeight = 24;
-            this.lstBoxRecipes.Location = new System.Drawing.Point(6, 63);
+            this.lstBoxRecipes.Location = new System.Drawing.Point(16, 60);
             this.lstBoxRecipes.Name = "lstBoxRecipes";
-            this.lstBoxRecipes.Size = new System.Drawing.Size(309, 196);
+            this.lstBoxRecipes.Size = new System.Drawing.Size(301, 172);
             this.lstBoxRecipes.TabIndex = 0;
             this.lstBoxRecipes.TabStop = false;
+            // 
+            // btnEditCustFoods
+            // 
+            this.btnEditCustFoods.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnEditCustFoods.Location = new System.Drawing.Point(163, 26);
+            this.btnEditCustFoods.Name = "btnEditCustFoods";
+            this.btnEditCustFoods.Size = new System.Drawing.Size(154, 28);
+            this.btnEditCustFoods.TabIndex = 2;
+            this.btnEditCustFoods.TabStop = false;
+            this.btnEditCustFoods.Text = "Custom Foods";
+            this.btnEditCustFoods.UseVisualStyleBackColor = true;
+            this.btnEditCustFoods.Click += new System.EventHandler(this.button6_Click);
             // 
             // menuStrip1
             // 
@@ -766,6 +742,7 @@
             this.advancedExerciseCalcToolStripMenuItem,
             this.parseExcelSpreadsheetToolStripMenuItem,
             this.relationalDatabaseWizardToolStripMenuItem,
+            this.generateRelationalDatabaseToolStripMenuItem,
             this.viewDetailReportToolStripMenuItem,
             this.settingsToolStripMenuItem,
             this.bodyFatCalcToolStripMenuItem,
@@ -793,14 +770,28 @@
             this.parseExcelSpreadsheetToolStripMenuItem.Name = "parseExcelSpreadsheetToolStripMenuItem";
             this.parseExcelSpreadsheetToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F9;
             this.parseExcelSpreadsheetToolStripMenuItem.Size = new System.Drawing.Size(241, 22);
-            this.parseExcelSpreadsheetToolStripMenuItem.Text = "Import Excel Spreadsheet";
+            this.parseExcelSpreadsheetToolStripMenuItem.Text = "Import DB or Field";
             this.parseExcelSpreadsheetToolStripMenuItem.Click += new System.EventHandler(this.parseExcelSpreadsheetToolStripMenuItem_Click);
+            // 
+            // relationalDatabaseWizardToolStripMenuItem
+            // 
+            this.relationalDatabaseWizardToolStripMenuItem.Name = "relationalDatabaseWizardToolStripMenuItem";
+            this.relationalDatabaseWizardToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F10;
+            this.relationalDatabaseWizardToolStripMenuItem.Size = new System.Drawing.Size(241, 22);
+            this.relationalDatabaseWizardToolStripMenuItem.Text = "Import Relational Database";
+            this.relationalDatabaseWizardToolStripMenuItem.Click += new System.EventHandler(this.relationalDatabaseWizardToolStripMenuItem_Click);
+            // 
+            // generateRelationalDatabaseToolStripMenuItem
+            // 
+            this.generateRelationalDatabaseToolStripMenuItem.Name = "generateRelationalDatabaseToolStripMenuItem";
+            this.generateRelationalDatabaseToolStripMenuItem.Size = new System.Drawing.Size(241, 22);
+            this.generateRelationalDatabaseToolStripMenuItem.Text = "Generate Relational Database";
             // 
             // viewDetailReportToolStripMenuItem
             // 
             this.viewDetailReportToolStripMenuItem.Name = "viewDetailReportToolStripMenuItem";
             this.viewDetailReportToolStripMenuItem.Size = new System.Drawing.Size(241, 22);
-            this.viewDetailReportToolStripMenuItem.Text = "View Detail Report";
+            this.viewDetailReportToolStripMenuItem.Text = "Run Detail Report";
             this.viewDetailReportToolStripMenuItem.Click += new System.EventHandler(this.viewDetailReportToolStripMenuItem_Click);
             // 
             // settingsToolStripMenuItem
@@ -820,7 +811,7 @@
             // 
             this.naturalPotentialCalcToolStripMenuItem.Name = "naturalPotentialCalcToolStripMenuItem";
             this.naturalPotentialCalcToolStripMenuItem.Size = new System.Drawing.Size(241, 22);
-            this.naturalPotentialCalcToolStripMenuItem.Text = "Natural Bodybuilding Limits";
+            this.naturalPotentialCalcToolStripMenuItem.Text = "Strength Limits for Men";
             this.naturalPotentialCalcToolStripMenuItem.Click += new System.EventHandler(this.naturalPotentialCalcToolStripMenuItem_Click);
             // 
             // databaseToolStripMenuItem
@@ -846,17 +837,17 @@
             this.manageStandaloneDatabaseToolStripMenuItem.Text = "Manage Standalone Database";
             this.manageStandaloneDatabaseToolStripMenuItem.Click += new System.EventHandler(this.manageStandaloneDatabaseToolStripMenuItem_Click);
             // 
-            // button11
+            // btnRemoveFood
             // 
-            this.button11.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button11.Location = new System.Drawing.Point(249, 72);
-            this.button11.Name = "button11";
-            this.button11.Size = new System.Drawing.Size(127, 31);
-            this.button11.TabIndex = 9;
-            this.button11.TabStop = false;
-            this.button11.Text = "Remove Food";
-            this.button11.UseVisualStyleBackColor = true;
-            this.button11.Click += new System.EventHandler(this.button11_Click);
+            this.btnRemoveFood.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnRemoveFood.Location = new System.Drawing.Point(249, 72);
+            this.btnRemoveFood.Name = "btnRemoveFood";
+            this.btnRemoveFood.Size = new System.Drawing.Size(127, 31);
+            this.btnRemoveFood.TabIndex = 9;
+            this.btnRemoveFood.TabStop = false;
+            this.btnRemoveFood.Text = "Remove Food";
+            this.btnRemoveFood.UseVisualStyleBackColor = true;
+            this.btnRemoveFood.Click += new System.EventHandler(this.button11_Click);
             // 
             // lblCurrentUser
             // 
@@ -869,36 +860,53 @@
             this.lblCurrentUser.TabIndex = 10;
             this.lblCurrentUser.Text = "Current User: None";
             // 
-            // btnSearchUserD
+            // btnSearch
             // 
-            this.btnSearchUserD.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSearchUserD.Location = new System.Drawing.Point(12, 47);
-            this.btnSearchUserD.Name = "btnSearchUserD";
-            this.btnSearchUserD.Size = new System.Drawing.Size(212, 56);
-            this.btnSearchUserD.TabIndex = 11;
-            this.btnSearchUserD.Text = "Search Food Databases Add to Log";
-            this.btnSearchUserD.UseVisualStyleBackColor = true;
-            this.btnSearchUserD.Click += new System.EventHandler(this.btnSearchUserD_Click);
+            this.btnSearch.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSearch.Location = new System.Drawing.Point(12, 47);
+            this.btnSearch.Name = "btnSearch";
+            this.btnSearch.Size = new System.Drawing.Size(212, 56);
+            this.btnSearch.TabIndex = 11;
+            this.btnSearch.Text = "Search Food Databases Add to Log";
+            this.btnSearch.UseVisualStyleBackColor = true;
+            this.btnSearch.Click += new System.EventHandler(this.btnSearchUserD_Click);
             // 
-            // relationalDatabaseWizardToolStripMenuItem
+            // btnExit
             // 
-            this.relationalDatabaseWizardToolStripMenuItem.Name = "relationalDatabaseWizardToolStripMenuItem";
-            this.relationalDatabaseWizardToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F10;
-            this.relationalDatabaseWizardToolStripMenuItem.Size = new System.Drawing.Size(241, 22);
-            this.relationalDatabaseWizardToolStripMenuItem.Text = "Relational Database Wizard";
-            this.relationalDatabaseWizardToolStripMenuItem.Click += new System.EventHandler(this.relationalDatabaseWizardToolStripMenuItem_Click);
+            this.btnExit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnExit.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnExit.Location = new System.Drawing.Point(662, 923);
+            this.btnExit.Name = "btnExit";
+            this.btnExit.Size = new System.Drawing.Size(284, 42);
+            this.btnExit.TabIndex = 22;
+            this.btnExit.TabStop = false;
+            this.btnExit.Text = "Exit";
+            this.btnExit.UseVisualStyleBackColor = true;
+            this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
+            // 
+            // comboLoggedDays
+            // 
+            this.comboLoggedDays.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboLoggedDays.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.comboLoggedDays.FormattingEnabled = true;
+            this.comboLoggedDays.Location = new System.Drawing.Point(468, 74);
+            this.comboLoggedDays.Name = "comboLoggedDays";
+            this.comboLoggedDays.Size = new System.Drawing.Size(121, 32);
+            this.comboLoggedDays.TabIndex = 23;
+            this.comboLoggedDays.SelectedIndexChanged += new System.EventHandler(this.comboLoggedDays_SelectedIndexChanged);
             // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(981, 974);
-            this.Controls.Add(this.btnSearchUserD);
+            this.Controls.Add(this.comboLoggedDays);
+            this.Controls.Add(this.btnExit);
+            this.Controls.Add(this.btnSearch);
             this.Controls.Add(this.lblCurrentUser);
-            this.Controls.Add(this.button11);
+            this.Controls.Add(this.btnRemoveFood);
             this.Controls.Add(this.groupBox3);
-            this.Controls.Add(this.button5);
-            this.Controls.Add(this.dateTimePicker1);
+            this.Controls.Add(this.btnProfile);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.label3);
@@ -931,28 +939,26 @@
         private System.Windows.Forms.DataGridView dataDay;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.DataGridView dataExercise;
-        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button btnDetailReport;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.DateTimePicker dateTimePicker1;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.ComboBox comboExType;
         private System.Windows.Forms.Label lblActType;
-        private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.Button btnProfile;
         private System.Windows.Forms.Button btnAdvCalc;
         private System.Windows.Forms.GroupBox groupBox3;
-        private System.Windows.Forms.Button button7;
-        private System.Windows.Forms.Button button6;
+        private System.Windows.Forms.Button btnEditRecipe;
+        private System.Windows.Forms.Button btnEditCustFoods;
         private System.Windows.Forms.ListBox lstBoxRecipes;
         private System.Windows.Forms.ComboBox comboMeal;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox txtQty;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Button button9;
+        private System.Windows.Forms.Button btnLogCustFood;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Button button10;
-        private System.Windows.Forms.CheckBox checkBoxTraffLight;
+        private System.Windows.Forms.Button btnGuesstimate;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem editProfilesToolStripMenuItem;
@@ -961,7 +967,7 @@
         private System.Windows.Forms.ToolStripMenuItem advancedExerciseCalcToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem bodyFatCalcToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem viewDetailReportToolStripMenuItem;
-        private System.Windows.Forms.Button button11;
+        private System.Windows.Forms.Button btnRemoveFood;
         private System.Windows.Forms.Button btnRemEx;
         private System.Windows.Forms.ToolStripMenuItem customFoodEntryToolStripMenuItem;
         private System.Windows.Forms.Label lblCurrentUser;
@@ -988,7 +994,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn columnVitA;
         private System.Windows.Forms.DataGridViewTextBoxColumn columnVitC;
         private System.Windows.Forms.ToolStripMenuItem naturalPotentialCalcToolStripMenuItem;
-        private System.Windows.Forms.Button btnSearchUserD;
+        private System.Windows.Forms.Button btnSearch;
         private System.Windows.Forms.ToolStripMenuItem parseExcelSpreadsheetToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem addToLogToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem addSearchCommonFoodsToolStripMenuItem1;
@@ -1001,6 +1007,9 @@
         private System.Windows.Forms.ToolStripMenuItem manageActiveFieldsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem decomposeRecipeToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem relationalDatabaseWizardToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem generateRelationalDatabaseToolStripMenuItem;
+        private System.Windows.Forms.Button btnExit;
+        private System.Windows.Forms.ComboBox comboLoggedDays;
     }
 }
 
