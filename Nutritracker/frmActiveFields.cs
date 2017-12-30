@@ -41,10 +41,7 @@ namespace Nutritracker
         }
 
         string[] knownFields = {
-            "okay",
-            "shane",
-            "what",
-            "next"
+        
         };
         private void richTxtInput_TextChanged(object sender, EventArgs e)
         {
@@ -75,7 +72,7 @@ namespace Nutritracker
                 int n = m;
                 for (int j = 0; j < words.Length; j++)
                 {
-                    if (knownFields.Contains(words[j]) && lines[i].IndexOf(words[j]) < lines[i].IndexOf("#"))
+                    if (knownFields.Contains(words[j]) && !(lines[i].IndexOf("#") != -1 && lines[i].IndexOf(words[j]) < lines[i].LastIndexOf("#")))
                     {
                         richTxtInput.SelectionStart = n;
                         richTxtInput.SelectionLength = words[j].Length;
