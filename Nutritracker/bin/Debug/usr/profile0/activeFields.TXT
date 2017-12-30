@@ -5,24 +5,26 @@
 #Remove lines with '#', NO black text should appear
 #A full list of nutrients can be found in the help docs
 ########################################################
+## BASICS ##
 Cals
 #CalsFat
 FatTot
 FatSat
-FatTrans
+#FatTrans
 #FatMono
 #FatPoly
 Cholest
 Na #Sodium
 K #Potassium
-CarbsTot
+Carbs
 Fiber
-FiberSol
+#FiberSol
 Sugar
 #SugarAlc
 Protein
 Ca #Calcium
 Fe #Iron
+## VITAMINS ##
 VitA
 #VitC
 VitD
@@ -36,22 +38,40 @@ B6
 #B7
 #B9
 B12
+## MINERALS ##
 Mg
-Zn
-Se
-B
-I
-#P
-Mn
-#F
-#Cu
-Cr
-#Mo
+Zn 
+Se #Selenium
+#B #Boron
+#I #Iodine
+#P #Phosporus
+Mn #Manganese
+#F #Florine
+#Cu #Copper
+#Cr #Chromium
+#Mo #Molybdenum
+## Aminos ##
+Alanine
+Arginine
+AsparticAcid
+GlutamicAcid
+Glycine
+Histidine
+Isoleucine
+Leucine
+Methionine
+Phenylalanine
+Proline
+Serine
+Threonine
+Tryptophan
+Tyrosine
+Valine
+## MISC ##
 #Choline
+EpaDha
+Lycopene
+LutZea
 #Carnitine
 #Lipoic acid
 Inositol
-Aminos
-########################################################
-###############      Custom Fields    ##################
-########################################################

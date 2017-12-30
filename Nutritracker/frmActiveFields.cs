@@ -30,26 +30,30 @@ namespace Nutritracker
                     oldInput.RemoveAt(i);
                 else
                     oldInput[i] = oldInput[i].Replace("\r", "");
-            richTxtInput.Text = string.Join("\n", oldInput);
 
             string[] dbs = Directory.GetDirectories($"{Application.StartupPath}{slash}usr{slash}share{slash}DBs");
             foreach (string s in dbs){
                 string[] nutLines = File.ReadAllLines($"{s}{slash}_nutKeyPairs.TXT");
                 foreach (string st in nutLines)
-                    if (!availFields.Contains(st.Split('|')[1]))
-                        availFields.Add(st.Split('|')[1]);
+                    if (!st.StartsWith("#") && !availFields.Contains(st.Split('|')[1]))
+                        availFields.Add(st.Split('|')[1]);            
             }
-			availFields.Distinct();
-
-            MessageBox.Show(string.Join(", ", availFields));
+		    //availFields.Sort();
+            richTxtInput.Text = string.Join("\n", oldInput);
         }
 
         private void btnDone_Click(object sender, EventArgs e)
         {
             bool edited = false;
             List<string> newOutput = richTxtInput.Text.Split('\n').ToList();
-            for (int i = 0; i < newOutput.Capacity; i++)
+
+            for (int i = 0; i < newOutput.Count; i++)
             {
+                if (newOutput.Count != oldInput.Count)
+                {
+                    edited = true;
+                    break;
+                }
                 newOutput[i].Replace("\r", "");
                 if (newOutput[i] != oldInput[i])
                     edited = true;
@@ -105,6 +109,11 @@ namespace Nutritracker
                 }
                 m += lines[i].Length + 1;
             }
+        }
+
+        private void btnListFields_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show(string.Join("\n", availFields));
         }
     }
 }

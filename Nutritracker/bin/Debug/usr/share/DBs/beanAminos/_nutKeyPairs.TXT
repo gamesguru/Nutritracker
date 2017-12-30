@@ -1,30 +1,30 @@
-FOO.TXT|NDB No.
-FOO2.TXT|Name of Food
-ENE8.TXT|Calories
+FOO.TXT|NDBNo
+FOO2.TXT|FoodName
+ENE8.TXT|Cals
 PRO12.TXT|Protein
 CHO.TXT|Carbs
 FIB.TXT|Fiber
-FAT.TXT|Total Fat
-FAS.TXT|Sat Fat
-FAP.TXT|Poly Fat
-FAM.TXT|Mono Fat
-MG26.TXT|Magnesium
-NA28.TXT|Sodium
-CA22.TXT|Calcium
-FE24.TXT|Iron
-VIT39.TXT|Vit A
-VIT37.TXT|Vit C
-THI.TXT|B1, Thiamine
-RIB.TXT|B2, Riboflavin
-NIA.TXT|B3, Niacin
-VIT.TXT|B6, Pyridoxine
-VIT36.TXT|B12, Cobalamins
-CU23.TXT|Copper
-IP6.TXT|Inositol IP6
+FAT.TXT|FatTot
+FAS.TXT|FatSat
+FAP.TXT|FatPoly
+FAM.TXT|FatMono
+MG26.TXT|Mg
+NA28.TXT|Na
+CA22.TXT|Ca
+FE24.TXT|Fe
+VIT39.TXT|VitA
+VIT37.TXT|VitC
+THI.TXT|B1
+RIB.TXT|B2
+NIA.TXT|B3
+VIT.TXT|B6
+VIT36.TXT|B12
+CU23.TXT|Cu
+IP6.TXT|Inositol
 ALA.TXT|Alanine
 ARG.TXT|Arginine
-ASP.TXT|Aspartic acid
-GLU.TXT|Glutamic acid
+ASP.TXT|AsparticAcid
+GLU.TXT|GlutamicAcid
 GLY.TXT|Glycine
 HIS.TXT|Histidine
 ILE.TXT|Isoleucine
