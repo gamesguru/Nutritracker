@@ -33,21 +33,78 @@ namespace Nutritracker
 
         private void btnDone_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show("Save changes (if any)?", "", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
-                this.Close();
-            
-            File.WriteAllLines($"{Application.StartupPath}{slash}usr{slash}profile{frmMain.profIndex}{slash}activeFields.TXT", richTxtInput.Text.Split('\n'));
+            if (MessageBox.Show("Save changes (if any)?", "", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                File.WriteAllLines($"{Application.StartupPath}{slash}usr{slash}profile{frmMain.profIndex}{slash}activeFields.TXT", richTxtInput.Text.Split('\n'));
             this.Close();
         }
 
         string[] knownFields = {
-        
+            "Cals",
+            "CalsFat",
+            "FatTot",
+            "FatSat",
+            "FatTrans",
+            "FatMono",
+            "FatPoly",
+            "Cholest",
+            "Na",
+            "K",
+            "CarbsTot",
+            "Fiber",
+            "FiberSol",
+            "Sugar",
+            "Protein",
+            "VitA",
+            "VitC",
+            "Ca",
+            "Fe",
+            "VitD",
+            "VitE",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+
         };
         private void richTxtInput_TextChanged(object sender, EventArgs e)
         {
             int z = richTxtInput.SelectionStart;
             Font font = richTxtInput.Font;
             string[] lines = richTxtInput.Text.Split('\n');
+            for (int i = 0; i < lines.Length; i++)
+                lines[i].Replace('\r', '\0');
             int m = 0;
             for (int i = 0; i < lines.Length; i++)
             {

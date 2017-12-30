@@ -2,7 +2,6 @@
 #remove lines with the pound sign
 #examples can be found in the help documentation
 Cals
-what next #shane what next
 #CalsFat
 FatTot
 FatSat
@@ -10,9 +9,10 @@ FatTrans
 #FatMono
 #FatPoly
 Cholest
-Na
-K
-CarbsTot
+Na #Sodium
+K #Potassium
+Ca #Calcium
+Fe #IronCarbsTot
 Fiber
 FiberSol
 Sugar
@@ -20,7 +20,5 @@ Sugar
 Protein
 VitA
 VitC
-Ca
-Fe
 VitD
 VitE
