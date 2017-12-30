@@ -9,7 +9,7 @@ using System.Threading;
 using System.Windows.Forms;
 using System.IO;
 
-namespace NutApp
+namespace Nutritracker
 {
     public partial class frmSearchFoods : Form
     {
@@ -809,7 +809,7 @@ namespace NutApp
 
         private void comboMeal_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //D:\MonoProjects\NutApp\NutApp\bin\Debug\usr\profile0\DBs
+            //D:\MonoProjects\Nutritracker\Nutritracker\bin\Debug\usr\profile0\DBs
             File.WriteAllText(Application.StartupPath + slash + "usr" + slash + $"profile{frmMain.profIndex}" + slash + "DBs" + slash + "Meal.TXT", comboMeal.SelectedIndex.ToString());
         }
 

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 
-namespace NutApp
+namespace Nutritracker
 {
     public partial class frmProfile : Form
     {
@@ -160,7 +160,14 @@ namespace NutApp
             profIndex = frmMain.profIndex;
             //MessageBox.Show(Properties.Settings.Default.defaultIndex.ToString());
             string root = Application.StartupPath + $"{slash}usr";// profile" + profIndex.ToString();
-            defaultIndex = Convert.ToInt32(Directory.GetFiles(root)[0].Replace($"{root}{slash}default", ""));
+            try
+            {
+                defaultIndex = Convert.ToInt32(Directory.GetFiles(root)[0].Replace($"{root}{slash}default", ""));
+            }
+            catch{
+                defaultIndex = 0;
+                File.Create($"{root}{slash}default0");
+            }
 
             string[] directs = Directory.GetDirectories(root);
             //MessageBox.Show(string.Join(", ", directs));

@@ -7,8 +7,8 @@
     <ProjectGuid>{086472C5-DD1F-4872-9BF1-9F9B633A376F}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>NutApp</RootNamespace>
-    <AssemblyName>NutApp</AssemblyName>
+    <RootNamespace>Nutritracker</RootNamespace>
+    <AssemblyName>Nutritracker</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>

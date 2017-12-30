@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace NutApp
+namespace Nutritracker
 {
     partial class frmNewDBrel
     {

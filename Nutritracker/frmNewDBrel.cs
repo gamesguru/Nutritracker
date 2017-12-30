@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 
-namespace NutApp
+namespace Nutritracker
 {
     public partial class frmNewDBrel : Form
     {
@@ -21,7 +21,6 @@ namespace NutApp
         string slash = Path.DirectorySeparatorChar.ToString();
         string shareDBdir;
         string activeDBdir;
-        //int n = 0;
         private void frmNewDBrel_Load(object sender, EventArgs e)
         {
             shareDBdir = $"{Application.StartupPath}{slash}usr{slash}share{slash}DBs";
@@ -39,9 +38,9 @@ namespace NutApp
         private void txtName_TextChanged(object sender, EventArgs e)
         {
             if (radioMultiKey.Checked)
-                txtLoc.Text = $"{slash}usr{slash}share{slash}DBs{slash}rel{slash}multi{txtName.Text}";
+                txtLoc.Text = $"{slash}usr{slash}share{slash}DBs{slash}rel{slash}multi{slash}{txtName.Text}";
             else
-                txtLoc.Text = $"{slash}usr{slash}share{slash}DBs{slash}rel{slash}single{txtName.Text}";                        
+                txtLoc.Text = $"{slash}usr{slash}share{slash}DBs{slash}rel{slash}single{slash}{txtName.Text}";                        
 
             if (txtName.TextLength > 2)
                 btnCreate.Enabled = true;
@@ -132,7 +131,7 @@ namespace NutApp
                     }
                     column c = new column();
 
-                    string f = s.Split(new char[] { '/', '\\' })[s.Split(new char[] { '/', '\\' }).Length - 1];
+                    string f = s.Split(Path.DirectorySeparatorChar)[s.Split(Path.DirectorySeparatorChar).Length - 1];
                     txtOutput.Text += f + "\r\n";
                     txtOutput.Text += $"{string.Join("\r\n", r.headers)}\r\n\r\n";
                     relFiles.Add(r);
@@ -231,7 +230,7 @@ namespace NutApp
                 }
 
 
-                file = file.Split(new char[] { '/', '\\' })[file.Split(new char[] { '/', '\\' }).Length - 1].Replace(".TXT", "");
+                file = file.Split(Path.DirectorySeparatorChar)[file.Split(Path.DirectorySeparatorChar).Length - 1].Replace(".TXT", "");
                 txtName.Text = file;
 
 
@@ -350,12 +349,18 @@ namespace NutApp
 
                 Directory.CreateDirectory(newRelDir);
 
-                string unit = "";
+                //string unit = "";
                 string ndb = "";
-                string nutrNo = "";
+                string val = "";
 
-                string f = relf.file.Split(new char[] { '/', '\\' })[relf.file.Split(new char[] { '/', '\\' }).Length - 1].Replace(".TXT", "");
-
+                //string f = relf.file.Split(new char[] { '/', '\\' })[relf.file.Split(new char[] { '/', '\\' }).Length - 1].Replace(".TXT", "");
+                for (int i=0;i<relf.headers.Length;i++){
+                    List<string> c = new List<string>();
+                    for (int j=1;j<relf.lines.Length;j++){
+                        c.Add(relf.lines[j].Split('\t')[i]);
+                    }
+                    File.WriteAllLines($"{newRelDir}{slash}{headers[i]}.TXT" , c);
+                }
             }
         }
 

@@ -11,7 +11,7 @@ using System.Text.RegularExpressions;
 using Microsoft.VisualBasic;
 using System.IO;
 
-namespace NutApp
+namespace Nutritracker
 {
     public partial class frmParseCustomDatabase : Form
     {

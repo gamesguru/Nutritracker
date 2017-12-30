@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace NutApp
+namespace Nutritracker
 {
     public partial class frmMain : Form
     {
@@ -148,6 +148,7 @@ dataDay.Rows.Add(row);*/
                     Directory.CreateDirectory($"{Application.StartupPath}{slash}usr");
                     frmProfile frmPr = new frmProfile();
                     frmPr.ShowDialog();
+                    Directory.CreateDirectory($"{Application.StartupPath}{slash}usr{slash}profile{profIndex}{slash}foodlog");
                 }
             }
             
@@ -157,7 +158,15 @@ dataDay.Rows.Add(row);*/
             //    loadIndex = defaultIndex;
 
             string root = $"{Application.StartupPath}{slash}usr";
-            profIndex = Convert.ToInt16(Directory.GetFiles(root)[0].Replace($"{root}{slash}default", ""));
+            foreach (string s in Directory.GetFiles(root))
+                if (s.Split(Path.DirectorySeparatorChar)[s.Split(Path.DirectorySeparatorChar).Length - 1].StartsWith("profile"))
+                {
+                    try
+                    {
+    					profIndex = Convert.ToInt16(s.Replace("default", ""));
+                    }
+                    catch { }
+                }
             string[] directs = Directory.GetDirectories(root);
             profDirects = new List<string>();
             frmProfile frmP = new frmProfile();
@@ -1316,7 +1325,7 @@ dataExercise[0, x].Value == "Sprinting")
 
         private void button6_Click(object sender, EventArgs e)
         {
-            frmCustomFood frmCust = new NutApp.frmCustomFood();
+            frmCustomFood frmCust = new Nutritracker.frmCustomFood();
             frmCust.Show(this);
         }
 
@@ -1330,7 +1339,7 @@ dataExercise[0, x].Value == "Sprinting")
         {
 
             frmBodyfatCalc.currentName = importArray($"{Application.StartupPath}{slash}usr{slash}profile{profIndex}{slash}profile{profIndex}.TXT")[0];
-            frmBodyfatCalc frmBFC = new NutApp.frmBodyfatCalc();
+            frmBodyfatCalc frmBFC = new Nutritracker.frmBodyfatCalc();
             frmBFC.gender = importArray($"{Application.StartupPath}{slash}usr{slash}profile{profIndex}{slash}profile{profIndex}.TXT")[1];
             frmBFC.age = Convert.ToInt32(importArray($"{Application.StartupPath}{slash}usr{slash}profile{profIndex}{slash}profile{profIndex}.TXT")[2]);
             frmBFC.wt = Convert.ToInt32(importArray($"{Application.StartupPath}{slash}usr{slash}profile{profIndex}{slash}profile{profIndex}.TXT")[4]);
@@ -1348,7 +1357,7 @@ dataExercise[0, x].Value == "Sprinting")
             frmLeanPotentialCalc.bodyfat = Convert.ToInt32(importArray($"{Application.StartupPath}{slash}usr{slash}profile{profIndex}{slash}profile{profIndex}.TXT")[3]);
             frmLeanPotentialCalc.weight = Convert.ToInt32(importArray($"{Application.StartupPath}{slash}usr{slash}profile{profIndex}{slash}profile{profIndex}.TXT")[4]);
             frmLeanPotentialCalc.height = Convert.ToInt32(importArray($"{Application.StartupPath}{slash}usr{slash}profile{profIndex}{slash}profile{profIndex}.TXT")[5]);
-            frmLeanPotentialCalc frmNatPot = new NutApp.frmLeanPotentialCalc();            
+            frmLeanPotentialCalc frmNatPot = new Nutritracker.frmLeanPotentialCalc();            
             frmNatPot.ShowDialog();
         }
 

@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace NutApp
+namespace Nutritracker
 {
     public partial class frmSettings : Form
     {

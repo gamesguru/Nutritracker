@@ -1,4 +1,4 @@
-﻿namespace NutApp
+﻿namespace Nutritracker
 {
     partial class frmMain
     {
@@ -81,17 +81,12 @@
             this.customFoodEntryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editProfilesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.undoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.manageActiveFieldsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.decomposeRecipeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addToLogToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addSearchCommonFoodsToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.addExerciseToLogToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.openGuesstimatorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.advancedExerciseCalcToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.parseExcelSpreadsheetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.relationalDatabaseWizardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.generateRelationalDatabaseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.viewDetailReportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.bodyFatCalcToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -103,6 +98,11 @@
             this.btnSearch = new System.Windows.Forms.Button();
             this.btnExit = new System.Windows.Forms.Button();
             this.comboLoggedDays = new System.Windows.Forms.ComboBox();
+            this.rankFoodsByNutrientToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.manageActiveFieldsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.parseExcelSpreadsheetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.relationalDatabaseWizardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.generateRelationalDatabaseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataDay)).BeginInit();
             this.groupBox2.SuspendLayout();
@@ -664,8 +664,8 @@
             this.customFoodEntryToolStripMenuItem,
             this.editProfilesToolStripMenuItem,
             this.undoToolStripMenuItem,
-            this.manageActiveFieldsToolStripMenuItem,
-            this.decomposeRecipeToolStripMenuItem});
+            this.decomposeRecipeToolStripMenuItem,
+            this.rankFoodsByNutrientToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.fileToolStripMenuItem.Text = "File";
@@ -695,14 +695,6 @@
             this.undoToolStripMenuItem.Text = "Undo";
             this.undoToolStripMenuItem.Click += new System.EventHandler(this.undoToolStripMenuItem_Click);
             // 
-            // manageActiveFieldsToolStripMenuItem
-            // 
-            this.manageActiveFieldsToolStripMenuItem.Name = "manageActiveFieldsToolStripMenuItem";
-            this.manageActiveFieldsToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F2;
-            this.manageActiveFieldsToolStripMenuItem.Size = new System.Drawing.Size(216, 22);
-            this.manageActiveFieldsToolStripMenuItem.Text = "Manage Active Fields";
-            this.manageActiveFieldsToolStripMenuItem.Click += new System.EventHandler(this.manageActiveFieldsToolStripMenuItem_Click);
-            // 
             // decomposeRecipeToolStripMenuItem
             // 
             this.decomposeRecipeToolStripMenuItem.Name = "decomposeRecipeToolStripMenuItem";
@@ -729,19 +721,15 @@
             // 
             // addExerciseToLogToolStripMenuItem1
             // 
+            this.addExerciseToLogToolStripMenuItem1.Enabled = false;
             this.addExerciseToLogToolStripMenuItem1.Name = "addExerciseToLogToolStripMenuItem1";
-            this.addExerciseToLogToolStripMenuItem1.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.E)));
             this.addExerciseToLogToolStripMenuItem1.Size = new System.Drawing.Size(244, 22);
             this.addExerciseToLogToolStripMenuItem1.Text = "Add Exercise to Log";
             // 
             // toolsToolStripMenuItem
             // 
             this.toolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.openGuesstimatorToolStripMenuItem,
             this.advancedExerciseCalcToolStripMenuItem,
-            this.parseExcelSpreadsheetToolStripMenuItem,
-            this.relationalDatabaseWizardToolStripMenuItem,
-            this.generateRelationalDatabaseToolStripMenuItem,
             this.viewDetailReportToolStripMenuItem,
             this.settingsToolStripMenuItem,
             this.bodyFatCalcToolStripMenuItem,
@@ -750,74 +738,50 @@
             this.toolsToolStripMenuItem.Size = new System.Drawing.Size(47, 20);
             this.toolsToolStripMenuItem.Text = "Tools";
             // 
-            // openGuesstimatorToolStripMenuItem
-            // 
-            this.openGuesstimatorToolStripMenuItem.Enabled = false;
-            this.openGuesstimatorToolStripMenuItem.Name = "openGuesstimatorToolStripMenuItem";
-            this.openGuesstimatorToolStripMenuItem.Size = new System.Drawing.Size(241, 22);
-            this.openGuesstimatorToolStripMenuItem.Text = "Open Guesstimator";
-            // 
             // advancedExerciseCalcToolStripMenuItem
             // 
             this.advancedExerciseCalcToolStripMenuItem.Enabled = false;
             this.advancedExerciseCalcToolStripMenuItem.Name = "advancedExerciseCalcToolStripMenuItem";
-            this.advancedExerciseCalcToolStripMenuItem.Size = new System.Drawing.Size(241, 22);
+            this.advancedExerciseCalcToolStripMenuItem.Size = new System.Drawing.Size(199, 22);
             this.advancedExerciseCalcToolStripMenuItem.Text = "Advanced Exercise Calc";
-            // 
-            // parseExcelSpreadsheetToolStripMenuItem
-            // 
-            this.parseExcelSpreadsheetToolStripMenuItem.Name = "parseExcelSpreadsheetToolStripMenuItem";
-            this.parseExcelSpreadsheetToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F9;
-            this.parseExcelSpreadsheetToolStripMenuItem.Size = new System.Drawing.Size(241, 22);
-            this.parseExcelSpreadsheetToolStripMenuItem.Text = "Import DB or Field";
-            this.parseExcelSpreadsheetToolStripMenuItem.Click += new System.EventHandler(this.parseExcelSpreadsheetToolStripMenuItem_Click);
-            // 
-            // relationalDatabaseWizardToolStripMenuItem
-            // 
-            this.relationalDatabaseWizardToolStripMenuItem.Name = "relationalDatabaseWizardToolStripMenuItem";
-            this.relationalDatabaseWizardToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F10;
-            this.relationalDatabaseWizardToolStripMenuItem.Size = new System.Drawing.Size(241, 22);
-            this.relationalDatabaseWizardToolStripMenuItem.Text = "Import Relational Database";
-            this.relationalDatabaseWizardToolStripMenuItem.Click += new System.EventHandler(this.relationalDatabaseWizardToolStripMenuItem_Click);
-            // 
-            // generateRelationalDatabaseToolStripMenuItem
-            // 
-            this.generateRelationalDatabaseToolStripMenuItem.Name = "generateRelationalDatabaseToolStripMenuItem";
-            this.generateRelationalDatabaseToolStripMenuItem.Size = new System.Drawing.Size(241, 22);
-            this.generateRelationalDatabaseToolStripMenuItem.Text = "Generate Relational Database";
             // 
             // viewDetailReportToolStripMenuItem
             // 
             this.viewDetailReportToolStripMenuItem.Name = "viewDetailReportToolStripMenuItem";
-            this.viewDetailReportToolStripMenuItem.Size = new System.Drawing.Size(241, 22);
+            this.viewDetailReportToolStripMenuItem.Size = new System.Drawing.Size(199, 22);
             this.viewDetailReportToolStripMenuItem.Text = "Run Detail Report";
             this.viewDetailReportToolStripMenuItem.Click += new System.EventHandler(this.viewDetailReportToolStripMenuItem_Click);
             // 
             // settingsToolStripMenuItem
             // 
+            this.settingsToolStripMenuItem.Enabled = false;
             this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
-            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(241, 22);
+            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(199, 22);
             this.settingsToolStripMenuItem.Text = "Settings";
             // 
             // bodyFatCalcToolStripMenuItem
             // 
             this.bodyFatCalcToolStripMenuItem.Name = "bodyFatCalcToolStripMenuItem";
-            this.bodyFatCalcToolStripMenuItem.Size = new System.Drawing.Size(241, 22);
+            this.bodyFatCalcToolStripMenuItem.Size = new System.Drawing.Size(199, 22);
             this.bodyFatCalcToolStripMenuItem.Text = "Bodyfat Calculator";
             this.bodyFatCalcToolStripMenuItem.Click += new System.EventHandler(this.bodyFatCalcToolStripMenuItem_Click);
             // 
             // naturalPotentialCalcToolStripMenuItem
             // 
             this.naturalPotentialCalcToolStripMenuItem.Name = "naturalPotentialCalcToolStripMenuItem";
-            this.naturalPotentialCalcToolStripMenuItem.Size = new System.Drawing.Size(241, 22);
+            this.naturalPotentialCalcToolStripMenuItem.Size = new System.Drawing.Size(199, 22);
             this.naturalPotentialCalcToolStripMenuItem.Text = "Strength Limits for Men";
             this.naturalPotentialCalcToolStripMenuItem.Click += new System.EventHandler(this.naturalPotentialCalcToolStripMenuItem_Click);
             // 
             // databaseToolStripMenuItem
             // 
             this.databaseToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.parseExcelSpreadsheetToolStripMenuItem,
+            this.relationalDatabaseWizardToolStripMenuItem,
+            this.generateRelationalDatabaseToolStripMenuItem,
             this.manageCustomFieldsToolStripMenuItem,
-            this.manageStandaloneDatabaseToolStripMenuItem});
+            this.manageStandaloneDatabaseToolStripMenuItem,
+            this.manageActiveFieldsToolStripMenuItem});
             this.databaseToolStripMenuItem.Name = "databaseToolStripMenuItem";
             this.databaseToolStripMenuItem.Size = new System.Drawing.Size(67, 20);
             this.databaseToolStripMenuItem.Text = "Database";
@@ -825,14 +789,14 @@
             // manageCustomFieldsToolStripMenuItem
             // 
             this.manageCustomFieldsToolStripMenuItem.Name = "manageCustomFieldsToolStripMenuItem";
-            this.manageCustomFieldsToolStripMenuItem.Size = new System.Drawing.Size(230, 22);
+            this.manageCustomFieldsToolStripMenuItem.Size = new System.Drawing.Size(241, 22);
             this.manageCustomFieldsToolStripMenuItem.Text = "Manage Custom Fields";
             this.manageCustomFieldsToolStripMenuItem.Click += new System.EventHandler(this.manageCustomFieldsToolStripMenuItem_Click);
             // 
             // manageStandaloneDatabaseToolStripMenuItem
             // 
             this.manageStandaloneDatabaseToolStripMenuItem.Name = "manageStandaloneDatabaseToolStripMenuItem";
-            this.manageStandaloneDatabaseToolStripMenuItem.Size = new System.Drawing.Size(230, 22);
+            this.manageStandaloneDatabaseToolStripMenuItem.Size = new System.Drawing.Size(241, 22);
             this.manageStandaloneDatabaseToolStripMenuItem.Text = "Manage Standalone Database";
             this.manageStandaloneDatabaseToolStripMenuItem.Click += new System.EventHandler(this.manageStandaloneDatabaseToolStripMenuItem_Click);
             // 
@@ -882,6 +846,41 @@
             this.comboLoggedDays.Size = new System.Drawing.Size(121, 32);
             this.comboLoggedDays.TabIndex = 23;
             this.comboLoggedDays.SelectedIndexChanged += new System.EventHandler(this.comboLoggedDays_SelectedIndexChanged);
+            // 
+            // rankFoodsByNutrientToolStripMenuItem
+            // 
+            this.rankFoodsByNutrientToolStripMenuItem.Enabled = false;
+            this.rankFoodsByNutrientToolStripMenuItem.Name = "rankFoodsByNutrientToolStripMenuItem";
+            this.rankFoodsByNutrientToolStripMenuItem.Size = new System.Drawing.Size(216, 22);
+            this.rankFoodsByNutrientToolStripMenuItem.Text = "Rank Foods by Nutrient";
+            // 
+            // manageActiveFieldsToolStripMenuItem
+            // 
+            this.manageActiveFieldsToolStripMenuItem.Name = "manageActiveFieldsToolStripMenuItem";
+            this.manageActiveFieldsToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F2;
+            this.manageActiveFieldsToolStripMenuItem.Size = new System.Drawing.Size(241, 22);
+            this.manageActiveFieldsToolStripMenuItem.Text = "Manage Active Fields";
+            // 
+            // parseExcelSpreadsheetToolStripMenuItem
+            // 
+            this.parseExcelSpreadsheetToolStripMenuItem.Name = "parseExcelSpreadsheetToolStripMenuItem";
+            this.parseExcelSpreadsheetToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F9;
+            this.parseExcelSpreadsheetToolStripMenuItem.Size = new System.Drawing.Size(241, 22);
+            this.parseExcelSpreadsheetToolStripMenuItem.Text = "Import DB or Field";
+            // 
+            // relationalDatabaseWizardToolStripMenuItem
+            // 
+            this.relationalDatabaseWizardToolStripMenuItem.Name = "relationalDatabaseWizardToolStripMenuItem";
+            this.relationalDatabaseWizardToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F10;
+            this.relationalDatabaseWizardToolStripMenuItem.Size = new System.Drawing.Size(241, 22);
+            this.relationalDatabaseWizardToolStripMenuItem.Text = "Import Relational Database";
+            // 
+            // generateRelationalDatabaseToolStripMenuItem
+            // 
+            this.generateRelationalDatabaseToolStripMenuItem.Enabled = false;
+            this.generateRelationalDatabaseToolStripMenuItem.Name = "generateRelationalDatabaseToolStripMenuItem";
+            this.generateRelationalDatabaseToolStripMenuItem.Size = new System.Drawing.Size(241, 22);
+            this.generateRelationalDatabaseToolStripMenuItem.Text = "Generate Relational Database";
             // 
             // frmMain
             // 
@@ -950,7 +949,6 @@
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem editProfilesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem toolsToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem openGuesstimatorToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem advancedExerciseCalcToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem bodyFatCalcToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem viewDetailReportToolStripMenuItem;
@@ -981,7 +979,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn columnVitC;
         private System.Windows.Forms.ToolStripMenuItem naturalPotentialCalcToolStripMenuItem;
         private System.Windows.Forms.Button btnSearch;
-        private System.Windows.Forms.ToolStripMenuItem parseExcelSpreadsheetToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem addToLogToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem addSearchCommonFoodsToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem addExerciseToLogToolStripMenuItem1;
@@ -989,12 +986,14 @@
         private System.Windows.Forms.ToolStripMenuItem databaseToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem manageCustomFieldsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem manageStandaloneDatabaseToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem manageActiveFieldsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem decomposeRecipeToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem relationalDatabaseWizardToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem generateRelationalDatabaseToolStripMenuItem;
         private System.Windows.Forms.Button btnExit;
         private System.Windows.Forms.ComboBox comboLoggedDays;
+        private System.Windows.Forms.ToolStripMenuItem rankFoodsByNutrientToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem parseExcelSpreadsheetToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem relationalDatabaseWizardToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem generateRelationalDatabaseToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem manageActiveFieldsToolStripMenuItem;
     }
 }
 

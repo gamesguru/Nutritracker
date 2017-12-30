@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 
-namespace NutApp
+namespace Nutritracker
 {
     public partial class frmManageField : Form
     {

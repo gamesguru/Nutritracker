@@ -10,7 +10,7 @@ using System.Windows.Forms;
 using System.IO;
 using System.Text.RegularExpressions;
 
-namespace NutApp
+namespace Nutritracker
 {
     public partial class frmCustomFood : Form
     {

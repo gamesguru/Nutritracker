@@ -1,4 +1,4 @@
-﻿namespace NutApp
+﻿namespace Nutritracker
 {
     partial class frmProfile
     {

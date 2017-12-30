@@ -10,7 +10,7 @@ using System.Windows.Forms;
 using System.IO;
 using System.Security.AccessControl;
 
-namespace NutApp
+namespace Nutritracker
 {
     public partial class frmNewDB : Form
     {
