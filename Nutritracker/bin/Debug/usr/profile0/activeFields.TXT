@@ -46,7 +46,7 @@ Se #Selenium
 #I #Iodine
 #P #Phosporus
 Mn #Manganese
-#F #Florine
+#F #Fluoride
 #Cu #Copper
 #Cr #Chromium
 #Mo #Molybdenum
