@@ -24,7 +24,7 @@ namespace Nutritracker
         string slash = Path.DirectorySeparatorChar.ToString();
         private void frmLeanPotentialCalc_Load(object sender, EventArgs e)
         {
-            this.Text = $"Lean Mass Limits for {File.ReadAllLines($"{Application.StartupPath}{slash}usr{slash}profile{frmMain.profIndex}{slash}profile{frmMain.profIndex}.TXT")[0]}";
+            this.Text = $"Lean Mass Limits for {File.ReadAllLines($"{Application.StartupPath}{slash}usr{slash}profile{frmMain.currentUser.index}{slash}profile.TXT")[0]}";
             numUpDownEH.Value = bodyfat;
             numUpDownCB.Value = bodyfat;
             lblHt.Text = "Height:   " + height.ToString() +" in";

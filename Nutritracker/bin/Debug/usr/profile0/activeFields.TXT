@@ -1,6 +1,10 @@
-#use this dialog to configure nutrients for tracking
-#remove lines with the pound sign
-#examples can be found in the help documentation
+########################################################
+#############    Nutrient Configurator    ##############
+########################################################
+#here you can configure/unconfigure trackable nutrients
+#remove lines with '#', no black text should appear
+#a full list of nutrients can be found  in the help docs
+########################################################
 Cals
 #CalsFat
 FatTot
@@ -11,15 +15,18 @@ FatTrans
 Cholest
 Na #Sodium
 K #Potassium
-Ca #Calcium
-Fe #Iron
 CarbsTot
 Fiber
 FiberSol
 Sugar
 #SugarAlc
 Protein
+Ca #Calcium
+Fe #Iron
 VitA
 VitC
 VitD
 VitE
+########################################################
+###############      Custom Fields    ##################
+########################################################

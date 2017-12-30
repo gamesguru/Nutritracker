@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
+using System.Diagnostics;
 
 namespace Nutritracker
 {
@@ -20,7 +21,7 @@ namespace Nutritracker
 
 		static string slash = Path.DirectorySeparatorChar.ToString();
 		string file = "";
-        string profileRoot = Application.StartupPath + $"{slash}usr{slash}profile" + frmMain.profIndex.ToString();
+        string profileRoot = Application.StartupPath + $"{slash}usr{slash}profile{frmMain.currentUser.index}";
 
         private void frmDetailReport_Load(object sender, EventArgs e)
         {
@@ -46,6 +47,17 @@ namespace Nutritracker
                 return;
             }
 
+            List<string> days = new List<string>();
+            for (int i = 0; i < chkLstBoxDays.Items.Count; i++)
+                if (chkLstBoxDays.GetItemChecked(i))
+                    days.Add(chkLstBoxDays.Items[i].ToString());
+
+            ProcessStartInfo ps = new ProcessStartInfo($"{Application.StartupPath}{slash}logRunner.exe");
+            ps.Arguments = $"{frmMain.currentUser.index} {string.Join(" ", days)}"; 
+            ps.RedirectStandardOutput = false;
+            Process p = Process.Start(ps);
+
+            
             string[] basicFields = new string[0];
             string[] extFields = new string[0];
 
@@ -55,15 +67,15 @@ namespace Nutritracker
                 extFields = File.ReadAllLines(profileRoot + slash + "_extFields.TXT");
 			}
 
-            MessageBox.Show($"Log performed with {basicFields.Length} basic fields and {extFields.Length} extended fields\n\nSaved to\n{file}", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //MessageBox.Show($"Log performed with {basicFields.Length} basic fields and {extFields.Length} extended fields\n\nSaved to\n{file}", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void chkLstBoxDays_ItemCheck(object sender, ItemCheckEventArgs e)
         {
-            if (chkLstBoxDays.CheckedItems.Count == 0)
-                btnRunReport.Enabled = false;
-            else
-                btnRunReport.Enabled = true;
+            //if (chkLstBoxDays.CheckedItems.Count == 0)
+            //    btnRunReport.Enabled = false;
+            //else
+                //btnRunReport.Enabled = true;
         }
     }
 }

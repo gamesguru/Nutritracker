@@ -78,11 +78,11 @@ namespace Nutritracker
         private void frmManageField_Load(object sender, EventArgs e)
         {
             string[] fields = Directory.GetDirectories(Application.StartupPath + $"{slash}usr{slash}profile" +
-                                                       frmMain.profIndex.ToString() + $"{slash}DBs");
+                                                       frmMain.currentUser.index + $"{slash}DBs");
             for (int i = 0; i < fields.Length; i++)
             {
                 fields[i] = fields[i].Replace(Application.StartupPath + $"{slash}usr{slash}profile" +
-                                              frmMain.profIndex.ToString() + $"{slash}DBs{slash}", "");
+                                              frmMain.currentUser.index + $"{slash}DBs{slash}", "");
                 if (fields[i].StartsWith("f_user_"))
                 {
                     string field = fields[i].Remove(0, 7);
@@ -108,7 +108,7 @@ namespace Nutritracker
 
             for (int i = 0; i < Fields.Count; i++)
             {
-                Fields[i].dbInit = File.ReadAllText(Application.StartupPath + $"{slash}usr{slash}profile{frmMain.profIndex.ToString()}{slash}DBs{slash}f_user_{Fields[i].name}{slash}_dbInit.TXT");
+                Fields[i].dbInit = File.ReadAllText(Application.StartupPath + $"{slash}usr{slash}profile{frmMain.currentUser.index}{slash}DBs{slash}f_user_{Fields[i].name}{slash}_dbInit.TXT");
                 string[] items = Fields[i].dbInit.Split(new string[] {"[File]"}, StringSplitOptions.RemoveEmptyEntries);
                 foreach (string s in items){
                     string[] lines = s.Replace("\r", "").Split('\n');
@@ -122,7 +122,7 @@ namespace Nutritracker
                 }
 
 
-				Fields[i].dbConfig = File.ReadAllText($"{Application.StartupPath}{slash}usr{slash}profile{frmMain.profIndex.ToString()}{slash}DBs{slash}f_user_{Fields[i].name}{slash}_dbConfig.TXT");
+				Fields[i].dbConfig = File.ReadAllText($"{Application.StartupPath}{slash}usr{slash}profile{frmMain.currentUser.index}{slash}DBs{slash}f_user_{Fields[i].name}{slash}_dbConfig.TXT");
 				items = Fields[i].dbConfig.Split(new string[] { "[File]" }, StringSplitOptions.RemoveEmptyEntries);
 				foreach (string s in items)
 				{
@@ -141,7 +141,7 @@ namespace Nutritracker
 			}
 
             comboFields.SelectedIndex = 0;
-            string[] slots = File.ReadAllLines($"{Application.StartupPath}{slash}usr{slash}profile{frmMain.profIndex.ToString()}{slash}DBs{slash}Slots.TXT");
+            string[] slots = File.ReadAllLines($"{Application.StartupPath}{slash}usr{slash}profile{frmMain.currentUser.index}{slash}DBs{slash}Slots.TXT");
             
             //MessageBox.Show (string.Join ("\n", slots).Replace("f_user_", ""));
             foreach (string s in slots)
@@ -169,7 +169,7 @@ namespace Nutritracker
             source.Clear();
             textBox1.Clear();
             updateTextboxes();
-            string dr = Application.StartupPath + $"{slash}usr{slash}profile" + frmMain.profIndex.ToString() + $"{slash}DBs{slash}f_user_" + comboFields.Text;
+            string dr = Application.StartupPath + $"{slash}usr{slash}profile" + frmMain.currentUser.index + $"{slash}DBs{slash}f_user_" + comboFields.Text;
             string[] files = Directory.GetFiles(dr);
 
             for (int i = 0; i < files.Length; i++)
@@ -345,7 +345,7 @@ namespace Nutritracker
         //this is causing problems if the user switches values 2 and 3, or something similar.  the [Header] and [Units]
         private void btnSave_Click(object sender, EventArgs e)
         {
-            string dr = $"{Application.StartupPath}{slash}usr{slash}profile{frmMain.profIndex.ToString()}{slash}DBs{slash}f_user_{comboFields.Text}";
+            string dr = $"{Application.StartupPath}{slash}usr{slash}profile{frmMain.currentUser.index}{slash}DBs{slash}f_user_{comboFields.Text}";
             field f = new field();
             foreach (field F in Fields)
                 if (F.name == comboFields.Text)
@@ -429,13 +429,13 @@ namespace Nutritracker
 			    output.Add("f_user_" + comboBox3.SelectedItem.ToString());
 			if (comboBox4.SelectedIndex > -1)
 			    output.Add("f_user_" + comboBox4.SelectedItem.ToString());
-            File.WriteAllLines($"{Application.StartupPath}{slash}usr{slash}profile{frmMain.profIndex.ToString()}{slash}DBs{slash}Slots.TXT", output);
+            File.WriteAllLines($"{Application.StartupPath}{slash}usr{slash}profile{frmMain.currentUser.index}{slash}DBs{slash}Slots.TXT", output);
 			this.Close();
         }
 
         private void chkCal_CheckedChanged(object sender, EventArgs e)
         {
-            string dr = $"{Application.StartupPath}{slash}usr{slash}profile{frmMain.profIndex.ToString()}{slash}DBs{slash}f_user_{comboFields.Text}";
+            string dr = $"{Application.StartupPath}{slash}usr{slash}profile{frmMain.currentUser.index}{slash}DBs{slash}f_user_{comboFields.Text}";
             if (chkCal.Checked)
             {
                 if (File.Exists(dr + slash + "SER.TXT") && MessageBox.Show("Are you sure you want to overwrite the old files? \n" + dr + slash + "SER.TXT", "", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.No)
@@ -477,7 +477,7 @@ namespace Nutritracker
 
         private void chkGrams_CheckedChanged(object sender, EventArgs e)
         {
-            string dr = $"{Application.StartupPath}{slash}usr{slash}profile{frmMain.profIndex}{slash}DBs{slash}f_user_{comboFields.Text}";
+            string dr = $"{Application.StartupPath}{slash}usr{slash}profile{frmMain.currentUser.index}{slash}DBs{slash}f_user_{comboFields.Text}";
             int n = 0;
             try
             {

@@ -119,57 +119,57 @@ namespace Nutritracker
                 comboNDB.Text = "94000";
             q = Convert.ToInt32(comboNDB.Text);
 
-            try { dbNum = importArray(fr + $"{slash}dbNum.TXT"); }
+            try { dbNum = importArray($"{fr}{slash}dbNum.TXT"); }
             catch
             { return; }
             for (int i = 0; i < dbNum.Count; i++)
                 if (i == q - 94000)
                 {
-                    comboFoodName.Text = importArray(fr + $"{slash}names.TXT").ToArray()[i];
-                    txtGrams.Text = importArray(fr + $"{slash}srvngSz.TXT").ToArray()[i];
+                    comboFoodName.Text = importArray($"{fr}{slash}names.TXT").ToArray()[i];
+                    txtGrams.Text = importArray($"{fr}{slash}srvngSz.TXT").ToArray()[i];
 
-                    macros1[0] = importArray(fr + $"{slash}cals.TXT").ToArray()[i];
-                    macros1[1] = importArray(fr + $"{slash}fat.TXT").ToArray()[i];
-                    macros1[2] = importArray(fr + $"{slash}fatsat.TXT").ToArray()[i];
-                    macros1[3] = importArray(fr + $"{slash}fattrans.TXT").ToArray()[i];
-                    macros1[4] = importArray(fr + $"{slash}fatpoly.TXT").ToArray()[i];
-                    macros1[5] = importArray(fr + $"{slash}fatmono.TXT").ToArray()[i];
+                    macros1[0] = importArray($"{fr}{slash}cals.TXT").ToArray()[i];
+                    macros1[1] = importArray($"{fr}{slash}fat.TXT").ToArray()[i];
+                    macros1[2] = importArray($"{fr}{slash}fatsat.TXT").ToArray()[i];
+                    macros1[3] = importArray($"{fr}{slash}fattrans.TXT").ToArray()[i];
+                    macros1[4] = importArray($"{fr}{slash}fatpoly.TXT").ToArray()[i];
+                    macros1[5] = importArray($"{fr}{slash}fatmono.TXT").ToArray()[i];
                     
-                    macros2[0] = importArray(fr + $"{slash}cholest.TXT").ToArray()[i];
-                    macros2[1] = importArray(fr + $"{slash}sodium.TXT").ToArray()[i];
-                    macros2[2] = importArray(fr + $"{slash}potassium.TXT").ToArray()[i];
-                    macros2[3] = importArray(fr + $"{slash}carbs.TXT").ToArray()[i];
-                    macros2[4] = importArray(fr + $"{slash}fiber.TXT").ToArray()[i];
-                    macros2[5] = importArray(fr + $"{slash}sugar.TXT").ToArray()[i];
-                    macros2[6] = importArray(fr + $"{slash}protein.TXT").ToArray()[i];
+                    macros2[0] = importArray($"{fr}{slash}cholest.TXT").ToArray()[i];
+                    macros2[1] = importArray($"{fr}{slash}sodium.TXT").ToArray()[i];
+                    macros2[2] = importArray($"{fr}{slash}potassium.TXT").ToArray()[i];
+                    macros2[3] = importArray($"{fr}{slash}carbs.TXT").ToArray()[i];
+                    macros2[4] = importArray($"{fr}{slash}fiber.TXT").ToArray()[i];
+                    macros2[5] = importArray($"{fr}{slash}sugar.TXT").ToArray()[i];
+                    macros2[6] = importArray($"{fr}{slash}protein.TXT").ToArray()[i];
 
-                    vits[0] = importArray(fr + $"{slash}vitA.TXT").ToArray()[i];
-                    vits[1] = importArray(fr + $"{slash}vitC.TXT").ToArray()[i];
-                    vits[2] = importArray(fr + $"{slash}vitD.TXT").ToArray()[i];
-                    vits[3] = importArray(fr + $"{slash}vitE.TXT").ToArray()[i];
-                    vits[4] = importArray(fr + $"{slash}vitK.TXT").ToArray()[i];
-                    vits[5] = importArray(fr + $"{slash}B1.TXT").ToArray()[i];
-                    vits[6] = importArray(fr + $"{slash}B2.TXT").ToArray()[i];
-                    vits[7] = importArray(fr + $"{slash}B3.TXT").ToArray()[i];
-                    vits[8] = importArray(fr + $"{slash}B5.TXT").ToArray()[i];
-                    vits[9] = importArray(fr + $"{slash}B6.TXT").ToArray()[i];
-                    vits[10] = importArray(fr + $"{slash}B7.TXT").ToArray()[i];
-                    vits[11] = importArray(fr + $"{slash}B9.TXT").ToArray()[i];
-                    vits[12] = importArray(fr + $"{slash}B12.TXT").ToArray()[i];
+                    vits[0] = importArray($"{fr}{slash}vitA.TXT").ToArray()[i];
+                    vits[1] = importArray($"{fr}{slash}vitC.TXT").ToArray()[i];
+                    vits[2] = importArray($"{fr}{slash}vitD.TXT").ToArray()[i];
+                    vits[3] = importArray($"{fr}{slash}vitE.TXT").ToArray()[i];
+                    vits[4] = importArray($"{fr}{slash}vitK.TXT").ToArray()[i];
+                    vits[5] = importArray($"{fr}{slash}B1.TXT").ToArray()[i];
+                    vits[6] = importArray($"{fr}{slash}B2.TXT").ToArray()[i];
+                    vits[7] = importArray($"{fr}{slash}B3.TXT").ToArray()[i];
+                    vits[8] = importArray($"{fr}{slash}B5.TXT").ToArray()[i];
+                    vits[9] = importArray($"{fr}{slash}B6.TXT").ToArray()[i];
+                    vits[10] = importArray($"{fr}{slash}B7.TXT").ToArray()[i];
+                    vits[11] = importArray($"{fr}{slash}B9.TXT").ToArray()[i];
+                    vits[12] = importArray($"{fr}{slash}B12.TXT").ToArray()[i];
 
-                    mins[0] = importArray(fr + $"{slash}Fe.TXT").ToArray()[i];
-                    mins[1] = importArray(fr + $"{slash}Ca.TXT").ToArray()[i];
-                    mins[2] = importArray(fr + $"{slash}Mg.TXT").ToArray()[i];
-                    mins[3] = importArray(fr + $"{slash}Zn.TXT").ToArray()[i];
-                    mins[4] = importArray(fr + $"{slash}Se.TXT").ToArray()[i];
-                    mins[5] = importArray(fr + $"{slash}B.TXT").ToArray()[i];
-                    mins[6] = importArray(fr + $"{slash}I.TXT").ToArray()[i];
-                    mins[7] = importArray(fr + $"{slash}P.TXT").ToArray()[i];
-                    mins[8] = importArray(fr + $"{slash}Mn.TXT").ToArray()[i];
-                    mins[9] = importArray(fr + $"{slash}Fl.TXT").ToArray()[i];
-                    mins[10] = importArray(fr + $"{slash}Cu.TXT").ToArray()[i];
-                    mins[11] = importArray(fr + $"{slash}Cr.TXT").ToArray()[i];
-                    mins[12] = importArray(fr + $"{slash}Mo.TXT").ToArray()[i];
+                    mins[0] = importArray($"{fr}{slash}Fe.TXT").ToArray()[i];
+                    mins[1] = importArray($"{fr}{slash}Ca.TXT").ToArray()[i];
+                    mins[2] = importArray($"{fr}{slash}Mg.TXT").ToArray()[i];
+                    mins[3] = importArray($"{fr}{slash}Zn.TXT").ToArray()[i];
+                    mins[4] = importArray($"{fr}{slash}Se.TXT").ToArray()[i];
+                    mins[5] = importArray($"{fr}{slash}B.TXT").ToArray()[i];
+                    mins[6] = importArray($"{fr}{slash}I.TXT").ToArray()[i];
+                    mins[7] = importArray($"{fr}{slash}P.TXT").ToArray()[i];
+                    mins[8] = importArray($"{fr}{slash}Mn.TXT").ToArray()[i];
+                    mins[9] = importArray($"{fr}{slash}Fl.TXT").ToArray()[i];
+                    mins[10] = importArray($"{fr}{slash}Cu.TXT").ToArray()[i];
+                    mins[11] = importArray($"{fr}{slash}Cr.TXT").ToArray()[i];
+                    mins[12] = importArray($"{fr}{slash}Mo.TXT").ToArray()[i];
 
 
                     richtextmacros1.Clear();
@@ -284,7 +284,7 @@ namespace Nutritracker
             startingVits = richtextvits.Text;
             startingMins = richtextmins.Text;
 
-            fr = Application.StartupPath + $"{slash}usr{slash}profile" + frmMain.profIndex.ToString() + $"{slash}foods";
+            fr = Application.StartupPath + $"{slash}usr{slash}profile{frmMain.currentUser.index}{slash}foods";
 
             //q = Convert.ToInt32(comboBox1.Text);
 
@@ -292,140 +292,140 @@ namespace Nutritracker
             macros2 = richtextmacros2.Text.Split('\n');
             vits = richtextvits.Text.Split('\n');
             mins = richtextmins.Text.Split('\n');
-            fp = fr + $"{slash}dbNum.TXT";
+            fp = $"{fr}{slash}dbNum.TXT";
 
             if (!File.Exists(fp))
             {
                 #region create first files
-                File.CreateText(fr + $"{slash}dbNum.TXT").Close();
-                File.WriteAllText(fr + $"{slash}dbNum.TXT", q.ToString());
+                File.CreateText($"{fr}{slash}dbNum.TXT").Close();
+                File.WriteAllText($"{fr}{slash}dbNum.TXT", q.ToString());
 
-                File.CreateText(fr + $"{slash}names.TXT").Close();
-                File.WriteAllText(fr + $"{slash}names.TXT", "UNTITLED" + q.ToString());
+                File.CreateText($"{fr}{slash}names.TXT").Close();
+                File.WriteAllText($"{fr}{slash}names.TXT", "UNTITLED" + q.ToString());
 
-                File.CreateText(fr + $"{slash}srvngSz.TXT").Close();
-                File.WriteAllText(fr + $"{slash}srvngSz.TXT", txtGrams.Text);
+                File.CreateText($"{fr}{slash}srvngSz.TXT").Close();
+                File.WriteAllText($"{fr}{slash}srvngSz.TXT", txtGrams.Text);
 
-                File.CreateText(fr + $"{slash}cals.TXT").Close();
-                File.WriteAllText(fr + $"{slash}cals.TXT", macros1[0]);
+                File.CreateText($"{fr}{slash}cals.TXT").Close();
+                File.WriteAllText($"{fr}{slash}cals.TXT", macros1[0]);
 
-                File.CreateText(fr + $"{slash}fat.TXT").Close();
-                File.WriteAllText(fr + $"{slash}fat.TXT", macros1[1]);
+                File.CreateText($"{fr}{slash}fat.TXT").Close();
+                File.WriteAllText($"{fr}{slash}fat.TXT", macros1[1]);
 
-                File.CreateText(fr + $"{slash}fatsat.TXT").Close();
-                File.WriteAllText(fr + $"{slash}fatsat.TXT", macros1[2]);
+                File.CreateText($"{fr}{slash}fatsat.TXT").Close();
+                File.WriteAllText($"{fr}{slash}fatsat.TXT", macros1[2]);
 
-                File.CreateText(fr + $"{slash}fattrans.TXT").Close();
-                File.WriteAllText(fr + $"{slash}fattrans.TXT", macros1[3]);
+                File.CreateText($"{fr}{slash}fattrans.TXT").Close();
+                File.WriteAllText($"{fr}{slash}fattrans.TXT", macros1[3]);
 
-                File.CreateText(fr + $"{slash}fatpoly.TXT").Close();
-                File.WriteAllText(fr + $"{slash}fatpoly.TXT", macros1[4]);
+                File.CreateText($"{fr}{slash}fatpoly.TXT").Close();
+                File.WriteAllText($"{fr}{slash}fatpoly.TXT", macros1[4]);
 
-                File.CreateText(fr + $"{slash}fatmono.TXT").Close();
-                File.WriteAllText(fr + $"{slash}fatmono.TXT", macros1[5]);
+                File.CreateText($"{fr}{slash}fatmono.TXT").Close();
+                File.WriteAllText($"{fr}{slash}fatmono.TXT", macros1[5]);
 
-                File.CreateText(fr + $"{slash}cholest.TXT").Close();
-                File.WriteAllText(fr + $"{slash}cholest.TXT", macros2[0]);
+                File.CreateText($"{fr}{slash}cholest.TXT").Close();
+                File.WriteAllText($"{fr}{slash}cholest.TXT", macros2[0]);
 
-                File.CreateText(fr + $"{slash}sodium.TXT").Close();
-                File.WriteAllText(fr + $"{slash}sodium.TXT", macros2[1]);
+                File.CreateText($"{fr}{slash}sodium.TXT").Close();
+                File.WriteAllText($"{fr}{slash}sodium.TXT", macros2[1]);
 
-                File.CreateText(fr + $"{slash}potassium.TXT").Close();
-                File.WriteAllText(fr + $"{slash}potassium.TXT", macros2[2]);
+                File.CreateText($"{fr}{slash}potassium.TXT").Close();
+                File.WriteAllText($"{fr}{slash}potassium.TXT", macros2[2]);
 
-                File.CreateText(fr + $"{slash}carbs.TXT").Close();
-                File.WriteAllText(fr + $"{slash}carbs.TXT", macros2[3]);
+                File.CreateText($"{fr}{slash}carbs.TXT").Close();
+                File.WriteAllText($"{fr}{slash}carbs.TXT", macros2[3]);
                                 
-                File.CreateText(fr + $"{slash}fiber.TXT").Close();
-                File.WriteAllText(fr + $"{slash}fiber.TXT", macros2[4]);
+                File.CreateText($"{fr}{slash}fiber.TXT").Close();
+                File.WriteAllText($"{fr}{slash}fiber.TXT", macros2[4]);
 
-                File.CreateText(fr + $"{slash}sugar.TXT").Close();
-                File.WriteAllText(fr + $"{slash}sugar.TXT", macros2[5]);
+                File.CreateText($"{fr}{slash}sugar.TXT").Close();
+                File.WriteAllText($"{fr}{slash}sugar.TXT", macros2[5]);
 
-                File.CreateText(fr + $"{slash}protein.TXT").Close();
-                File.WriteAllText(fr + $"{slash}protein.TXT", macros1[6]);
-
-                //
-
-                File.CreateText(fr + $"{slash}vitA.TXT").Close();
-                File.WriteAllText(fr + $"{slash}vitA.TXT", vits[0]);
-
-                File.CreateText(fr + $"{slash}vitC.TXT").Close();
-                File.WriteAllText(fr + $"{slash}vitC.TXT", vits[1]);
-
-                File.CreateText(fr + $"{slash}vitD.TXT").Close();
-                File.WriteAllText(fr + $"{slash}vitD.TXT", vits[2]);
-
-                File.CreateText(fr + $"{slash}vitE.TXT").Close();
-                File.WriteAllText(fr + $"{slash}vitE.TXT", vits[3]);
-
-                File.CreateText(fr + $"{slash}vitK.TXT").Close();
-                File.WriteAllText(fr + $"{slash}vitK.TXT", vits[4]);
-
-                File.CreateText(fr + $"{slash}B1.TXT").Close();
-                File.WriteAllText(fr + $"{slash}B1.TXT", vits[5]);
-
-                File.CreateText(fr + $"{slash}B2.TXT").Close();
-                File.WriteAllText(fr + $"{slash}B2.TXT", vits[6]);
-
-                File.CreateText(fr + $"{slash}B3.TXT").Close();
-                File.WriteAllText(fr + $"{slash}B3.TXT", vits[7]);
-
-                File.CreateText(fr + $"{slash}B5.TXT").Close();
-                File.WriteAllText(fr + $"{slash}B5.TXT", vits[8]);
-
-                File.CreateText(fr + $"{slash}B6.TXT").Close();
-                File.WriteAllText(fr + $"{slash}B6.TXT", vits[9]);
-
-                File.CreateText(fr + $"{slash}B7.TXT").Close();
-                File.WriteAllText(fr + $"{slash}B7.TXT", vits[10]);
-
-                File.CreateText(fr + $"{slash}B9.TXT").Close();
-                File.WriteAllText(fr + $"{slash}B9.TXT", vits[11]);
-
-                File.CreateText(fr + $"{slash}B12.TXT").Close();
-                File.WriteAllText(fr + $"{slash}B12.TXT", vits[12]);
+                File.CreateText($"{fr}{slash}protein.TXT").Close();
+                File.WriteAllText($"{fr}{slash}protein.TXT", macros1[6]);
 
                 //
 
-                File.CreateText(fr + $"{slash}Fe.TXT").Close();
-                File.WriteAllText(fr + $"{slash}Fe.TXT", mins[0]);
+                File.CreateText($"{fr}{slash}vitA.TXT").Close();
+                File.WriteAllText($"{fr}{slash}vitA.TXT", vits[0]);
 
-                File.CreateText(fr + $"{slash}Ca.TXT").Close();
-                File.WriteAllText(fr + $"{slash}Ca.TXT", mins[1]);
+                File.CreateText($"{fr}{slash}vitC.TXT").Close();
+                File.WriteAllText($"{fr}{slash}vitC.TXT", vits[1]);
 
-                File.CreateText(fr + $"{slash}Mg.TXT").Close();
-                File.WriteAllText(fr + $"{slash}Mg.TXT", mins[2]);
+                File.CreateText($"{fr}{slash}vitD.TXT").Close();
+                File.WriteAllText($"{fr}{slash}vitD.TXT", vits[2]);
 
-                File.CreateText(fr + $"{slash}Zn.TXT").Close();
-                File.WriteAllText(fr + $"{slash}Zn.TXT", mins[3]);
+                File.CreateText($"{fr}{slash}vitE.TXT").Close();
+                File.WriteAllText($"{fr}{slash}vitE.TXT", vits[3]);
 
-                File.CreateText(fr + $"{slash}Se.TXT").Close();
-                File.WriteAllText(fr + $"{slash}Se.TXT", mins[4]);
+                File.CreateText($"{fr}{slash}vitK.TXT").Close();
+                File.WriteAllText($"{fr}{slash}vitK.TXT", vits[4]);
 
-                File.CreateText(fr + $"{slash}B.TXT").Close();
-                File.WriteAllText(fr + $"{slash}B.TXT", mins[5]);
+                File.CreateText($"{fr}{slash}B1.TXT").Close();
+                File.WriteAllText($"{fr}{slash}B1.TXT", vits[5]);
 
-                File.CreateText(fr + $"{slash}I.TXT").Close();
-                File.WriteAllText(fr + $"{slash}I.TXT", mins[6]);
+                File.CreateText($"{fr}{slash}B2.TXT").Close();
+                File.WriteAllText($"{fr}{slash}B2.TXT", vits[6]);
 
-                File.CreateText(fr + $"{slash}P.TXT").Close();
-                File.WriteAllText(fr + $"{slash}P.TXT", mins[7]);
+                File.CreateText($"{fr}{slash}B3.TXT").Close();
+                File.WriteAllText($"{fr}{slash}B3.TXT", vits[7]);
 
-                File.CreateText(fr + $"{slash}Mn.TXT").Close();
-                File.WriteAllText(fr + $"{slash}Mn.TXT", mins[8]);
+                File.CreateText($"{fr}{slash}B5.TXT").Close();
+                File.WriteAllText($"{fr}{slash}B5.TXT", vits[8]);
 
-                File.CreateText(fr + $"{slash}Fl.TXT").Close();
-                File.WriteAllText(fr + $"{slash}Fl.TXT", mins[9]);
+                File.CreateText($"{fr}{slash}B6.TXT").Close();
+                File.WriteAllText($"{fr}{slash}B6.TXT", vits[9]);
 
-                File.CreateText(fr + $"{slash}Cu.TXT").Close();
-                File.WriteAllText(fr + $"{slash}Cu.TXT", mins[10]);
+                File.CreateText($"{fr}{slash}B7.TXT").Close();
+                File.WriteAllText($"{fr}{slash}B7.TXT", vits[10]);
 
-                File.CreateText(fr + $"{slash}Cr.TXT").Close();
-                File.WriteAllText(fr + $"{slash}Cr.TXT", mins[11]);
+                File.CreateText($"{fr}{slash}B9.TXT").Close();
+                File.WriteAllText($"{fr}{slash}B9.TXT", vits[11]);
 
-                File.CreateText(fr + $"{slash}Mo.TXT").Close();
-                File.WriteAllText(fr + $"{slash}Mo.TXT", mins[12]);
+                File.CreateText($"{fr}{slash}B12.TXT").Close();
+                File.WriteAllText($"{fr}{slash}B12.TXT", vits[12]);
+
+                //
+
+                File.CreateText($"{fr}{slash}Fe.TXT").Close();
+                File.WriteAllText($"{fr}{slash}Fe.TXT", mins[0]);
+
+                File.CreateText($"{fr}{slash}Ca.TXT").Close();
+                File.WriteAllText($"{fr}{slash}Ca.TXT", mins[1]);
+
+                File.CreateText($"{fr}{slash}Mg.TXT").Close();
+                File.WriteAllText($"{fr}{slash}Mg.TXT", mins[2]);
+
+                File.CreateText($"{fr}{slash}Zn.TXT").Close();
+                File.WriteAllText($"{fr}{slash}Zn.TXT", mins[3]);
+
+                File.CreateText($"{fr}{slash}Se.TXT").Close();
+                File.WriteAllText($"{fr}{slash}Se.TXT", mins[4]);
+
+                File.CreateText($"{fr}{slash}B.TXT").Close();
+                File.WriteAllText($"{fr}{slash}B.TXT", mins[5]);
+
+                File.CreateText($"{fr}{slash}I.TXT").Close();
+                File.WriteAllText($"{fr}{slash}I.TXT", mins[6]);
+
+                File.CreateText($"{fr}{slash}P.TXT").Close();
+                File.WriteAllText($"{fr}{slash}P.TXT", mins[7]);
+
+                File.CreateText($"{fr}{slash}Mn.TXT").Close();
+                File.WriteAllText($"{fr}{slash}Mn.TXT", mins[8]);
+
+                File.CreateText($"{fr}{slash}Fl.TXT").Close();
+                File.WriteAllText($"{fr}{slash}Fl.TXT", mins[9]);
+
+                File.CreateText($"{fr}{slash}Cu.TXT").Close();
+                File.WriteAllText($"{fr}{slash}Cu.TXT", mins[10]);
+
+                File.CreateText($"{fr}{slash}Cr.TXT").Close();
+                File.WriteAllText($"{fr}{slash}Cr.TXT", mins[11]);
+
+                File.CreateText($"{fr}{slash}Mo.TXT").Close();
+                File.WriteAllText($"{fr}{slash}Mo.TXT", mins[12]);
                 #endregion
                 comboNDB.Items.Add("94000");
                 comboNDB.Text = "94000";
@@ -447,7 +447,7 @@ namespace Nutritracker
                 //lines = importArray(fp).ToArray();
 
                 comboNDB.Items.Clear();
-                dbNum = importArray(fr + $"{slash}dbNum.TXT");
+                dbNum = importArray($"{fr}{slash}dbNum.TXT");
                 for (int i = 0; i < dbNum.Count; i++)
                     comboNDB.Items.Add(dbNum[i]);
 
@@ -455,7 +455,7 @@ namespace Nutritracker
                 autocomp = new string[comboNDB.Items.Count];
                 for (int i = 0; i < comboNDB.Items.Count; i++)
                 {
-                    autocomp[i] = importArray(fr + $"{slash}names.TXT").ToArray()[i];
+                    autocomp[i] = importArray($"{fr}{slash}names.TXT").ToArray()[i];
                     comboFoodName.Items.Add(autocomp[i]);
                 }
 
@@ -472,52 +472,52 @@ namespace Nutritracker
                 for (int i = 0; i < dbNum.Count; i++)
                     if (i == q - 94000)
                     {
-                        comboFoodName.Text = importArray(fr + $"{slash}names.TXT").ToArray()[i];
-                        txtGrams.Text = importArray(fr + $"{slash}srvngSz.TXT").ToArray()[i];
+                        comboFoodName.Text = importArray($"{fr}{slash}names.TXT").ToArray()[i];
+                        txtGrams.Text = importArray($"{fr}{slash}srvngSz.TXT").ToArray()[i];
 
-                        macros1[0] = importArray(fr + $"{slash}cals.TXT").ToArray()[i];
-                        macros1[1] = importArray(fr + $"{slash}fat.TXT").ToArray()[i];
-                        macros1[2] = importArray(fr + $"{slash}fatsat.TXT").ToArray()[i];
-                        macros1[3] = importArray(fr + $"{slash}fattrans.TXT").ToArray()[i];
-                        macros1[4] = importArray(fr + $"{slash}fatpoly.TXT").ToArray()[i];
-                        macros1[5] = importArray(fr + $"{slash}fatmono.TXT").ToArray()[i];
+                        macros1[0] = importArray($"{fr}{slash}cals.TXT").ToArray()[i];
+                        macros1[1] = importArray($"{fr}{slash}fat.TXT").ToArray()[i];
+                        macros1[2] = importArray($"{fr}{slash}fatsat.TXT").ToArray()[i];
+                        macros1[3] = importArray($"{fr}{slash}fattrans.TXT").ToArray()[i];
+                        macros1[4] = importArray($"{fr}{slash}fatpoly.TXT").ToArray()[i];
+                        macros1[5] = importArray($"{fr}{slash}fatmono.TXT").ToArray()[i];
 
-                        macros2[0] = importArray(fr + $"{slash}cholest.TXT").ToArray()[i];
-                        macros2[1] = importArray(fr + $"{slash}sodium.TXT").ToArray()[i];
-                        macros2[2] = importArray(fr + $"{slash}potassium.TXT").ToArray()[i];
-                        macros2[3] = importArray(fr + $"{slash}carbs.TXT").ToArray()[i];
-                        macros2[4] = importArray(fr + $"{slash}sugar.TXT").ToArray()[i];
-                        macros2[5] = importArray(fr + $"{slash}fiber.TXT").ToArray()[i];
-                        macros2[6] = importArray(fr + $"{slash}protein.TXT").ToArray()[i];
+                        macros2[0] = importArray({profIndex}{slash}cholest.TXT").ToArray()[i];
+                        macros2[1] = importArray($"{fr}{slash}sodium.TXT").ToArray()[i];
+                        macros2[2] = importArray($"{fr}{slash}potassium.TXT").ToArray()[i];
+                        macros2[3] = importArray($"{fr}{slash}carbs.TXT").ToArray()[i];
+                        macros2[4] = importArray($"{fr}{slash}sugar.TXT").ToArray()[i];
+                        macros2[5] = importArray($"{fr}{slash}fiber.TXT").ToArray()[i];
+                        macros2[6] = importArray($"{fr}{slash}protein.TXT").ToArray()[i];
 
 
-                        vits[0] = importArray(fr + $"{slash}vitA.TXT").ToArray()[i];
-                        vits[1] = importArray(fr + $"{slash}vitC.TXT").ToArray()[i];
-                        vits[2] = importArray(fr + $"{slash}vitD.TXT").ToArray()[i];
-                        vits[3] = importArray(fr + $"{slash}vitE.TXT").ToArray()[i];
-                        vits[4] = importArray(fr + $"{slash}vitK.TXT").ToArray()[i];
-                        vits[5] = importArray(fr + $"{slash}B1.TXT").ToArray()[i];
-                        vits[6] = importArray(fr + $"{slash}B2.TXT").ToArray()[i];
-                        vits[7] = importArray(fr + $"{slash}B3.TXT").ToArray()[i];
-                        vits[8] = importArray(fr + $"{slash}B5.TXT").ToArray()[i];
-                        vits[9] = importArray(fr + $"{slash}B6.TXT").ToArray()[i];
-                        vits[10] = importArray(fr + $"{slash}B7.TXT").ToArray()[i];
-                        vits[11] = importArray(fr + $"{slash}B9.TXT").ToArray()[i];
-                        vits[12] = importArray(fr + $"{slash}B12.TXT").ToArray()[i];
+                        vits[0] = importArray($"{fr}{slash}vitA.TXT").ToArray()[i];
+                        vits[1] = importArray($"{fr}{slash}vitC.TXT").ToArray()[i];
+                        vits[2] = importArray($"{fr}{slash}vitD.TXT").ToArray()[i];
+                        vits[3] = importArray($"{fr}{slash}vitE.TXT").ToArray()[i];
+                        vits[4] = importArray($"{fr}{slash}vitK.TXT").ToArray()[i];
+                        vits[5] = importArray($"{fr}{slash}B1.TXT").ToArray()[i];
+                        vits[6] = importArray($"{fr}{slash}B2.TXT").ToArray()[i];
+                        vits[7] = importArray($"{fr}{slash}B3.TXT").ToArray()[i];
+                        vits[8] = importArray($"{fr}{slash}B5.TXT").ToArray()[i];
+                        vits[9] = importArray($"{fr}{slash}B6.TXT").ToArray()[i];
+                        vits[10] = importArray($"{fr}{slash}B7.TXT").ToArray()[i];
+                        vits[11] = importArray($"{fr}{slash}B9.TXT").ToArray()[i];
+                        vits[12] = importArray($"{fr}{slash}B12.TXT").ToArray()[i];
 
-                        mins[0] = importArray(fr + $"{slash}Fe.TXT").ToArray()[i];
-                        mins[1] = importArray(fr + $"{slash}Ca.TXT").ToArray()[i];
-                        mins[2] = importArray(fr + $"{slash}Mg.TXT").ToArray()[i];
-                        mins[3] = importArray(fr + $"{slash}Zn.TXT").ToArray()[i];
-                        mins[4] = importArray(fr + $"{slash}Se.TXT").ToArray()[i];
-                        mins[5] = importArray(fr + $"{slash}B.TXT").ToArray()[i];
-                        mins[6] = importArray(fr + $"{slash}I.TXT").ToArray()[i];
-                        mins[7] = importArray(fr + $"{slash}P.TXT").ToArray()[i];
-                        mins[8] = importArray(fr + $"{slash}Mn.TXT").ToArray()[i];
-                        mins[9] = importArray(fr + $"{slash}Fl.TXT").ToArray()[i];
-                        mins[10] = importArray(fr + $"{slash}Cu.TXT").ToArray()[i];
-                        mins[11] = importArray(fr + $"{slash}Cr.TXT").ToArray()[i];
-                        mins[12] = importArray(fr + $"{slash}Mo.TXT").ToArray()[i];
+                        mins[0] = importArray($"{fr}{slash}Fe.TXT").ToArray()[i];
+                        mins[1] = importArray($"{fr}{slash}Ca.TXT").ToArray()[i];
+                        mins[2] = importArray($"{fr}{slash}Mg.TXT").ToArray()[i];
+                        mins[3] = importArray($"{fr}{slash}Zn.TXT").ToArray()[i];
+                        mins[4] = importArray($"{fr}{slash}Se.TXT").ToArray()[i];
+                        mins[5] = importArray($"{fr}{slash}B.TXT").ToArray()[i];
+                        mins[6] = importArray($"{fr}{slash}I.TXT").ToArray()[i];
+                        mins[7] = importArray($"{fr}{slash}P.TXT").ToArray()[i];
+                        mins[8] = importArray($"{fr}{slash}Mn.TXT").ToArray()[i];
+                        mins[9] = importArray($"{fr}{slash}Fl.TXT").ToArray()[i];
+                        mins[10] = importArray($"{fr}{slash}Cu.TXT").ToArray()[i];
+                        mins[11] = importArray($"{fr}{slash}Cr.TXT").ToArray()[i];
+                        mins[12] = importArray($"{fr}{slash}Mo.TXT").ToArray()[i];
 
 
                         richtextmacros1.Clear();
@@ -619,187 +619,187 @@ namespace Nutritracker
             button1.Enabled = false;
             q = Convert.ToInt32(comboNDB.Text);
 
-            fp = fr + $"{slash}dbNum.TXT";
+            fp = $"{fr}{slash}dbNum.TXT";
             lines = importArray(fp).ToArray();
             q = Convert.ToInt32(lines[lines.Length - 1]) + 1;
 
             #region import old lists, append new blank entry, save new lists
             dbNum = importArray(fp);
             dbNum.Add(q.ToString());
-            File.WriteAllLines(fr + $"{slash}dbNum.TXT", dbNum);
+            File.WriteAllLines($"{fr}{slash}dbNum.TXT", dbNum);
 
-            names = importArray(fr + $"{slash}names.TXT");
+            names = importArray($"{fr}{slash}names.TXT");
             names.Add("UNTITLED" + q.ToString());
-            File.WriteAllLines(fr + $"{slash}names.TXT", names);
+            File.WriteAllLines($"{fr}{slash}names.TXT", names);
 
-            srvngSz = importArray(fr + $"{slash}srvngSz.TXT");
+            srvngSz = importArray($"{fr}{slash}srvngSz.TXT");
             srvngSz.Add("100 g");            
-            File.WriteAllLines(fr + $"{slash}srvngSz.TXT", srvngSz);
+            File.WriteAllLines($"{fr}{slash}srvngSz.TXT", srvngSz);
 
             //
 
-            cals = importArray(fr + $"{slash}cals.TXT");
+            cals = importArray($"{fr}{slash}cals.TXT");
             cals.Add("0 cal");
-            File.WriteAllLines(fr + $"{slash}cals.TXT", cals);
+            File.WriteAllLines($"{fr}{slash}cals.TXT", cals);
             
 
-            fat = importArray(fr + $"{slash}fat.TXT");
+            fat = importArray($"{fr}{slash}fat.TXT");
             fat.Add("0.0 g");
-            File.WriteAllLines(fr + $"{slash}fat.TXT", fat);
+            File.WriteAllLines($"{fr}{slash}fat.TXT", fat);
 
-            fatsat = importArray(fr + $"{slash}fatsat.TXT");
+            fatsat = importArray($"{fr}{slash}fatsat.TXT");
             fatsat.Add("0.0 g");
-            File.WriteAllLines(fr + $"{slash}fatsat.TXT", fatsat);
+            File.WriteAllLines($"{fr}{slash}fatsat.TXT", fatsat);
 
-            fattrans = importArray(fr + $"{slash}fattrans.TXT");
+            fattrans = importArray($"{fr}{slash}fattrans.TXT");
             fattrans.Add("0.0 g");
-            File.WriteAllLines(fr + $"{slash}fattrans.TXT", fattrans);
+            File.WriteAllLines($"{fr}{slash}fattrans.TXT", fattrans);
 
-            fatpoly = importArray(fr + $"{slash}fatpoly.TXT");
+            fatpoly = importArray($"{fr}{slash}fatpoly.TXT");
             fatpoly.Add("0.0 g");
-            File.WriteAllLines(fr + $"{slash}fatpoly.TXT", fatpoly);
+            File.WriteAllLines($"{fr}{slash}fatpoly.TXT", fatpoly);
 
-            fatmono = importArray(fr + $"{slash}fatmono.TXT");
+            fatmono = importArray($"{fr}{slash}fatmono.TXT");
             fatmono.Add("0.0 g");
-            File.WriteAllLines(fr + $"{slash}fatmono.TXT", fatmono);
+            File.WriteAllLines($"{fr}{slash}fatmono.TXT", fatmono);
 
             //
 
-            cholest = importArray(fr + $"{slash}cholest.TXT");
+            cholest = importArray($"{fr}{slash}cholest.TXT");
             cholest.Add("0 mg");
-            File.WriteAllLines(fr + $"{slash}cholest.TXT", cholest);
+            File.WriteAllLines($"{fr}{slash}cholest.TXT", cholest);
 
-            sodium = importArray(fr + $"{slash}sodium.TXT");
+            sodium = importArray($"{fr}{slash}sodium.TXT");
             sodium.Add("0 mg");
-            File.WriteAllLines(fr + $"{slash}sodium.TXT", sodium);
+            File.WriteAllLines($"{fr}{slash}sodium.TXT", sodium);
 
-            potassium = importArray(fr + $"{slash}potassium.TXT");
+            potassium = importArray($"{fr}{slash}potassium.TXT");
             potassium.Add("0 mg");
-            File.WriteAllLines(fr + $"{slash}potassium.TXT", potassium);
+            File.WriteAllLines($"{fr}{slash}potassium.TXT", potassium);
 
-            carbs = importArray(fr + $"{slash}carbs.TXT");
+            carbs = importArray($"{fr}{slash}carbs.TXT");
             carbs.Add("0.0 g");
-            File.WriteAllLines(fr + $"{slash}carbs.TXT", carbs);
+            File.WriteAllLines($"{fr}{slash}carbs.TXT", carbs);
 
-            fiber = importArray(fr + $"{slash}fiber.TXT");
+            fiber = importArray($"{fr}{slash}fiber.TXT");
             fiber.Add("0.0 g");
-            File.WriteAllLines(fr + $"{slash}fiber.TXT", fiber);
+            File.WriteAllLines($"{fr}{slash}fiber.TXT", fiber);
 
-            sugar = importArray(fr + $"{slash}sugar.TXT");
+            sugar = importArray($"{fr}{slash}sugar.TXT");
             sugar.Add("0.0 g");
-            File.WriteAllLines(fr + $"{slash}sugar.TXT", sugar);
+            File.WriteAllLines($"{fr}{slash}sugar.TXT", sugar);
 
-            protein = importArray(fr + $"{slash}protein.TXT");
+            protein = importArray($"{fr}{slash}protein.TXT");
             protein.Add("0.0 g");
-            File.WriteAllLines(fr + $"{slash}protein.TXT", protein);
+            File.WriteAllLines($"{fr}{slash}protein.TXT", protein);
 
             //                            
             
-            vitA = importArray(fr + $"{slash}vitA.TXT");
+            vitA = importArray($"{fr}{slash}vitA.TXT");
             vitA.Add("0 %");
-            File.WriteAllLines(fr + $"{slash}vitA.TXT", vitA);
+            File.WriteAllLines($"{fr}{slash}vitA.TXT", vitA);
 
-            vitC = importArray(fr + $"{slash}vitC.TXT");
+            vitC = importArray($"{fr}{slash}vitC.TXT");
             vitC.Add("0 %");
-            File.WriteAllLines(fr + $"{slash}vitC.TXT", vitC);
+            File.WriteAllLines($"{fr}{slash}vitC.TXT", vitC);
 
-            vitD = importArray(fr + $"{slash}vitD.TXT");
+            vitD = importArray($"{fr}{slash}vitD.TXT");
             vitD.Add("0 %");
-            File.WriteAllLines(fr + $"{slash}vitD.TXT", vitD);
+            File.WriteAllLines($"{fr}{slash}vitD.TXT", vitD);
 
-            vitE = importArray(fr + $"{slash}vitE.TXT");
+            vitE = importArray($"{fr}{slash}vitE.TXT");
             vitE.Add("0 %");
-            File.WriteAllLines(fr + $"{slash}vitE.TXT", vitE);
+            File.WriteAllLines($"{fr}{slash}vitE.TXT", vitE);
 
-            vitK = importArray(fr + $"{slash}vitK.TXT");
+            vitK = importArray($"{fr}{slash}vitK.TXT");
             vitK.Add("0 %");
-            File.WriteAllLines(fr + $"{slash}vitK.TXT", vitK);
+            File.WriteAllLines($"{fr}{slash}vitK.TXT", vitK);
 
-            B1 = importArray(fr + $"{slash}B1.TXT");
+            B1 = importArray($"{fr}{slash}B1.TXT");
             B1.Add("0 %");
-            File.WriteAllLines(fr + $"{slash}B1.TXT", B1);
+            File.WriteAllLines($"{fr}{slash}B1.TXT", B1);
 
-            B2 = importArray(fr + $"{slash}B2.TXT");
+            B2 = importArray($"{fr}{slash}B2.TXT");
             B2.Add("0 %");
-            File.WriteAllLines(fr + $"{slash}B2.TXT", B2);
+            File.WriteAllLines($"{fr}{slash}B2.TXT", B2);
 
-            B3 = importArray(fr + $"{slash}B3.TXT");
+            B3 = importArray($"{fr}{slash}B3.TXT");
             B3.Add("0 %");
-            File.WriteAllLines(fr + $"{slash}B3.TXT", B3);
+            File.WriteAllLines($"{fr}{slash}B3.TXT", B3);
 
-            B5 = importArray(fr + $"{slash}B5.TXT");
+            B5 = importArray($"{fr}{slash}B5.TXT");
             B5.Add("0 %");
-            File.WriteAllLines(fr + $"{slash}B5.TXT", B5);
+            File.WriteAllLines($"{fr}{slash}B5.TXT", B5);
 
-            B6 = importArray(fr + $"{slash}B6.TXT");
+            B6 = importArray($"{fr}{slash}B6.TXT");
             B6.Add("0 %");
-            File.WriteAllLines(fr + $"{slash}B6.TXT", B6);
+            File.WriteAllLines($"{fr}{slash}B6.TXT", B6);
 
-            B7 = importArray(fr + $"{slash}B7.TXT");
+            B7 = importArray($"{fr}{slash}B7.TXT");
             B7.Add("0 %");
-            File.WriteAllLines(fr + $"{slash}B7.TXT", B7);
+            File.WriteAllLines($"{fr}{slash}B7.TXT", B7);
 
-            B9 = importArray(fr + $"{slash}B9.TXT");
+            B9 = importArray($"{fr}{slash}B9.TXT");
             B9.Add("0 %");
-            File.WriteAllLines(fr + $"{slash}B9.TXT", B9);
+            File.WriteAllLines($"{fr}{slash}B9.TXT", B9);
 
-            B12 = importArray(fr + $"{slash}B12.TXT");
+            B12 = importArray($"{fr}{slash}B12.TXT");
             B12.Add("0 %");
-            File.WriteAllLines(fr + $"{slash}B12.TXT", B12);
+            File.WriteAllLines($"{fr}{slash}B12.TXT", B12);
 
             //
 
-            Fe = importArray(fr + $"{slash}Fe.TXT");
+            Fe = importArray($"{fr}{slash}Fe.TXT");
             Fe.Add("0 %");
-            File.WriteAllLines(fr + $"{slash}Fe.TXT", Fe);
+            File.WriteAllLines($"{fr}{slash}Fe.TXT", Fe);
 
-            Ca = importArray(fr + $"{slash}Ca.TXT");
+            Ca = importArray($"{fr}{slash}Ca.TXT");
             Ca.Add("0 %");
-            File.WriteAllLines(fr + $"{slash}Ca.TXT", Ca);
+            File.WriteAllLines($"{fr}{slash}Ca.TXT", Ca);
 
-            Mg = importArray(fr + $"{slash}Mg.TXT");
+            Mg = importArray($"{fr}{slash}Mg.TXT");
             Mg.Add("0 %");
-            File.WriteAllLines(fr + $"{slash}Mg.TXT", Mg);
+            File.WriteAllLines($"{fr}{slash}Mg.TXT", Mg);
 
-            Zn = importArray(fr + $"{slash}Zn.TXT");
+            Zn = importArray($"{fr}{slash}Zn.TXT");
             Zn.Add("0 %");
-            File.WriteAllLines(fr + $"{slash}Zn.TXT", Zn);
+            File.WriteAllLines($"{fr}{slash}Zn.TXT", Zn);
 
-            Se = importArray(fr + $"{slash}Se.TXT");
+            Se = importArray($"{fr}{slash}Se.TXT");
             Se.Add("0 %");
-            File.WriteAllLines(fr + $"{slash}Se.TXT", Se);
+            File.WriteAllLines($"{fr}{slash}Se.TXT", Se);
 
-            B = importArray(fr + $"{slash}B.TXT");
+            B = importArray($"{fr}{slash}B.TXT");
             B.Add("0 %");
-            File.WriteAllLines(fr + $"{slash}B.TXT", B);
+            File.WriteAllLines($"{fr}{slash}B.TXT", B);
 
-            I = importArray(fr + $"{slash}I.TXT");
+            I = importArray($"{fr}{slash}I.TXT");
             I.Add("0 %");
-            File.WriteAllLines(fr + $"{slash}I.TXT", I);
+            File.WriteAllLines($"{fr}{slash}I.TXT", I);
 
-            P = importArray(fr + $"{slash}P.TXT");
+            P = importArray($"{fr}{slash}P.TXT");
             P.Add("0 %");
-            File.WriteAllLines(fr + $"{slash}P.TXT", P);
+            File.WriteAllLines($"{fr}{slash}P.TXT", P);
 
-            Mn = importArray(fr + $"{slash}Mn.TXT");
+            Mn = importArray($"{fr}{slash}Mn.TXT");
             Mn.Add("0 %");
-            File.WriteAllLines(fr + $"{slash}Mn.TXT", Mn);
+            File.WriteAllLines($"{fr}{slash}Mn.TXT", Mn);
             
-            Fl = importArray(fr + $"{slash}Fl.TXT");
+            Fl = importArray($"{fr}{slash}Fl.TXT");
             Fl.Add("0 %");
-            File.WriteAllLines(fr + $"{slash}Fl.TXT", Fl);
+            File.WriteAllLines($"{fr}{slash}Fl.TXT", Fl);
 
-            Cu = importArray(fr + $"{slash}Cu.TXT");
+            Cu = importArray($"{fr}{slash}Cu.TXT");
             Cu.Add("0 %");
-            File.WriteAllLines(fr + $"{slash}Cu.TXT", Cu);
+            File.WriteAllLines($"{fr}{slash}Cu.TXT", Cu);
 
-            Cr = importArray(fr + $"{slash}Cr.TXT");
+            Cr = importArray($"{fr}{slash}Cr.TXT");
             Cr.Add("0 %");
-            File.WriteAllLines(fr + $"{slash}Cr.TXT", Cr);
+            File.WriteAllLines($"{fr}{slash}Cr.TXT", Cr);
 
-            Mo = importArray(fr + $"{slash}Mo.TXT");
+            Mo = importArray($"{fr}{slash}Mo.TXT");
             Mo.Add("0 %");
-            File.WriteAllLines(fr + $"{slash}Mo.TXT", Mo);
+            File.WriteAllLines($"{fr}{slash}Mo.TXT", Mo);
             #endregion
 
             richtextmacros1.Clear();
@@ -817,7 +817,7 @@ namespace Nutritracker
                 comboNDB.Items.Add(i.ToString());
 
             autocomp = new string[comboNDB.Items.Count];
-            names = importArray(fr + $"{slash}names.TXT");
+            names = importArray($"{fr}{slash}names.TXT");
             for (int i = 0; i < comboNDB.Items.Count; i++)
                 autocomp[i] = names[i];            
             var source = new AutoCompleteStringCollection();
@@ -853,179 +853,179 @@ namespace Nutritracker
                 dbNum.RemoveAt(m);
                 for (int i = m; i < dbNum.Count; i++)
                     dbNum[i] = (Convert.ToInt32(dbNum[i]) - 1).ToString();
-                File.WriteAllLines(fr + $"{slash}dbNum.TXT", dbNum);
+                File.WriteAllLines($"{fr}{slash}dbNum.TXT", dbNum);
                 
-                names = importArray(fr + $"{slash}names.TXT");
+                names = importArray($"{fr}{slash}names.TXT");
                 names.RemoveAt(m);
-                File.WriteAllLines(fr + $"{slash}names.TXT", names);
+                File.WriteAllLines($"{fr}{slash}names.TXT", names);
 
-                srvngSz = importArray(fr + $"{slash}srvngSz.TXT");
+                srvngSz = importArray($"{fr}{slash}srvngSz.TXT");
                 srvngSz.RemoveAt(m);
-                File.WriteAllLines(fr + $"{slash}srvngSz.TXT", srvngSz);
+                File.WriteAllLines($"{fr}{slash}srvngSz.TXT", srvngSz);
 
                 //
 
-                cals = importArray(fr + $"{slash}cals.TXT");
+                cals = importArray($"{fr}{slash}cals.TXT");
                 cals.RemoveAt(m);
-                File.WriteAllLines(fr + $"{slash}cals.TXT", cals);
+                File.WriteAllLines($"{fr}{slash}cals.TXT", cals);
 
 
 
-                fat = importArray(fr + $"{slash}fat.TXT");
+                fat = importArray($"{fr}{slash}fat.TXT");
                 fat.RemoveAt(m);
-                File.WriteAllLines(fr + $"{slash}fat.TXT", fat);
+                File.WriteAllLines($"{fr}{slash}fat.TXT", fat);
 
-                fatsat = importArray(fr + $"{slash}fatsat.TXT");
+                fatsat = importArray($"{fr}{slash}fatsat.TXT");
                 fatsat.RemoveAt(m);
-                File.WriteAllLines(fr + $"{slash}fatsat.TXT", fatsat);
+                File.WriteAllLines($"{fr}{slash}fatsat.TXT", fatsat);
 
-                fattrans = importArray(fr + $"{slash}fattrans.TXT");
+                fattrans = importArray($"{fr}{slash}fattrans.TXT");
                 fattrans.RemoveAt(m);
-                File.WriteAllLines(fr + $"{slash}fattrans.TXT", fattrans);
+                File.WriteAllLines($"{fr}{slash}fattrans.TXT", fattrans);
 
-                fatpoly = importArray(fr + $"{slash}fatpoly.TXT");
+                fatpoly = importArray($"{fr}{slash}fatpoly.TXT");
                 fatpoly.RemoveAt(m);
-                File.WriteAllLines(fr + $"{slash}fatpoly.TXT", fatpoly);
+                File.WriteAllLines($"{fr}{slash}fatpoly.TXT", fatpoly);
 
-                fatmono = importArray(fr + $"{slash}fatmono.TXT");
+                fatmono = importArray($"{fr}{slash}fatmono.TXT");
                 fatmono.RemoveAt(m);
-                File.WriteAllLines(fr + $"{slash}fatmono.TXT", fatmono);
+                File.WriteAllLines($"{fr}{slash}fatmono.TXT", fatmono);
                 
-                cholest = importArray(fr + $"{slash}cholest.TXT");
+                cholest = importArray($"{fr}{slash}cholest.TXT");
                 cholest.RemoveAt(m);
-                File.WriteAllLines(fr + $"{slash}cholest.TXT", cholest);
+                File.WriteAllLines($"{fr}{slash}cholest.TXT", cholest);
 
-                sodium = importArray(fr + $"{slash}sodium.TXT");
+                sodium = importArray($"{fr}{slash}sodium.TXT");
                 sodium.RemoveAt(m);
-                File.WriteAllLines(fr + $"{slash}sodium.TXT", sodium);
+                File.WriteAllLines($"{fr}{slash}sodium.TXT", sodium);
 
-                potassium = importArray(fr + $"{slash}potassium.TXT");
+                potassium = importArray($"{fr}{slash}potassium.TXT");
                 potassium.RemoveAt(m);
-                File.WriteAllLines(fr + $"{slash}potassium.TXT", potassium);
+                File.WriteAllLines($"{fr}{slash}potassium.TXT", potassium);
 
-                carbs = importArray(fr + $"{slash}carbs.TXT");
+                carbs = importArray($"{fr}{slash}carbs.TXT");
                 carbs.RemoveAt(m);
-                File.WriteAllLines(fr + $"{slash}carbs.TXT", carbs);
+                File.WriteAllLines($"{fr}{slash}carbs.TXT", carbs);
 
-                fiber = importArray(fr + $"{slash}fiber.TXT");
+                fiber = importArray($"{fr}{slash}fiber.TXT");
                 fiber.RemoveAt(m);
-                File.WriteAllLines(fr + $"{slash}fiber.TXT", fiber);
+                File.WriteAllLines($"{fr}{slash}fiber.TXT", fiber);
 
-                sugar = importArray(fr + $"{slash}sugar.TXT");
+                sugar = importArray($"{fr}{slash}sugar.TXT");
                 sugar.RemoveAt(m);
-                File.WriteAllLines(fr + $"{slash}sugar.TXT", sugar);
+                File.WriteAllLines($"{fr}{slash}sugar.TXT", sugar);
 
-                protein = importArray(fr + $"{slash}protein.TXT");
+                protein = importArray($"{fr}{slash}protein.TXT");
                 protein.RemoveAt(m);
-                File.WriteAllLines(fr + $"{slash}protein.TXT", protein);
+                File.WriteAllLines($"{fr}{slash}protein.TXT", protein);
 
                 //                            
 
-                vitA = importArray(fr + $"{slash}vitA.TXT");
+                vitA = importArray($"{fr}{slash}vitA.TXT");
                 vitA.RemoveAt(m);
-                File.WriteAllLines(fr + $"{slash}vitA.TXT", vitA);
+                File.WriteAllLines($"{fr}{slash}vitA.TXT", vitA);
 
-                vitC = importArray(fr + $"{slash}vitC.TXT");
+                vitC = importArray($"{fr}{slash}vitC.TXT");
                 vitC.RemoveAt(m);
-                File.WriteAllLines(fr + $"{slash}vitC.TXT", vitC);
+                File.WriteAllLines($"{fr}{slash}vitC.TXT", vitC);
 
-                vitD = importArray(fr + $"{slash}vitD.TXT");
+                vitD = importArray($"{fr}{slash}vitD.TXT");
                 vitD.RemoveAt(m);
-                File.WriteAllLines(fr + $"{slash}vitD.TXT", vitD);
+                File.WriteAllLines($"{fr}{slash}vitD.TXT", vitD);
 
-                vitE = importArray(fr + $"{slash}vitE.TXT");
+                vitE = importArray($"{fr}{slash}vitE.TXT");
                 vitE.RemoveAt(m);
-                File.WriteAllLines(fr + $"{slash}vitE.TXT", vitE);
+                File.WriteAllLines($"{fr}{slash}vitE.TXT", vitE);
 
-                vitK = importArray(fr + $"{slash}vitK.TXT");
+                vitK = importArray($"{fr}{slash}vitK.TXT");
                 vitK.RemoveAt(m);
-                File.WriteAllLines(fr + $"{slash}vitK.TXT", vitK);
+                File.WriteAllLines($"{fr}{slash}vitK.TXT", vitK);
 
-                B1 = importArray(fr + $"{slash}B1.TXT");
+                B1 = importArray($"{fr}{slash}B1.TXT");
                 B1.RemoveAt(m);
-                File.WriteAllLines(fr + $"{slash}B1.TXT", B1);
+                File.WriteAllLines($"{fr}{slash}B1.TXT", B1);
 
-                B2 = importArray(fr + $"{slash}B2.TXT");
+                B2 = importArray($"{fr}{slash}B2.TXT");
                 B2.RemoveAt(m);
-                File.WriteAllLines(fr + $"{slash}B2.TXT", B2);
+                File.WriteAllLines($"{fr}{slash}B2.TXT", B2);
 
-                B3 = importArray(fr + $"{slash}B3.TXT");
+                B3 = importArray($"{fr}{slash}B3.TXT");
                 B3.RemoveAt(m);
-                File.WriteAllLines(fr + $"{slash}B3.TXT", B3);
+                File.WriteAllLines($"{fr}{slash}B3.TXT", B3);
 
-                B5 = importArray(fr + $"{slash}B5.TXT");
+                B5 = importArray($"{fr}{slash}B5.TXT");
                 B5.RemoveAt(m);
-                File.WriteAllLines(fr + $"{slash}B5.TXT", B5);
+                File.WriteAllLines($"{fr}{slash}B5.TXT", B5);
 
-                B6 = importArray(fr + $"{slash}B6.TXT");
+                B6 = importArray($"{fr}{slash}B6.TXT");
                 B6.RemoveAt(m);
-                File.WriteAllLines(fr + $"{slash}B6.TXT", B6);
+                File.WriteAllLines($"{fr}{slash}B6.TXT", B6);
 
-                B7 = importArray(fr + $"{slash}B7.TXT");
+                B7 = importArray($"{fr}{slash}B7.TXT");
                 B7.RemoveAt(m);
-                File.WriteAllLines(fr + $"{slash}B7.TXT", B7);
+                File.WriteAllLines($"{fr}{slash}B7.TXT", B7);
 
-                B9 = importArray(fr + $"{slash}B9.TXT");
+                B9 = importArray($"{fr}{slash}B9.TXT");
                 B9.RemoveAt(m);
-                File.WriteAllLines(fr + $"{slash}B9.TXT", B9);
+                File.WriteAllLines($"{fr}{slash}B9.TXT", B9);
 
-                B12 = importArray(fr + $"{slash}B12.TXT");
+                B12 = importArray($"{fr}{slash}B12.TXT");
                 B12.RemoveAt(m);
-                File.WriteAllLines(fr + $"{slash}B12.TXT", B12);
+                File.WriteAllLines($"{fr}{slash}B12.TXT", B12);
 
                 //
                 
-                Fe = importArray(fr + $"{slash}Fe.TXT");
+                Fe = importArray($"{fr}{slash}Fe.TXT");
                 Fe.RemoveAt(m);
-                File.WriteAllLines(fr + $"{slash}Fe.TXT", Fe);
+                File.WriteAllLines($"{fr}{slash}Fe.TXT", Fe);
 
-                Ca = importArray(fr + $"{slash}Ca.TXT");
+                Ca = importArray($"{fr}{slash}Ca.TXT");
                 Ca.RemoveAt(m);
-                File.WriteAllLines(fr + $"{slash}Ca.TXT", Ca);
+                File.WriteAllLines($"{fr}{slash}Ca.TXT", Ca);
 
-                Mg = importArray(fr + $"{slash}Mg.TXT");
+                Mg = importArray($"{fr}{slash}Mg.TXT");
                 Mg.RemoveAt(m);
-                File.WriteAllLines(fr + $"{slash}Mg.TXT", Mg);
+                File.WriteAllLines($"{fr}{slash}Mg.TXT", Mg);
                 
-                Zn = importArray(fr + $"{slash}Zn.TXT");
+                Zn = importArray($"{fr}{slash}Zn.TXT");
                 Zn.RemoveAt(m);
-                File.WriteAllLines(fr + $"{slash}Zn.TXT", Zn);
+                File.WriteAllLines($"{fr}{slash}Zn.TXT", Zn);
 
-                Se = importArray(fr + $"{slash}Se.TXT");
+                Se = importArray($"{fr}{slash}Se.TXT");
                 Se.RemoveAt(m);
-                File.WriteAllLines(fr + $"{slash}Se.TXT", Se);
+                File.WriteAllLines($"{fr}{slash}Se.TXT", Se);
 
-                B = importArray(fr + $"{slash}B.TXT");
+                B = importArray($"{fr}{slash}B.TXT");
                 B.RemoveAt(m);
-                File.WriteAllLines(fr + $"{slash}B.TXT", B);
+                File.WriteAllLines($"{fr}{slash}B.TXT", B);
 
-                I = importArray(fr + $"{slash}I.TXT");
+                I = importArray($"{fr}{slash}I.TXT");
                 I.RemoveAt(m);
-                File.WriteAllLines(fr + $"{slash}I.TXT", I);
+                File.WriteAllLines($"{fr}{slash}I.TXT", I);
 
-                P = importArray(fr + $"{slash}P.TXT");
+                P = importArray($"{fr}{slash}P.TXT");
                 P.RemoveAt(m);
-                File.WriteAllLines(fr + $"{slash}P.TXT", P);
+                File.WriteAllLines($"{fr}{slash}P.TXT", P);
 
-                Mn = importArray(fr + $"{slash}Mn.TXT");
+                Mn = importArray($"{fr}{slash}Mn.TXT");
                 Mn.RemoveAt(m);
-                File.WriteAllLines(fr + $"{slash}Mn.TXT", Mn);
+                File.WriteAllLines($"{fr}{slash}Mn.TXT", Mn);
                 
-                Fl = importArray(fr + $"{slash}Fl.TXT");
+                Fl = importArray($"{fr}{slash}Fl.TXT");
                 Fl.RemoveAt(m);
-                File.WriteAllLines(fr + $"{slash}Fl.TXT", Fl);
+                File.WriteAllLines($"{fr}{slash}Fl.TXT", Fl);
 
-                Cu = importArray(fr + $"{slash}Cu.TXT");
+                Cu = importArray($"{fr}{slash}Cu.TXT");
                 Cu.RemoveAt(m);
-                File.WriteAllLines(fr + $"{slash}Cu.TXT", Cu);
+                File.WriteAllLines($"{fr}{slash}Cu.TXT", Cu);
 
-                Cr = importArray(fr + $"{slash}Cr.TXT");
+                Cr = importArray($"{fr}{slash}Cr.TXT");
                 Cr.RemoveAt(m);
-                File.WriteAllLines(fr + $"{slash}Cr.TXT", Cr);
+                File.WriteAllLines($"{fr}{slash}Cr.TXT", Cr);
 
-                Mo = importArray(fr + $"{slash}Mo.TXT");
+                Mo = importArray($"{fr}{slash}Mo.TXT");
                 Mo.RemoveAt(m);
-                File.WriteAllLines(fr + $"{slash}Mo.TXT", Mo);
+                File.WriteAllLines($"{fr}{slash}Mo.TXT", Mo);
                 #endregion
             }
 
@@ -1036,7 +1036,7 @@ namespace Nutritracker
             comboNDB.Text = q.ToString();
 
             autocomp = new string[comboNDB.Items.Count];
-            names = importArray(fr + $"{slash}names.TXT");
+            names = importArray($"{fr}{slash}names.TXT");
             for (int i = 0; i < comboNDB.Items.Count; i++)
                 autocomp[i] = names[i];            
             var source = new AutoCompleteStringCollection();
@@ -1045,7 +1045,7 @@ namespace Nutritracker
             autocomp = new string[comboNDB.Items.Count];
             for (int i = 0; i < comboNDB.Items.Count; i++)
             {
-                autocomp[i] = importArray(fr + $"{slash}names.TXT").ToArray()[i];
+                autocomp[i] = importArray($"{fr}{slash}names.TXT").ToArray()[i];
                 comboFoodName.Items.Add(autocomp[i]);
             }
 
@@ -1072,220 +1072,220 @@ namespace Nutritracker
 
             #region modify existing row, rewrite whole stack
 
-            names = importArray(fr + $"{slash}names.TXT");
+            names = importArray($"{fr}{slash}names.TXT");
             names.RemoveAt(m);
             names.Insert(m, comboFoodName.Text);
-            File.WriteAllLines(fr + $"{slash}names.TXT", names);
+            File.WriteAllLines($"{fr}{slash}names.TXT", names);
 
-            srvngSz = importArray(fr + $"{slash}srvngSz.TXT");
+            srvngSz = importArray($"{fr}{slash}srvngSz.TXT");
             srvngSz.RemoveAt(m);
             srvngSz.Insert(m, txtGrams.Text);
-            File.WriteAllLines(fr + $"{slash}srvngSz.TXT", srvngSz);
+            File.WriteAllLines($"{fr}{slash}srvngSz.TXT", srvngSz);
 
             //
 
-            cals = importArray(fr + $"{slash}cals.TXT");
+            cals = importArray($"{fr}{slash}cals.TXT");
             cals.RemoveAt(m);
             cals.Insert(m, macros1[0]);
-            File.WriteAllLines(fr + $"{slash}cals.TXT", cals);
+            File.WriteAllLines($"{fr}{slash}cals.TXT", cals);
             
-            fat = importArray(fr + $"{slash}fat.TXT");
+            fat = importArray($"{fr}{slash}fat.TXT");
             fat.RemoveAt(m);
             fat.Insert(m, macros1[1]);
-            File.WriteAllLines(fr + $"{slash}fat.TXT", fat);
+            File.WriteAllLines($"{fr}{slash}fat.TXT", fat);
 
-            fatsat = importArray(fr + $"{slash}fatsat.TXT");
+            fatsat = importArray($"{fr}{slash}fatsat.TXT");
             fatsat.RemoveAt(m);
             fatsat.Insert(m, macros1[2]);
-            File.WriteAllLines(fr + $"{slash}fatsat.TXT", fatsat);
+            File.WriteAllLines($"{fr}{slash}fatsat.TXT", fatsat);
 
-            fattrans = importArray(fr + $"{slash}fattrans.TXT");
+            fattrans = importArray($"{fr}{slash}fattrans.TXT");
             fattrans.RemoveAt(m);
             fattrans.Insert(m, macros1[3]);
-            File.WriteAllLines(fr + $"{slash}fattrans.TXT", fattrans);
+            File.WriteAllLines($"{fr}{slash}fattrans.TXT", fattrans);
 
-            fatpoly = importArray(fr + $"{slash}fatpoly.TXT");
+            fatpoly = importArray($"{fr}{slash}fatpoly.TXT");
             fatpoly.RemoveAt(m);
             fatpoly.Insert(m, macros1[4]);
-            File.WriteAllLines(fr + $"{slash}fatpoly.TXT", fatpoly);
+            File.WriteAllLines($"{fr}{slash}fatpoly.TXT", fatpoly);
 
-            fatmono = importArray(fr + $"{slash}fatmono.TXT");
+            fatmono = importArray($"{fr}{slash}fatmono.TXT");
             fatmono.RemoveAt(m);
             fatmono.Insert(m, macros1[5]);
-            File.WriteAllLines(fr + $"{slash}fatmono.TXT", fatmono);
+            File.WriteAllLines($"{fr}{slash}fatmono.TXT", fatmono);
 
-            cholest = importArray(fr + $"{slash}cholest.TXT");
+            cholest = importArray($"{fr}{slash}cholest.TXT");
             cholest.RemoveAt(m);
             cholest.Insert(m, macros2[0]);
-            File.WriteAllLines(fr + $"{slash}cholest.TXT", cholest);
+            File.WriteAllLines($"{fr}{slash}cholest.TXT", cholest);
             
-            sodium = importArray(fr + $"{slash}sodium.TXT");
+            sodium = importArray($"{fr}{slash}sodium.TXT");
             sodium.RemoveAt(m);
             sodium.Insert(m, macros2[1]);
-            File.WriteAllLines(fr + $"{slash}sodium.TXT", sodium);
+            File.WriteAllLines($"{fr}{slash}sodium.TXT", sodium);
                         
-            potassium = importArray(fr + $"{slash}potassium.TXT");
+            potassium = importArray($"{fr}{slash}potassium.TXT");
             potassium.RemoveAt(m);
             potassium.Insert(m, macros2[2]);
-            File.WriteAllLines(fr + $"{slash}potassium.TXT", potassium);
+            File.WriteAllLines($"{fr}{slash}potassium.TXT", potassium);
 
-            carbs = importArray(fr + $"{slash}carbs.TXT");
+            carbs = importArray($"{fr}{slash}carbs.TXT");
             carbs.RemoveAt(m);
             carbs.Insert(m, macros2[3]);
-            File.WriteAllLines(fr + $"{slash}carbs.TXT", carbs);
+            File.WriteAllLines($"{fr}{slash}carbs.TXT", carbs);
 
-            fiber = importArray(fr + $"{slash}fiber.TXT");
+            fiber = importArray($"{fr}{slash}fiber.TXT");
             fiber.RemoveAt(m);
             fiber.Insert(m, macros2[4]);
-            File.WriteAllLines(fr + $"{slash}fiber.TXT", fiber);
+            File.WriteAllLines($"{fr}{slash}fiber.TXT", fiber);
 
-            sugar = importArray(fr + $"{slash}sugar.TXT");
+            sugar = importArray($"{fr}{slash}sugar.TXT");
             sugar.RemoveAt(m);
             sugar.Insert(m, macros2[5]);
-            File.WriteAllLines(fr + $"{slash}sugar.TXT", sugar);
+            File.WriteAllLines($"{fr}{slash}sugar.TXT", sugar);
 
-            protein = importArray(fr + $"{slash}protein.TXT");
+            protein = importArray($"{fr}{slash}protein.TXT");
             protein.RemoveAt(m);
             protein.Insert(m, macros2[6]);
-            File.WriteAllLines(fr + $"{slash}protein.TXT", protein);
+            File.WriteAllLines($"{fr}{slash}protein.TXT", protein);
 
             //                            
 
-            vitA = importArray(fr + $"{slash}vitA.TXT");
+            vitA = importArray($"{fr}{slash}vitA.TXT");
             vitA.RemoveAt(m);
             vitA.Insert(m, vits[0]);
-            File.WriteAllLines(fr + $"{slash}vitA.TXT", vitA);
+            File.WriteAllLines($"{fr}{slash}vitA.TXT", vitA);
 
-            vitC = importArray(fr + $"{slash}vitC.TXT");
+            vitC = importArray($"{fr}{slash}vitC.TXT");
             vitC.RemoveAt(m);
             vitC.Insert(m, vits[1]);
-            File.WriteAllLines(fr + $"{slash}vitC.TXT", vitC);
+            File.WriteAllLines($"{fr}{slash}vitC.TXT", vitC);
 
-            vitD = importArray(fr + $"{slash}vitD.TXT");
+            vitD = importArray($"{fr}{slash}vitD.TXT");
             vitD.RemoveAt(m);
             vitD.Insert(m, vits[2]);
-            File.WriteAllLines(fr + $"{slash}vitD.TXT", vitD);
+            File.WriteAllLines($"{fr}{slash}vitD.TXT", vitD);
 
-            vitE = importArray(fr + $"{slash}vitE.TXT");
+            vitE = importArray($"{fr}{slash}vitE.TXT");
             vitE.RemoveAt(m);
             vitE.Insert(m, vits[3]);
-            File.WriteAllLines(fr + $"{slash}vitE.TXT", vitE);
+            File.WriteAllLines($"{fr}{slash}vitE.TXT", vitE);
 
-            vitK = importArray(fr + $"{slash}vitK.TXT");
+            vitK = importArray($"{fr}{slash}vitK.TXT");
             vitK.RemoveAt(m);
             vitK.Insert(m, vits[4]);
-            File.WriteAllLines(fr + $"{slash}vitK.TXT", vitK);
+            File.WriteAllLines($"{fr}{slash}vitK.TXT", vitK);
 
-            B1 = importArray(fr + $"{slash}B1.TXT");
+            B1 = importArray($"{fr}{slash}B1.TXT");
             B1.RemoveAt(m);
             B1.Insert(m, vits[5]);
-            File.WriteAllLines(fr + $"{slash}B1.TXT", B1);
+            File.WriteAllLines($"{fr}{slash}B1.TXT", B1);
 
-            B2 = importArray(fr + $"{slash}B2.TXT");
+            B2 = importArray($"{fr}{slash}B2.TXT");
             B2.RemoveAt(m);
             B2.Insert(m, vits[6]);
-            File.WriteAllLines(fr + $"{slash}B2.TXT", B2);
+            File.WriteAllLines($"{fr}{slash}B2.TXT", B2);
 
-            B3 = importArray(fr + $"{slash}B3.TXT");
+            B3 = importArray($"{fr}{slash}B3.TXT");
             B3.RemoveAt(m);
             B3.Insert(m, vits[7]);
-            File.WriteAllLines(fr + $"{slash}B3.TXT", B3);
+            File.WriteAllLines($"{fr}{slash}B3.TXT", B3);
 
-            B5 = importArray(fr + $"{slash}B5.TXT");
+            B5 = importArray($"{fr}{slash}B5.TXT");
             B5.RemoveAt(m);
             B5.Insert(m, vits[8]);
-            File.WriteAllLines(fr + $"{slash}B5.TXT", B5);
+            File.WriteAllLines($"{fr}{slash}B5.TXT", B5);
 
-            B6 = importArray(fr + $"{slash}B6.TXT");
+            B6 = importArray($"{fr}{slash}B6.TXT");
             B6.RemoveAt(m);
             B6.Insert(m, vits[9]);
-            File.WriteAllLines(fr + $"{slash}B6.TXT", B6);
+            File.WriteAllLines($"{fr}{slash}B6.TXT", B6);
 
-            B7 = importArray(fr + $"{slash}B7.TXT");
+            B7 = importArray($"{fr}{slash}B7.TXT");
             B7.RemoveAt(m);
             B7.Insert(m, vits[10]);
-            File.WriteAllLines(fr + $"{slash}B7.TXT", B7);
+            File.WriteAllLines($"{fr}{slash}B7.TXT", B7);
 
-            B9 = importArray(fr + $"{slash}B9.TXT");
+            B9 = importArray($"{fr}{slash}B9.TXT");
             B9.RemoveAt(m);
             B9.Insert(m, vits[11]);
-            File.WriteAllLines(fr + $"{slash}B9.TXT", B9);
+            File.WriteAllLines($"{fr}{slash}B9.TXT", B9);
 
-            B12 = importArray(fr + $"{slash}B12.TXT");
+            B12 = importArray($"{fr}{slash}B12.TXT");
             B12.RemoveAt(m);
             B12.Insert(m, vits[12]);
-            File.WriteAllLines(fr + $"{slash}B12.TXT", B12);
+            File.WriteAllLines($"{fr}{slash}B12.TXT", B12);
 
             //
 
-            Fe = importArray(fr + $"{slash}Fe.TXT");
+            Fe = importArray($"{fr}{slash}Fe.TXT");
             Fe.RemoveAt(m);
             Fe.Insert(m, mins[0]);
-            File.WriteAllLines(fr + $"{slash}Fe.TXT", Fe);
+            File.WriteAllLines($"{fr}{slash}Fe.TXT", Fe);
 
-            Ca = importArray(fr + $"{slash}Ca.TXT");
+            Ca = importArray($"{fr}{slash}Ca.TXT");
             Ca.RemoveAt(m);
             Ca.Insert(m, mins[1]);
-            File.WriteAllLines(fr + $"{slash}Ca.TXT", Ca);
+            File.WriteAllLines($"{fr}{slash}Ca.TXT", Ca);
 
-            Mg = importArray(fr + $"{slash}Mg.TXT");
+            Mg = importArray($"{fr}{slash}Mg.TXT");
             Mg.RemoveAt(m);
             Mg.Insert(m, mins[2]);
-            File.WriteAllLines(fr + $"{slash}Mg.TXT", Mg);
+            File.WriteAllLines($"{fr}{slash}Mg.TXT", Mg);
             
-            Zn = importArray(fr + $"{slash}Zn.TXT");
+            Zn = importArray($"{fr}{slash}Zn.TXT");
             Zn.RemoveAt(m);
             Zn.Insert(m, mins[3]);
-            File.WriteAllLines(fr + $"{slash}Zn.TXT", Zn);
+            File.WriteAllLines($"{fr}{slash}Zn.TXT", Zn);
 
-            Se = importArray(fr + $"{slash}Se.TXT");
+            Se = importArray($"{fr}{slash}Se.TXT");
             Se.RemoveAt(m);
             Se.Insert(m, mins[4]);
-            File.WriteAllLines(fr + $"{slash}Se.TXT", Se);
+            File.WriteAllLines($"{fr}{slash}Se.TXT", Se);
 
-            B = importArray(fr + $"{slash}B.TXT");
+            B = importArray($"{fr}{slash}B.TXT");
             B.RemoveAt(m);
             B.Insert(m, mins[5]);
-            File.WriteAllLines(fr + $"{slash}B.TXT", B);
+            File.WriteAllLines($"{fr}{slash}B.TXT", B);
 
-            I = importArray(fr + $"{slash}I.TXT");
+            I = importArray($"{fr}{slash}I.TXT");
             I.RemoveAt(m);
             I.Insert(m, mins[6]);
-            File.WriteAllLines(fr + $"{slash}I.TXT", I);
+            File.WriteAllLines($"{fr}{slash}I.TXT", I);
 
-            P = importArray(fr + $"{slash}P.TXT");
+            P = importArray($"{fr}{slash}P.TXT");
             P.RemoveAt(m);
             P.Insert(m, mins[7]);
-            File.WriteAllLines(fr + $"{slash}P.TXT", P);
+            File.WriteAllLines($"{fr}{slash}P.TXT", P);
 
-            Mn = importArray(fr + $"{slash}Mn.TXT");
+            Mn = importArray($"{fr}{slash}Mn.TXT");
             Mn.RemoveAt(m);
             Mn.Insert(m, mins[8]);
-            File.WriteAllLines(fr + $"{slash}Mn.TXT", Mn);
+            File.WriteAllLines($"{fr}{slash}Mn.TXT", Mn);
 
-            Fl = importArray(fr + $"{slash}Fl.TXT");
+            Fl = importArray($"{fr}{slash}Fl.TXT");
             Fl.RemoveAt(m);
             Fl.Insert(m, mins[9]);
-            File.WriteAllLines(fr + $"{slash}Fl.TXT", Fl);
+            File.WriteAllLines($"{fr}{slash}Fl.TXT", Fl);
 
-            Cu = importArray(fr + $"{slash}Cu.TXT");
+            Cu = importArray($"{fr}{slash}Cu.TXT");
             Cu.RemoveAt(m);
             Cu.Insert(m, mins[10]);
-            File.WriteAllLines(fr + $"{slash}Cu.TXT", Cu);
+            File.WriteAllLines($"{fr}{slash}Cu.TXT", Cu);
 
-            Cr = importArray(fr + $"{slash}Cr.TXT");
+            Cr = importArray($"{fr}{slash}Cr.TXT");
             Cr.RemoveAt(m);
             Cr.Insert(m, mins[11]);
-            File.WriteAllLines(fr + $"{slash}Cr.TXT", Cr);
+            File.WriteAllLines($"{fr}{slash}Cr.TXT", Cr);
 
-            Mo = importArray(fr + $"{slash}Mo.TXT");
+            Mo = importArray($"{fr}{slash}Mo.TXT");
             Mo.RemoveAt(m);
             Mo.Insert(m, mins[12]);
-            File.WriteAllLines(fr + $"{slash}Mo.TXT", Mo);
+            File.WriteAllLines($"{fr}{slash}Mo.TXT", Mo);
             #endregion
 
             autocomp = new string[comboNDB.Items.Count];
-            names = importArray(fr + $"{slash}names.TXT");
+            names = importArray($"{fr}{slash}names.TXT");
             for (int i = 0; i < comboNDB.Items.Count; i++)
                 autocomp[i] = names[i];
             

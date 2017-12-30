@@ -28,8 +28,8 @@ namespace Nutritracker
         List<string> nameKeyPairs;
         private void frmNewField_Load(object sender, EventArgs e)
         {
-            txtLoc.Text = $"{slash}usr{slash}profile" + frmMain.profIndex.ToString() + $"{slash}DBs{slash}f_user_";
-            lblRowCount.Text = "Your Field will have " + n.ToString() + " entries";
+            txtLoc.Text = $"{slash}usr{slash}profile{frmMain.currentUser.index}{slash}DBs{slash}f_user_";
+            lblRowCount.Text = $"Your Field will have {n} entries";
             for (int i = 0; i < arr.Count; i++)
             {
                 string s = arr[i];
@@ -52,10 +52,10 @@ namespace Nutritracker
             }
             nameKeyPairs = new List<string>();
             for (int i = 0; i < listBox1.Items.Count; i++)
-                nameKeyPairs.Add(listBox1.Items[i].ToString() + "|" + listBox2.Items[i].ToString());
+                nameKeyPairs.Add($"{listBox1.Items[i]}|{listBox2.Items[i]}");
 
 
-            lblColumnCount.Text = "Your " + listBox1.Items.Count.ToString() + " columns and their abbreviations";
+            lblColumnCount.Text = $"Your {listBox1.Items.Count} columns and their abbreviations";
 
         }
 
@@ -65,8 +65,7 @@ namespace Nutritracker
                 btnCreate.Enabled = true;
             if (txtName.TextLength < 2)
                 btnCreate.Enabled = false;
-            txtLoc.Text = $"{slash}usr{slash}profile" + frmMain.profIndex.ToString() + $"{slash}DBs{slash}f_user_" +
-                          txtName.Text.ToUpper();
+            txtLoc.Text = $"{slash}usr{slash}profile{frmMain.currentUser.index}{slash}DBs{slash}f_user_{txtName.Text}";
         }
 
         private void txtName_KeyPress(object sender, KeyPressEventArgs e)
@@ -81,13 +80,13 @@ namespace Nutritracker
             if (lblSearchField.Text == "N/A")
             {
                 lblSearchField.Text = listBox1.SelectedItem.ToString();
-                searchKey = listBox2.Items[listBox1.SelectedIndex].ToString() + ".TXT";
+                searchKey = $"{listBox2.Items[listBox1.SelectedIndex]}.TXT";
                 return;
             }
             if (lblCalories.Text == "N/A")
             {
                 lblCalories.Text = listBox1.SelectedItem.ToString();
-                value1Key = listBox2.Items[listBox1.SelectedIndex].ToString() + ".TXT";
+                value1Key = $"{listBox2.Items[listBox1.SelectedIndex]}.TXT";
             }
             if (txtName.TextLength > 2 && lblSearchField.Text != "N/A" && lblCalories.Text != "N/A")
                 btnCreate.Enabled = true;
@@ -107,7 +106,7 @@ namespace Nutritracker
             string fp = Application.StartupPath + txtLoc.Text;
             List<string> files = new List<string>();
             for (int i = 0; i < listBox2.Items.Count; i++)
-                files.Add(listBox2.Items[i].ToString() + ".TXT");
+                files.Add($"{listBox2.Items[i]}.TXT");
             dbKeys = new List<dbKey>();
             for (int i = 0; i < files.Count(); i++)
             {

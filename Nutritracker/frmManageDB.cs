@@ -44,7 +44,7 @@ namespace Nutritracker
         private void frmManageDBfields_Load(object sender, EventArgs e)
         {
             pubDBs = Directory.GetDirectories($"{Application.StartupPath}{slash}usr{slash}share{slash}DBs");
-            userDBs = Directory.GetDirectories($"{Application.StartupPath}{slash}usr{slash}profile{frmMain.profIndex.ToString()}{slash}DBs");
+            userDBs = Directory.GetDirectories($"{Application.StartupPath}{slash}usr{slash}profile{frmMain.currentUser.index}{slash}DBs");
 
             if (pubDBs.Length == 0 && userDBs.Length == 0)
             {
@@ -55,7 +55,7 @@ namespace Nutritracker
 
             for (int i = 0; i < userDBs.Length; i++)
             {
-                userDBs[i] = userDBs[i].Replace($"{Application.StartupPath}{slash}usr{slash}profile{frmMain.profIndex.ToString()}{slash}DBs{slash}", "");
+                userDBs[i] = userDBs[i].Replace($"{Application.StartupPath}{slash}usr{slash}profile{frmMain.currentUser.index}{slash}DBs{slash}", "");
                 if (!userDBs[i].StartsWith("f_user"))
                     comboBox1.Items.Add(userDBs[i] + " (user)");
             }
@@ -65,9 +65,9 @@ namespace Nutritracker
                 comboBox1.Items.Add(pubDBs[i] + " (share)");
             }
             
-            if (comboBox1.Items.Count > 0 && File.Exists($"{Application.StartupPath}{slash}usr{slash}profile{frmMain.profIndex}{slash}DBs{slash}Default.TXT"))
+            if (comboBox1.Items.Count > 0 && File.Exists($"{Application.StartupPath}{slash}usr{slash}profile{frmMain.currentUser.index}{slash}DBs{slash}Default.TXT"))
             {
-                int index = Convert.ToInt32(File.ReadAllLines($"{Application.StartupPath}{slash}usr{slash}profile{frmMain.profIndex}{slash}DBs{slash}Default.TXT")[0]);
+                int index = Convert.ToInt32(File.ReadAllLines($"{Application.StartupPath}{slash}usr{slash}profile{frmMain.currentUser.index}{slash}DBs{slash}Default.TXT")[0]);
                 comboBox1.SelectedIndex = index;
             }
 
@@ -797,7 +797,7 @@ namespace Nutritracker
             if (comboBox1.Text.Contains("(share)"))
                 nutkeyPath = $"{Application.StartupPath}{slash}usr{slash}share{slash}DBs{slash}{comboBox1.Text.Replace(" (share)", "")}{slash}_nutKeyPairs.TXT";
             else
-                nutkeyPath = $"{Application.StartupPath}{slash}usr{slash}profile{frmMain.profIndex.ToString()}{slash}DBs{slash}{comboBox1.Text.Replace(" (user)", "")}{slash}_nutKeyPairs.TXT";            
+                nutkeyPath = $"{Application.StartupPath}{slash}usr{slash}profile{frmMain.currentUser.index}{slash}DBs{slash}{comboBox1.Text.Replace(" (user)", "")}{slash}_nutKeyPairs.TXT";            
             refresh();
         }
     }

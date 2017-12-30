@@ -73,12 +73,12 @@ namespace Nutritracker
         {
             try
             {
-                comboMeal.SelectedIndex = Convert.ToInt32(File.ReadAllText($"{Application.StartupPath}{slash}usr{slash}profile{frmMain.profIndex}{slash}DBs{slash}Meal.TXT"));
+                comboMeal.SelectedIndex = Convert.ToInt32(File.ReadAllText($"{Application.StartupPath}{slash}usr{slash}profile{frmMain.currentUser.index}{slash}DBs{slash}Meal.TXT"));
             }
             catch { }
 
             pubDBs = Directory.GetDirectories($"{Application.StartupPath}{slash}usr{slash}share{slash}DBs");
-            userDBs = Directory.GetDirectories($"{Application.StartupPath}{slash}usr{slash}profile{frmMain.profIndex.ToString()}{slash}DBs");
+            userDBs = Directory.GetDirectories($"{Application.StartupPath}{slash}usr{slash}profile{frmMain.currentUser.index}{slash}DBs");
 
             if (pubDBs.Length == 0 && userDBs.Length == 0)
             {
@@ -89,7 +89,7 @@ namespace Nutritracker
 
             for (int i = 0; i < userDBs.Length; i++)
             {
-                userDBs[i] = userDBs[i].Replace($"{Application.StartupPath}{slash}usr{slash}profile" + frmMain.profIndex.ToString() + $"{slash}DBs{slash}", "");
+                userDBs[i] = userDBs[i].Replace($"{Application.StartupPath}{slash}usr{slash}profile{frmMain.currentUser.index}{slash}DBs{slash}", "");
                 if (!userDBs[i].StartsWith("f_user"))
                     comboDBs.Items.Add(userDBs[i] + " (user)");
             }
@@ -102,9 +102,9 @@ namespace Nutritracker
 
 
 
-            if (comboDBs.Items.Count > 0 && File.Exists($"{Application.StartupPath}{slash}usr{slash}profile{frmMain.profIndex}{slash}DBs{slash}Default.TXT"))
+            if (comboDBs.Items.Count > 0 && File.Exists($"{Application.StartupPath}{slash}usr{slash}profile{frmMain.currentUser.index}{slash}DBs{slash}Default.TXT"))
             {
-                int index = Convert.ToInt32(File.ReadAllLines($"{Application.StartupPath}{slash}usr{slash}profile{frmMain.profIndex}{slash}DBs{slash}Default.TXT")[0]);
+                int index = Convert.ToInt32(File.ReadAllLines($"{Application.StartupPath}{slash}usr{slash}profile{frmMain.currentUser.index}{slash}DBs{slash}Default.TXT")[0]);
                 comboDBs.SelectedIndex = index;
             }
 
@@ -116,11 +116,11 @@ namespace Nutritracker
 
             //try
             // {
-            string[] slots = File.ReadAllLines($"{Application.StartupPath}{slash}usr{slash}profile{frmMain.profIndex.ToString()}{slash}DBs{slash}Slots.TXT");
+            string[] slots = File.ReadAllLines($"{Application.StartupPath}{slash}usr{slash}profile{frmMain.currentUser.index}{slash}DBs{slash}Slots.TXT");
             int n = slots.Length > 4 ? 4 : slots.Length;
             for (int i = 0; i < n; i++)
             {
-                string dir = $"{Application.StartupPath}{slash}usr{slash}profile{frmMain.profIndex.ToString()}{slash}DBs{slash}{slots[i]}";
+                string dir = $"{Application.StartupPath}{slash}usr{slash}profile{frmMain.currentUser.index}{slash}DBs{slash}{slots[i]}";
                 slotObjs[i]._dbConfig = File.ReadAllText(dir + slash + "_dbConfig.TXT").Replace("\r", "");
                 slotObjs[i]._dbInit = File.ReadAllText(dir + slash + "_dbInit.TXT").Replace("\r", "");
                 string[] splitConfig = slotObjs[i]._dbConfig.Split(new string[] { "[File]" }, StringSplitOptions.RemoveEmptyEntries);
@@ -372,7 +372,7 @@ namespace Nutritracker
         private Dictionary<string, List<string>> mainDB;
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            File.WriteAllText($"{Application.StartupPath}{slash}usr{slash}profile{frmMain.profIndex}{slash}DBs{slash}Default.TXT", comboDBs.SelectedIndex.ToString());
+            File.WriteAllText($"{Application.StartupPath}{slash}usr{slash}profile{frmMain.currentUser.index}{slash}DBs{slash}Default.TXT", comboDBs.SelectedIndex.ToString());
             lstviewFoods.Clear();
             txtSrch.Clear();
             richTxtWarn.Text = "";
@@ -449,14 +449,14 @@ namespace Nutritracker
 
             else
             {
-                string[] files = Directory.GetFiles($"{Application.StartupPath}{slash}usr{slash}profile" + frmMain.profIndex.ToString() + $"{slash}DBs{slash}{db}");
-                if (File.Exists($"{Application.StartupPath}{slash}usr{slash}profile" + frmMain.profIndex.ToString() + $"{slash}DBs{slash}{db}_nutKeyPairs.TXT"))
+                string[] files = Directory.GetFiles($"{Application.StartupPath}{slash}usr{slash}profile{frmMain.currentUser.index}{slash}DBs{slash}{db}");
+                if (File.Exists($"{Application.StartupPath}{slash}usr{slash}profile{frmMain.currentUser.index}{slash}DBs{slash}{db}_nutKeyPairs.TXT"))
                 {
                     Dictionary<string, List<string>> mainDB = new Dictionary<string, List<string>>();
                     for (int i = 0; i < files.Length; i++)
-                        mainDB.Add(files[i].Replace($"{Application.StartupPath}{slash}usr{slash}profile{frmMain.profIndex.ToString()}{slash}DBs{slash}{db}{slash}", ""), importArray(files[i]));
+                        mainDB.Add(files[i].Replace($"{Application.StartupPath}{slash}usr{slash}profile{frmMain.currentUser.index}{slash}DBs{slash}{db}{slash}", ""), importArray(files[i]));
 
-                    List<string> nutKeyPairs = importArray($"{Application.StartupPath}{slash}usr{slash}profile{frmMain.profIndex.ToString()}{slash}DBs{slash}{db}_nutKeyPairs.TXT");
+                    List<string> nutKeyPairs = importArray($"{Application.StartupPath}{slash}usr{slash}profile{frmMain.currentUser.index}{slash}DBs{slash}{db}_nutKeyPairs.TXT");
                     for (int i = 0; i < nutKeyPairs.Count; i++)
                         lstviewFoods.Columns.Add(nutKeyPairs[i].Split('|')[1]);                  
                 }
@@ -810,7 +810,7 @@ namespace Nutritracker
         private void comboMeal_SelectedIndexChanged(object sender, EventArgs e)
         {
             //D:\MonoProjects\Nutritracker\Nutritracker\bin\Debug\usr\profile0\DBs
-            File.WriteAllText(Application.StartupPath + slash + "usr" + slash + $"profile{frmMain.profIndex}" + slash + "DBs" + slash + "Meal.TXT", comboMeal.SelectedIndex.ToString());
+            File.WriteAllText($"{Application.StartupPath}{slash}usr{slash}profile{frmMain.currentUser.index}{slash}DBs{slash}Meal.TXT", comboMeal.SelectedIndex.ToString());
         }
 
         private void swapOrManageUserFieldsToolStripMenuItem_Click(object sender, EventArgs e)

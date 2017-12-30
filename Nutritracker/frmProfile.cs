@@ -157,9 +157,8 @@ namespace Nutritracker
         public int defaultIndex;
         private void frmProfile_Load(object sender, EventArgs e)
         {
-            profIndex = frmMain.profIndex;
-            //MessageBox.Show(Properties.Settings.Default.defaultIndex.ToString());
-            string root = Application.StartupPath + $"{slash}usr";// profile" + profIndex.ToString();
+            profIndex = frmMain.currentUser.index;
+            string root = $"{Application.StartupPath}{slash}usr";
             try
             {
                 defaultIndex = Convert.ToInt32(Directory.GetFiles(root)[0].Replace($"{root}{slash}default", ""));
@@ -173,12 +172,12 @@ namespace Nutritracker
             //MessageBox.Show(string.Join(", ", directs));
             List<string> profs = new List<string>();
             for (int i=0;i<directs.Length;i++)
-                if (directs[i].EndsWith($"{slash}profile" + i.ToString()))
+                if (directs[i].EndsWith($"{slash}profile{i}"))
                 {
-                    //MessageBox.Show(directs[i] + "{slash}profile" + i.ToString() + ".txt");
+                    //MessageBox.Show(directs[i] + "{slash}profile.txt");
                     profs.Add(directs[i]);
                     comboExistingProfs.Items
-                        .Add(importArray(directs[i] + $"{slash}profile" + i.ToString() + ".TXT")[0]); //importArray(root + "profile" + i.ToString() + ".txt")[0]);
+                        .Add(importArray($"{directs[i]}{slash}profile.TXT")[0]); //importArray(root + "profile.txt")[0]);
                 }
             if (comboExistingProfs.Items.Count > 0)
                 comboExistingProfs.SelectedIndex = profIndex;
@@ -188,7 +187,7 @@ namespace Nutritracker
 
             foreach (string s in Directory.GetFiles(root))
                 File.Delete(s);
-            File.Create(root + $"{slash}default{profIndex}").Close();
+            File.Create($"{root}{slash}default{frmMain.currentUser.index}").Close();
             
             if (comboExistingProfs.SelectedIndex == defaultIndex)
                 checkDefaultProf.Enabled = false;
@@ -226,13 +225,13 @@ namespace Nutritracker
             profs = new List<string>();
             for (int i = 0; i < directs.Length; i++)
             {
-                if (directs[i].EndsWith($"{slash}profile" + i.ToString())
-                    && importArray(directs[i] + $"{slash}profile" + i.ToString() + ".TXT")[0].ToLower() == comboExistingProfs.Text.ToLower())
+                if (directs[i].EndsWith($"{slash}profile{i}")
+                    && importArray($"{directs[i]}{slash}profile.TXT")[0].ToLower() == comboExistingProfs.Text.ToLower())
                 {
                     profIndex = i;
                     profs.Add(directs[i]);
                     comboExistingProfs.Items
-                        .Add(importArray(directs[i] + $"{slash}profile" + i.ToString() + ".TXT")[0]); //importArray(root + "profile" + i.ToString() + ".txt")[0]);
+                        .Add(importArray($"{directs[i]}{slash}profile.TXT")[0]); //importArray(root + "profile.txt")[0]);
                     break;
                 }
                 else
@@ -242,13 +241,13 @@ namespace Nutritracker
             }
             string gender = radioMale.Checked ? "male" : "female";
             text = txtNewProfName.Text + "\r\n" + gender + "\r\n" + txtAge.Text + "\r\n" + txtBodyfat.Text + "\r\n" + txtWt.Text +"\r\n" +txtHt.Text +"\r\n" + comboActivity.SelectedIndex.ToString() +"\r\n" +comboGoal.SelectedIndex.ToString();
-            try { System.IO.File.WriteAllText(root + $"{slash}profile" + profIndex.ToString() + $"{slash}profile" + profIndex.ToString() + ".TXT", text); }
+            try { System.IO.File.WriteAllText($"{root}{slash}profile{profIndex}{slash}profile.TXT", text); }
             catch
             {
-                Directory.CreateDirectory(root + $"{slash}profile" + profIndex.ToString());
-                Directory.CreateDirectory(root + $"{slash}profile" + profIndex.ToString() + $"{slash}foods");
-                Directory.CreateDirectory(root + $"{slash}profile" + profIndex.ToString() + $"{slash}recipes");
-                System.IO.File.WriteAllText(root + $"{slash}profile" + profIndex.ToString() + $"{slash}profile" + profIndex.ToString() + ".TXT", text);
+                Directory.CreateDirectory( $"{root}{slash}profile" + profIndex.ToString());
+                Directory.CreateDirectory($"{root}{slash}profile{profIndex}{slash}foods");
+                Directory.CreateDirectory($"{root}{slash}profile{profIndex}{slash}recipes");
+                System.IO.File.WriteAllText($"{root}{slash}profile{profIndex}{slash}profile.TXT", text);
                 comboExistingProfs.Items.Add(txtNewProfName.Text);
                 comboExistingProfs.SelectedIndex = comboExistingProfs.Items.Count - 1;
             }
@@ -256,10 +255,10 @@ namespace Nutritracker
             {
                 foreach (string s in Directory.GetFiles(root))
                     File.Delete(s);
-                File.Create(root + $"{slash}default{profIndex}").Close();
+                File.Create(root + $"{slash}default{frmMain.currentUser.index}").Close();
             }
             
-            frmMain.profIndex = comboExistingProfs.SelectedIndex;
+            frmMain.currentUser.index = comboExistingProfs.SelectedIndex;
             this.DialogResult = DialogResult.OK;
             this.Close();
         }
@@ -267,14 +266,14 @@ namespace Nutritracker
         private void btnDel_Click(object sender, EventArgs e)
         {
             if (DialogResult.Yes == MessageBox.Show("Are you sure?", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question))
-                Directory.Delete(Application.StartupPath + $"{slash}usr{slash}profile" + comboExistingProfs.SelectedIndex.ToString());
+                Directory.Delete($"{Application.StartupPath}{slash}usr{slash}profile{comboExistingProfs.SelectedIndex}");
             //File.Delete(Application.StartupPath + $"{slash}usr{slash}profile" + comboExistingProfs.SelectedIndex.ToString() + $"{slash}profile" + comboExistingProfs.SelectedIndex.ToString() + ".txt");
             else
                 return;
 
             //same as form load
             comboExistingProfs.Items.Clear();
-            string root = Application.StartupPath + $"{slash}usr{slash}";
+            string root = $"{Application.StartupPath}{slash}usr{slash}";
             string[] files = Directory.GetFiles(root);
             //MessageBox.Show(string.Join(", ", files));
             List<string> profs = new List<string>();
@@ -283,7 +282,7 @@ namespace Nutritracker
                 {
                     profs.Add(files[i]);
                     comboExistingProfs.Items
-                        .Add(importArray(files[i])[0]); //importArray(root + "profile" + i.ToString() + ".txt")[0]);
+                        .Add(importArray(files[i])[0]); //importArray(root + "profile.txt")[0]);
                 }
 
             if (defaultIndex >= comboExistingProfs.Items.Count)
@@ -293,7 +292,7 @@ namespace Nutritracker
 
             foreach (string s in Directory.GetFiles(root))
                 File.Delete(s);
-            File.Create(root + $"{slash}default{profIndex}").Close();
+            File.Create($"{root}{slash}default{frmMain.currentUser.index}").Close();
 
             profMax = files.Length;
         }
@@ -384,19 +383,19 @@ namespace Nutritracker
             //MessageBox.Show(string.Join(", ", directs));
 
             for (int i = 0; i < directs.Length; i++)
-                if (directs[i].Contains($"{slash}profile" + i.ToString()) && importArray(directs[i] + $"{slash}profile" + i.ToString() + ".TXT")[0].ToLower() ==
+                if (directs[i].Contains($"{slash}profile{i}") && importArray($"{directs[i]}{slash}profile.TXT")[0].ToLower() ==
                     comboExistingProfs.Text.ToLower())
                 {
-                    if (importArray(directs[i] + $"{slash}profile" + i.ToString() + ".TXT")[1] == "male")
+                    if (importArray($"{directs[i]}{slash}profile.TXT")[1] == "male")
                         radioMale.Checked = true;
                     else
                         radioFemale.Checked = true;
-                    txtAge.Text = importArray(directs[i] + $"{slash}profile" + i.ToString() + ".TXT")[2];
-                    txtBodyfat.Text = importArray(directs[i] + $"{slash}profile" + i.ToString() + ".TXT")[3];
-                    txtWt.Text = importArray(directs[i] + $"{slash}profile" + i.ToString() + ".TXT")[4];
-                    txtHt.Text = importArray(directs[i] + $"{slash}profile" + i.ToString() + ".TXT")[5];
-                    comboActivity.SelectedIndex = Convert.ToInt32(importArray(directs[i] + $"{slash}profile" + i.ToString() + ".TXT")[6]);
-                    comboGoal.SelectedIndex = Convert.ToInt32(importArray(directs[i] + $"{slash}profile" + i.ToString() + ".TXT")[7]);
+                    txtAge.Text = importArray($"{directs[i]}{slash}profile.TXT")[2];
+                    txtBodyfat.Text = importArray($"{directs[i]}{slash}profile.TXT")[3];
+                    txtWt.Text = importArray($"{directs[i]}{slash}profile.TXT")[4];
+                    txtHt.Text = importArray($"{directs[i]}{slash}profile.TXT")[5];
+                    comboActivity.SelectedIndex = Convert.ToInt32(importArray($"{directs[i]}{slash}profile.TXT")[6]);
+                    comboGoal.SelectedIndex = Convert.ToInt32(importArray($"{directs[i]}{slash}profile.TXT")[7]);
                 }
             if (comboExistingProfs.SelectedIndex == defaultIndex)
                 checkDefaultProf.Checked = true;

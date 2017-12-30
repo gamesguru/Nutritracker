@@ -30,7 +30,7 @@ namespace Nutritracker
                 comboBox1.Items.Add(s.Replace(shareDBdir + slash, ""));
 
             try {
-                comboBox1.SelectedIndex = Convert.ToInt32(File.ReadAllText($"{Application.StartupPath}{slash}usr{slash}profile{frmMain.profIndex}{slash}DBs{slash}Default.TXT"));
+                comboBox1.SelectedIndex = Convert.ToInt32(File.ReadAllText($"{Application.StartupPath}{slash}usr{slash}profile{frmMain.currentUser.index}{slash}DBs{slash}Default.TXT"));
             }
             catch { }       
         }

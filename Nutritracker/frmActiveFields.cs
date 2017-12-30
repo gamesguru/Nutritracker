@@ -22,8 +22,8 @@ namespace Nutritracker
         string slash = Path.DirectorySeparatorChar.ToString();
         private void frmActiveFields_Load(object sender, EventArgs e)
         {
-            this.Text = $"Editing {frmMain.profName}'s Active Fields";
-            oldInput = File.ReadAllLines($"{Application.StartupPath}{slash}usr{slash}profile{frmMain.profIndex}{slash}activeFields.TXT").ToList();
+            this.Text = $"Editing {frmMain.currentUser.name}'s Active Fields";
+            oldInput = File.ReadAllLines($"{Application.StartupPath}{slash}usr{slash}profile{frmMain.currentUser.index}{slash}activeFields.TXT").ToList();
             for (int i = 0; i < oldInput.Count; i++)
                 if (oldInput[i] == "")
                     oldInput.RemoveAt(i);
@@ -35,8 +35,17 @@ namespace Nutritracker
 
         private void btnDone_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show("Save changes (if any)?", "", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
-                File.WriteAllLines($"{Application.StartupPath}{slash}usr{slash}profile{frmMain.profIndex}{slash}activeFields.TXT", richTxtInput.Text.Split('\n'));
+            bool edited = false;
+            List<string> newOutput = richTxtInput.Text.Split('\n').ToList();
+            for (int i = 0; i < newOutput.Capacity; i++)
+            {
+                newOutput[i].Replace("\r", "");
+                if (newOutput[i] != oldInput[i])
+                    edited = true;
+            }
+
+            if (edited && MessageBox.Show("Save changes (if any)?", "", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                File.WriteAllLines($"{Application.StartupPath}{slash}usr{slash}profile{frmMain.currentUser.index}{slash}activeFields.TXT", richTxtInput.Text.Split('\n'));
             this.Close();
         }
 

@@ -41,7 +41,7 @@ namespace Nutritracker
         public int n = 0;
         private void frmNewDB_Load(object sender, EventArgs e)
         {
-            txtLoc.Text = $"{slash}usr{slash}profile{frmMain.profIndex.ToString()}{slash}DBs{slash}";
+            txtLoc.Text = $"{slash}usr{slash}profile{frmMain.currentUser.index}{slash}DBs{slash}";
             lblRowCount.Text = $"Your database will have {n} entries";
             for (int i = 0; i < arr.Count; i++)
             {
@@ -76,7 +76,7 @@ namespace Nutritracker
             if (radioShared.Checked)            
                 txtLoc.Text = $"{slash}usr{slash}share{slash}DBs{slash}{txtName.Text}";            
             else            
-                txtLoc.Text = $"{slash}usr{slash}profile{frmMain.profIndex.ToString()}{slash}DBs{slash}{txtName.Text}";
+                txtLoc.Text = $"{slash}usr{slash}profile{frmMain.currentUser.index}{slash}DBs{slash}{txtName.Text}";
 
             if (txtName.TextLength > 2 && lblSearchField.Text != "N/A" && lblCalories.Text != "N/A")
                 btnCreate.Enabled = true;
@@ -90,7 +90,7 @@ namespace Nutritracker
             if (radioShared.Checked)
                 txtLoc.Text = $"{slash}usr{slash}share{slash}DBs{slash}{txtName.Text}";
             else
-                txtLoc.Text = $"{slash}usr{slash}profile{frmMain.profIndex.ToString()}{slash}DBs{slash}{txtName.Text}";
+                txtLoc.Text = $"{slash}usr{slash}profile{frmMain.currentUser.index}{slash}DBs{slash}{txtName.Text}";
         }
 
 

@@ -109,26 +109,40 @@ dataDay.Rows.Add(row);*/
         double mFactor = 1.2;
         //bool loadup = true;
         List<string> profDirects;
-        public static int profIndex = 0;
-        public static string profName = "";
+        //public static int profIndex = 0;
+        //public static string profName = "";
         public static string dte;
         public static string slash = Path.DirectorySeparatorChar.ToString();
+        public class _profile
+        {
+            public string name = "";
+            public string gender = "female";
+            public int age = 23;
+            public double bf = 17.0;
+            public int wt = 115;
+            public int ht = 63;
+            public int actLvl = 2;
+            public string goal = "Maintenance";
+            public int index; //the index among other profiles, beginning with 0
+        }
+
+        public static _profile currentUser = new _profile();
         #region profile info
-        string name = "";
-        bool gender = false;
-        int age = 0;
-        int bodyFat = 0;
-        int wt = 0;
-        int ht = 0;
-        int activityLvl = 0;
-        int overallGoal = 0;
+        //string name = "";
+        //bool gender = false;
+        //int age = 0;
+        //int bodyFat = 0;
+        //int wt = 0;
+        //int ht = 0;
+        //int activityLvl = 0;
+        //int overallGoal = 0;
         #endregion
         private void frmMain_Load(object sender, EventArgs e)
-        {
+        {        
             dte = DateTime.Today.ToString("MM-dd-yyyy");
             try
             {
-                foreach (string f in Directory.GetFiles($"{Application.StartupPath}{slash}usr{slash}profile{profIndex}{slash}foodlog"))
+                foreach (string f in Directory.GetFiles($"{Application.StartupPath}{slash}usr{slash}profile{currentUser.index}{slash}foodlog"))
                     if (f.EndsWith(".TXT") && f.Contains("-"))
                         comboLoggedDays.Items.Add(f.Split(new char[] { '/', '\\' })[f.Split(new char[] { '/', '\\' }).Length - 1].Replace(".TXT", ""));
 
@@ -149,7 +163,7 @@ dataDay.Rows.Add(row);*/
                     Directory.CreateDirectory($"{Application.StartupPath}{slash}usr");
                     frmProfile frmPr = new frmProfile();
                     frmPr.ShowDialog();
-                    Directory.CreateDirectory($"{Application.StartupPath}{slash}usr{slash}profile{profIndex}{slash}foodlog");
+                    Directory.CreateDirectory($"{Application.StartupPath}{slash}usr{slash}profile{currentUser.index}{slash}foodlog");
                 }
             }
             
@@ -164,7 +178,7 @@ dataDay.Rows.Add(row);*/
                 {
                     try
                     {
-    					profIndex = Convert.ToInt16(s.Replace("default", ""));
+                        currentUser.index = Convert.ToInt16(s.Replace("default", ""));
                     }
                     catch { }
                 }
@@ -179,25 +193,25 @@ dataDay.Rows.Add(row);*/
 
             if (profDirects.Count == 0)
             {
-                profIndex = 0;
+                currentUser.index = 0;
                 File.Create($"{Application.StartupPath}{slash}usr{slash}default0");
                 if (frmP.ShowDialog() == DialogResult.Cancel)
                     Application.Exit();
             }
 
-            List<string> profData = importArray($"{root}{slash}profile{profIndex}{slash}profile{profIndex}.TXT");
+            List<string> profData = importArray($"{root}{slash}profile{currentUser.index}{slash}profile.TXT");
 
-            name = profData[0];
-            profName = name; //update on settings form too!!
-            gender = profData[1] == "female";
-            age = Convert.ToInt16(profData[2]);
-            bodyFat = Convert.ToInt16(profData[3]);
-            wt = Convert.ToInt16(profData[4]);
-            ht = Convert.ToInt16(profData[5]);
-            activityLvl = Convert.ToInt16(profData[6]);
-            overallGoal = Convert.ToInt16(profData[7]);
+            currentUser.name = profData[0];
+            //profName = name; //update on settings form too!!
+            currentUser.gender = profData[1];
+            currentUser.age = Convert.ToInt16(profData[2]);
+            currentUser.bf = Convert.ToDouble(profData[3]);
+            currentUser.wt = Convert.ToInt16(profData[4]);
+            currentUser.ht = Convert.ToInt16(profData[5]);
+            currentUser.actLvl = Convert.ToInt16(profData[6]);
+            currentUser.goal = profData[7];
 
-            this.Text = $"Nutritracker — {name}";
+            this.Text = $"Nutritracker — {currentUser.name}";
 
             /*dataDay.Rows.Add("Breakfast");
             dataDay.Rows.Add("", "");
@@ -316,7 +330,7 @@ dataDay.Rows.Add(row);*/
             dataExercise.Rows.Add("Existing");
             dataExercise.Rows[0].Height = 50;
             string actLvl = "#NULL";
-			switch (activityLvl)
+			switch (currentUser.actLvl)
 			{
 				case 0:
 					actLvl = "Sedentary";
@@ -337,20 +351,20 @@ dataDay.Rows.Add(row);*/
                     break;
             }
             dataExercise.Rows[0].Cells[1].Value = actLvl;
-            if (activityLvl == 0)
+            if (currentUser.actLvl == 0)
                 mFactor = 1.2;
-            else if (activityLvl == 1)
+            else if (currentUser.actLvl == 1)
                 mFactor = 1.375;
-            else if (activityLvl == 2)
+            else if (currentUser.actLvl == 2)
                 mFactor = 1.55;
-            else if (activityLvl == 3)
+            else if (currentUser.actLvl == 3)
                 mFactor = 1.725;
-            else if (activityLvl == 4)
+            else if (currentUser.actLvl == 4)
                 mFactor = 1.9;
-            if (gender)
-                bmr = Convert.ToInt32(mFactor * (10 * 0.4536 * wt + 6.25 * 2.54 * ht - 5 * age) + 5);
+            if (currentUser.gender == "female")
+                bmr = Convert.ToInt32(mFactor * (10 * 0.4536 * currentUser.wt + 6.25 * 2.54 * currentUser.ht - 5 * currentUser.age) + 5);
             else
-                bmr = Convert.ToInt32(mFactor * (10 * 0.4536 * wt + 6.25 * 2.54 * ht - 5 * age) - 161);
+                bmr = Convert.ToInt32(mFactor * (10 * 0.4536 * currentUser.wt + 6.25 * 2.54 * currentUser.ht - 5 * currentUser.age) - 161);
 
 
             dataExercise.Rows[0].Cells[2].Value = Math.Round(bmr / 1440.0, 2);
@@ -365,10 +379,10 @@ dataDay.Rows.Add(row);*/
             comboMeal.SelectedIndex = 0;
 
             //MessageBox.Show(root + "\\usr\\profile" + loadIndex.ToString() + "\\foods\\names.txt");
-            if (File.Exists($"{root}{slash}profile{profIndex}{slash}foods{slash}names.TXT"))
+            if (File.Exists($"{root}{slash}profile{currentUser.index}{slash}foods{slash}names.TXT"))
             {
                 lstCustFoods = new List<string>();
-                lstCustFoods = importArray($"{root}{slash}profile{profIndex}{slash}foods{slash}names.TXT");
+                lstCustFoods = importArray($"{root}{slash}profile{currentUser.index}{slash}foods{slash}names.TXT");
                 for (int i = 0; i < lstCustFoods.Count; i++)
                     lstBoxRecipes.Items.Add(lstCustFoods[i]);
             }
@@ -421,11 +435,12 @@ dataDay.Rows.Add(row);*/
             frm.ShowDialog();
 
             comboLoggedDays.Items.Clear();
-            foreach (string f in Directory.GetFiles($"{Application.StartupPath}{slash}usr{slash}profile{profIndex}{slash}foodlog"))
+            foreach (string f in Directory.GetFiles($"{Application.StartupPath}{slash}usr{slash}profile{currentUser.index}{slash}foodlog"))
                 if (f.EndsWith(".TXT") && f.Contains("-"))
                     comboLoggedDays.Items.Add(f.Split(new char[] { '/', '\\' })[f.Split(new char[] { '/', '\\' }).Length - 1].Replace(".TXT", ""));
-
-            this.Text = $"Nutritracker — {importArray($"{Application.StartupPath}{slash}usr{slash}profile{profIndex}{slash}profile{profIndex}.TXT")[0]}";
+            try { comboLoggedDays.SelectedIndex = comboLoggedDays.Items.Count - 1; }
+            catch { }
+            this.Text = $"Nutritracker — {importArray($"{Application.StartupPath}{slash}usr{slash}profile{currentUser.index}{slash}profile.TXT")[0]}";
             
             dataDay.Rows.Clear();
             dataDay.Rows.Add("Breakfast");
@@ -453,14 +468,14 @@ dataDay.Rows.Add(row);*/
             dataDay.Rows[7].ReadOnly = true;
             dataDay.Rows[8].ReadOnly = true;
 
-            if (!File.Exists($"{Application.StartupPath}{slash}usr{slash}profile{profIndex}{slash}foodlog{slash}{dte}.TXT"))
+            if (!File.Exists($"{Application.StartupPath}{slash}usr{slash}profile{currentUser.index}{slash}foodlog{slash}{dte}.TXT"))
             {
                 MessageBox.Show("No food data found for this day, add something to create a log.", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
-            string breakfast = importArray($"{Application.StartupPath}{slash}usr{slash}profile{profIndex}{slash}foodlog{slash}{dte}.TXT")[0];
-            string lunch = importArray($"{Application.StartupPath}{slash}usr{slash}profile{profIndex}{slash}foodlog{slash}{dte}.TXT")[1];
-            string dinner = importArray($"{Application.StartupPath}{slash}usr{slash}profile{profIndex}{slash}foodlog{slash}{dte}.TXT")[2];
+            string breakfast = importArray($"{Application.StartupPath}{slash}usr{slash}profile{currentUser.index}{slash}foodlog{slash}{dte}.TXT")[0];
+            string lunch = importArray($"{Application.StartupPath}{slash}usr{slash}profile{currentUser.index}{slash}foodlog{slash}{dte}.TXT")[1];
+            string dinner = importArray($"{Application.StartupPath}{slash}usr{slash}profile{currentUser.index}{slash}foodlog{slash}{dte}.TXT")[2];
             breakfast = breakfast.Replace("Breakfast|", "");
             lunch = lunch.Replace("Lunch|", "");
             dinner = dinner.Replace("Dinner|", "");
@@ -576,20 +591,20 @@ dataDay.Rows.Add(row);*/
             //
             //
                         
-            if (activityLvl == 0)
+            if (currentUser.actLvl == 0)
                 mFactor = 1.2;
-            else if (activityLvl == 1)
+            else if (currentUser.actLvl == 1)
                 mFactor = 1.375;
-            else if (activityLvl == 2)
+            else if (currentUser.actLvl == 2)
                 mFactor = 1.55;
-            else if (activityLvl == 3)
+            else if (currentUser.actLvl == 3)
                 mFactor = 1.725;
-            else if (activityLvl == 4)
+            else if (currentUser.actLvl == 4)
                 mFactor = 1.9;
-            if (gender)
-                bmr = Convert.ToInt32(mFactor * (10 * 0.4536 * wt + 6.25 * 2.54 * ht - 5 * age) + 5);
+            if (currentUser.gender == "female")
+                bmr = Convert.ToInt32(mFactor * (10 * 0.4536 * currentUser.wt + 6.25 * 2.54 * currentUser.ht - 5 * currentUser.age) + 5);
             else
-                bmr = Convert.ToInt32(mFactor * (10 * 0.4536 * wt + 6.25 * 2.54 * ht - 5 * age) - 161);
+                bmr = Convert.ToInt32(mFactor * (10 * 0.4536 * currentUser.wt + 6.25 * 2.54 * currentUser.ht - 5 * currentUser.age) - 161);
 
 
             int m = dataExercise.RowCount - 2;
@@ -627,7 +642,7 @@ dataDay.Rows.Add(row);*/
             */
         }
 
-        #region delete undo rows
+        #region undo delete rows
         private DataGridViewRow row;
         private int n;
         private void button11_Click(object sender, EventArgs e)
@@ -672,7 +687,7 @@ dataDay.Rows.Add(row);*/
                     if (dataDay.Rows[i].Cells[0].Value.ToString() == "Totals")
                         tDay = i + 1;
 
-                string fp = $"{Application.StartupPath}{slash}usr{slash}profile{profIndex}{slash}foodlog{slash}{dte}.TXT";
+                string fp = $"{Application.StartupPath}{slash}usr{slash}profile{currentUser.index}{slash}foodlog{slash}{dte}.TXT";
                 string textB = "";
                 textB += dataDay.Rows[bDay - 1].Cells[0].Value.ToString() + "|";
                 for (int m = bDay; m < lDay - 2; m++)
@@ -773,7 +788,7 @@ dataDay.Rows.Add(row);*/
                         if (dataDay.Rows[i].Cells[0].Value.ToString() == "Totals")
                             tDay = i + 1;
 
-                    string fp = $"{Application.StartupPath}{slash}usr{slash}profile{profIndex}{slash}foodlog{slash}{dte}.TXT";
+                    string fp = $"{Application.StartupPath}{slash}usr{slash}profile{currentUser.index}{slash}foodlog{slash}{dte}.TXT";
                     string textB = "";
                     textB += dataDay.Rows[bDay - 1].Cells[0].Value.ToString() + "|";
                     for (int m = bDay; m < lDay - 2; m++)
@@ -863,7 +878,7 @@ dataDay.Rows.Add(row);*/
                 if (dataDay.Rows[i].Cells[0].Value.ToString() == "Lunch")
                     lDay = i;
 
-            string fp = $"{Application.StartupPath}{slash}usr{slash}profile{profIndex}{slash}foodlog{slash}{dte}.TXT";
+            string fp = $"{Application.StartupPath}{slash}usr{slash}profile{currentUser.index}{slash}foodlog{slash}{dte}.TXT";
             string textB = "";
             textB += dataDay.Rows[bDay].Cells[0].Value.ToString() + "|";
             for (int m = bDay + 1; m < lDay - 1; m++)
@@ -1050,7 +1065,7 @@ dataDay.Rows.Add(row);*/
             {
                 dataExercise.Rows[0].Cells[0].Value = "Walking";
                 dataExercise.Rows[0].Cells[1].Value = "Steps";
-                double c = ex * 0.001 * (28 + 0.27 * (wt - 100));
+                double c = ex * 0.001 * (28 + 0.27 * (currentUser.wt - 100));
                 dataExercise.Rows[0].Cells[2].Value = Math.Round(c / ex, 3);//Math.Round(d * cpm / ex, 3);
                 dataExercise.Rows[0].Cells[3].Value = txtExerciseVal.Text + " steps";
                 c = Math.Round(c, 1);
@@ -1061,7 +1076,7 @@ dataDay.Rows.Add(row);*/
                 dataExercise.Rows[0].Cells[0].Value = "Walking";
                 dataExercise.Rows[0].Cells[1].Value = "Light";
                 double d = ex / 20.0;
-                double cpm = 53 + 0.535 * (wt - 100);
+                double cpm = 53 + 0.535 * (currentUser.wt - 100);
                 dataExercise.Rows[0].Cells[2].Value = Math.Round(d * cpm / ex, 3);
                 dataExercise.Rows[0].Cells[3].Value = txtExerciseVal.Text + " min";
                 dataExercise.Rows[0].Cells[4].Value = Math.Round(d * cpm, 1) + " kcal";
@@ -1071,7 +1086,7 @@ dataDay.Rows.Add(row);*/
                 dataExercise.Rows[0].Cells[0].Value = "Jogging";
                 dataExercise.Rows[0].Cells[1].Value = "Brisk";
                 double d = ex / 20.0;
-                double cpm = 53 + 0.535 * (wt - 100);
+                double cpm = 53 + 0.535 * (currentUser.wt - 100);
                 cpm *= 1.36;
                 dataExercise.Rows[0].Cells[2].Value = Math.Round(d * cpm / ex, 3);
                 dataExercise.Rows[0].Cells[3].Value = txtExerciseVal.Text + " min";
@@ -1082,7 +1097,7 @@ dataDay.Rows.Add(row);*/
                 dataExercise.Rows[0].Cells[0].Value = "Running";
                 dataExercise.Rows[0].Cells[1].Value = "Intense";
                 double d = ex / 20.0;
-                double cpm = 53 + 0.535 * (wt - 100);
+                double cpm = 53 + 0.535 * (currentUser.wt - 100);
                 cpm *= 1.4;
                 dataExercise.Rows[0].Cells[2].Value = Math.Round(d * cpm / ex, 3);
                 dataExercise.Rows[0].Cells[3].Value = txtExerciseVal.Text + " min";
@@ -1093,7 +1108,7 @@ dataDay.Rows.Add(row);*/
                 dataExercise.Rows[0].Cells[0].Value = "Sprinting";
                 dataExercise.Rows[0].Cells[1].Value = "Extreme";
                 double d = ex / 20.0;
-                double cpm = 53 + 0.535 * (wt - 100);
+                double cpm = 53 + 0.535 * (currentUser.wt - 100);
                 cpm *= 1.54;
                 dataExercise.Rows[0].Cells[2].Value = Math.Round(d * cpm / ex, 3);
                 dataExercise.Rows[0].Cells[3].Value = txtExerciseVal.Text + " min";
@@ -1165,7 +1180,7 @@ dataExercise[0, x].Value == "Sprinting")
                     dataExercise[x + 1, y].Value = "0 kcal";
                     goto skip;
                 }
-                double c = val * 0.001 * (28 + 0.27 * (wt - 100));
+                double c = val * 0.001 * (28 + 0.27 * (currentUser.wt - 100));
                 c = Math.Round(c, 1);
                 //editing = true;
                 //MessageBox.Show(dataExercise[y+1,x].Value.ToString());
@@ -1180,7 +1195,7 @@ dataExercise[0, x].Value == "Sprinting")
                     goto skip;
                 }
                 double d = val / 20.0;
-                double cpm = 53 + 0.535 * (wt - 100);
+                double cpm = 53 + 0.535 * (currentUser.wt - 100);
                 dataExercise.Rows[y].Cells[2].Value = Math.Round(d * cpm / val, 3);
                 dataExercise.Rows[y].Cells[4].Value = Math.Round(d * cpm, 1) + " kcal";
             }
@@ -1193,7 +1208,7 @@ dataExercise[0, x].Value == "Sprinting")
                     goto skip;
                 }
                 double d = val / 20.0;
-                double cpm = 53 + 0.535 * (wt - 100);
+                double cpm = 53 + 0.535 * (currentUser.wt - 100);
                 cpm *= 1.36;
                 dataExercise.Rows[y].Cells[2].Value = Math.Round(d * cpm / val, 3);
                 //dataExercise.Rows[0].Cells[3].Value = txtExerciseVal.Text + " min";
@@ -1208,7 +1223,7 @@ dataExercise[0, x].Value == "Sprinting")
                     goto skip;
                 }
                 double d = val / 20.0;
-                double cpm = 53 + 0.535 * (wt - 100);
+                double cpm = 53 + 0.535 * (currentUser.wt - 100);
                 cpm *= 1.4;
                 dataExercise.Rows[y].Cells[2].Value = Math.Round(d * cpm / val, 3);
                 //dataExercise.Rows[0].Cells[3].Value = txtExerciseVal.Text + " min";
@@ -1223,7 +1238,7 @@ dataExercise[0, x].Value == "Sprinting")
                     goto skip;
                 }
                 double d = val / 20.0;
-                double cpm = 53 + 0.535 * (wt - 100);
+                double cpm = 53 + 0.535 * (currentUser.wt - 100);
                 cpm *= 1.54;
                 dataExercise.Rows[y].Cells[2].Value = Math.Round(d * cpm / val, 3);
                 //dataExercise.Rows[0].Cells[3].Value = txtExerciseVal.Text + " min";
@@ -1340,12 +1355,12 @@ dataExercise[0, x].Value == "Sprinting")
         private void bodyFatCalcToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
-            frmBodyfatCalc.currentName = importArray($"{Application.StartupPath}{slash}usr{slash}profile{profIndex}{slash}profile{profIndex}.TXT")[0];
+            frmBodyfatCalc.currentName = importArray($"{Application.StartupPath}{slash}usr{slash}profile{currentUser.index}{slash}")[0];
             frmBodyfatCalc frmBFC = new Nutritracker.frmBodyfatCalc();
-            frmBFC.gender = importArray($"{Application.StartupPath}{slash}usr{slash}profile{profIndex}{slash}profile{profIndex}.TXT")[1];
-            frmBFC.age = Convert.ToInt32(importArray($"{Application.StartupPath}{slash}usr{slash}profile{profIndex}{slash}profile{profIndex}.TXT")[2]);
-            frmBFC.wt = Convert.ToInt32(importArray($"{Application.StartupPath}{slash}usr{slash}profile{profIndex}{slash}profile{profIndex}.TXT")[4]);
-            frmBFC.ht = Convert.ToInt32(importArray($"{Application.StartupPath}{slash}usr{slash}profile{profIndex}{slash}profile{profIndex}.TXT")[5]);
+            frmBFC.gender = importArray($"{Application.StartupPath}{slash}usr{slash}profile{currentUser.index}{slash}profile.TXT")[1];
+            frmBFC.age = Convert.ToInt32(importArray($"{Application.StartupPath}{slash}usr{slash}profile{currentUser.index}{slash}profile.TXT")[2]);
+            frmBFC.wt = Convert.ToInt32(importArray($"{Application.StartupPath}{slash}usr{slash}profile{currentUser.index}{slash}profile.TXT")[4]);
+            frmBFC.ht = Convert.ToInt32(importArray($"{Application.StartupPath}{slash}usr{slash}profile{currentUser.index}{slash}profile.TXT")[5]);
             frmBFC.ShowDialog();
         }
 
@@ -1356,9 +1371,9 @@ dataExercise[0, x].Value == "Sprinting")
 
         private void naturalPotentialCalcToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            frmLeanPotentialCalc.bodyfat = Convert.ToInt32(importArray($"{Application.StartupPath}{slash}usr{slash}profile{profIndex}{slash}profile{profIndex}.TXT")[3]);
-            frmLeanPotentialCalc.weight = Convert.ToInt32(importArray($"{Application.StartupPath}{slash}usr{slash}profile{profIndex}{slash}profile{profIndex}.TXT")[4]);
-            frmLeanPotentialCalc.height = Convert.ToInt32(importArray($"{Application.StartupPath}{slash}usr{slash}profile{profIndex}{slash}profile{profIndex}.TXT")[5]);
+            frmLeanPotentialCalc.bodyfat = Convert.ToInt32(importArray($"{Application.StartupPath}{slash}usr{slash}profile{currentUser.index}{slash}profile.TXT")[3]);
+            frmLeanPotentialCalc.weight = Convert.ToInt32(importArray($"{Application.StartupPath}{slash}usr{slash}profile{currentUser.index}{slash}profile.TXT")[4]);
+            frmLeanPotentialCalc.height = Convert.ToInt32(importArray($"{Application.StartupPath}{slash}usr{slash}profile{currentUser.index}{slash}profile.TXT")[5]);
             frmLeanPotentialCalc frmNatPot = new Nutritracker.frmLeanPotentialCalc();            
             frmNatPot.ShowDialog();
         }
@@ -1371,7 +1386,7 @@ dataExercise[0, x].Value == "Sprinting")
 
         private void btnSearchUserD_Click(object sender, EventArgs e)
         {
-            if (!Directory.Exists($"{Application.StartupPath}{slash}usr{slash}share{slash}DBs") && !Directory.Exists($"{Application.StartupPath}{slash}usr{slash}profile{profIndex}{slash}DBs"))
+            if (!Directory.Exists($"{Application.StartupPath}{slash}usr{slash}share{slash}DBs") && !Directory.Exists($"{Application.StartupPath}{slash}usr{slash}profile{currentUser.index}{slash}DBs"))
             {
                 MessageBox.Show("There don't seem to be any shared OR user loaded databases.  Try going to the spreadsheet wizard (under tools) to import some, or manually copy some from another user.", "Nothing found", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
@@ -1435,9 +1450,9 @@ dataExercise[0, x].Value == "Sprinting")
             string dinner = "";
             try
             {
-                breakfast = importArray($"{Application.StartupPath}{slash}usr{slash}profile{profIndex}{slash}foodlog{slash}{dte}.TXT")[0];
-                lunch = importArray($"{Application.StartupPath}{slash}usr{slash}profile{profIndex}{slash}foodlog{slash}{dte}.TXT")[1];
-                dinner = importArray($"{Application.StartupPath}{slash}usr{slash}profile{profIndex}{slash}foodlog{slash}{dte}.TXT")[2];
+                breakfast = importArray($"{Application.StartupPath}{slash}usr{slash}profile{currentUser.index}{slash}foodlog{slash}{dte}.TXT")[0];
+                lunch = importArray($"{Application.StartupPath}{slash}usr{slash}profile{currentUser.index}{slash}foodlog{slash}{dte}.TXT")[1];
+                dinner = importArray($"{Application.StartupPath}{slash}usr{slash}profile{currentUser.index}{slash}foodlog{slash}{dte}.TXT")[2];
                 breakfast = breakfast.Replace("Breakfast|", "");
                 lunch = lunch.Replace("Lunch|", "");
                 dinner = dinner.Replace("Dinner|", "");
