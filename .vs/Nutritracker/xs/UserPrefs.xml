@@ -3,7 +3,7 @@
     <Files>
       <File FileName="Nutritracker/frmCustomFood.cs" Line="487" Column="92" />
       <File FileName="Nutritracker/frmDetailReport.cs" Line="27" Column="10" />
-      <File FileName="Nutritracker/frmActiveFields.cs" Line="87" Column="21" />
+      <File FileName="Nutritracker/frmActiveFields.cs" Line="117" Column="10" />
       <File FileName="Nutritracker/frmManageDB.cs" Line="637" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
