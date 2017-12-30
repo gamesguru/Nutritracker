@@ -82,6 +82,7 @@
             this.editProfilesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.undoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.decomposeRecipeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.rankFoodsByNutrientToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addToLogToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addSearchCommonFoodsToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.addExerciseToLogToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
@@ -92,17 +93,16 @@
             this.bodyFatCalcToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.naturalPotentialCalcToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.databaseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.parseExcelSpreadsheetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.relationalDatabaseWizardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.generateRelationalDatabaseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.manageCustomFieldsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.manageStandaloneDatabaseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.btnRemoveFood = new System.Windows.Forms.Button();
             this.btnSearch = new System.Windows.Forms.Button();
             this.btnExit = new System.Windows.Forms.Button();
             this.comboLoggedDays = new System.Windows.Forms.ComboBox();
-            this.rankFoodsByNutrientToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.manageActiveFieldsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.parseExcelSpreadsheetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.relationalDatabaseWizardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.generateRelationalDatabaseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataDay)).BeginInit();
             this.groupBox2.SuspendLayout();
@@ -590,13 +590,13 @@
             // btnLogCustFood
             // 
             this.btnLogCustFood.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnLogCustFood.Enabled = false;
             this.btnLogCustFood.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnLogCustFood.Location = new System.Drawing.Point(6, 287);
             this.btnLogCustFood.Name = "btnLogCustFood";
             this.btnLogCustFood.Size = new System.Drawing.Size(147, 38);
             this.btnLogCustFood.TabIndex = 17;
             this.btnLogCustFood.TabStop = false;
-            this.btnLogCustFood.Enabled = false;
             this.btnLogCustFood.Text = "Add to Log";
             this.btnLogCustFood.UseVisualStyleBackColor = true;
             // 
@@ -663,6 +663,7 @@
             // 
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.customFoodEntryToolStripMenuItem,
+            this.manageActiveFieldsToolStripMenuItem,
             this.editProfilesToolStripMenuItem,
             this.undoToolStripMenuItem,
             this.decomposeRecipeToolStripMenuItem,
@@ -702,6 +703,13 @@
             this.decomposeRecipeToolStripMenuItem.Size = new System.Drawing.Size(216, 22);
             this.decomposeRecipeToolStripMenuItem.Text = "Decompose Recipe";
             this.decomposeRecipeToolStripMenuItem.Click += new System.EventHandler(this.decomposeRecipeToolStripMenuItem_Click);
+            // 
+            // rankFoodsByNutrientToolStripMenuItem
+            // 
+            this.rankFoodsByNutrientToolStripMenuItem.Enabled = false;
+            this.rankFoodsByNutrientToolStripMenuItem.Name = "rankFoodsByNutrientToolStripMenuItem";
+            this.rankFoodsByNutrientToolStripMenuItem.Size = new System.Drawing.Size(216, 22);
+            this.rankFoodsByNutrientToolStripMenuItem.Text = "Rank Foods by Nutrient";
             // 
             // addToLogToolStripMenuItem
             // 
@@ -781,11 +789,33 @@
             this.relationalDatabaseWizardToolStripMenuItem,
             this.generateRelationalDatabaseToolStripMenuItem,
             this.manageCustomFieldsToolStripMenuItem,
-            this.manageStandaloneDatabaseToolStripMenuItem,
-            this.manageActiveFieldsToolStripMenuItem});
+            this.manageStandaloneDatabaseToolStripMenuItem});
             this.databaseToolStripMenuItem.Name = "databaseToolStripMenuItem";
             this.databaseToolStripMenuItem.Size = new System.Drawing.Size(67, 20);
             this.databaseToolStripMenuItem.Text = "Database";
+            // 
+            // parseExcelSpreadsheetToolStripMenuItem
+            // 
+            this.parseExcelSpreadsheetToolStripMenuItem.Name = "parseExcelSpreadsheetToolStripMenuItem";
+            this.parseExcelSpreadsheetToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F9;
+            this.parseExcelSpreadsheetToolStripMenuItem.Size = new System.Drawing.Size(241, 22);
+            this.parseExcelSpreadsheetToolStripMenuItem.Text = "Import DB or Field";
+            this.parseExcelSpreadsheetToolStripMenuItem.Click += new System.EventHandler(this.parseExcelSpreadsheetToolStripMenuItem_Click);
+            // 
+            // relationalDatabaseWizardToolStripMenuItem
+            // 
+            this.relationalDatabaseWizardToolStripMenuItem.Name = "relationalDatabaseWizardToolStripMenuItem";
+            this.relationalDatabaseWizardToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F10;
+            this.relationalDatabaseWizardToolStripMenuItem.Size = new System.Drawing.Size(241, 22);
+            this.relationalDatabaseWizardToolStripMenuItem.Text = "Import Relational Database";
+            this.relationalDatabaseWizardToolStripMenuItem.Click += new System.EventHandler(this.relationalDatabaseWizardToolStripMenuItem_Click);
+            // 
+            // generateRelationalDatabaseToolStripMenuItem
+            // 
+            this.generateRelationalDatabaseToolStripMenuItem.Enabled = false;
+            this.generateRelationalDatabaseToolStripMenuItem.Name = "generateRelationalDatabaseToolStripMenuItem";
+            this.generateRelationalDatabaseToolStripMenuItem.Size = new System.Drawing.Size(241, 22);
+            this.generateRelationalDatabaseToolStripMenuItem.Text = "Generate Relational Database";
             // 
             // manageCustomFieldsToolStripMenuItem
             // 
@@ -820,7 +850,7 @@
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.Size = new System.Drawing.Size(212, 56);
             this.btnSearch.TabIndex = 11;
-            this.btnSearch.Text = "Search Food Databases Add to Log";
+            this.btnSearch.Text = "Search Food Databases\r\nAdd to Log";
             this.btnSearch.UseVisualStyleBackColor = true;
             this.btnSearch.Click += new System.EventHandler(this.btnSearchUserD_Click);
             // 
@@ -848,40 +878,13 @@
             this.comboLoggedDays.TabIndex = 23;
             this.comboLoggedDays.SelectedIndexChanged += new System.EventHandler(this.comboLoggedDays_SelectedIndexChanged);
             // 
-            // rankFoodsByNutrientToolStripMenuItem
-            // 
-            this.rankFoodsByNutrientToolStripMenuItem.Enabled = false;
-            this.rankFoodsByNutrientToolStripMenuItem.Name = "rankFoodsByNutrientToolStripMenuItem";
-            this.rankFoodsByNutrientToolStripMenuItem.Size = new System.Drawing.Size(216, 22);
-            this.rankFoodsByNutrientToolStripMenuItem.Text = "Rank Foods by Nutrient";
-            // 
             // manageActiveFieldsToolStripMenuItem
             // 
             this.manageActiveFieldsToolStripMenuItem.Name = "manageActiveFieldsToolStripMenuItem";
             this.manageActiveFieldsToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F2;
-            this.manageActiveFieldsToolStripMenuItem.Size = new System.Drawing.Size(241, 22);
+            this.manageActiveFieldsToolStripMenuItem.Size = new System.Drawing.Size(216, 22);
             this.manageActiveFieldsToolStripMenuItem.Text = "Manage Active Fields";
-            // 
-            // parseExcelSpreadsheetToolStripMenuItem
-            // 
-            this.parseExcelSpreadsheetToolStripMenuItem.Name = "parseExcelSpreadsheetToolStripMenuItem";
-            this.parseExcelSpreadsheetToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F9;
-            this.parseExcelSpreadsheetToolStripMenuItem.Size = new System.Drawing.Size(241, 22);
-            this.parseExcelSpreadsheetToolStripMenuItem.Text = "Import DB or Field";
-            // 
-            // relationalDatabaseWizardToolStripMenuItem
-            // 
-            this.relationalDatabaseWizardToolStripMenuItem.Name = "relationalDatabaseWizardToolStripMenuItem";
-            this.relationalDatabaseWizardToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F10;
-            this.relationalDatabaseWizardToolStripMenuItem.Size = new System.Drawing.Size(241, 22);
-            this.relationalDatabaseWizardToolStripMenuItem.Text = "Import Relational Database";
-            // 
-            // generateRelationalDatabaseToolStripMenuItem
-            // 
-            this.generateRelationalDatabaseToolStripMenuItem.Enabled = false;
-            this.generateRelationalDatabaseToolStripMenuItem.Name = "generateRelationalDatabaseToolStripMenuItem";
-            this.generateRelationalDatabaseToolStripMenuItem.Size = new System.Drawing.Size(241, 22);
-            this.generateRelationalDatabaseToolStripMenuItem.Text = "Generate Relational Database";
+            this.manageActiveFieldsToolStripMenuItem.Click += new System.EventHandler(this.manageActiveFieldsToolStripMenuItem_Click);
             // 
             // frmMain
             // 

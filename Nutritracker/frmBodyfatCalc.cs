@@ -24,6 +24,7 @@ namespace Nutritracker
 
         private void frmBodyfatCalc_Load(object sender, EventArgs e)
         {
+            this.Text = "Bodyfat Estimator — " + currentName;
             height = ht * 2.54;
             lblAge.Text = "Age: " + age.ToString();
             lblGender.Text = "Gender: " + gender;
@@ -38,7 +39,7 @@ namespace Nutritracker
                 lbl3Chest.Text = "Tricep: ";
                 lbl3Ab.Text = "Suprailiac: ";
             }
-            button1.Text = "Save Measurement to " + currentName;
+            button1.Text = "Save Measurement";
         }
 
         private void button1_Click(object sender, EventArgs e)

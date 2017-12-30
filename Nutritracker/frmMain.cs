@@ -110,6 +110,7 @@ dataDay.Rows.Add(row);*/
         //bool loadup = true;
         List<string> profDirects;
         public static int profIndex = 0;
+        public static string profName = "";
         public static string dte;
         public static string slash = Path.DirectorySeparatorChar.ToString();
         #region profile info
@@ -187,6 +188,7 @@ dataDay.Rows.Add(row);*/
             List<string> profData = importArray($"{root}{slash}profile{profIndex}{slash}profile{profIndex}.TXT");
 
             name = profData[0];
+            profName = name; //update on settings form too!!
             gender = profData[1] == "female";
             age = Convert.ToInt16(profData[2]);
             bodyFat = Convert.ToInt16(profData[3]);

@@ -1,0 +1,25 @@
+#use this dialog to configure nutrients for tracking
+#remove lines with the pound sign
+#examples can be found in the help documentation
+Cals
+#CalsFat
+FatTot
+FatSat
+FatTrans
+#FatMono
+#FatPoly
+Cholest
+Na
+K
+CarbsTot
+Fiber
+FiberSol
+Sugar
+#SugarAlc
+Protein
+VitA
+VitC
+Ca
+Fe
+VitD
+VitE
