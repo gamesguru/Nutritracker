@@ -596,6 +596,7 @@
             this.btnLogCustFood.Size = new System.Drawing.Size(147, 38);
             this.btnLogCustFood.TabIndex = 17;
             this.btnLogCustFood.TabStop = false;
+            this.btnLogCustFood.Enabled = false;
             this.btnLogCustFood.Text = "Add to Log";
             this.btnLogCustFood.UseVisualStyleBackColor = true;
             // 

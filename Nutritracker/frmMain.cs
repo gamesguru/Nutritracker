@@ -179,7 +179,7 @@ dataDay.Rows.Add(row);*/
             if (profDirects.Count == 0)
             {
                 profIndex = 0;
-                Properties.Settings.Default.Save();
+                File.Create($"{Application.StartupPath}{slash}usr{slash}default0");
                 if (frmP.ShowDialog() == DialogResult.Cancel)
                     Application.Exit();
             }

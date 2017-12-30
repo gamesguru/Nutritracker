@@ -348,12 +348,10 @@ namespace Nutritracker
                 string newRelDir = $"{Application.StartupPath}{slash}usr{slash}share{slash}rel{slash}single{slash}{txtName.Text}";
 
                 Directory.CreateDirectory(newRelDir);
-
-                //string unit = "";
+                
                 string ndb = "";
                 string val = "";
 
-                //string f = relf.file.Split(new char[] { '/', '\\' })[relf.file.Split(new char[] { '/', '\\' }).Length - 1].Replace(".TXT", "");
                 for (int i=0;i<relf.headers.Length;i++){
                     List<string> c = new List<string>();
                     for (int j=1;j<relf.lines.Length;j++){
