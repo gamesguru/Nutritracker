@@ -1,0 +1,17 @@
+﻿<Properties StartupConfiguration="{086472C5-DD1F-4872-9BF1-9F9B633A376F}|Default">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Nutritracker/frmNewDBrel.cs">
+    <Files>
+      <File FileName="Nutritracker/frmMain.cs" Line="1206" Column="22" />
+      <File FileName="Nutritracker/frmCustomFood.cs" Line="227" Column="9" />
+      <File FileName="Nutritracker/frmNewDBrel.cs" Line="353" Column="17" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.ItemProperties.Nutritracker PreferredExecutionTarget="MonoDevelop.Default" />
+  <AuthorInfo Name="Shane" Email="mathmuncher11@gmail.com" Copyright="" Company="" Trademark="" />
+  <MultiItemStartupConfigurations />
+</Properties>
