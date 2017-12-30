@@ -29,10 +29,11 @@ namespace Nutritracker
             string[] directs = Directory.GetFiles(profileRoot + $"{slash}foodlog");
             for (int i = 0; i < directs.Length; i++)
             {
-                directs[i] = directs[i].Replace(profileRoot + $"{slash}foodlog{slash}", "");
+                directs[i] = directs[i].Replace($"{profileRoot}{slash}foodlog{slash}", "");
                 directs[i] = directs[i].Replace(".TXT", "");
                 chkLstBoxDays.Items.Add(directs[i]);
             }
+            chkLstBoxDays.Items.Add("All");
             int n = 0;
             while (File.Exists(file = profileRoot + $"{slash}detailReport_{dte}_{n}.TXT"))
                 n++;
@@ -49,7 +50,7 @@ namespace Nutritracker
 
             List<string> days = new List<string>();
             for (int i = 0; i < chkLstBoxDays.Items.Count; i++)
-                if (chkLstBoxDays.GetItemChecked(i))
+                if (chkLstBoxDays.GetItemChecked(i) && chkLstBoxDays.Items[i].ToString() != "All")
                     days.Add(chkLstBoxDays.Items[i].ToString());
 
             ProcessStartInfo ps = new ProcessStartInfo($"{Application.StartupPath}{slash}logRunner.exe");
@@ -72,10 +73,12 @@ namespace Nutritracker
 
         private void chkLstBoxDays_ItemCheck(object sender, ItemCheckEventArgs e)
         {
-            //if (chkLstBoxDays.CheckedItems.Count == 0)
-            //    btnRunReport.Enabled = false;
-            //else
-                //btnRunReport.Enabled = true;
+            if (chkLstBoxDays.Items[e.Index].ToString() == "All" && e.NewValue == System.Windows.Forms.CheckState.Checked)
+                for (int i = 0; i < chkLstBoxDays.Items.Count - 1; i++)
+                    chkLstBoxDays.SetItemChecked(i, true);
+             else if (chkLstBoxDays.Items[e.Index].ToString() == "All" && e.NewValue == System.Windows.Forms.CheckState.Unchecked)
+                for (int i = 0; i < chkLstBoxDays.Items.Count - 1; i++)
+                    chkLstBoxDays.SetItemChecked(i, false);
         }
     }
 }

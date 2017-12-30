@@ -482,7 +482,7 @@ namespace Nutritracker
                         macros1[4] = importArray($"{fr}{slash}fatpoly.TXT").ToArray()[i];
                         macros1[5] = importArray($"{fr}{slash}fatmono.TXT").ToArray()[i];
 
-                        macros2[0] = importArray({profIndex}{slash}cholest.TXT").ToArray()[i];
+                        macros2[0] = importArray($"{fr}{slash}cholest.TXT").ToArray()[i];
                         macros2[1] = importArray($"{fr}{slash}sodium.TXT").ToArray()[i];
                         macros2[2] = importArray($"{fr}{slash}potassium.TXT").ToArray()[i];
                         macros2[3] = importArray($"{fr}{slash}carbs.TXT").ToArray()[i];

@@ -44,71 +44,11 @@ namespace Nutritracker
                     edited = true;
             }
 
-            if (edited && MessageBox.Show("Save changes (if any)?", "", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            if (edited && MessageBox.Show("Save changes?", "", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 File.WriteAllLines($"{Application.StartupPath}{slash}usr{slash}profile{frmMain.currentUser.index}{slash}activeFields.TXT", richTxtInput.Text.Split('\n'));
             this.Close();
         }
 
-        string[] knownFields = {
-            "Cals",
-            "CalsFat",
-            "FatTot",
-            "FatSat",
-            "FatTrans",
-            "FatMono",
-            "FatPoly",
-            "Cholest",
-            "Na",
-            "K",
-            "CarbsTot",
-            "Fiber",
-            "FiberSol",
-            "Sugar",
-            "Protein",
-            "VitA",
-            "VitC",
-            "Ca",
-            "Fe",
-            "VitD",
-            "VitE",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-
-        };
         private void richTxtInput_TextChanged(object sender, EventArgs e)
         {
             int z = richTxtInput.SelectionStart;
@@ -119,10 +59,12 @@ namespace Nutritracker
             int m = 0;
             for (int i = 0; i < lines.Length; i++)
             {
+				int l = lines[i].Length;
                 if (lines[i].Contains("#"))
                 {
-                    richTxtInput.SelectionStart = m + lines[i].IndexOf("#");
-                    richTxtInput.SelectionLength = lines[i].Length - lines[i].IndexOf("#");
+                    int c = lines[i].IndexOf("#");
+                    richTxtInput.SelectionStart = m + c;
+                    richTxtInput.SelectionLength = l - c;
                     richTxtInput.SelectionColor = Color.Blue;
                     richTxtInput.SelectionFont = new Font(font, FontStyle.Italic);
                     richTxtInput.Select(z, 0);
@@ -130,7 +72,7 @@ namespace Nutritracker
                 else
                 {
                     richTxtInput.SelectionStart = m;
-                    richTxtInput.SelectionLength = lines[i].Length;
+                    richTxtInput.SelectionLength = l;
                     richTxtInput.SelectionColor = Color.Black;
                     richTxtInput.SelectionFont = new Font(font, FontStyle.Regular);
                     richTxtInput.Select(z, 0);
@@ -140,7 +82,7 @@ namespace Nutritracker
                 int n = m;
                 for (int j = 0; j < words.Length; j++)
                 {
-                    if (knownFields.Contains(words[j]))
+                    if (frmMain.knownFields.Contains(words[j]))
                     {
                         richTxtInput.SelectionStart = n;
                         richTxtInput.SelectionLength = words[j].Length;

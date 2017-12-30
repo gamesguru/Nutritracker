@@ -1,9 +1,9 @@
 ########################################################
 #############    Nutrient Configurator    ##############
 ########################################################
-#here you can configure/unconfigure trackable nutrients
-#remove lines with '#', no black text should appear
-#a full list of nutrients can be found  in the help docs
+#Here you can configure/unconfigure trackable nutrients
+#Remove lines with '#', NO black text should appear
+#A full list of nutrients can be found in the help docs
 ########################################################
 Cals
 #CalsFat
@@ -24,9 +24,34 @@ Protein
 Ca #Calcium
 Fe #Iron
 VitA
-VitC
+#VitC
 VitD
 VitE
+#VitK
+#B1
+#B2
+#B3
+#B5
+B6
+#B7
+#B9
+B12
+Mg
+Zn
+Se
+B
+I
+#P
+Mn
+#F
+#Cu
+Cr
+#Mo
+#Choline
+#Carnitine
+#Lipoic acid
+Inositol
+Aminos
 ########################################################
 ###############      Custom Fields    ##################
 ########################################################
