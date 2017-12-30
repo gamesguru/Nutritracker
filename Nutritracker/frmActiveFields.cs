@@ -127,11 +127,11 @@ namespace Nutritracker
                     richTxtInput.Select(z, 0);
                 }
 
-                string[] words = lines[i].Split(' ');
+                string[] words = lines[i].Split('#')[0].Split(' ');
                 int n = m;
                 for (int j = 0; j < words.Length; j++)
                 {
-                    if (knownFields.Contains(words[j]) && !(lines[i].IndexOf("#") != -1 && lines[i].IndexOf(words[j]) < lines[i].LastIndexOf("#")))
+                    if (knownFields.Contains(words[j]))
                     {
                         richTxtInput.SelectionStart = n;
                         richTxtInput.SelectionLength = words[j].Length;

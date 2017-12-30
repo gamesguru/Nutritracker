@@ -12,7 +12,8 @@ Cholest
 Na #Sodium
 K #Potassium
 Ca #Calcium
-Fe #IronCarbsTot
+Fe #Iron
+CarbsTot
 Fiber
 FiberSol
 Sugar

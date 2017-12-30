@@ -5,7 +5,7 @@
       <File FileName="Nutritracker/frmCustomFood.cs" Line="227" Column="9" />
       <File FileName="Nutritracker/frmNewDBrel.cs" Line="25" Column="10" />
       <File FileName="Nutritracker/frmBodyfatCalc.cs" Line="31" Column="61" />
-      <File FileName="Nutritracker/frmActiveFields.cs" Line="142" Column="45" />
+      <File FileName="Nutritracker/frmActiveFields.cs" Line="130" Column="56" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
