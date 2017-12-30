@@ -190,6 +190,7 @@ dataDay.Rows.Add(row);*/
             public int actLvl = 2;
             public string goal = "Maintenance";
             public int index; //the index among other profiles, beginning with 0
+            public string root;
         }
 
         public static _profile currentUser = new _profile();
@@ -265,8 +266,9 @@ dataDay.Rows.Add(row);*/
                     Application.Exit();
             }
 
-            List<string> profData = importArray($"{root}{slash}profile{currentUser.index}{slash}profile.TXT");
 
+            currentUser.root= $"{root}{slash}profile{currentUser.index}{slash}";
+            List<string> profData = importArray($"{currentUser.root}profile.TXT");
             currentUser.name = profData[0];
             //profName = name; //update on settings form too!!
             currentUser.gender = profData[1];
@@ -278,119 +280,6 @@ dataDay.Rows.Add(row);*/
             currentUser.goal = profData[7];
 
             this.Text = $"Nutritracker — {currentUser.name}";
-
-            /*dataDay.Rows.Add("Breakfast");
-            dataDay.Rows.Add("", "");
-            dataDay.Rows.Add("Lunch");
-            dataDay.Rows.Add("", "");
-            dataDay.Rows.Add("Dinner");
-            dataDay.Rows.Add("", "");
-            dataDay.Rows.Add("Totals");
-            dataDay.Rows.Add("", "");
-
-            dataDay.Rows[0].DefaultCellStyle.BackColor = Color.LightGray;
-            dataDay.Rows[0].ReadOnly = true;
-
-            dataDay.Rows[2].DefaultCellStyle.BackColor = Color.LightGray;
-            dataDay.Rows[2].ReadOnly = true;
-
-            dataDay.Rows[4].DefaultCellStyle.BackColor = Color.LightGray;
-            dataDay.Rows[4].ReadOnly = true;
-
-            dataDay.Rows[6].DefaultCellStyle.BackColor = Color.LightGray;
-            dataDay.Rows[6].ReadOnly = true;
-
-            dataDay.Rows[7].DefaultCellStyle.BackColor = Color.LightGray;
-            dataDay.Rows[7].ReadOnly = true;
-            dataDay.Rows[8].ReadOnly = true;
-
-            
-            string breakfast = importArray(Application.StartupPath + "\\usr\\profile" + profIndex + "\\foodlog\\" + dte + ".txt")[0];
-            string lunch = importArray(Application.StartupPath + "\\usr\\profile" + profIndex + "\\foodlog\\" + dte + ".txt")[1];
-            string dinner = importArray(Application.StartupPath + "\\usr\\profile" + profIndex + "\\foodlog\\" + dte + ".txt")[2];
-            breakfast = breakfast.Replace("Breakfast|", "");
-            lunch = lunch.Replace("Lunch|", "");
-            dinner = dinner.Replace("Dinner|", "");
-
-
-            int bDay = 1, lDay = 3, dDay = 5, tDay = 7;
-
-
-
-            //breakfast
-            for (int i = 0; i < dataDay.Rows.Count - 2; i++)
-                if (dataDay.Rows[i].Cells[0].Value.ToString() == "Breakfast")
-                    bDay = i + 1;
-            string[] breaks = breakfast.Split(new string[] { "||" }, StringSplitOptions.None);
-            List<string> breaks2 = new List<string>();
-            for (int k = 0; k < breaks.Length; k++)
-                if (breaks[k] != null && breaks[k] != "")
-                    breaks2.Add(breaks[k]);
-
-            dataDay.Rows.Insert(bDay, breaks2.Count);
-            for (int k = 0; k < breaks2.Count; k++)
-            {
-                breaks2[k] = breaks2[k].Replace("||", "");
-                for (int i = 0; i < dataDay.ColumnCount; i++)
-                    dataDay.Rows[bDay + k].Cells[i].Value = breaks2[k].Split('|')[i];
-            }
-
-            //lunch
-            for (int i = 0; i < dataDay.Rows.Count - 2; i++)
-                if (dataDay.Rows[i].Cells[0].Value.ToString() == "Lunch")
-                    lDay = i + 1;
-            string[] lunchs = lunch.Split(new string[] { "||" }, StringSplitOptions.None);
-            List<string> lunchs2 = new List<string>();
-            for (int k = 0; k < lunchs.Length; k++)
-                if (lunchs[k] != null && lunchs[k] != "")
-                    lunchs2.Add(lunchs[k]);
-
-            dataDay.Rows.Insert(lDay, lunchs2.Count);
-            for (int k = 0; k < lunchs2.Count; k++)
-            {
-                lunchs2[k] = lunchs2[k].Replace("||", "");
-                for (int i = 0; i < dataDay.ColumnCount; i++)
-                    dataDay.Rows[lDay + k].Cells[i].Value = lunchs2[k].Split('|')[i];
-            }
-
-            //dinner
-            for (int i = 0; i < dataDay.Rows.Count - 2; i++)
-            {
-                try
-                {
-                    if (dataDay.Rows[i].Cells[0].Value.ToString() == "Dinner")
-                        dDay = i + 1;
-                }
-                catch{ }
-            }
-            string[] dins = dinner.Split(new string[] { "||" }, StringSplitOptions.None);
-            List<string> dins2 = new List<string>();
-            for (int k = 0; k < dins.Length; k++)
-                if (dins[k] != null && dins[k] != "")
-                    dins2.Add(dins[k]);
-
-            dataDay.Rows.Insert(dDay, dins2.Count);
-            for (int k = 0; k < dins2.Count; k++)
-            {
-                dins2[k] = dins2[k].Replace("||", "");
-                for (int i = 0; i < dataDay.ColumnCount; i++)
-                    dataDay.Rows[dDay + k].Cells[i].Value = dins2[k].Split('|')[i];
-            }
-
-
-            for (int i = 0; i < dataDay.Rows.Count - 2; i++)
-                try
-                {
-                    if (dataDay.Rows[i].Cells[0].Value.ToString() == "Totals")
-                        tDay = i + 1;
-                }
-                catch { }
-
-            tabulateNutrientColumns();*/
-
-            //
-            //
-            //
 
             comboExType.SelectedIndex = 0;
             dataExercise.Rows.Add("Existing");
@@ -492,8 +381,7 @@ dataDay.Rows.Add(row);*/
             if (!Char.IsControl(e.KeyChar) && !Char.IsDigit(e.KeyChar))
                 e.Handled = true;
         }
-
-        //static public int loadIndex = 0;
+        
 
         private void btnProfile_Click(object sender, EventArgs e)
         {
@@ -1637,6 +1525,11 @@ dataExercise[0, x].Value == "Sprinting")
                 catch { }
 
             tabulateNutrientColumns();
+        }
+
+        private void groupBox3_Enter(object sender, EventArgs e)
+        {
+
         }
     }
 }
