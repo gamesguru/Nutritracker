@@ -1,41 +1,41 @@
-NDB.TXT|NDB No.
-SHR.TXT|Name of Food
-ENE.TXT|Calories
+NDB.TXT|NDBNo
+SHR.TXT|FoodName
+ENE.TXT|Cals
 PRO.TXT|Protein
 CAR.TXT|Carbs
 FIB.TXT|Fiber
 SUG.TXT|Sugar
-LIP.TXT|Total Fat
-FA_.TXT|Sat Fat
-FA_46.TXT|Poly Fat
-FA_45.TXT|Mono Fat
-POT.TXT|Potassium
-MAG.TXT|Magnesium
-CHO47.TXT|Cholesterol
-SOD.TXT|Sodium
-CAL.TXT|Calcium
-IRO.TXT|Iron
-RET.TXT|Vit A
-VIT.TXT|Vit C
-VIT41.TXT|Vit D
-VIT40.TXT|Vit E
-VIT43.TXT|Vit K
-THI.TXT|B1, Thiamine
-RIB.TXT|B2, Riboflavin
-NIA.TXT|B3, Niacin
-PAN.TXT|B5, Pantothenate
-VIT25.TXT|B6, Pyridoxine
-FOO.TXT|B9, Folate
-VIT31.TXT|B12, Cobalamins
-ZIN.TXT|Zinc
-SEL.TXT|Selenium
-PHO.TXT|Phosphorus
-MAN.TXT|Manganese
-COP.TXT|Copper
+LIP.TXT|FatTot
+FA_.TXT|FatSat
+FA_46.TXT|FatPoly
+FA_45.TXT|FatMono
+POT.TXT|K
+MAG.TXT|Mg
+CHO47.TXT|Cholest
+SOD.TXT|Na
+CAL.TXT|Ca
+IRO.TXT|FFe
+RET.TXT|VitA
+VIT.TXT|VitC
+VIT41.TXT|VitD
+VIT40.TXT|VitE
+VIT43.TXT|VitK
+THI.TXT|B1
+RIB.TXT|B2
+NIA.TXT|B3
+PAN.TXT|B5
+VIT25.TXT|B6
+FOO.TXT|B9
+VIT31.TXT|B12
+ZIN.TXT|Zn
+SEL.TXT|Se
+PHO.TXT|P
+MAN.TXT|Mn
+COP.TXT|Cu
 CHO.TXT|Lycopene
 CHO.TXT|LutZea
 CHO.TXT|Choline
-GMW49.TXT|Serving1
-GMW51.TXT|Serving2
-GMW.TXT|Weight1
-GMW50.TXT|Weight2
+GMW49.TXT|Serving
+#GMW51.TXT|Serving2
+GMW.TXT|Weight
+#GMW50.TXT|Weight2

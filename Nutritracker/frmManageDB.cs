@@ -165,157 +165,160 @@ namespace Nutritracker
             for (int i = 0; i < list.Count; i++)
             {
                 #region prepopulate
-                string li = list[i].Split('|')[0];
-                if (list[i].Contains("Name of Food"))
-                    txtname.Text = li;
-                else if (list[i].Contains("NDB No."))
-                    txtNDB.Text = li;
-                else if (list[i].Contains("Serving1"))
-                    txtServ1.Text = li;
-                else if (list[i].Contains("Serving2"))
-                    txtServ2.Text = li;
-                else if (list[i].Contains("Weight1"))
-                    txtWt1.Text = li;
-                else if (list[i].Contains("Weight2"))
-                    txtWt2.Text = li;
-                else if (list[i].Contains("Calories"))
-                    txtCals.Text = li;
-                else if (list[i].Contains("Total Fat"))
-                    txtFat.Text = li;
-                else if (list[i].Contains("Sat Fat"))
-                    txtsatFat.Text = li;
-                else if (list[i].Contains("Carbs"))
-                    txtCarbs.Text = li;
-                else if (list[i].Contains("Fiber"))
-                    txtFiber.Text = li;
-                else if (list[i].Contains("Sugar"))
-                    txtSugar.Text = li;
-                else if (list[i].Contains("Protein"))
-                    txtProtein.Text = li;
-                else if (list[i].Contains("Cholesterol"))
-                    txtCholesterol.Text = li;
-                else if (list[i].Contains("Sodium"))
-                    txtSodium.Text = li;
-                else if (list[i].Contains("Calcium"))
-                    txtCalcium.Text = li;
-                else if (list[i].Contains("Iron"))
-                    txtIron.Text = li;
-                else if (list[i].Contains("Vit A"))
-                    txtVitA.Text = li;
-                else if (list[i].Contains("Vit C"))
-                    txtVitC.Text = li;
-                else if (list[i].Contains("Trans Fat"))
-                    txttransFat.Text = li;
-                else if (list[i].Contains("Poly Fat"))
-                    txtpolyFat.Text = li;
-                else if (list[i].Contains("Mono Fat"))
-                    txtmonoFat.Text = li;
-                else if (list[i].Contains("Lipoic acid"))
-                    txtala.Text = li;
-                else if (list[i].Contains("EPA + DHA"))
-                    txtepadha.Text = li;
-                else if (list[i].Contains("Potassium"))
-                    txtK.Text = li;
-                else if (list[i].Contains("Magnesium"))
-                    txtMg.Text = li;
+                if (list[i].StartsWith("#"))
+                    continue;
+                string field = list[i].Split('|')[1];
+                string file = list[i].Split('|')[0];
+                if (field == "FoodName")
+                    txtname.Text = file;
+                else if (field == "NDBNo")
+                    txtNDB.Text = file;
+                else if (field == "Serving")
+                    txtServ1.Text = file;
+                // else if (field == "Serving2")
+                //     txtServ2.Text = file;
+                else if (field == "Weight")
+                    txtWt1.Text = file;
+                // else if (field == "Weight2")
+                //     txtWt2.Text = file;
+                else if (field == "Cals")
+                    txtCals.Text = file;
+                else if (field == "FatTot")
+                    txtFat.Text = file;
+                else if (field == "FatSat")
+                    txtsatFat.Text = file;
+                else if (field == "Carbs")
+                    txtCarbs.Text = file;
+                else if (field == "Fiber")
+                    txtFiber.Text = file;
+                else if (field == "Sugar")
+                    txtSugar.Text = file;
+                else if (field == "Protein")
+                    txtProtein.Text = file;
+                else if (field == "Cholest")
+                    txtCholesterol.Text = file;
+                else if (field == "Na")
+                    txtSodium.Text = file;
+                else if (field == "Ca")
+                    txtCalcium.Text = file;
+                else if (field == "Fe")
+                    txtIron.Text = file;
+                else if (field == "VitA")
+                    txtVitA.Text = file;
+                else if (field == "VitC")
+                    txtVitC.Text = file;
+                else if (field == "FatTrans")
+                    txttransFat.Text = file;
+                else if (field == "FatPoly")
+                    txtpolyFat.Text = file;
+                else if (field == "FatMono")
+                    txtmonoFat.Text = file;
+                else if (field == "ALA")
+                    txtala.Text = file;
+                else if (field == "EpaDha")
+                    txtepadha.Text = file;
+                else if (field == "K")
+                    txtK.Text = file;
+                else if (field == "Mg")
+                    txtMg.Text = file;
 
                 //tab 2
-                else if (list[i].Contains("Vit D"))
-                    txtVitD.Text = li;
-                else if (list[i].Contains("Vit E"))
-                    txtVitE.Text = li;
-                else if (list[i].Contains("Vit K"))
-                    txtVitK.Text = li;
-                else if (list[i].Contains("B1, Thiamine"))
-                    txtB1.Text = li;
-                else if (list[i].Contains("B2, Riboflavin"))
-                    txtB2.Text = li;
-                else if (list[i].Contains("B3, Niacin"))
-                    txtB3.Text = li;
-                else if (list[i].Contains("B5, Pantothenate"))
-                    txtB5.Text = li;
-                else if (list[i].Contains("B6, Pyridoxine"))
-                    txtB6.Text = li;
-                else if (list[i].Contains("B7, Biotin"))
-                    txtB7.Text = li;
-                else if (list[i].Contains("B9, Folate"))
-                    txtB9.Text = li;
-                else if (list[i].Contains("B12, Cobalamins"))
-                    txtB12.Text = li;
-                else if (list[i].Contains("Zinc"))
-                    txtZn.Text = li;
-                else if (list[i].Contains("Selenium"))
-                    txtSe.Text = li;
-                else if (list[i].Contains("Boron"))
-                    txtB.Text = li;
-                else if (list[i].Contains("Iodine"))
-                    txtI.Text = li;
-                else if (list[i].Contains("Phosphorus"))
-                    txtP.Text = li;
-                else if (list[i].Contains("Manganese"))
-                    txtMn.Text = li;
-                else if (list[i].Contains("Fluoride"))
-                    txtFl.Text = li;
-                else if (list[i].Contains("Copper"))
-                    txtCu.Text = li;
-                else if (list[i].Contains("Chromium"))
-                    txtCr.Text = li;
-                else if (list[i].Contains("Molybdenum"))
-                    txtMo.Text = li;
-                else if (list[i].Contains("Lycopene"))
-                    txtLyco.Text = li;
-                else if (list[i].Contains("LutZea"))
-                    txtLutZea.Text = li;
-                else if (list[i].Contains("Choline"))
-                    txtCho.Text = li;
-                else if (list[i].Contains("Inositol IP6"))
-                    txtIno.Text = li;
-                else if (list[i].Contains("Carnitine"))
-                    txtCarn.Text = li;
-                else if (list[i].Contains("Lipoic acid"))
-                    txtLipoic.Text = li;
+                else if (field == "VitD")
+                    txtVitD.Text = file;
+                else if (field == "VitE")
+                    txtVitE.Text = file;
+                else if (field == "VitK")
+                    txtVitK.Text = file;
+                else if (field == "B1")
+                    txtB1.Text = file;
+                else if (field == "B2")
+                    txtB2.Text = file;
+                else if (field == "B3")
+                    txtB3.Text = file;
+                else if (field == "B5")
+                    txtB5.Text = file;
+                else if (field == "B6")
+                    txtB6.Text = file;
+                else if (field == "B7")
+                    txtB7.Text = file;
+                else if (field == "B9")
+                    txtB9.Text = file;
+                else if (field == "B12")
+                    txtB12.Text = file;
+                else if (field == "Zn")
+                    txtZn.Text = file;
+                else if (field == "Se")
+                    txtSe.Text = file;
+                else if (field == "B")
+                    txtB.Text = file;
+                else if (field == "I")
+                    txtI.Text = file;
+                else if (field == "P")
+                    txtP.Text = file;
+                else if (field == "Mn")
+                    txtMn.Text = file;
+                else if (field == "F")
+                    txtFl.Text = file;
+                else if (field == "Cu")
+                    txtCu.Text = file;
+                else if (field == "Cr")
+                    txtCr.Text = file;
+                else if (field == "Mo")
+                    txtMo.Text = file;
+                else if (field == "Lycopene")
+                    txtLyco.Text = file;
+                else if (field == "LutZea")
+                    txtLutZea.Text = file;
+                else if (field == "Choline")
+                    txtCho.Text = file;
+                else if (field == "Inositol")
+                    txtIno.Text = file;
+                else if (field == "Carnitine")
+                    txtCarn.Text = file;
+                else if (field == "Lipoic acid")
+                    txtLipoic.Text = file;
 
                 //tab 3
-                else if (list[i].Contains("Alanine"))
-                    txtalan.Text = li;
-                else if (list[i].Contains("Arginine"))
-                    txtarg.Text = li;
-                else if (list[i].Contains("Asparagine"))
-                    txtasparag.Text = li;
-                else if (list[i].Contains("Aspartic acid"))
-                    txtaspartic.Text = li;
-                else if (list[i].Contains("Cysteine"))
-                    txtCals.Text = li;
-                else if (list[i].Contains("Glutamine"))
-                    txtglutamine.Text = li;
-                else if (list[i].Contains("Glutamic acid"))
-                    txtgluacid.Text = li;
-                else if (list[i].Contains("Glycine"))
-                    txtgly.Text = li;
-                else if (list[i].Contains("Histidine"))
-                    txthis.Text = li;
-                else if (list[i].Contains("Isoleucine"))
-                    txtisoleu.Text = li;
-                else if (list[i].Contains("Leucine"))
-                    txtleu.Text = li;
-                else if (list[i].Contains("Lysine"))
-                    txtlys.Text = li;
-                else if (list[i].Contains("Methionine"))
-                    txtmeth.Text = li;
-                else if (list[i].Contains("Phenylalanine"))
-                    txtphen.Text = li;
-                else if (list[i].Contains("Proline"))
-                    txtproline.Text = li;
-                else if (list[i].Contains("Serine"))
-                    txtserine.Text = li;
-                else if (list[i].Contains("Threonine"))
-                    txtthreo.Text = li;
-                else if (list[i].Contains("Tryptophan"))
-                    txttrypto.Text = li;
-                else if (list[i].Contains("Tyrosine"))
-                    txttyro.Text = li;
-                else if (list[i].Contains("Valine"))
-                    txtvaline.Text = li;
+                else if (field == "Alanine")
+                    txtalan.Text = file;
+                else if (field == "Arginine")
+                    txtarg.Text = file;
+                else if (field == "Asparagine")
+                    txtasparag.Text = file;
+                else if (field == "Aspartic acid")
+                    txtaspartic.Text = file;
+                else if (field == "Cysteine")
+                    txtCals.Text = file;
+                else if (field == "Glutamine")
+                    txtglutamine.Text = file;
+                else if (field == "Glutamic acid")
+                    txtgluacid.Text = file;
+                else if (field == "Glycine")
+                    txtgly.Text = file;
+                else if (field == "Histidine")
+                    txthis.Text = file;
+                else if (field == "Isoleucine")
+                    txtisoleu.Text = file;
+                else if (field == "Leucine")
+                    txtleu.Text = file;
+                else if (field == "Lysine")
+                    txtlys.Text = file;
+                else if (field == "Methionine")
+                    txtmeth.Text = file;
+                else if (field == "Phenylalanine")
+                    txtphen.Text = file;
+                else if (field == "Proline")
+                    txtproline.Text = file;
+                else if (field == "Serine")
+                    txtserine.Text = file;
+                else if (field == "Threonine")
+                    txtthreo.Text = file;
+                else if (field == "Tryptophan")
+                    txttrypto.Text = file;
+                else if (field == "Tyrosine")
+                    txttyro.Text = file;
+                else if (field == "Valine")
+                    txtvaline.Text = file;
                 #endregion
             }
 
@@ -757,17 +760,17 @@ namespace Nutritracker
                 text.Add(txtleu.Text + "|Leucine");
             if (txtmeth.TextLength > 0 && File.Exists($"{dbDir}{slash}{txtmeth.Text}"))
                 text.Add(txtmeth.Text + "|Methionine");
-            if (txtphen.TextLength > 0 && File.Exists($"{dbDir}{slash}{txtphen.Text}"))
+            if (txtphen.TextLength > 0 && File.Exists($"{dbDir}{slash}{txtphen.Text}")) 
                 text.Add(txtphen.Text + "|Phenylalanine");
-            if (txtproline.TextLength > 0 && File.Exists($"{dbDir}{slash}{txtproline.Text}"))
+            if (txtproline.TextLength > 0 && File.Exists($"{dbDir}{slash}{txtproline.Text}") )
                 text.Add(txtproline.Text + "|Proline");
             if (txtserine.TextLength > 0 && File.Exists($"{dbDir}{slash}{txtserine.Text}"))
                 text.Add(txtserine.Text + "|Serine");
-            if (txtthreo.TextLength > 0 && File.Exists($"{dbDir}{slash}{txtthreo.Text}"))
+            if (txtthreo.TextLength > 0 && File.Exists($"{dbDir}{slash}{txtthreo.Text}")) 
                 text.Add(txtthreo.Text + "|Threonine");
-            if (txttrypto.TextLength > 0 && File.Exists($"{dbDir}{slash}{txttrypto.Text}"))
+            if (txttrypto.TextLength > 0 && File.Exists($"{dbDir}{slash}{txttrypto.Text}")              )                            
                 text.Add(txttrypto.Text + "|Tryptophan");
-            if (txttyro.TextLength > 0 && File.Exists($"{dbDir}{slash}{txttyro.Text}"))
+            if (txttyro.TextLength > 0 && File.Exists($"{dbDir}{slash}{txttyro.Text}") )
                 text.Add(txttyro.Text + "|Tyrosine");
             if (txtvaline.TextLength > 0 && File.Exists($"{dbDir}{slash}{txtvaline.Text}"))
                 text.Add(txtvaline.Text + "|Valine");
@@ -775,11 +778,11 @@ namespace Nutritracker
             //last to display
             if (txtServ1.TextLength > 0 && File.Exists($"{dbDir}{slash}{txtServ1.Text}"))
                 text.Add(txtServ1.Text + "|Serving1");
-            if (txtServ2.TextLength > 0 && File.Exists($"{dbDir}{slash}{txtServ2.Text}"))
+            if (txtServ2.TextLength > 0 && File.Exists($"{dbDir}{slash}{txtServ2.Text}"))    
                 text.Add(txtServ2.Text + "|Serving2");
-            if (txtWt1.TextLength > 0 && File.Exists($"{dbDir}{slash}{txtWt1.Text}"))
+            if (txtWt1.TextLength > 0 && File.Exists($"{dbDir}{slash}{txtWt1.Text}")  )    
                 text.Add(txtWt1.Text + "|Weight1");
-            if (txtWt2.TextLength > 0 && File.Exists($"{dbDir}{slash}{txtWt2.Text}"))
+            if (txtWt2.TextLength > 0 && File.Exists($"{dbDir}{slash}{txtWt2.Text}") )
                 text.Add(txtWt2.Text + "|Weight2");
             #endregion
             //MessageBox.Show(text);
@@ -794,7 +797,7 @@ namespace Nutritracker
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (comboBox1.Text.Contains("(share)"))
+            if (comboBox1.Text.Contains("(share)") )
                 nutkeyPath = $"{Application.StartupPath}{slash}usr{slash}share{slash}DBs{slash}{comboBox1.Text.Replace(" (share)", "")}{slash}_nutKeyPairs.TXT";
             else
                 nutkeyPath = $"{Application.StartupPath}{slash}usr{slash}profile{frmMain.currentUser.index}{slash}DBs{slash}{comboBox1.Text.Replace(" (user)", "")}{slash}_nutKeyPairs.TXT";            

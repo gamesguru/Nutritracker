@@ -18,6 +18,7 @@ namespace Nutritracker
             InitializeComponent();
         }
 
+        List<string> availFields = new List<string>();
         List<string> oldInput;
         string slash = Path.DirectorySeparatorChar.ToString();
         private void frmActiveFields_Load(object sender, EventArgs e)
@@ -31,6 +32,16 @@ namespace Nutritracker
                     oldInput[i] = oldInput[i].Replace("\r", "");
             richTxtInput.Text = string.Join("\n", oldInput);
 
+            string[] dbs = Directory.GetDirectories($"{Application.StartupPath}{slash}usr{slash}share{slash}DBs");
+            foreach (string s in dbs){
+                string[] nutLines = File.ReadAllLines($"{s}{slash}_nutKeyPairs.TXT");
+                foreach (string st in nutLines)
+                    if (!availFields.Contains(st.Split('|')[1]))
+                        availFields.Add(st.Split('|')[1]);
+            }
+			availFields.Distinct();
+
+            MessageBox.Show(string.Join(", ", availFields));
         }
 
         private void btnDone_Click(object sender, EventArgs e)
@@ -82,7 +93,7 @@ namespace Nutritracker
                 int n = m;
                 for (int j = 0; j < words.Length; j++)
                 {
-                    if (frmMain.knownFields.Contains(words[j]))
+                    if (availFields.Contains(words[j]))
                     {
                         richTxtInput.SelectionStart = n;
                         richTxtInput.SelectionLength = words[j].Length;

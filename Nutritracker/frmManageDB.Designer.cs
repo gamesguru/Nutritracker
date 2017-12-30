@@ -752,7 +752,7 @@
             this.label20.Name = "label20";
             this.label20.Size = new System.Drawing.Size(68, 13);
             this.label20.TabIndex = 10;
-            this.label20.Text = "Weight 1 (g):";
+            this.label20.Text = "Weight (g):";
             // 
             // txtWt1
             // 
@@ -769,7 +769,7 @@
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(55, 13);
             this.label3.TabIndex = 9;
-            this.label3.Text = "Serving 1:";
+            this.label3.Text = "Serving:";
             // 
             // txtServ1
             // 
