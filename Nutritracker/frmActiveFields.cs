@@ -24,9 +24,11 @@ namespace Nutritracker
         {
             this.Text = $"Editing {frmMain.profName}'s Active Fields";
             oldInput = File.ReadAllLines($"{Application.StartupPath}{slash}usr{slash}profile{frmMain.profIndex}{slash}activeFields.TXT").ToList();
-            for (int i = 0; i < oldInput.Count; i++)            
+            for (int i = 0; i < oldInput.Count; i++)
                 if (oldInput[i] == "")
                     oldInput.RemoveAt(i);
+                else
+                    oldInput[i] = oldInput[i].Replace("\r", "");
             richTxtInput.Text = string.Join("\n", oldInput);
 
         }
