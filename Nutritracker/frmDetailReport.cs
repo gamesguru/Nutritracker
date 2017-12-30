@@ -22,7 +22,8 @@ namespace Nutritracker
 		static string slash = Path.DirectorySeparatorChar.ToString();
 		string file = "";
         string profileRoot = Application.StartupPath + $"{slash}usr{slash}profile{frmMain.currentUser.index}";
-
+        List<string> activeFields = new List<string>();
+        
         private void frmDetailReport_Load(object sender, EventArgs e)
         {
             string dte = DateTime.Now.ToString().Split(' ')[0].Replace("/", "-");
@@ -53,10 +54,18 @@ namespace Nutritracker
                 if (chkLstBoxDays.GetItemChecked(i) && chkLstBoxDays.Items[i].ToString() != "All")
                     days.Add(chkLstBoxDays.Items[i].ToString());
 
+            string[] activeNutsLines = File.ReadAllLines($"{profileRoot}{slash}activeFields.TXT");
+            foreach (string s in activeNutsLines){
+                if (s.Split('#')[0] != "")
+                    activeFields.Add(s.Split('#')[0]);
+            }
+
             ProcessStartInfo ps = new ProcessStartInfo($"{Application.StartupPath}{slash}logRunner.exe");
-            ps.Arguments = $"{frmMain.currentUser.index} {string.Join(" ", days)}"; 
-            ps.RedirectStandardOutput = false;
-            Process p = Process.Start(ps);
+            // arg1   = profile #
+            // arg2[] = active fields
+            // arg3[] = days
+            ps.Arguments = $"{frmMain.currentUser.index} {profileRoot}{slash}activeFields.TXT {string.Join(" ", days)}"; 
+            Process.Start(ps);
 
             
             string[] basicFields = new string[0];

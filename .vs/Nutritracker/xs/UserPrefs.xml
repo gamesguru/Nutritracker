@@ -1,5 +1,5 @@
 ﻿<Properties StartupConfiguration="{086472C5-DD1F-4872-9BF1-9F9B633A376F}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Nutritracker/frmActiveFields.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Nutritracker/frmDetailReport.cs">
     <Files>
       <File FileName="Nutritracker/frmCustomFood.cs" Line="487" Column="92" />
       <File FileName="Nutritracker/frmDetailReport.cs" Line="27" Column="10" />
