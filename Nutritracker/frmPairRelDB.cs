@@ -100,7 +100,7 @@ namespace Nutritracker
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             ndbs = new List<string>();
-            
+
             string fieldRoot = $"{Application.StartupPath}{slash}usr{slash}profile{frmMain.currentUser.index}{slash}DBs{slash}f_user_{comboBox1.Text}{slash}";
             dbInitKeys = new List<dbi>();
             dbConfigKeys = new List<dbc>();
@@ -141,10 +141,13 @@ namespace Nutritracker
             metricsToTrack = new List<string>();
             foreach (dbc d in dbConfigKeys)
                 if (d.metric != null && d.metric != "" && !metricsToTrack.Contains(d.metric))
-                    metricsToTrack.Add(d.metric);     
+                    metricsToTrack.Add(d.metric);
 
             n = foodNamesToPair.Length;
-            groupBox1.Text = $"Possible Matches (1 of {n})  — {foodNamesToPair[0]}";//"Current Item 1 of " + n;
+            groupBox1.Text = $"Possible Matches (1 of {n})  — {foodNamesToPair[0]}";
+            mH = true;
+            txtTweak.Text = foodNamesToPair[0];
+            mH = false;
         }
         List<string> ndbs;
         int _n = 1;
@@ -175,14 +178,14 @@ namespace Nutritracker
                 _n++;
                 checkedListBox1.Items.Clear();
                 int[] wordMatch = new int[usdaDB.names.Length];
-                foreach (string s in foodNamesToPair[_n].Replace(",", "").Split(' '))
+                foreach (string s in foodNamesToPair[_n].Replace(", ", ",").Replace(",", " ").Split(' '))
                     for (int i = 0; i < usdaDB.names.Length; i++)
                         if (usdaDB.names[i].ToUpper().Contains(s.ToUpper()))
                             wordMatch[i]++;
 
                 int m = wordMatch.Max();
                 int q = 0;
-                for (int i = m; i > ((m - 1 > 0) ? m - 1 : 0); i--)
+                for (int i = m; i > 0; i--)
                     for (int j = 0; j < usdaDB.names.Length; j++)
                         if (wordMatch[j] == i)
                         {
@@ -192,30 +195,47 @@ namespace Nutritracker
                         }
 
                 groupBox1.Text = $"{q} Possible Matches ({_n} of {n})  — {foodNamesToPair[_n]}";
+                mH = true;
+                txtTweak.Text = foodNamesToPair[_n];
+                mH = false;
             }
         }
-
+        bool mH = false;
         private void txtTweak_TextChanged(object sender, EventArgs e)
         {
+            if (mH)
+                return;
             checkedListBox1.Items.Clear();
             int[] wordMatch = new int[usdaDB.names.Length];
-            foreach (string s in txtTweak.Text.Split(' '))
+			string[] words;
+
+            if (txtTweak.TextLength < 4)
+                return;
+            else if (txtTweak.Text.Split(' ').Length < 2)
+                words = new string[] { txtTweak.Text };
+            else
+                words = foodNamesToPair[_n].Replace(", ", ",").Replace(",", " ").Split(' ');
+
+            foreach (string s in words)
                 for (int i = 0; i < usdaDB.names.Length; i++)
-                    if (usdaDB.names[i].ToUpper().Contains(s.ToUpper()))
+                    if (usdaDB.names[i].ToUpper().Contains(s.ToUpper()) && s.Length > 2)
                         wordMatch[i]++;
 
             int m = wordMatch.Max();
             int q = 0;
-            for (int i = m; i > ((m - 1 > 0) ? m - 1 : 0); i--)
+            List<string> itms = new List<string>();
+            for (int i = m; i > 0; i--)
                 for (int j = 0; j < usdaDB.names.Length; j++)
                     if (wordMatch[j] == i)
                     {
-                        string itm = $"{usdaDB.ndbs[j]}--{usdaDB.names[j]}";
-                        checkedListBox1.Items.Add(itm);
+                        itms.Add($"{usdaDB.ndbs[j]}--{usdaDB.names[j]}");
                         q++;
                     }
-
-            groupBox1.Text = $"{q} Possible Matches ({_n} of {n})  — {foodNamesToPair[_n]}";
+            checkedListBox1.BeginUpdate();
+            for (int i = 0; i < itms.Count;i++){
+                checkedListBox1.Items.Add(itms[i]);
+            }
+            checkedListBox1.EndUpdate();
         }
     }
 }
