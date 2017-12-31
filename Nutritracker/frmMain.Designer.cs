@@ -97,7 +97,7 @@
             this.databaseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.parseExcelSpreadsheetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.relationalDatabaseWizardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.generateRelationalDatabaseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.manageRelativeDBPairsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.manageCustomFieldsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.manageStandaloneDatabaseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.btnRemoveFood = new System.Windows.Forms.Button();
@@ -797,7 +797,7 @@
             this.databaseToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.parseExcelSpreadsheetToolStripMenuItem,
             this.relationalDatabaseWizardToolStripMenuItem,
-            this.generateRelationalDatabaseToolStripMenuItem,
+            this.manageRelativeDBPairsToolStripMenuItem,
             this.manageCustomFieldsToolStripMenuItem,
             this.manageStandaloneDatabaseToolStripMenuItem});
             this.databaseToolStripMenuItem.Name = "databaseToolStripMenuItem";
@@ -820,12 +820,12 @@
             this.relationalDatabaseWizardToolStripMenuItem.Text = "Import Relational Database";
             this.relationalDatabaseWizardToolStripMenuItem.Click += new System.EventHandler(this.relationalDatabaseWizardToolStripMenuItem_Click);
             // 
-            // generateRelationalDatabaseToolStripMenuItem
+            // manageRelativeDBPairsToolStripMenuItem
             // 
-            this.generateRelationalDatabaseToolStripMenuItem.Name = "generateRelationalDatabaseToolStripMenuItem";
-            this.generateRelationalDatabaseToolStripMenuItem.Size = new System.Drawing.Size(241, 22);
-            this.generateRelationalDatabaseToolStripMenuItem.Text = "Pair RelDB with USDA";
-            this.generateRelationalDatabaseToolStripMenuItem.Click += new System.EventHandler(this.generateRelationalDatabaseToolStripMenuItem_Click);
+            this.manageRelativeDBPairsToolStripMenuItem.Name = "manageRelativeDBPairsToolStripMenuItem";
+            this.manageRelativeDBPairsToolStripMenuItem.Size = new System.Drawing.Size(241, 22);
+            this.manageRelativeDBPairsToolStripMenuItem.Text = "Manage Field Pairs for USDA";
+            this.manageRelativeDBPairsToolStripMenuItem.Click += new System.EventHandler(this.manageRelativeDBPairsToolStripMenuItem_Click);
             // 
             // manageCustomFieldsToolStripMenuItem
             // 
@@ -1012,7 +1012,7 @@
         private System.Windows.Forms.ToolStripMenuItem rankFoodsByNutrientToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem parseExcelSpreadsheetToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem relationalDatabaseWizardToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem generateRelationalDatabaseToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem manageRelativeDBPairsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem manageActiveFieldsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
         private System.Windows.Forms.Panel panel1;

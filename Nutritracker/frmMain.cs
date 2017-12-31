@@ -918,176 +918,8 @@ dataDay.Rows.Add(row);*/
                 e.Handled = true;
         }
 
-        private void txtExerciseVal_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (!Char.IsControl(e.KeyChar) && !Char.IsDigit(e.KeyChar))
-                e.Handled = true;
-        }
+        
 
-        private void txtExerciseVal_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode.ToString() == "Return")
-            {
-                btnAddEx.PerformClick();
-                e.SuppressKeyPress = true;
-            }
-
-        }
-
-        private int ex = 0;
-        private bool mH = false;
-        private void txtExerciseVal_TextChanged(object sender, EventArgs e)
-        {
-            if (txtExerciseVal.TextLength == 0)
-            {
-                mH = true;
-                txtExerciseVal.Text = "0";
-                mH = false;
-                txtExerciseVal.SelectionStart = 1;
-                return;
-            }
-            ex = Convert.ToInt32(txtExerciseVal.Text.Replace(",", ""));
-            int digs = txtExerciseVal.Text.Replace(",", "").Length;
-
-
-            if (txtExerciseVal.Text.StartsWith("0") && txtExerciseVal.TextLength > 0 && !mH)
-            {
-                n = txtExerciseVal.SelectionStart - 1;
-                mH = true;
-                txtExerciseVal.Text = txtExerciseVal.Text.Remove(0, 1);
-                mH = false;
-                txtExerciseVal.SelectionStart = n;
-                return;
-            }
-
-            if (digs == 4 && !mH)
-            {
-                int n = 0;
-                if (!txtExerciseVal.Text.Contains(","))
-                {
-                    n = txtExerciseVal.SelectionStart + 1;
-                    mH = true;
-                    txtExerciseVal.Text = txtExerciseVal.Text.Insert(1, ",");
-                    mH = false;
-                    txtExerciseVal.SelectionStart = n;
-                    return;
-                }
-                else if (txtExerciseVal.Text[2] == ',')
-                {
-                    n = txtExerciseVal.SelectionStart;
-                    mH = true;
-                    txtExerciseVal.Text = txtExerciseVal.Text.Replace(",", "");
-                    txtExerciseVal.Text = txtExerciseVal.Text.Insert(1, ",");
-                    mH = false;
-                    txtExerciseVal.SelectionStart = n;
-                    return;
-                }
-
-            }
-            else if (digs == 5 && !mH)
-            {
-                //MessageBox.Show(digs.ToString());
-                n = txtExerciseVal.SelectionStart;
-                mH = true;
-                txtExerciseVal.Text = txtExerciseVal.Text.Replace(",", "");
-                txtExerciseVal.Text = txtExerciseVal.Text.Insert(2, ",");
-                mH = false;
-                txtExerciseVal.SelectionStart = n;
-            }
-            else if (digs < 4)
-            {
-                if (txtExerciseVal.Text.Contains(","))
-                {
-                    n = txtExerciseVal.SelectionStart - 1;
-                    txtExerciseVal.Text = txtExerciseVal.Text.Replace(",", "");
-                    txtExerciseVal.SelectionStart = n > 0 ? n : 0;
-                }
-            }
-
-            if (ex > 0)
-                btnAddEx.Enabled = true;
-            else
-                btnAddEx.Enabled = false;
-        }
-
-        private void btnAddEx_Click(object sender, EventArgs e)
-        {
-            //editing = true;
-            dataExercise.Rows.Insert(0);
-            int j = comboExType.SelectedIndex;
-            if (j == 0)
-            {
-                dataExercise.Rows[0].Cells[0].Value = "Walking";
-                dataExercise.Rows[0].Cells[1].Value = "Steps";
-                double c = ex * 0.001 * (28 + 0.27 * (currentUser.wt - 100));
-                dataExercise.Rows[0].Cells[2].Value = Math.Round(c / ex, 3);//Math.Round(d * cpm / ex, 3);
-                dataExercise.Rows[0].Cells[3].Value = txtExerciseVal.Text + " steps";
-                c = Math.Round(c, 1);
-                dataExercise.Rows[0].Cells[4].Value = c.ToString() + " kcal";
-            }
-            else if (j == 1)
-            {
-                dataExercise.Rows[0].Cells[0].Value = "Walking";
-                dataExercise.Rows[0].Cells[1].Value = "Light";
-                double d = ex / 20.0;
-                double cpm = 53 + 0.535 * (currentUser.wt - 100);
-                dataExercise.Rows[0].Cells[2].Value = Math.Round(d * cpm / ex, 3);
-                dataExercise.Rows[0].Cells[3].Value = txtExerciseVal.Text + " min";
-                dataExercise.Rows[0].Cells[4].Value = Math.Round(d * cpm, 1) + " kcal";
-            }
-            else if (j == 2)
-            {
-                dataExercise.Rows[0].Cells[0].Value = "Jogging";
-                dataExercise.Rows[0].Cells[1].Value = "Brisk";
-                double d = ex / 20.0;
-                double cpm = 53 + 0.535 * (currentUser.wt - 100);
-                cpm *= 1.36;
-                dataExercise.Rows[0].Cells[2].Value = Math.Round(d * cpm / ex, 3);
-                dataExercise.Rows[0].Cells[3].Value = txtExerciseVal.Text + " min";
-                dataExercise.Rows[0].Cells[4].Value = Math.Round(d * cpm, 1) + " kcal";
-            }
-            else if (j == 3)
-            {
-                dataExercise.Rows[0].Cells[0].Value = "Running";
-                dataExercise.Rows[0].Cells[1].Value = "Intense";
-                double d = ex / 20.0;
-                double cpm = 53 + 0.535 * (currentUser.wt - 100);
-                cpm *= 1.4;
-                dataExercise.Rows[0].Cells[2].Value = Math.Round(d * cpm / ex, 3);
-                dataExercise.Rows[0].Cells[3].Value = txtExerciseVal.Text + " min";
-                dataExercise.Rows[0].Cells[4].Value = Math.Round(d * cpm, 1) + " kcal";
-            }
-            else if (j == 4)
-            {
-                dataExercise.Rows[0].Cells[0].Value = "Sprinting";
-                dataExercise.Rows[0].Cells[1].Value = "Extreme";
-                double d = ex / 20.0;
-                double cpm = 53 + 0.535 * (currentUser.wt - 100);
-                cpm *= 1.54;
-                dataExercise.Rows[0].Cells[2].Value = Math.Round(d * cpm / ex, 3);
-                dataExercise.Rows[0].Cells[3].Value = txtExerciseVal.Text + " min";
-                dataExercise.Rows[0].Cells[4].Value = Math.Round(d * cpm, 1) + " kcal";
-            }
-            else
-            {
-                dataExercise.Rows[0].Cells[0].Value = "Other";
-                dataExercise.Rows[0].Cells[2].Value = "1";
-                dataExercise.Rows[0].Cells[3].Value = ex.ToString() + " min";
-                dataExercise.Rows[0].Cells[4].Value = ex.ToString() + " kcal";
-            }
-            int sum = 0;
-            int m = dataExercise.RowCount - 2;
-            for (int i = 0; i < m; i++)
-            {
-                try
-                {
-                    sum += getBiggestInt(dataExercise[4, i].Value.ToString());
-                }
-                catch { }
-            }
-            dataExercise[4, m].Value = sum.ToString() + " kcal";
-            //editing = false;
-        }
 
         bool bH = false;
         private void dataExercise_CellValueChanged(object sender, DataGridViewCellEventArgs e)
@@ -1115,11 +947,10 @@ dataDay.Rows.Add(row);*/
             }
             catch
             {
-                /*if (dataExercise[0, x].Value == "Walking" || dataExercise[0, x].Value == "Jogging" || dataExercise[0, x].Value == "Running" ||
-dataExercise[0, x].Value == "Sprinting")
-                    dataExercise[3, x].Value = val.ToString() + " min";
-                else if (dataExercise[0, x].Value == "Other")
-                    dataExercise[3, x].Value = val.ToString() + " kcal";*/
+                // if (dataExercise[0, x].Value == "Walking" || dataExercise[0, x].Value == "Jogging" || dataExercise[0, x].Value == "Running" ||dataExercise[0, x].Value == "Sprinting")
+                //     dataExercise[3, x].Value = val.ToString() + " min";
+                // else if (dataExercise[0, x].Value == "Other")
+                //     dataExercise[3, x].Value = val.ToString() + " kcal";
             }
 
             //loadup = false;            
@@ -1229,171 +1060,6 @@ dataExercise[0, x].Value == "Sprinting")
             dataExercise[4, m].Value = sum.ToString() + " kcal";
 
             bH = false;
-        }
-
-        //private string oldval = "";
-        private int x = 0;
-        private int y = 0;
-        //private bool editing = false;
-        #region cell focus set x,y
-
-        #endregion
-
-        private void btnRemEx_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                string s = dataExercise.CurrentRow.Cells[0].Value.ToString();
-                //if (s.Length == 0) //TRIGGERS VIRUS?? FALSE POSITIVE
-                //return;
-                if (s != "Totals" && s != "Existing" /*&&
-                    dataExercise.CurrentRow.Cells[0].Value.ToString().Length > 0*/)
-                {
-                    dataExercise.Rows.Remove(dataExercise.CurrentRow);
-
-                    //editing = true;
-                    int sum = 0;
-                    int m = dataExercise.RowCount - 2;
-                    for (int i = 0; i < m; i++)
-                    {
-                        try
-                        {
-                            int q = getBiggestInt(dataExercise[4, i].Value.ToString());
-                            //MessageBox.Show(q.ToString());
-                            sum += q;
-                        }
-                        catch { }
-
-                    }
-                    //MessageBox.Show(m.ToString());
-                    dataExercise[4, m].Value = sum.ToString() + " kcal";
-                }
-            }
-            catch { }
-        }
-        //string[] rwEx = new string[5];
-        private void dataExercise_KeyDown(object sender, KeyEventArgs e)
-        {
-
-            if (e.KeyCode.ToString() == "Delete")
-                btnRemEx.PerformClick();
-
-        }
-        private void addSearchExtendedFoodsToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            
-        }
-        //private static List<string> lstCustFood;
-        private void customFoodEntryToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            btnEditCustFoods.PerformClick();
-        }
-
-        private void editProfilesToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            btnProfile.PerformClick();
-        }
-
-        private void button6_Click(object sender, EventArgs e)
-        {
-            frmCustomFood frmCust = new Nutritracker.frmCustomFood();
-            frmCust.Show(this);
-        }
-
-        private void btnDetailReport_Click(object sender, EventArgs e)
-        {
-            frmDetailReport frmDet = new frmDetailReport();
-            frmDet.ShowDialog();
-        }
-        
-        private void bodyFatCalcToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-            frmBodyfatCalc.currentName = importArray($"{Application.StartupPath}{slash}usr{slash}profile{currentUser.index}{slash}")[0];
-            frmBodyfatCalc frmBFC = new Nutritracker.frmBodyfatCalc();
-            frmBFC.gender = importArray($"{Application.StartupPath}{slash}usr{slash}profile{currentUser.index}{slash}profile.TXT")[1];
-            frmBFC.age = Convert.ToInt32(importArray($"{Application.StartupPath}{slash}usr{slash}profile{currentUser.index}{slash}profile.TXT")[2]);
-            frmBFC.wt = Convert.ToInt32(importArray($"{Application.StartupPath}{slash}usr{slash}profile{currentUser.index}{slash}profile.TXT")[4]);
-            frmBFC.ht = Convert.ToInt32(importArray($"{Application.StartupPath}{slash}usr{slash}profile{currentUser.index}{slash}profile.TXT")[5]);
-            frmBFC.ShowDialog();
-        }
-
-        private void viewDetailReportToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            btnDetailReport.PerformClick();
-        }
-
-        private void naturalPotentialCalcToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            frmLeanPotentialCalc.bodyfat = Convert.ToInt32(importArray($"{Application.StartupPath}{slash}usr{slash}profile{currentUser.index}{slash}profile.TXT")[3]);
-            frmLeanPotentialCalc.weight = Convert.ToInt32(importArray($"{Application.StartupPath}{slash}usr{slash}profile{currentUser.index}{slash}profile.TXT")[4]);
-            frmLeanPotentialCalc.height = Convert.ToInt32(importArray($"{Application.StartupPath}{slash}usr{slash}profile{currentUser.index}{slash}profile.TXT")[5]);
-            frmLeanPotentialCalc frmNatPot = new Nutritracker.frmLeanPotentialCalc();            
-            frmNatPot.ShowDialog();
-        }
-
-        private void parseExcelSpreadsheetToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            frmParseCustomDatabase frmParse = new frmParseCustomDatabase();
-            frmParse.Show(this);
-        }
-
-        private void btnSearchUserD_Click(object sender, EventArgs e)
-        {
-            if (!Directory.Exists($"{Application.StartupPath}{slash}usr{slash}share{slash}DBs") && !Directory.Exists($"{Application.StartupPath}{slash}usr{slash}profile{currentUser.index}{slash}DBs"))
-            {
-                MessageBox.Show("There don't seem to be any shared OR user loaded databases.  Try going to the spreadsheet wizard (under tools) to import some, or manually copy some from another user.", "Nothing found", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                return;
-            }
-            else
-
-            {
-
-                frmSearchFoods frmAddSFood = new frmSearchFoods();
-                frmAddSFood.Show(this);
-            }
-            //else if (importArray(Application.StartupPath + "\\usr\\share"))
-        }
-
-        private void addSearchCommonFoodsToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-
-            btnSearch.PerformClick();
-        }
-
-        private void manageCustomFieldsToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            frmManageField frmMF = new frmManageField(this);
-            frmMF.ShowDialog();
-        }
-
-        private void manageStandaloneDatabaseToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            frmManageDB frmMDB = new frmManageDB();
-            frmMDB.ShowDialog();
-        }
-
-        private void manageActiveFieldsToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            frmActiveFields frmAF = new frmActiveFields();
-            frmAF.ShowDialog();
-        }
-
-        private void decomposeRecipeToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            frmDecomposeRecipe frmDR = new frmDecomposeRecipe();
-            frmDR.ShowDialog();
-        }
-
-        private void relationalDatabaseWizardToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            frmNewDBrel frmNDBr = new frmNewDBrel();
-            frmNDBr.ShowDialog();
-        }
-
-        private void btnExit_Click(object sender, EventArgs e)
-        {
-            this.Close();
         }
 
         private void comboLoggedDays_SelectedIndexChanged(object sender, EventArgs e)
@@ -1527,7 +1193,336 @@ dataExercise[0, x].Value == "Sprinting")
             tabulateNutrientColumns();
         }
 
-        private void generateRelationalDatabaseToolStripMenuItem_Click(object sender, EventArgs e)
+        //private string oldval = "";
+        private int x = 0;
+        private int y = 0;
+        //private bool editing = false;
+        #region cell focus set x,y
+
+        #endregion
+
+        private void btnAddEx_Click(object sender, EventArgs e)
+        {
+            //editing = true;
+            dataExercise.Rows.Insert(0);
+            int j = comboExType.SelectedIndex;
+            if (j == 0)
+            {
+                dataExercise.Rows[0].Cells[0].Value = "Walking";
+                dataExercise.Rows[0].Cells[1].Value = "Steps";
+                double c = ex * 0.001 * (28 + 0.27 * (currentUser.wt - 100));
+                dataExercise.Rows[0].Cells[2].Value = Math.Round(c / ex, 3);//Math.Round(d * cpm / ex, 3);
+                dataExercise.Rows[0].Cells[3].Value = txtExerciseVal.Text + " steps";
+                c = Math.Round(c, 1);
+                dataExercise.Rows[0].Cells[4].Value = c.ToString() + " kcal";
+            }
+            else if (j == 1)
+            {
+                dataExercise.Rows[0].Cells[0].Value = "Walking";
+                dataExercise.Rows[0].Cells[1].Value = "Light";
+                double d = ex / 20.0;
+                double cpm = 53 + 0.535 * (currentUser.wt - 100);
+                dataExercise.Rows[0].Cells[2].Value = Math.Round(d * cpm / ex, 3);
+                dataExercise.Rows[0].Cells[3].Value = txtExerciseVal.Text + " min";
+                dataExercise.Rows[0].Cells[4].Value = Math.Round(d * cpm, 1) + " kcal";
+            }
+            else if (j == 2)
+            {
+                dataExercise.Rows[0].Cells[0].Value = "Jogging";
+                dataExercise.Rows[0].Cells[1].Value = "Brisk";
+                double d = ex / 20.0;
+                double cpm = 53 + 0.535 * (currentUser.wt - 100);
+                cpm *= 1.36;
+                dataExercise.Rows[0].Cells[2].Value = Math.Round(d * cpm / ex, 3);
+                dataExercise.Rows[0].Cells[3].Value = txtExerciseVal.Text + " min";
+                dataExercise.Rows[0].Cells[4].Value = Math.Round(d * cpm, 1) + " kcal";
+            }
+            else if (j == 3)
+            {
+                dataExercise.Rows[0].Cells[0].Value = "Running";
+                dataExercise.Rows[0].Cells[1].Value = "Intense";
+                double d = ex / 20.0;
+                double cpm = 53 + 0.535 * (currentUser.wt - 100);
+                cpm *= 1.4;
+                dataExercise.Rows[0].Cells[2].Value = Math.Round(d * cpm / ex, 3);
+                dataExercise.Rows[0].Cells[3].Value = txtExerciseVal.Text + " min";
+                dataExercise.Rows[0].Cells[4].Value = Math.Round(d * cpm, 1) + " kcal";
+            }
+            else if (j == 4)
+            {
+                dataExercise.Rows[0].Cells[0].Value = "Sprinting";
+                dataExercise.Rows[0].Cells[1].Value = "Extreme";
+                double d = ex / 20.0;
+                double cpm = 53 + 0.535 * (currentUser.wt - 100);
+                cpm *= 1.54;
+                dataExercise.Rows[0].Cells[2].Value = Math.Round(d * cpm / ex, 3);
+                dataExercise.Rows[0].Cells[3].Value = txtExerciseVal.Text + " min";
+                dataExercise.Rows[0].Cells[4].Value = Math.Round(d * cpm, 1) + " kcal";
+            }
+            else
+            {
+                dataExercise.Rows[0].Cells[0].Value = "Other";
+                dataExercise.Rows[0].Cells[2].Value = "1";
+                dataExercise.Rows[0].Cells[3].Value = ex.ToString() + " min";
+                dataExercise.Rows[0].Cells[4].Value = ex.ToString() + " kcal";
+            }
+            int sum = 0;
+            int m = dataExercise.RowCount - 2;
+            for (int i = 0; i < m; i++)
+            {
+                try
+                {
+                    sum += getBiggestInt(dataExercise[4, i].Value.ToString());
+                }
+                catch { }
+            }
+            dataExercise[4, m].Value = sum.ToString() + " kcal";
+            //editing = false;
+        }
+
+        private void btnRemEx_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string s = dataExercise.CurrentRow.Cells[0].Value.ToString();
+                //if (s.Length == 0) //TRIGGERS VIRUS?? FALSE POSITIVE
+                //return;
+                if (s != "Totals" && s != "Existing" /*&&
+                    dataExercise.CurrentRow.Cells[0].Value.ToString().Length > 0*/)
+                {
+                    dataExercise.Rows.Remove(dataExercise.CurrentRow);
+
+                    //editing = true;
+                    int sum = 0;
+                    int m = dataExercise.RowCount - 2;
+                    for (int i = 0; i < m; i++)
+                    {
+                        try
+                        {
+                            int q = getBiggestInt(dataExercise[4, i].Value.ToString());
+                            //MessageBox.Show(q.ToString());
+                            sum += q;
+                        }
+                        catch { }
+
+                    }
+                    //MessageBox.Show(m.ToString());
+                    dataExercise[4, m].Value = sum.ToString() + " kcal";
+                }
+            }
+            catch { }
+        }
+
+        //string[] rwEx = new string[5];
+        private void dataExercise_KeyDown(object sender, KeyEventArgs e)
+        {
+
+            if (e.KeyCode.ToString() == "Delete")
+                btnRemEx.PerformClick();
+
+        }
+        private void txtExerciseVal_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!Char.IsControl(e.KeyChar) && !Char.IsDigit(e.KeyChar))
+                e.Handled = true;
+        }
+
+        private void txtExerciseVal_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode.ToString() == "Return")
+            {
+                btnAddEx.PerformClick();
+                e.SuppressKeyPress = true;
+            }
+        }
+
+        private int ex = 0;
+        private bool mH = false;
+        private void txtExerciseVal_TextChanged(object sender, EventArgs e)
+        {
+            if (txtExerciseVal.TextLength == 0)
+            {
+                mH = true;
+                txtExerciseVal.Text = "0";
+                mH = false;
+                txtExerciseVal.SelectionStart = 1;
+                return;
+            }
+            ex = Convert.ToInt32(txtExerciseVal.Text.Replace(",", ""));
+            int digs = txtExerciseVal.Text.Replace(",", "").Length;
+
+
+            if (txtExerciseVal.Text.StartsWith("0") && txtExerciseVal.TextLength > 0 && !mH)
+            {
+                n = txtExerciseVal.SelectionStart - 1;
+                mH = true;
+                txtExerciseVal.Text = txtExerciseVal.Text.Remove(0, 1);
+                mH = false;
+                txtExerciseVal.SelectionStart = n;
+                return;
+            }
+
+            if (digs == 4 && !mH)
+            {
+                int n = 0;
+                if (!txtExerciseVal.Text.Contains(","))
+                {
+                    n = txtExerciseVal.SelectionStart + 1;
+                    mH = true;
+                    txtExerciseVal.Text = txtExerciseVal.Text.Insert(1, ",");
+                    mH = false;
+                    txtExerciseVal.SelectionStart = n;
+                    return;
+                }
+                else if (txtExerciseVal.Text[2] == ',')
+                {
+                    n = txtExerciseVal.SelectionStart;
+                    mH = true;
+                    txtExerciseVal.Text = txtExerciseVal.Text.Replace(",", "");
+                    txtExerciseVal.Text = txtExerciseVal.Text.Insert(1, ",");
+                    mH = false;
+                    txtExerciseVal.SelectionStart = n;
+                    return;
+                }
+
+            }
+            else if (digs == 5 && !mH)
+            {
+                //MessageBox.Show(digs.ToString());
+                n = txtExerciseVal.SelectionStart;
+                mH = true;
+                txtExerciseVal.Text = txtExerciseVal.Text.Replace(",", "");
+                txtExerciseVal.Text = txtExerciseVal.Text.Insert(2, ",");
+                mH = false;
+                txtExerciseVal.SelectionStart = n;
+            }
+            else if (digs < 4)
+            {
+                if (txtExerciseVal.Text.Contains(","))
+                {
+                    n = txtExerciseVal.SelectionStart - 1;
+                    txtExerciseVal.Text = txtExerciseVal.Text.Replace(",", "");
+                    txtExerciseVal.SelectionStart = n > 0 ? n : 0;
+                }
+            }
+
+            if (ex > 0)
+                btnAddEx.Enabled = true;
+            else
+                btnAddEx.Enabled = false;
+        }
+        //private static List<string> lstCustFood;
+        private void customFoodEntryToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            btnEditCustFoods.PerformClick();
+        }
+
+        private void editProfilesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            btnProfile.PerformClick();
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            frmCustomFood frmCust = new Nutritracker.frmCustomFood();
+            frmCust.Show(this);
+        }
+
+        private void btnDetailReport_Click(object sender, EventArgs e)
+        {
+            frmDetailReport frmDet = new frmDetailReport();
+            frmDet.ShowDialog();
+        }
+        
+        private void bodyFatCalcToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+            frmBodyfatCalc.currentName = importArray($"{Application.StartupPath}{slash}usr{slash}profile{currentUser.index}{slash}")[0];
+            frmBodyfatCalc frmBFC = new Nutritracker.frmBodyfatCalc();
+            frmBFC.gender = importArray($"{Application.StartupPath}{slash}usr{slash}profile{currentUser.index}{slash}profile.TXT")[1];
+            frmBFC.age = Convert.ToInt32(importArray($"{Application.StartupPath}{slash}usr{slash}profile{currentUser.index}{slash}profile.TXT")[2]);
+            frmBFC.wt = Convert.ToInt32(importArray($"{Application.StartupPath}{slash}usr{slash}profile{currentUser.index}{slash}profile.TXT")[4]);
+            frmBFC.ht = Convert.ToInt32(importArray($"{Application.StartupPath}{slash}usr{slash}profile{currentUser.index}{slash}profile.TXT")[5]);
+            frmBFC.ShowDialog();
+        }
+
+        private void viewDetailReportToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            btnDetailReport.PerformClick();
+        }
+
+        private void naturalPotentialCalcToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmLeanPotentialCalc.bodyfat = Convert.ToInt32(importArray($"{Application.StartupPath}{slash}usr{slash}profile{currentUser.index}{slash}profile.TXT")[3]);
+            frmLeanPotentialCalc.weight = Convert.ToInt32(importArray($"{Application.StartupPath}{slash}usr{slash}profile{currentUser.index}{slash}profile.TXT")[4]);
+            frmLeanPotentialCalc.height = Convert.ToInt32(importArray($"{Application.StartupPath}{slash}usr{slash}profile{currentUser.index}{slash}profile.TXT")[5]);
+            frmLeanPotentialCalc frmNatPot = new Nutritracker.frmLeanPotentialCalc();            
+            frmNatPot.ShowDialog();
+        }
+
+        private void parseExcelSpreadsheetToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmParseCustomDatabase frmParse = new frmParseCustomDatabase();
+            frmParse.Show(this);
+        }
+
+        private void btnSearchUserD_Click(object sender, EventArgs e)
+        {
+            if (!Directory.Exists($"{Application.StartupPath}{slash}usr{slash}share{slash}DBs") && !Directory.Exists($"{Application.StartupPath}{slash}usr{slash}profile{currentUser.index}{slash}DBs"))
+            {
+                MessageBox.Show("There don't seem to be any shared OR user loaded databases.  Try going to the spreadsheet wizard (under tools) to import some, or manually copy some from another user.", "Nothing found", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+            else
+            {
+                frmSearchFoods frmAddSFood = new frmSearchFoods();
+                frmAddSFood.Show(this);
+            }
+            //else if (importArray(Application.StartupPath + "\\usr\\share"))
+        }
+
+        private void addSearchCommonFoodsToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+
+            btnSearch.PerformClick();
+        }
+
+        private void manageCustomFieldsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmManageField frmMF = new frmManageField(this);
+            frmMF.ShowDialog();
+        }
+
+        private void manageStandaloneDatabaseToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmManageDB frmMDB = new frmManageDB();
+            frmMDB.ShowDialog();
+        }
+
+        private void manageActiveFieldsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmActiveFields frmAF = new frmActiveFields();
+            frmAF.ShowDialog();
+        }
+
+        private void decomposeRecipeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmDecomposeRecipe frmDR = new frmDecomposeRecipe();
+            frmDR.ShowDialog();
+        }
+
+        private void relationalDatabaseWizardToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmNewDBrel frmNDBr = new frmNewDBrel();
+            frmNDBr.ShowDialog();
+        }
+
+        private void btnExit_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void manageRelativeDBPairsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             frmPairRelDB frmGRDB = new frmPairRelDB();
             frmGRDB.ShowDialog();

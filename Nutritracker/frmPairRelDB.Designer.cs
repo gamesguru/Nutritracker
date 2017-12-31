@@ -156,8 +156,8 @@
             this.MaximizeBox = false;
             this.Name = "frmPairRelDB";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "frmGenerateRelDBpair";
-            this.Load += new System.EventHandler(this.frmGenerateRelDBpair_Load);
+            this.Text = "frmPairRelDB";
+            this.Load += new System.EventHandler(this.frmPairRelDB_Load);
             this.groupBox1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();

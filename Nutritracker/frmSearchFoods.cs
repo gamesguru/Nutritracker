@@ -90,13 +90,14 @@ namespace Nutritracker
             for (int i = 0; i < userDBs.Length; i++)
             {
                 userDBs[i] = userDBs[i].Replace($"{Application.StartupPath}{slash}usr{slash}profile{frmMain.currentUser.index}{slash}DBs{slash}", "");
-                if (!userDBs[i].StartsWith("f_user"))
+                if (!userDBs[i].StartsWith("f_user") && !userDBs[i].StartsWith("_"))
                     comboDBs.Items.Add(userDBs[i] + " (user)");
             }
             for (int i = 0; i < pubDBs.Length; i++)
             {
                 pubDBs[i] = pubDBs[i].Replace($"{Application.StartupPath}{slash}usr{slash}share{slash}DBs{slash}", "");
-                comboDBs.Items.Add(pubDBs[i] + " (share)");
+                if (!pubDBs[i].StartsWith("_"))
+                    comboDBs.Items.Add(pubDBs[i] + " (share)");
             }
 
 

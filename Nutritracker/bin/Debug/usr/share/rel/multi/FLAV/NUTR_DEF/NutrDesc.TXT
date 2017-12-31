@@ -1,14 +1,14 @@
 Cyanidin
 Petunidin
-Delphinidin 
+Delphinidin
 Malvidin
 Pelargonidin
 Peonidin
 (+)-Catechin
 (-)-Epigallocatechin
 (-)-Epicatechin
-(-)-Epicatechin 3-gallate
-(-)-Epigallocatechin 3-gallate
+(-)-Epicatechin_3-gallate
+(-)-Epigallocatechin_3-gallate
 Theaflavin
 Thearubigins
 Eriodictyol

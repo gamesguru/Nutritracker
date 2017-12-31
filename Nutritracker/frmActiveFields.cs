@@ -40,23 +40,41 @@ namespace Nutritracker
                     oldInput[i] = oldInput[i].Replace("\r", "");
 
             string[] dbs = Directory.GetDirectories($"{Application.StartupPath}{slash}usr{slash}share{slash}DBs");
-            foreach (string s in dbs){
-                string[] nutLines = File.ReadAllLines($"{s}{slash}_nutKeyPairs.TXT");
-                foreach (string st in nutLines)
-                    if (!st.StartsWith("#") && !availFields.Contains(st.Split('|')[1]))
-                        availFields.Add(st.Split('|')[1]);
-            }
-            dbs = Directory.GetDirectories($"{Application.StartupPath}{slash}usr{slash}profile{frmMain.currentUser.index}{slash}DBs");
             foreach (string s in dbs)
             {
-                if (s.Contains("f_user_")){
-                    string[] configLines = File.ReadAllLines($"{s}{slash}_dbConfig.TXT");
-                    foreach (string st in configLines){
-                        if (st.StartsWith("[MetricName]") && !availFields.Contains(st.Replace("[MetricName]", "")))
-                            availFields.Add(st.Replace("[MetricName]", ""));                            
-                    }                               
+                string name = s.Split(Path.DirectorySeparatorChar)[s.Split(Path.DirectorySeparatorChar).Length - 1];
+                if (!name.StartsWith("_"))
+                {
+                    string[] nutLines = File.ReadAllLines($"{s}{slash}_nutKeyPairs.TXT");
+                    foreach (string st in nutLines)
+                        if (!st.StartsWith("#") && !availFields.Contains(st.Split('|')[1]))
+                            availFields.Add(st.Split('|')[1]);
                 }
             }
+            dbs = Directory.GetDirectories($"{Application.StartupPath}{slash}usr{slash}profile{frmMain.currentUser.index}{slash}DBs");
+            foreach (string s in dbs)            
+                if (s.Contains("f_user_")){
+                    string[] configLines = File.ReadAllLines($"{s}{slash}_dbConfig.TXT");
+                    foreach (string st in configLines)
+                        if (st.StartsWith("[MetricName]") && !availFields.Contains(st.Replace("[MetricName]", "")))
+                            availFields.Add(st.Replace("[MetricName]", ""));                                                          
+                }
+                     
+            dbs = Directory.GetDirectories($"{Application.StartupPath}{slash}usr{slash}share{slash}rel{slash}multi");
+            foreach (string s in dbs)
+            {
+                string[] initLines = File.ReadAllLines($"{s}{slash}_dbInit.TXT");
+                string nutrDescFile = "";
+                foreach (string st in initLines)
+                    if (st.StartsWith("[NutrDesc]"))
+                        nutrDescFile = st.Replace("[NutrDesc]", "");
+                nutrDescFile = Directory.GetFiles(s, nutrDescFile, SearchOption.AllDirectories)[0];
+
+                foreach (string st in File.ReadAllLines(nutrDescFile))
+                    if (!availFields.Contains(st)) //shouldn't be necessary.. for good measure
+                        availFields.Add(st);
+            }
+            
 		    //availFields.Sort();
             richTxtInput.Text = string.Join("\n", oldInput);
         }

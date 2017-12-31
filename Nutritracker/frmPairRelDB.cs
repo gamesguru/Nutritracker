@@ -19,7 +19,7 @@ namespace Nutritracker
         }
 
         static string slash;
-        private void frmGenerateRelDBpair_Load(object sender, EventArgs e)
+        private void frmPairRelDB_Load(object sender, EventArgs e)
         {
             slash = Path.DirectorySeparatorChar.ToString();
             usdaRoot = $"{Application.StartupPath}{slash}usr{slash}share{slash}DBs{slash}USDAstock";
@@ -68,20 +68,23 @@ namespace Nutritracker
                     usdaDB.ndbs = File.ReadAllLines($"{usdaRoot}{slash}{s.Split('|')[0]}");
 
             //work here
-            int[] wordMatch = new int[usdaDB.names.Length];
+            usdaDB.wMatch = new int[usdaDB.names.Length];
+            usdaDB.joinedMatches = new string[usdaDB.names.Length];
             foreach (string s in foodNamesToPair[0].Split(_delims))
                 for (int i=0;i<usdaDB.names.Length;i++)
-                    if (s.Length > 2 && usdaDB.names[i].ToUpper().Contains(s.ToUpper()))
-                        wordMatch[i]++;
+                    if (s.Length > 2 && usdaDB.names[i].ToUpper().Contains(s.ToUpper())){
+						usdaDB.wMatch[i]++;
+                        usdaDB.joinedMatches[i] += s + ", ";              
+                    }
 
-            int m = wordMatch.Max();
+            int m = usdaDB.wMatch.Max();
             int q = 0;
             for (int i = m; i > 0; i--)
             {
                 for (int j = 0; j < usdaDB.names.Length; j++)
-                    if (wordMatch[j] == i)
+                    if (usdaDB.wMatch[j] == i)
                     {
-                        string itm = $"{usdaDB.ndbs[j]}--{usdaDB.names[j]}";
+                        string itm = $"{usdaDB.ndbs[j]}--{usdaDB.names[j]}-[{usdaDB.wMatch[j]}]-({usdaDB.joinedMatches[j]})";
                         checkedListBox1.Items.Add(itm);
                         q++;
                     }
@@ -179,19 +182,22 @@ namespace Nutritracker
                 
                 _n++;
                 checkedListBox1.Items.Clear();
-                int[] wordMatch = new int[usdaDB.names.Length];
+                usdaDB.wMatch = new int[usdaDB.names.Length];
                 foreach (string s in foodNamesToPair[_n].Split(_delims))
                     for (int i = 0; i < usdaDB.names.Length; i++)
                         if (s.Length > 2 && usdaDB.names[i].ToUpper().Contains(s.ToUpper()))
-                            wordMatch[i]++;
+                        {
+						    usdaDB.wMatch[i]++;
+                            usdaDB.joinedMatches[i] += s + ", ";
+                        }
 
-                int m = wordMatch.Max();
+                int m = usdaDB.wMatch.Max();
                 int q = 0;
                 for (int i = m; i > 0; i--)
                     for (int j = 0; j < usdaDB.names.Length; j++)
-                        if (wordMatch[j] == i)
+                        if (usdaDB.wMatch[j] == i)
                         {
-                            string itm = $"{usdaDB.ndbs[j]}--{usdaDB.names[j]}-[{wordMatch[j]}]";
+                            string itm = $"{usdaDB.ndbs[j]}--{usdaDB.names[j]}-[{usdaDB.wMatch[j]}]-({usdaDB.joinedMatches[j]})";
                             checkedListBox1.Items.Add(itm);
                             q++;
                         }
@@ -219,11 +225,11 @@ namespace Nutritracker
             else if (txtTweak.Text.Split(' ').Length < 2)
                 words = new string[] { txtTweak.Text };
             else
-                words = foodNamesToPair[_n].Split(_delims);
+                words = txtTweak.Text.Split(_delims);
             
             foreach (string s in words)
                 for (int i = 0; i < usdaDB.names.Length; i++)
-                    if (s.Length > 2 && usdaDB.names[i].ToUpper().Split(_delims).Contains(s.ToUpper()))
+                    if (s.Length > 2 && usdaDB.names[i].ToUpper()/*.Split(_delims)*/.Contains(s.ToUpper()))
                     {
                         usdaDB.wMatch[i]++;
                         usdaDB.joinedMatches[i] += s + ", ";

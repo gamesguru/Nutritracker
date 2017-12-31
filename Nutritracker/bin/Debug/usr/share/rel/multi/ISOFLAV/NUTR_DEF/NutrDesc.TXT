@@ -1,7 +1,7 @@
 Daidzein
 Genistein
 Glycitein
-Total isoflavones
-Biochanin A
+Total_isoflavones
+Biochanin_A
 Formononetin
 Coumestrol
