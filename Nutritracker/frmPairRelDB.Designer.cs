@@ -33,9 +33,11 @@
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.btnBegin = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.checkedListBox1 = new System.Windows.Forms.CheckedListBox();
             this.btnGoBack = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
-            this.checkedListBox1 = new System.Windows.Forms.CheckedListBox();
+            this.txtTweak = new System.Windows.Forms.TextBox();
+            this.lblTweak = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -82,6 +84,17 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Possible Matches (0 of 0)  — none";
             // 
+            // checkedListBox1
+            // 
+            this.checkedListBox1.CheckOnClick = true;
+            this.checkedListBox1.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.checkedListBox1.FormattingEnabled = true;
+            this.checkedListBox1.Location = new System.Drawing.Point(6, 21);
+            this.checkedListBox1.Name = "checkedListBox1";
+            this.checkedListBox1.Size = new System.Drawing.Size(582, 174);
+            this.checkedListBox1.TabIndex = 7;
+            this.checkedListBox1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.checkedListBox1_KeyDown);
+            // 
             // btnGoBack
             // 
             this.btnGoBack.Enabled = false;
@@ -104,22 +117,34 @@
             this.button2.Text = "Save!";
             this.button2.UseVisualStyleBackColor = true;
             // 
-            // checkedListBox1
+            // txtTweak
             // 
-            this.checkedListBox1.CheckOnClick = true;
-            this.checkedListBox1.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.checkedListBox1.FormattingEnabled = true;
-            this.checkedListBox1.Location = new System.Drawing.Point(6, 21);
-            this.checkedListBox1.Name = "checkedListBox1";
-            this.checkedListBox1.Size = new System.Drawing.Size(582, 174);
-            this.checkedListBox1.TabIndex = 7;
-            this.checkedListBox1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.checkedListBox1_KeyDown);
+            this.txtTweak.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtTweak.Location = new System.Drawing.Point(424, 36);
+            this.txtTweak.Name = "txtTweak";
+            this.txtTweak.Size = new System.Drawing.Size(142, 22);
+            this.txtTweak.TabIndex = 7;
+            this.txtTweak.Visible = false;
+            this.txtTweak.TextChanged += new System.EventHandler(this.txtTweak_TextChanged);
+            // 
+            // lblTweak
+            // 
+            this.lblTweak.AutoSize = true;
+            this.lblTweak.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTweak.Location = new System.Drawing.Point(421, 17);
+            this.lblTweak.Name = "lblTweak";
+            this.lblTweak.Size = new System.Drawing.Size(89, 16);
+            this.lblTweak.TabIndex = 8;
+            this.lblTweak.Text = "Tweak name:";
+            this.lblTweak.Visible = false;
             // 
             // frmPairRelDB
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(637, 337);
+            this.Controls.Add(this.lblTweak);
+            this.Controls.Add(this.txtTweak);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.btnGoBack);
             this.Controls.Add(this.groupBox1);
@@ -148,5 +173,7 @@
         private System.Windows.Forms.Button btnGoBack;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.CheckedListBox checkedListBox1;
+        private System.Windows.Forms.TextBox txtTweak;
+        private System.Windows.Forms.Label lblTweak;
     }
 }

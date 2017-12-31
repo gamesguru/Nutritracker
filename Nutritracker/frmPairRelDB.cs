@@ -55,8 +55,10 @@ namespace Nutritracker
         private void btnBegin_Click(object sender, EventArgs e)
         {
             btnBegin.Enabled = false;
-            btnGoBack.Enabled = true;
             comboBox1.Enabled = false;
+            btnGoBack.Enabled = true;
+            lblTweak.Visible = true;
+            txtTweak.Visible = true;
             
             string[] usdaNutKeyPairLines = File.ReadAllLines($"{usdaRoot}{slash}_nutKeyPairs.TXT");
             foreach (string s in usdaNutKeyPairLines)
@@ -191,6 +193,29 @@ namespace Nutritracker
 
                 groupBox1.Text = $"{q} Possible Matches ({_n} of {n})  — {foodNamesToPair[_n]}";
             }
+        }
+
+        private void txtTweak_TextChanged(object sender, EventArgs e)
+        {
+            checkedListBox1.Items.Clear();
+            int[] wordMatch = new int[usdaDB.names.Length];
+            foreach (string s in txtTweak.Text.Split(' '))
+                for (int i = 0; i < usdaDB.names.Length; i++)
+                    if (usdaDB.names[i].ToUpper().Contains(s.ToUpper()))
+                        wordMatch[i]++;
+
+            int m = wordMatch.Max();
+            int q = 0;
+            for (int i = m; i > ((m - 1 > 0) ? m - 1 : 0); i--)
+                for (int j = 0; j < usdaDB.names.Length; j++)
+                    if (wordMatch[j] == i)
+                    {
+                        string itm = $"{usdaDB.ndbs[j]}--{usdaDB.names[j]}";
+                        checkedListBox1.Items.Add(itm);
+                        q++;
+                    }
+
+            groupBox1.Text = $"{q} Possible Matches ({_n} of {n})  — {foodNamesToPair[_n]}";
         }
     }
 }
