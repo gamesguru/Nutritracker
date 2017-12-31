@@ -1527,9 +1527,10 @@ dataExercise[0, x].Value == "Sprinting")
             tabulateNutrientColumns();
         }
 
-        private void groupBox3_Enter(object sender, EventArgs e)
+        private void generateRelationalDatabaseToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            frmGenerateRelDBpair frmGRDB = new frmGenerateRelDBpair();
+            frmGRDB.ShowDialog();
         }
     }
 }

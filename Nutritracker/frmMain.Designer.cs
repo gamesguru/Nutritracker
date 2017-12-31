@@ -136,7 +136,7 @@
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.dataDay);
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox1.Location = new System.Drawing.Point(8, 85);
+            this.groupBox1.Location = new System.Drawing.Point(3, 64);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(956, 469);
             this.groupBox1.TabIndex = 2;
@@ -355,7 +355,7 @@
             this.groupBox2.Controls.Add(this.dataExercise);
             this.groupBox2.Controls.Add(this.btnAddEx);
             this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox2.Location = new System.Drawing.Point(8, 563);
+            this.groupBox2.Location = new System.Drawing.Point(3, 542);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(627, 357);
             this.groupBox2.TabIndex = 4;
@@ -490,7 +490,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(445, 24);
+            this.label3.Location = new System.Drawing.Point(440, 3);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(172, 24);
             this.label3.TabIndex = 4;
@@ -499,7 +499,7 @@
             // btnProfile
             // 
             this.btnProfile.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnProfile.Location = new System.Drawing.Point(730, 51);
+            this.btnProfile.Location = new System.Drawing.Point(725, 30);
             this.btnProfile.Name = "btnProfile";
             this.btnProfile.Size = new System.Drawing.Size(192, 31);
             this.btnProfile.TabIndex = 5;
@@ -521,13 +521,12 @@
             this.groupBox3.Controls.Add(this.lstBoxRecipes);
             this.groupBox3.Controls.Add(this.btnEditCustFoods);
             this.groupBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox3.Location = new System.Drawing.Point(641, 563);
+            this.groupBox3.Location = new System.Drawing.Point(636, 542);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(323, 357);
             this.groupBox3.TabIndex = 7;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Recipes and Custom Foods";
-            this.groupBox3.Enter += new System.EventHandler(this.groupBox3_Enter);
             // 
             // comboMeal
             // 
@@ -823,10 +822,10 @@
             // 
             // generateRelationalDatabaseToolStripMenuItem
             // 
-            this.generateRelationalDatabaseToolStripMenuItem.Enabled = false;
             this.generateRelationalDatabaseToolStripMenuItem.Name = "generateRelationalDatabaseToolStripMenuItem";
             this.generateRelationalDatabaseToolStripMenuItem.Size = new System.Drawing.Size(241, 22);
             this.generateRelationalDatabaseToolStripMenuItem.Text = "Generate Relational Database";
+            this.generateRelationalDatabaseToolStripMenuItem.Click += new System.EventHandler(this.generateRelationalDatabaseToolStripMenuItem_Click);
             // 
             // manageCustomFieldsToolStripMenuItem
             // 
@@ -845,7 +844,7 @@
             // btnRemoveFood
             // 
             this.btnRemoveFood.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnRemoveFood.Location = new System.Drawing.Point(244, 50);
+            this.btnRemoveFood.Location = new System.Drawing.Point(239, 29);
             this.btnRemoveFood.Name = "btnRemoveFood";
             this.btnRemoveFood.Size = new System.Drawing.Size(127, 31);
             this.btnRemoveFood.TabIndex = 9;
@@ -857,7 +856,7 @@
             // btnSearch
             // 
             this.btnSearch.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSearch.Location = new System.Drawing.Point(8, 24);
+            this.btnSearch.Location = new System.Drawing.Point(3, 3);
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.Size = new System.Drawing.Size(212, 56);
             this.btnSearch.TabIndex = 11;
@@ -868,7 +867,7 @@
             // btnExit
             // 
             this.btnExit.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnExit.Location = new System.Drawing.Point(659, 926);
+            this.btnExit.Location = new System.Drawing.Point(654, 905);
             this.btnExit.Name = "btnExit";
             this.btnExit.Size = new System.Drawing.Size(284, 42);
             this.btnExit.TabIndex = 22;
@@ -882,7 +881,7 @@
             this.comboLoggedDays.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboLoggedDays.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.comboLoggedDays.FormattingEnabled = true;
-            this.comboLoggedDays.Location = new System.Drawing.Point(464, 51);
+            this.comboLoggedDays.Location = new System.Drawing.Point(459, 30);
             this.comboLoggedDays.Name = "comboLoggedDays";
             this.comboLoggedDays.Size = new System.Drawing.Size(121, 32);
             this.comboLoggedDays.TabIndex = 23;
@@ -904,16 +903,16 @@
             this.panel1.Controls.Add(this.btnProfile);
             this.panel1.Controls.Add(this.groupBox3);
             this.panel1.Location = new System.Drawing.Point(9, 25);
-            this.panel1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.panel1.Margin = new System.Windows.Forms.Padding(2);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(988, 979);
+            this.panel1.Size = new System.Drawing.Size(988, 953);
             this.panel1.TabIndex = 24;
             // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1001, 1015);
+            this.ClientSize = new System.Drawing.Size(1001, 989);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.menuStrip1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));

@@ -792,7 +792,7 @@ namespace Nutritracker
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
-            this.Close();
+            this.Close();            
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)

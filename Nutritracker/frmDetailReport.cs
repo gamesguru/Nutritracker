@@ -56,28 +56,21 @@ namespace Nutritracker
 
             string[] activeNutsLines = File.ReadAllLines($"{profileRoot}{slash}activeFields.TXT");
             foreach (string s in activeNutsLines){
-                if (s.Split('#')[0] != "")
-                    activeFields.Add(s.Split('#')[0]);
+                string leading = s.Split('#')[0]; 
+                if (leading != "") // && frmMain.activeFields.Contains(leading))
+                    activeFields.Add(leading);
             }
+
 
             ProcessStartInfo ps = new ProcessStartInfo($"{Application.StartupPath}{slash}logRunner.exe");
             // arg1   = profile #
-            // arg2[] = active fields
-            // arg3[] = days
-            ps.Arguments = $"{frmMain.currentUser.index} {profileRoot}{slash}activeFields.TXT {string.Join(" ", days)}"; 
+            // arg2   = unique log output *.TXT, full file name
+            // arg4[] = dates
+            ps.Arguments = $"{frmMain.currentUser.index} {file} {string.Join(" ", days)}"; 
             Process.Start(ps);
 
-            
-            string[] basicFields = new string[0];
-            string[] extFields = new string[0];
-
-			if (File.Exists(profileRoot + slash + "_basicFields.TXT") && File.Exists(profileRoot + slash + "_extFields.TXT"))
-			{
-                basicFields = File.ReadAllLines(profileRoot + slash + "_basicFields.TXT");
-                extFields = File.ReadAllLines(profileRoot + slash + "_extFields.TXT");
-			}
-
-            //MessageBox.Show($"Log performed with {basicFields.Length} basic fields and {extFields.Length} extended fields\n\nSaved to\n{file}", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //need to add RDA in database for helper program to perform analysis..
+            MessageBox.Show($"Log performed over {days.Count} days with {activeFields.Count} active fields\n\nWait for console to finish, it will save a log to\n{file}", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void chkLstBoxDays_ItemCheck(object sender, ItemCheckEventArgs e)

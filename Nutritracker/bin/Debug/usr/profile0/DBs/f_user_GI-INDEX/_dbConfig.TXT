@@ -1,5 +1,5 @@
 [File]FOO.TXT
-[Field]Name of Food
+[Field]FoodName
 
 [File]GIX.TXT
 [Field]Value1
