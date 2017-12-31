@@ -146,6 +146,12 @@
     <Compile Include="frmSettings.Designer.cs">
       <DependentUpon>frmSettings.cs</DependentUpon>
     </Compile>
+    <Compile Include="itemListerDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="itemListerDialog.Designer.cs">
+      <DependentUpon>itemListerDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="ListSorter.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -199,6 +205,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmSettings.resx">
       <DependentUpon>frmSettings.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="itemListerDialog.resx">
+      <DependentUpon>itemListerDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

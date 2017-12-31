@@ -72,7 +72,7 @@
             this.btnDone.TabIndex = 1;
             this.btnDone.Text = "Done";
             this.btnDone.UseVisualStyleBackColor = true;
-            this.btnDone.Click += new System.EventHandler(this.btnDone_Click);
+            this.btnDone.Click += new System.EventHandler(this.btnDone_Click);         
             // 
             // btnListFields
             // 
@@ -81,7 +81,7 @@
             this.btnListFields.Location = new System.Drawing.Point(12, 512);
             this.btnListFields.Name = "btnListFields";
             this.btnListFields.Size = new System.Drawing.Size(176, 35);
-            this.btnListFields.TabIndex = 2;
+            this.btnListFields.TabIndex = 3;
             this.btnListFields.Text = "List Available Fields";
             this.btnListFields.UseVisualStyleBackColor = true;
             this.btnListFields.Click += new System.EventHandler(this.btnListFields_Click);

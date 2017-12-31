@@ -71,6 +71,7 @@ namespace Nutritracker
 
             //need to add RDA in database for helper program to perform analysis..
             MessageBox.Show($"Log performed over {days.Count} days with {activeFields.Count} active fields\n\nWait for console to finish, it will save a log to\n{file}", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            this.Close();
         }
 
         private void chkLstBoxDays_ItemCheck(object sender, ItemCheckEventArgs e)

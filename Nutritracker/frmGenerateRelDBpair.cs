@@ -66,7 +66,7 @@ namespace Nutritracker
             int wordMatch = 0;
             foreach (string s in foodNamesToPair[0].Split(' '))
                 foreach (string st in usdaLines)
-                    if (st.ToUpper().Contains(s.ToUpper))
+                    if (st.ToUpper().Contains(s.ToUpper()))
                         wordMatch++;
         }
 

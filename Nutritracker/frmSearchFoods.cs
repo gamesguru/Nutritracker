@@ -155,7 +155,7 @@ namespace Nutritracker
 
                 dbc nameFile = new dbc();
                 foreach (dbc kc in slotObjs[i].dbConfigKeys)
-                    if (kc.field == "Name of Food")
+                    if (kc.field == "FoodName")
                         slotObjs[i].z = File.ReadAllLines(dir + slash + kc.file).Length;
 
                 //reads files and prepares the listViews
@@ -183,7 +183,7 @@ namespace Nutritracker
                 {
                     if (i == 0)
                     {
-                        if (kc.field == "Name of Food")
+                        if (kc.field == "FoodName")
                         {
                             slotObjs[i].names = File.ReadAllLines(dir + slash + kc.file);
                             lstViewSlot1.Columns.Add(kc.field);
@@ -201,7 +201,7 @@ namespace Nutritracker
                     }
                     else if (i == 1)
                     {
-                        if (kc.field == "Name of Food")
+                        if (kc.field == "FoodName")
                         {
                             slotObjs[i].names = File.ReadAllLines(dir + slash + kc.file);
                             lstViewSlot2.Columns.Add(kc.field);
@@ -219,7 +219,7 @@ namespace Nutritracker
                     }
                     else if (i == 2)
                     {
-                        if (kc.field == "Name of Food")
+                        if (kc.field == "FoodName")
                         {
                             slotObjs[i].names = File.ReadAllLines(dir + slash + kc.file);
                             lstViewSlot3.Columns.Add(kc.field);
@@ -237,7 +237,7 @@ namespace Nutritracker
                     }
                     else if (i == 3)
                     {
-                        if (kc.field == "Name of Food")
+                        if (kc.field == "FoodName")
                         {
                             slotObjs[i].names = File.ReadAllLines(dir + slash + kc.file);
                             lstViewSlot4.Columns.Add(kc.field);
@@ -275,7 +275,7 @@ namespace Nutritracker
                         ListViewItem itm = new ListViewItem();
                         foreach (dbc kc in slotObjs[i].dbConfigKeys)
                         {
-                            if (kc.field == "Name of Food")                            
+                            if (kc.field == "FoodName")                            
                                 itm.Text = slotObjs[i].names[j];                            
                             else if (kc.field == "Value1")                            
                                 itm.SubItems.Add(slotObjs[i].vals[j]);                            
@@ -298,7 +298,7 @@ namespace Nutritracker
                         ListViewItem itm = new ListViewItem();
                         foreach (dbc kc in slotObjs[i].dbConfigKeys)
                         {
-                            if (kc.field == "Name of Food")
+                            if (kc.field == "FoodName")
                                 itm.Text = slotObjs[i].names[j];
                             else if (kc.field == "Value1")
                                 itm.SubItems.Add(slotObjs[i].vals[j]);
@@ -321,7 +321,7 @@ namespace Nutritracker
                         ListViewItem itm = new ListViewItem();
                         foreach (dbc kc in slotObjs[i].dbConfigKeys)
                         {
-                            if (kc.field == "Name of Food")
+                            if (kc.field == "FoodName")
                                 itm.Text = slotObjs[i].names[j];
                             else if (kc.field == "Value1")
                                 itm.SubItems.Add(slotObjs[i].vals[j]);
@@ -344,7 +344,7 @@ namespace Nutritracker
                         ListViewItem itm = new ListViewItem();
                         foreach (dbc kc in slotObjs[i].dbConfigKeys)
                         {
-                            if (kc.field == "Name of Food")
+                            if (kc.field == "FoodName")
                                 itm.Text = slotObjs[i].names[j];
                             else if (kc.field == "Value1")
                                 itm.SubItems.Add(slotObjs[i].vals[j]);
@@ -391,14 +391,18 @@ namespace Nutritracker
                         mainDB.Add(files[i].Replace($"{Application.StartupPath}{slash}usr{slash}share{slash}DBs{slash}{db}{slash}", ""), importArray(files[i]));
 
                     nutKeyPairs = importArray($"{Application.StartupPath}{slash}usr{slash}share{slash}DBs{slash}{db}{slash}_nutKeyPairs.TXT").ToArray();
-
+                    List<string> tmp = new List<string>();
+                    for (int i = 0; i < nutKeyPairs.Length; i++)
+                        if (!nutKeyPairs[i].StartsWith("#"))
+                            tmp.Add(nutKeyPairs[i]);
+                    nutKeyPairs = tmp.ToArray();
 
                     n = importArray($"{Application.StartupPath}{slash}usr{slash}share{slash}DBs{slash}{db}{slash}{nutKeyPairs[0].Split('|')[0]}").Count;
 
                     for (int i = 0; i < nutKeyPairs.Length; i++)
-                        if (nutKeyPairs[i].Contains("|Name of Food"))
+                        if (nutKeyPairs[i].Contains("|FoodName"))
                             nameKeyPath = $"{Application.StartupPath}{slash}usr{slash}share{slash}DBs{slash}{db}{slash}" +
-                                          nutKeyPairs[i].Replace("|Name of Food", "");
+                                          nutKeyPairs[i].Replace("|FoodName", "");
                     for (int i = 0; i < nutKeyPairs.Length; i++)
                         lstviewFoods.Columns.Add(nutKeyPairs[i].Split('|')[1]);
 
@@ -458,6 +462,9 @@ namespace Nutritracker
 
                     List<string> nutKeyPairs = importArray($"{Application.StartupPath}{slash}usr{slash}profile{frmMain.currentUser.index}{slash}DBs{slash}{db}_nutKeyPairs.TXT");
                     for (int i = 0; i < nutKeyPairs.Count; i++)
+                        if (nutKeyPairs[i].StartsWith("#"))
+                            nutKeyPairs.RemoveAt(i);
+                    for (int i = 0; i < nutKeyPairs.Count; i++)
                         lstviewFoods.Columns.Add(nutKeyPairs[i].Split('|')[1]);                  
                 }
 
@@ -514,19 +521,15 @@ namespace Nutritracker
         {
             if (txtSrch.Text.Trim() == lastQuery)
                 return;
-            //this.UseWaitCursor = false;
-            //lstviewFoods.Items.Clear();
-            //search();
             bw.WorkerSupportsCancellation = true;
             bw.CancelAsync();
             bw = new BackgroundWorker();
 
-            //while (bw.CancellationPending)
-            //    Thread.Sleep(50);
             bw.DoWork += delegate
             {
                 try { search(); }
-                catch { }
+                catch (Exception ex){
+                    MessageBox.Show(ex.ToString()); }
             };
             try
             {
@@ -559,21 +562,19 @@ namespace Nutritracker
             int n = words.Length - 1;
             //MessageBox.Show(n.ToString());
             for (int k = 0; k < n; k++)
-                for (int i = 0; i < range.Count; i++)
-                {
+                for (int i = 0; i < range.Count; i++)                
                     if (words[k].Length > 2 && range[i].StartsWith(words[k]))
                         wCount[i] += Convert.ToInt32(1.5 * words[k].Length);
                     else if (words[k].Length > 2 && range[i].Contains(words[k]))
                         wCount[i] += Convert.ToInt32(words[k].Length);
-                }
+                
             //MessageBox.Show(words[n]);
-            for (int i = 0; i < range.Count; i++)
-            {
+            for (int i = 0; i < range.Count; i++)            
                 if (words[n].Length > 1 && range[i].StartsWith(words[n]))
                     wCount[i] += Convert.ToInt32(1.5 * words[n].Length);
                 else if (words[n].Length > 1 && range[i].Contains(words[n]))
                     wCount[i] += Convert.ToInt32(words[n].Length);
-            }
+            
 
 
             int q = wCount.Max();
@@ -588,24 +589,16 @@ namespace Nutritracker
                     if (wCount[k] == i)
                     {
                         ListViewItem itm = new ListViewItem();
-                        for (int m = 0; m < nutKeyPairs.Length; m++)
-                        {
+                        for (int m = 0; m < nutKeyPairs.Length; m++)                        
                             if (m == 0)
                                 itm = new ListViewItem(mainDB[nutKeyPairs[m].Split('|')[0]][k]);
                             else
-                                itm.SubItems.Add(mainDB[nutKeyPairs[m].Split('|')[0]][k]);
-                            //MessageBox.Show("k");*/
-                        }
+                                itm.SubItems.Add(mainDB[nutKeyPairs[m].Split('|')[0]][k]);                        
                         itms.Add(itm);
-                        //lstviewFoods.Invoke(new MethodInvoker(delegate { lstviewFoods.Items.Add(itm); }));
-                        
-                        //MessageBox.Show(i.ToString());
-                        //MessageBox.Show("wow");
                     }
             z = itms.Count;
             if (z > 100 && !warn(z))
             {
-                //richTxtWarn.Enabled = true;
                 warning = true;
                 this.Invoke(new MethodInvoker(delegate { this.UseWaitCursor = false; }));
                 return;
@@ -616,25 +609,13 @@ namespace Nutritracker
                 foreach (ListViewItem itm in itms)
                     lstviewFoods.Items.Add(itm);
                 lstviewFoods.EndUpdate();
-                //lstviewFoods.Items.AddRange(itms);
             }));
             for (int i = 0; i < nutKeyPairs.Length; i++)
-                if (nutKeyPairs[i].Contains("|Name of Food"))
+                if (nutKeyPairs[i].Contains("|FoodName"))
                     lstviewFoods.Invoke(new MethodInvoker(delegate { lstviewFoods.Columns[i].AutoResize(ColumnHeaderAutoResizeStyle.ColumnContent); }));
 
 
             this.Invoke(new MethodInvoker(delegate { this.UseWaitCursor = false; }));
-
-
-            /*else if (input.Length > 3) //starts with
-            {
-                for (int i = input.Length; i > 3; i--)
-                {
-
-                }
-            }
-            else if (input.Length > 4) //contains
-            { }*/
         }
 
         private bool warn(int n)
@@ -642,10 +623,6 @@ namespace Nutritracker
             this.Invoke(new MethodInvoker(delegate { richTxtWarn.Text = $"Search for {n} foods? It may go slow\nPress enter to continue.."; }));
 
             return false;
-            //if (MessageBox.Show($"You are about to list information for {n} foods, this will take a moment.\nTo try again press enter or Retry, to continue with the lengthy search please press Cancel or close this box.", "", MessageBoxButtons.RetryCancel, MessageBoxIcon.Warning) == DialogResult.Cancel)
-            //    return true;
-            //else
-            //    return false;
         }
 
         private void richTxtWarn_DoubleClick(object sender, EventArgs e)
@@ -668,17 +645,15 @@ namespace Nutritracker
                     this.Invoke(new MethodInvoker(delegate { this.UseWaitCursor = true; }));
 
                     lstviewFoods.Invoke(new MethodInvoker(delegate {
-                        //lstviewFoods.Items.AddRange(itms);
                         lstviewFoods.BeginUpdate();
                         foreach (ListViewItem itm in itms)
                             lstviewFoods.Items.Add(itm);
                         lstviewFoods.EndUpdate();
                     }));
                     for (int i = 0; i < nutKeyPairs.Length; i++)
-                        if (nutKeyPairs[i].Contains("|Name of Food"))
+                        if (nutKeyPairs[i].Contains("|FoodName"))
                             lstviewFoods.Invoke(new MethodInvoker(delegate { lstviewFoods.Columns[i].AutoResize(ColumnHeaderAutoResizeStyle.ColumnContent); }));
 
-                    //richTxtWarn.Enabled = false;
                     warning = false;
                     this.Invoke(new MethodInvoker(delegate { richTxtWarn.Text = "Finished!"; }));
                     this.Invoke(new MethodInvoker(delegate { this.UseWaitCursor = false; }));
@@ -809,7 +784,6 @@ namespace Nutritracker
 
         private void comboMeal_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //D:\MonoProjects\Nutritracker\Nutritracker\bin\Debug\usr\profile0\DBs
             File.WriteAllText($"{Application.StartupPath}{slash}usr{slash}profile{frmMain.currentUser.index}{slash}DBs{slash}Meal.TXT", comboMeal.SelectedIndex.ToString());
         }
 

@@ -2,76 +2,78 @@
 #############    Nutrient Configurator    ##############
 ########################################################
 #Here you can configure/unconfigure trackable nutrients
-#Remove lines with '#', NO black text should appear
+#Remove lines with '#', separate units with '|'
 #A full list of nutrients can be found in the help docs
 ########################################################
 ## BASICS ##
-Cals
+Cals|2200
 #CalsFat
-FatTot
-FatSat
+FatTot|130 g
+FatSat|30 g
 #FatTrans
 #FatMono
 #FatPoly
-Cholest
-Na #Sodium
-K #Potassium
-Carbs
-Fiber
-#FiberSol
-Sugar
+Cholest|200 mg
+Na|1500 mg #Sodium
+K|4500 mg #Potassium
+Carbs|150 g
+Fiber|30 g
+#FiberSol #Soluble
+Sugar|70 g
 #SugarAlc
-Protein
-Ca #Calcium
-Fe #Iron
+Protein|100 g
+Ca|800 mg #Calcium
+Fe|10 mg #Iron
 ## VITAMINS ##
-VitA
+VitA|900 μg
 #VitC
-VitD
-VitE
+VitD|6 μg
+VitE|20 mg #30 IU
 #VitK
 #B1
 #B2
 #B3
 #B5
-B6
+B6|1200 μg
 #B7
 #B9
-B12
+B12|1mg
 ## MINERALS ##
-Mg
-Zn 
-Se #Selenium
+Mg|400 mg
+Zn|12 mg
+Se|400 μg #Selenium
 #B #Boron
-#I #Iodine
+#I|150 μg #Iodine
 #P #Phosporus
-Mn #Manganese
+Mn|5 mg #Manganese
 #F #Fluoride
 #Cu #Copper
-#Cr #Chromium
-#Mo #Molybdenum
+#Cr|120 μg #Chromium
+#Mo|80 μg #Molybdenum
 ## Aminos ##
-Alanine
-Arginine
-AsparticAcid
-GlutamicAcid
-Glycine
-Histidine
-Isoleucine
-Leucine
-Methionine
-Phenylalanine
-Proline
-Serine
-Threonine
-Tryptophan
-Tyrosine
-Valine
+Alanine|1 g
+Arginine|1 g
+AsparticAcid|1 g
+#Cysteine|300 mg
+GlutamicAcid|2 g
+Glycine|800 mg
+Histidine|800 mg
+Isoleucine|1400 mg
+Leucine|2700 mg
+#Lysine|2100 mg
+Methionine|800 mg
+Phenylalanine|1200 mg
+Proline|600 mg
+Serine|1600 mg
+Threonine|1 g
+Tryptophan|300 mg
+Tyrosine|1400 mg
+Valine|1800 mg
 ## MISC ##
 #Choline
-EpaDha
-Lycopene
-LutZea
+EpaDha|600 mg
+Lycopene|15 mg
+LutZea|12 mg
 #Carnitine
 #Lipoic acid
-Inositol
+Inositol|4 g
