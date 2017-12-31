@@ -69,9 +69,9 @@ namespace Nutritracker
 
             //work here
             int[] wordMatch = new int[usdaDB.names.Length];
-            foreach (string s in foodNamesToPair[0].Replace(",", "").Split(' '))
+            foreach (string s in foodNamesToPair[0].Split(_delims))
                 for (int i=0;i<usdaDB.names.Length;i++)
-                    if (usdaDB.names[i].ToUpper().Contains(s.ToUpper()))
+                    if (s.Length > 2 && usdaDB.names[i].ToUpper().Contains(s.ToUpper()))
                         wordMatch[i]++;
 
             int m = wordMatch.Max();
@@ -93,6 +93,8 @@ namespace Nutritracker
         {
             public static string[] ndbs;
             public static string[] names;
+            public static int[] wMatch;
+            public static string[] joinedMatches;
         }
 
 
@@ -178,9 +180,9 @@ namespace Nutritracker
                 _n++;
                 checkedListBox1.Items.Clear();
                 int[] wordMatch = new int[usdaDB.names.Length];
-                foreach (string s in foodNamesToPair[_n].Replace(", ", ",").Replace(",", " ").Split(' '))
+                foreach (string s in foodNamesToPair[_n].Split(_delims))
                     for (int i = 0; i < usdaDB.names.Length; i++)
-                        if (usdaDB.names[i].ToUpper().Contains(s.ToUpper()))
+                        if (s.Length > 2 && usdaDB.names[i].ToUpper().Contains(s.ToUpper()))
                             wordMatch[i]++;
 
                 int m = wordMatch.Max();
@@ -189,7 +191,7 @@ namespace Nutritracker
                     for (int j = 0; j < usdaDB.names.Length; j++)
                         if (wordMatch[j] == i)
                         {
-                            string itm = $"{usdaDB.ndbs[j]}--{usdaDB.names[j]}";
+                            string itm = $"{usdaDB.ndbs[j]}--{usdaDB.names[j]}-[{wordMatch[j]}]";
                             checkedListBox1.Items.Add(itm);
                             q++;
                         }
@@ -201,12 +203,15 @@ namespace Nutritracker
             }
         }
         bool mH = false;
+        char[] _delims = new char[] { '/', ',', ' ' };
         private void txtTweak_TextChanged(object sender, EventArgs e)
         {
             if (mH)
                 return;
             checkedListBox1.Items.Clear();
-            int[] wordMatch = new int[usdaDB.names.Length];
+            //int[] wordMatch = new int[usdaDB.names.Length];
+            usdaDB.wMatch = new int[usdaDB.names.Length];
+            usdaDB.joinedMatches = new string[usdaDB.names.Length];
 			string[] words;
 
             if (txtTweak.TextLength < 4)
@@ -214,21 +219,24 @@ namespace Nutritracker
             else if (txtTweak.Text.Split(' ').Length < 2)
                 words = new string[] { txtTweak.Text };
             else
-                words = foodNamesToPair[_n].Replace(", ", ",").Replace(",", " ").Split(' ');
-
+                words = foodNamesToPair[_n].Split(_delims);
+            
             foreach (string s in words)
                 for (int i = 0; i < usdaDB.names.Length; i++)
-                    if (usdaDB.names[i].ToUpper().Contains(s.ToUpper()) && s.Length > 2)
-                        wordMatch[i]++;
+                    if (s.Length > 2 && usdaDB.names[i].ToUpper().Split(_delims).Contains(s.ToUpper()))
+                    {
+                        usdaDB.wMatch[i]++;
+                        usdaDB.joinedMatches[i] += s + ", ";
+                    }
 
-            int m = wordMatch.Max();
+            int m = usdaDB.wMatch.Max();
             int q = 0;
             List<string> itms = new List<string>();
             for (int i = m; i > 0; i--)
                 for (int j = 0; j < usdaDB.names.Length; j++)
-                    if (wordMatch[j] == i)
+                    if (usdaDB.wMatch[j] == i)
                     {
-                        itms.Add($"{usdaDB.ndbs[j]}--{usdaDB.names[j]}");
+                        itms.Add($"{usdaDB.ndbs[j]}--{usdaDB.names[j]}-[{usdaDB.wMatch[j]}]-({usdaDB.joinedMatches[j]})");
                         q++;
                     }
             checkedListBox1.BeginUpdate();
