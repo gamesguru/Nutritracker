@@ -165,20 +165,19 @@ namespace Nutritracker
             }
         }
 
-        /*DataGridViewRow row = (DataGridViewRow) dataDay.Rows[0].Clone();
-row.Cells[0].Value = "XYZ";
-row.Cells[1].Value = 50.2;
-dataDay.Rows.Add(row);*/
+        //DataGridViewRow row = (DataGridViewRow) dataDay.Rows[0].Clone();
+        //row.Cells[0].Value = "XYZ";
+        //row.Cells[1].Value = 50.2;
+        //dataDay.Rows.Add(row);
 
         public static string[] addFood { get; set; }
         public static int bmr = 0;
         double mFactor = 1.2;
         //bool loadup = true;
-        List<string> profDirects;
-        //public static int profIndex = 0;
-        //public static string profName = "";
-        public static string dte;
-        public static string slash = Path.DirectorySeparatorChar.ToString();
+		public static string dte;
+		public static string slash = Path.DirectorySeparatorChar.ToString();
+
+		List<string> profDirects;
         public class _profile
         {
             public string name = "";
@@ -192,18 +191,9 @@ dataDay.Rows.Add(row);*/
             public int index; //the index among other profiles, beginning with 0
             public string root;
         }
-
+        
         public static _profile currentUser = new _profile();
-        #region profile info
-        //string name = "";
-        //bool gender = false;
-        //int age = 0;
-        //int bodyFat = 0;
-        //int wt = 0;
-        //int ht = 0;
-        //int activityLvl = 0;
-        //int overallGoal = 0;
-        #endregion
+        
         private void frmMain_Load(object sender, EventArgs e)
         {        
             dte = DateTime.Today.ToString("MM-dd-yyyy");
@@ -234,11 +224,7 @@ dataDay.Rows.Add(row);*/
                 }
             }
             
-            //dateTimePicker1.Text = dte.Replace("-", "/");
-
-            //if (defaultIndex > -1)
-            //    loadIndex = defaultIndex;
-
+            
             string root = $"{Application.StartupPath}{slash}usr";
             foreach (string s in Directory.GetFiles(root))
                 if (s.Split(Path.DirectorySeparatorChar)[s.Split(Path.DirectorySeparatorChar).Length - 1].StartsWith("profile"))
@@ -252,11 +238,10 @@ dataDay.Rows.Add(row);*/
             string[] directs = Directory.GetDirectories(root);
             profDirects = new List<string>();
             frmProfile frmP = new frmProfile();
-            for (int i = 0; i < directs.Length; i++)
-            {
+            for (int i = 0; i < directs.Length; i++)            
                 if (directs[i].EndsWith($"{slash}profile" + i.ToString()))
                     profDirects.Add(directs[i]);
-            }
+            
 
             if (profDirects.Count == 0)
             {
@@ -306,16 +291,8 @@ dataDay.Rows.Add(row);*/
                     break;
             }
             dataExercise.Rows[0].Cells[1].Value = actLvl;
-            if (currentUser.actLvl == 0)
-                mFactor = 1.2;
-            else if (currentUser.actLvl == 1)
-                mFactor = 1.375;
-            else if (currentUser.actLvl == 2)
-                mFactor = 1.55;
-            else if (currentUser.actLvl == 3)
-                mFactor = 1.725;
-            else if (currentUser.actLvl == 4)
-                mFactor = 1.9;
+                        
+            mFactor = 1.2 + 0.175 * currentUser.actLvl;
             if (currentUser.gender == "female")
                 bmr = Convert.ToInt32(mFactor * (10 * 0.4536 * currentUser.wt + 6.25 * 2.54 * currentUser.ht - 5 * currentUser.age) + 5);
             else
@@ -327,7 +304,7 @@ dataDay.Rows.Add(row);*/
             dataExercise.Rows[0].Cells[4].Value = bmr.ToString() + " kcal";
             dataExercise.Rows[0].ReadOnly = true;
             //dataExercise.Rows.Insert(1, "", "", "", "", "");
-            dataExercise.Rows.Insert(1, "Totals", "", "", "", bmr.ToString() + " kcal"); //virus shiet
+            dataExercise.Rows.Insert(1, "Totals", "", "", "", bmr.ToString() + " kcal");
             dataExercise.Rows[1].DefaultCellStyle.BackColor = Color.LightGray;
             //
 
