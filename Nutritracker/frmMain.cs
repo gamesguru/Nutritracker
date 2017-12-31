@@ -188,17 +188,85 @@ namespace Nutritracker
             public int ht = 63;
             public int actLvl = 2;
             public string goal = "Maintenance";
-            public int index; //the index among other profiles, beginning with 0
+            public int index = 0; //the index among other profiles, beginning with 0
             public string root;
         }
-        
+
+        class logItem
+        {
+            public string _db;
+            public string primKeyNo;
+            public double grams;
+        }
+
+        List<logItem> bLog;
+        List<logItem> lLog;
+        List<logItem> dLog;
+        logItem litm;
         public static _profile currentUser = new _profile();
         
         private void frmMain_Load(object sender, EventArgs e)
         {        
             dte = DateTime.Today.ToString("MM-dd-yyyy");
+            try { currentUser.index = Convert.ToInt32(Directory.GetFiles($"{Application.StartupPath}{slash}usr")[0].Split(new string[] { $"usr{slash}default" }, StringSplitOptions.None)[1]); }
+            catch { }
+
+            string userRoot = $"{Application.StartupPath}{slash}usr{slash}profile{currentUser.index}";
+
+            string[] daysLog = File.ReadAllText($"{userRoot}{slash}foodLog.TXT").Replace("\r", "").Split(new string[] { "===========\n" }, StringSplitOptions.RemoveEmptyEntries);
+
+            List<string> dates = new List<string>();
+            foreach (string s in daysLog)
+                dates.Add(s.Split('\n')[0]);
+
+            bLog = new List<logItem>();
+            lLog = new List<logItem>();
+            dLog = new List<logItem>();
+            foreach (string s in daysLog)
+            {
+                string[] lines = s.Split(new string[] { "--Breakfast--" }, StringSplitOptions.RemoveEmptyEntries)[1].Split(new string[] { "--Lunch--" }, StringSplitOptions.RemoveEmptyEntries)[0].Split('\n');
+                foreach (string st in lines)
+                {
+                    if (st == "")
+                        continue;
+                    litm = new logItem();
+                    litm._db = st.Split('|')[0];
+                    litm.primKeyNo = st.Split('|')[1];
+                    litm.grams = Convert.ToDouble(st.Split('|')[2]);
+                }
+                bLog.Add(litm);
+                lines = s.Split(new string[] { "--Lunch--" }, StringSplitOptions.RemoveEmptyEntries)[1].Split(new string[] { "--Dinner--" }, StringSplitOptions.RemoveEmptyEntries)[0].Split('\n');
+                foreach (string st in lines)
+                {
+                    if (st == "")
+                        continue;
+                    litm = new logItem();
+                    litm._db = st.Split('|')[0];
+                    litm.primKeyNo = st.Split('|')[1];
+                    litm.grams = Convert.ToDouble(st.Split('|')[2]);
+                }
+                lLog.Add(litm);
+                lines = s.Split(new string[] { "--Dinner--" }, StringSplitOptions.RemoveEmptyEntries)[1].Split('\n');
+                foreach (string st in lines)
+                {
+                    if (st == "")
+                        continue;
+                    litm = new logItem();
+                    litm._db = st.Split('|')[0];
+                    litm.primKeyNo = st.Split('|')[1];
+                    litm.grams = Convert.ToDouble(st.Split('|')[2]);
+                }
+                dLog.Add(litm);
+            }
+
+            //MessageBox.Show(string.Join(", ", dates));
+            return;
             try
             {
+                //
+                //
+                //
+                //
                 foreach (string f in Directory.GetFiles($"{Application.StartupPath}{slash}usr{slash}profile{currentUser.index}{slash}foodlog"))
                     if (f.EndsWith(".TXT") && f.Contains("-"))
                         comboLoggedDays.Items.Add(f.Split(new char[] { '/', '\\' })[f.Split(new char[] { '/', '\\' }).Length - 1].Replace(".TXT", ""));
