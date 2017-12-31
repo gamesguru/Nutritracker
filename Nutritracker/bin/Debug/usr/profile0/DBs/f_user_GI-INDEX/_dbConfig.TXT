@@ -3,7 +3,7 @@
 
 [File]GIX.TXT
 [Field]Value1
-[MetricName]GI rating
+[MetricName]GI_Rating
 
 [File]SER.TXT
 [Field]Serving
@@ -14,5 +14,5 @@
 
 [File]GLX.TXT
 [Field]Value2
-[MetricName]GL load
+[MetricName]GL_Load
 

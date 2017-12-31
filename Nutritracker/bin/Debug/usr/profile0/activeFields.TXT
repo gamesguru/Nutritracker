@@ -45,11 +45,11 @@ Se|400 μg #Selenium
 #B #Boron
 #I|150 μg #Iodine
 #P #Phosporus
-Mn|5 mg #Manganese
 #F #Fluoride
 #Cu #Copper
 #Cr|120 μg #Chromium
 #Mo|80 μg #Molybdenum
+Mn|5 mg #Manganese
 ## Aminos ##
 Alanine|1 g
 Arginine|1 g
@@ -77,3 +77,9 @@ LutZea|12 mg
 #Carnitine
 #Lipoic acid
 Inositol|4 g
+## USER-DEFINED ##
+#GI_Rating
+GL_Load|100
+IF_Rating|500
+ORAC|4000
+Oxalates|200mg

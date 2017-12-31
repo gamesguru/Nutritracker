@@ -46,6 +46,17 @@ namespace Nutritracker
                     if (!st.StartsWith("#") && !availFields.Contains(st.Split('|')[1]))
                         availFields.Add(st.Split('|')[1]);
             }
+            dbs = Directory.GetDirectories($"{Application.StartupPath}{slash}usr{slash}profile{frmMain.currentUser.index}{slash}DBs");
+            foreach (string s in dbs)
+            {
+                if (s.Contains("f_user_")){
+                    string[] configLines = File.ReadAllLines($"{s}{slash}_dbConfig.TXT");
+                    foreach (string st in configLines){
+                        if (st.StartsWith("[MetricName]") && !availFields.Contains(st.Replace("[MetricName]", "")))
+                            availFields.Add(st.Replace("[MetricName]", ""));                            
+                    }                               
+                }
+            }
 		    //availFields.Sort();
             richTxtInput.Text = string.Join("\n", oldInput);
         }
@@ -132,7 +143,7 @@ namespace Nutritracker
             watcher.EnableRaisingEvents = false;
             if (e.Name.EndsWith("activeFields.TXT"))
                 richTxtInput.Text = File.ReadAllText($"{userRoot}{slash}activeFields.TXT").Replace("\r", "");
-            watcher.EnableRaisingEvents = true;                
+            watcher.EnableRaisingEvents = true;           
         }
         
         private void btnListFields_Click(object sender, EventArgs e)

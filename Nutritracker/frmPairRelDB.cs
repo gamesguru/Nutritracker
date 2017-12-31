@@ -93,8 +93,12 @@ namespace Nutritracker
             public static string[] names;
         }
 
+
+        List<string> metricsToTrack;
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
+            ndbs = new List<string>();
+            
             string fieldRoot = $"{Application.StartupPath}{slash}usr{slash}profile{frmMain.currentUser.index}{slash}DBs{slash}f_user_{comboBox1.Text}{slash}";
             dbInitKeys = new List<dbi>();
             dbConfigKeys = new List<dbc>();
@@ -132,10 +136,16 @@ namespace Nutritracker
                 if (d.field == "FoodName")
                     foodNamesToPair = File.ReadAllLines(fieldRoot + d.file);
 
+            metricsToTrack = new List<string>();
+            foreach (dbc d in dbConfigKeys)
+                if (d.metric != null && d.metric != "" && !metricsToTrack.Contains(d.metric))
+                    metricsToTrack.Add(d.metric);     
+
             n = foodNamesToPair.Length;
             groupBox1.Text = $"Possible Matches (1 of {n})  — {foodNamesToPair[0]}";//"Current Item 1 of " + n;
         }
-
+        List<string> ndbs;
+        int _n = 1;
         private void checkedListBox1_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Return)
@@ -147,13 +157,39 @@ namespace Nutritracker
                 }
                 if (checkedListBox1.CheckedItems.Count == 0)
                 {
-                    MessageBox.Show("Please select something!!");
-                    return;
+                    if (MessageBox.Show("Really skip this entry?", "", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
+                        return;
                 }
                 foreach (var c in checkedListBox1.CheckedItems)
-                {
-                    MessageBox.Show(c.ToString());
-                }
+                    ndbs.Add(c.ToString().Split(new string[] { "--" }, StringSplitOptions.None)[0]);
+
+                string dir = $"{Application.StartupPath}{slash}usr{slash}profile{frmMain.currentUser.index}{slash}DBs{slash}ext_user{slash}{comboBox1.Text}";
+                if (!Directory.Exists(dir))
+                    Directory.CreateDirectory(dir);
+                File.WriteAllLines($"{dir}{slash}metrics.TXT", metricsToTrack);
+                File.WriteAllLines($"{dir}{slash}ndbs.TXT", ndbs);
+                File.WriteAllText($"{dir}{slash}progress.TXT", _n.ToString());
+                
+                _n++;
+                checkedListBox1.Items.Clear();
+                int[] wordMatch = new int[usdaDB.names.Length];
+                foreach (string s in foodNamesToPair[_n].Replace(",", "").Split(' '))
+                    for (int i = 0; i < usdaDB.names.Length; i++)
+                        if (usdaDB.names[i].ToUpper().Contains(s.ToUpper()))
+                            wordMatch[i]++;
+
+                int m = wordMatch.Max();
+                int q = 0;
+                for (int i = m; i > ((m - 1 > 0) ? m - 1 : 0); i--)
+                    for (int j = 0; j < usdaDB.names.Length; j++)
+                        if (wordMatch[j] == i)
+                        {
+                            string itm = $"{usdaDB.ndbs[j]}--{usdaDB.names[j]}";
+                            checkedListBox1.Items.Add(itm);
+                            q++;
+                        }
+
+                groupBox1.Text = $"{q} Possible Matches ({_n} of {n})  — {foodNamesToPair[_n]}";
             }
         }
     }

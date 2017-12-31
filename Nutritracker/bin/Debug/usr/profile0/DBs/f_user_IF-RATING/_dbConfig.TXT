@@ -9,5 +9,5 @@
 
 [File]IFX.TXT
 [Field]Value1
-[MetricName]IF Rating
+[MetricName]IF_Rating
 
