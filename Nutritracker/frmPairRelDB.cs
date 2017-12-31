@@ -11,9 +11,9 @@ using System.IO;
 
 namespace Nutritracker
 {
-    public partial class frmGenerateRelDBpair : Form
+    public partial class frmPairRelDB : Form
     {
-        public frmGenerateRelDBpair()
+        public frmPairRelDB()
         {
             InitializeComponent();
         }
@@ -22,6 +22,7 @@ namespace Nutritracker
         private void frmGenerateRelDBpair_Load(object sender, EventArgs e)
         {
             slash = Path.DirectorySeparatorChar.ToString();
+            usdaRoot = $"{Application.StartupPath}{slash}usr{slash}share{slash}DBs{slash}USDAstock";
             string[] dbs = Directory.GetDirectories($"{Application.StartupPath}{slash}usr{slash}profile{frmMain.currentUser.index}{slash}DBs");
             foreach (string s in dbs)
                 if (s.Contains("f_user_"))
@@ -50,24 +51,46 @@ namespace Nutritracker
         List<dbi> dbInitKeys;
         List<dbc> dbConfigKeys;
         string[] foodNamesToPair;
+        string usdaRoot = "";
         private void btnBegin_Click(object sender, EventArgs e)
         {
             btnBegin.Enabled = false;
             btnGoBack.Enabled = true;
             comboBox1.Enabled = false;
-
-            string[] usdaNutKeyPairLines = File.ReadAllLines($"{Application.StartupPath}{slash}usr{slash}share{slash}USDAstock{slash}_nutKeyPairs.TXT");
-            string[] usdaLines = new string[0];
+            
+            string[] usdaNutKeyPairLines = File.ReadAllLines($"{usdaRoot}{slash}_nutKeyPairs.TXT");
             foreach (string s in usdaNutKeyPairLines)
                 if (s.Split('|')[1] == "FoodName")
-                    usdaLines = File.ReadAllLines($"{Application.StartupPath}{slash}usr{slash}share{slash}USDAstock{slash}{s.Split('|')[0]}");
+                    usdaDB.names = File.ReadAllLines($"{usdaRoot}{slash}{s.Split('|')[0]}");
+            else if (s.Split('|')[1] == "NDBNo")
+                    usdaDB.ndbs = File.ReadAllLines($"{usdaRoot}{slash}{s.Split('|')[0]}");
 
             //work here
-            int wordMatch = 0;
-            foreach (string s in foodNamesToPair[0].Split(' '))
-                foreach (string st in usdaLines)
-                    if (st.ToUpper().Contains(s.ToUpper()))
-                        wordMatch++;
+            int[] wordMatch = new int[usdaDB.names.Length];
+            foreach (string s in foodNamesToPair[0].Replace(",", "").Split(' '))
+                for (int i=0;i<usdaDB.names.Length;i++)
+                    if (usdaDB.names[i].ToUpper().Contains(s.ToUpper()))
+                        wordMatch[i]++;
+
+            int m = wordMatch.Max();
+            int q = 0;
+            for (int i = m; i > 0; i--)
+            {
+                for (int j = 0; j < usdaDB.names.Length; j++)
+                    if (wordMatch[j] == i)
+                    {
+                        string itm = $"{usdaDB.ndbs[j]}--{usdaDB.names[j]}";
+                        checkedListBox1.Items.Add(itm);
+                        q++;
+                    }
+            }
+            groupBox1.Text = $"{q} Possible Matches (1 of {n})  — {foodNamesToPair[0]}";
+        }
+
+        public static class usdaDB
+        {
+            public static string[] ndbs;
+            public static string[] names;
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
@@ -111,6 +134,27 @@ namespace Nutritracker
 
             n = foodNamesToPair.Length;
             groupBox1.Text = $"Possible Matches (1 of {n})  — {foodNamesToPair[0]}";//"Current Item 1 of " + n;
+        }
+
+        private void checkedListBox1_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Return)
+            {
+                if (btnBegin.Enabled)
+                {
+                    MessageBox.Show("Please press begin!!");
+                    return;
+                }
+                if (checkedListBox1.CheckedItems.Count == 0)
+                {
+                    MessageBox.Show("Please select something!!");
+                    return;
+                }
+                foreach (var c in checkedListBox1.CheckedItems)
+                {
+                    MessageBox.Show(c.ToString());
+                }
+            }
         }
     }
 }

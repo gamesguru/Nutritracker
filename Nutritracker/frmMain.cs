@@ -1529,7 +1529,7 @@ dataExercise[0, x].Value == "Sprinting")
 
         private void generateRelationalDatabaseToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            frmGenerateRelDBpair frmGRDB = new frmGenerateRelDBpair();
+            frmPairRelDB frmGRDB = new frmPairRelDB();
             frmGRDB.ShowDialog();
         }
     }

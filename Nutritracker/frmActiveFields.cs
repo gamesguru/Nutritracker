@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
+using System.Diagnostics;
 //using System.Windows.Documents;
 
 namespace Nutritracker
@@ -51,23 +52,23 @@ namespace Nutritracker
 
         private void btnDone_Click(object sender, EventArgs e)
         {
-            bool edited = false;
-            List<string> newOutput = richTxtInput.Text.Split('\n').ToList();
+                        //bool edited = false;
+            //List<string> newOutput = richTxtInput.Text.Split('\n').ToList();
 
-            for (int i = 0; i < newOutput.Count; i++)
-            {
-                if (newOutput.Count != oldInput.Count)
-                {
-                    edited = true;
-                    break;
-                }
-                newOutput[i].Replace("\r", "");
-                if (newOutput[i] != oldInput[i])
-                    edited = true;
-            }
+            //for (int i = 0; i < newOutput.Count; i++)
+            //{
+            //    if (newOutput.Count != oldInput.Count)
+            //    {
+            //        edited = true;
+            //        break;
+            //    }
+            //    newOutput[i].Replace("\r", "");
+            //    if (newOutput[i] != oldInput[i])
+            //        edited = true;
+            //}
 
-            if (edited && MessageBox.Show("Save changes?", "", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
-                File.WriteAllLines($"{Application.StartupPath}{slash}usr{slash}profile{frmMain.currentUser.index}{slash}activeFields.TXT", richTxtInput.Text.Split('\n'));
+            //if (edited && MessageBox.Show("Save changes?", "", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            //    File.WriteAllLines($"{Application.StartupPath}{slash}usr{slash}profile{frmMain.currentUser.index}{slash}activeFields.TXT", richTxtInput.Text.Split('\n'));
             this.Close();
         }
 
@@ -128,8 +129,6 @@ namespace Nutritracker
 
         private void watcher_OnChanged(object source, FileSystemEventArgs e)
         {
-            // Specify what is done when a file is changed, created, or deleted.
-            //if (e.Name == "activeFields.TXT")
             watcher.EnableRaisingEvents = false;
             if (e.Name.EndsWith("activeFields.TXT"))
                 richTxtInput.Text = File.ReadAllText($"{userRoot}{slash}activeFields.TXT").Replace("\r", "");
@@ -148,6 +147,22 @@ namespace Nutritracker
         public void reEnableButton()
         {
             btnListFields.Enabled = true;
+        }
+
+        private void refreshToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            richTxtInput.Text = File.ReadAllText($"{userRoot}{slash}activeFields.TXT");
+        }
+
+        private void editToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ProcessStartInfo ps = new ProcessStartInfo();
+            ps.Arguments = $"{userRoot}{slash}activeFields.TXT";
+            if (slash == "/")
+                ps.FileName = "gedit";
+            else
+                ps.FileName = "notepad";
+            Process.Start(ps);
         }
     }
 }

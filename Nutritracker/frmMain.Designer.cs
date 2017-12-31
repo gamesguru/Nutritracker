@@ -78,8 +78,8 @@
             this.btnEditCustFoods = new System.Windows.Forms.Button();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.customFoodEntryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.manageActiveFieldsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.customFoodEntryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editProfilesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.undoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.decomposeRecipeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -655,8 +655,8 @@
             // fileToolStripMenuItem
             // 
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.customFoodEntryToolStripMenuItem,
             this.manageActiveFieldsToolStripMenuItem,
+            this.customFoodEntryToolStripMenuItem,
             this.editProfilesToolStripMenuItem,
             this.undoToolStripMenuItem,
             this.decomposeRecipeToolStripMenuItem,
@@ -666,14 +666,6 @@
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.fileToolStripMenuItem.Text = "File";
             // 
-            // customFoodEntryToolStripMenuItem
-            // 
-            this.customFoodEntryToolStripMenuItem.Name = "customFoodEntryToolStripMenuItem";
-            this.customFoodEntryToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F5;
-            this.customFoodEntryToolStripMenuItem.Size = new System.Drawing.Size(216, 22);
-            this.customFoodEntryToolStripMenuItem.Text = "Manage Custom Foods";
-            this.customFoodEntryToolStripMenuItem.Click += new System.EventHandler(this.customFoodEntryToolStripMenuItem_Click);
-            // 
             // manageActiveFieldsToolStripMenuItem
             // 
             this.manageActiveFieldsToolStripMenuItem.Name = "manageActiveFieldsToolStripMenuItem";
@@ -681,6 +673,14 @@
             this.manageActiveFieldsToolStripMenuItem.Size = new System.Drawing.Size(216, 22);
             this.manageActiveFieldsToolStripMenuItem.Text = "Manage Active Fields";
             this.manageActiveFieldsToolStripMenuItem.Click += new System.EventHandler(this.manageActiveFieldsToolStripMenuItem_Click);
+            // 
+            // customFoodEntryToolStripMenuItem
+            // 
+            this.customFoodEntryToolStripMenuItem.Name = "customFoodEntryToolStripMenuItem";
+            this.customFoodEntryToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F5;
+            this.customFoodEntryToolStripMenuItem.Size = new System.Drawing.Size(216, 22);
+            this.customFoodEntryToolStripMenuItem.Text = "Manage Custom Foods";
+            this.customFoodEntryToolStripMenuItem.Click += new System.EventHandler(this.customFoodEntryToolStripMenuItem_Click);
             // 
             // editProfilesToolStripMenuItem
             // 
@@ -824,7 +824,7 @@
             // 
             this.generateRelationalDatabaseToolStripMenuItem.Name = "generateRelationalDatabaseToolStripMenuItem";
             this.generateRelationalDatabaseToolStripMenuItem.Size = new System.Drawing.Size(241, 22);
-            this.generateRelationalDatabaseToolStripMenuItem.Text = "Generate Relational Database";
+            this.generateRelationalDatabaseToolStripMenuItem.Text = "Pair RelDB with USDA";
             this.generateRelationalDatabaseToolStripMenuItem.Click += new System.EventHandler(this.generateRelationalDatabaseToolStripMenuItem_Click);
             // 
             // manageCustomFieldsToolStripMenuItem

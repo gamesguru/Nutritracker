@@ -74,11 +74,11 @@
     <Compile Include="frmDetailReport.Designer.cs">
       <DependentUpon>frmDetailReport.cs</DependentUpon>
     </Compile>
-    <Compile Include="frmGenerateRelDBpair.cs">
+    <Compile Include="frmPairRelDB.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmGenerateRelDBpair.Designer.cs">
-      <DependentUpon>frmGenerateRelDBpair.cs</DependentUpon>
+    <Compile Include="frmPairRelDB.Designer.cs">
+      <DependentUpon>frmPairRelDB.cs</DependentUpon>
     </Compile>
     <Compile Include="frmLeanPotentialCalc.cs">
       <SubType>Form</SubType>
@@ -170,8 +170,8 @@
     <EmbeddedResource Include="frmDetailReport.resx">
       <DependentUpon>frmDetailReport.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmGenerateRelDBpair.resx">
-      <DependentUpon>frmGenerateRelDBpair.cs</DependentUpon>
+    <EmbeddedResource Include="frmPairRelDB.resx">
+      <DependentUpon>frmPairRelDB.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmLeanPotentialCalc.resx">
       <DependentUpon>frmLeanPotentialCalc.cs</DependentUpon>
