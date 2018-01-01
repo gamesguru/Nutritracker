@@ -213,71 +213,58 @@ namespace Nutritracker
 
             string userRoot = $"{Application.StartupPath}{slash}usr{slash}profile{currentUser.index}";
 
-            string[] daysLog = File.ReadAllText($"{userRoot}{slash}foodLog.TXT").Replace("\r", "").Split(new string[] { "===========\n" }, StringSplitOptions.RemoveEmptyEntries);
 
-            List<string> dates = new List<string>();
-            foreach (string s in daysLog)
-                dates.Add(s.Split('\n')[0]);
-
-            bLog = new List<logItem>();
-            lLog = new List<logItem>();
-            dLog = new List<logItem>();
-            foreach (string s in daysLog)
-            {
-                string[] lines = s.Split(new string[] { "--Breakfast--" }, StringSplitOptions.RemoveEmptyEntries)[1].Split(new string[] { "--Lunch--" }, StringSplitOptions.RemoveEmptyEntries)[0].Split('\n');
-                foreach (string st in lines)
-                {
-                    if (st == "")
-                        continue;
-                    litm = new logItem();
-                    litm._db = st.Split('|')[0];
-                    litm.primKeyNo = st.Split('|')[1];
-                    litm.grams = Convert.ToDouble(st.Split('|')[2]);
-                }
-                bLog.Add(litm);
-                lines = s.Split(new string[] { "--Lunch--" }, StringSplitOptions.RemoveEmptyEntries)[1].Split(new string[] { "--Dinner--" }, StringSplitOptions.RemoveEmptyEntries)[0].Split('\n');
-                foreach (string st in lines)
-                {
-                    if (st == "")
-                        continue;
-                    litm = new logItem();
-                    litm._db = st.Split('|')[0];
-                    litm.primKeyNo = st.Split('|')[1];
-                    litm.grams = Convert.ToDouble(st.Split('|')[2]);
-                }
-                lLog.Add(litm);
-                lines = s.Split(new string[] { "--Dinner--" }, StringSplitOptions.RemoveEmptyEntries)[1].Split('\n');
-                foreach (string st in lines)
-                {
-                    if (st == "")
-                        continue;
-                    litm = new logItem();
-                    litm._db = st.Split('|')[0];
-                    litm.primKeyNo = st.Split('|')[1];
-                    litm.grams = Convert.ToDouble(st.Split('|')[2]);
-                }
-                dLog.Add(litm);
-            }
-
-            //MessageBox.Show(string.Join(", ", dates));
-            return;
             try
             {
-                //
-                //
-                //
-                //
-                foreach (string f in Directory.GetFiles($"{Application.StartupPath}{slash}usr{slash}profile{currentUser.index}{slash}foodlog"))
-                    if (f.EndsWith(".TXT") && f.Contains("-"))
-                        comboLoggedDays.Items.Add(f.Split(new char[] { '/', '\\' })[f.Split(new char[] { '/', '\\' }).Length - 1].Replace(".TXT", ""));
+                string[] daysLog = File.ReadAllText($"{userRoot}{slash}foodLog.TXT").Replace("\r", "").Split(new string[] { "===========\n" }, StringSplitOptions.RemoveEmptyEntries);
 
-                //for (int i=0;i< comboLoggedDays.Items.Count;i++)
-                //    if (comboLoggedDays.Items[)
-                comboLoggedDays.SelectedIndex = comboLoggedDays.Items.Count - 1;
+                List<string> dates = new List<string>();
+                foreach (string s in daysLog)
+                    dates.Add(s.Split('\n')[0]);
+                foreach (string s in dates)
+                {
+                    comboLoggedDays.Items.Add(s);
+                }
 
-                foreach (string s in comboLoggedDays.Items)
-                    if (s == dte)
-                        comboLoggedDays.SelectedText = s;
+                bLog = new List<logItem>();
+                lLog = new List<logItem>();
+                dLog = new List<logItem>();
+                foreach (string s in daysLog)
+                {
+                    string[] lines = s.Split(new string[] { "--Breakfast--" }, StringSplitOptions.RemoveEmptyEntries)[1].Split(new string[] { "--Lunch--" }, StringSplitOptions.RemoveEmptyEntries)[0].Split('\n');
+                    foreach (string st in lines)
+                    {
+                        if (st == "")
+                            continue;
+                        litm = new logItem();
+                        litm._db = st.Split('|')[0];
+                        litm.primKeyNo = st.Split('|')[1];
+                        litm.grams = Convert.ToDouble(st.Split('|')[2]);
+                    }
+                    bLog.Add(litm);
+                    lines = s.Split(new string[] { "--Lunch--" }, StringSplitOptions.RemoveEmptyEntries)[1].Split(new string[] { "--Dinner--" }, StringSplitOptions.RemoveEmptyEntries)[0].Split('\n');
+                    foreach (string st in lines)
+                    {
+                        if (st == "")
+                            continue;
+                        litm = new logItem();
+                        litm._db = st.Split('|')[0];
+                        litm.primKeyNo = st.Split('|')[1];
+                        litm.grams = Convert.ToDouble(st.Split('|')[2]);
+                    }
+                    lLog.Add(litm);
+                    lines = s.Split(new string[] { "--Dinner--" }, StringSplitOptions.RemoveEmptyEntries)[1].Split('\n');
+                    foreach (string st in lines)
+                    {
+                        if (st == "")
+                            continue;
+                        litm = new logItem();
+                        litm._db = st.Split('|')[0];
+                        litm.primKeyNo = st.Split('|')[1];
+                        litm.grams = Convert.ToDouble(st.Split('|')[2]);
+                    }
+                    dLog.Add(litm);
+                }
             }
             catch
             {
@@ -302,7 +289,7 @@ namespace Nutritracker
                         currentUser.index = Convert.ToInt16(s.Replace("default", ""));
                     }
                     catch { }
-                }
+                }   
             string[] directs = Directory.GetDirectories(root);
             profDirects = new List<string>();
             frmProfile frmP = new frmProfile();
@@ -323,7 +310,6 @@ namespace Nutritracker
             currentUser.root= $"{root}{slash}profile{currentUser.index}{slash}";
             List<string> profData = importArray($"{currentUser.root}profile.TXT");
             currentUser.name = profData[0];
-            //profName = name; //update on settings form too!!
             currentUser.gender = profData[1];
             currentUser.age = Convert.ToInt16(profData[2]);
             currentUser.bf = Convert.ToDouble(profData[3]);
@@ -1107,8 +1093,62 @@ namespace Nutritracker
             bH = false;
         }
 
+        private List<string> fetchLogsFields(bLog b, lLog l, dLog d){
+            List<string> ouput;
+            return output;
+        }
+
         private void comboLoggedDays_SelectedIndexChanged(object sender, EventArgs e)
-        {            
+        {
+            dte = comboLoggedDays.SelectedItem.ToString();
+            string[] daysLog = File.ReadAllText($"{userRoot}{slash}foodLog.TXT").Replace("\r", "").Split(new string[] { "===========\n" }, StringSplitOptions.RemoveEmptyEntries);
+
+
+            bLog = new List<logItem>();
+            lLog = new List<logItem>();
+            dLog = new List<logItem>();
+            foreach (string s in daysLog)
+            {
+                if (s != dte)
+                    continue;
+                string[] lines = s.Split(new string[] { "--Breakfast--" }, StringSplitOptions.RemoveEmptyEntries)[1].Split(new string[] { "--Lunch--" }, StringSplitOptions.RemoveEmptyEntries)[0].Split('\n');
+                foreach (string st in lines)
+                {
+                    if (st == "")
+                        continue;
+                    litm = new logItem();
+                    litm._db = st.Split('|')[0];
+                    litm.primKeyNo = st.Split('|')[1];
+                    litm.grams = Convert.ToDouble(st.Split('|')[2]);
+                }
+                bLog.Add(litm);
+                lines = s.Split(new string[] { "--Lunch--" }, StringSplitOptions.RemoveEmptyEntries)[1].Split(new string[] { "--Dinner--" }, StringSplitOptions.RemoveEmptyEntries)[0].Split('\n');
+                foreach (string st in lines)
+                {
+                    if (st == "")
+                        continue;
+                    litm = new logItem();
+                    litm._db = st.Split('|')[0];
+                    litm.primKeyNo = st.Split('|')[1];
+                    litm.grams = Convert.ToDouble(st.Split('|')[2]);
+                }
+                lLog.Add(litm);
+                lines = s.Split(new string[] { "--Dinner--" }, StringSplitOptions.RemoveEmptyEntries)[1].Split('\n');
+                foreach (string st in lines)
+                {
+                    if (st == "")
+                        continue;
+                    litm = new logItem();
+                    litm._db = st.Split('|')[0];
+                    litm.primKeyNo = st.Split('|')[1];
+                    litm.grams = Convert.ToDouble(st.Split('|')[2]);
+                }
+                dLog.Add(litm);
+            }
+
+            //
+            //
+            //
             dte = comboLoggedDays.SelectedItem.ToString();
             string breakfast = "";
             string lunch = "";
@@ -1180,8 +1220,8 @@ namespace Nutritracker
                     dataDay.Rows[bDay + k].Cells[i].Value = breaks2[k].Split('|')[i];
             }
 
-            //lunch
-            Lunch:
+        //lunch
+        Lunch:
             for (int i = 0; i < dataDay.Rows.Count - 2; i++)
                 if (dataDay.Rows[i].Cells[0].Value.ToString() == "Lunch")
                     lDay = i + 1;
@@ -1200,8 +1240,8 @@ namespace Nutritracker
                     dataDay.Rows[lDay + k].Cells[i].Value = lunchs2[k].Split('|')[i];
             }
 
-            //dinner
-            Dinner:
+        //dinner
+        Dinner:
             for (int i = 0; i < dataDay.Rows.Count - 2; i++)
             {
                 try
@@ -1226,7 +1266,7 @@ namespace Nutritracker
                     dataDay.Rows[dDay + k].Cells[i].Value = dins2[k].Split('|')[i];
             }
 
-            Totes:
+        Totes:
             for (int i = 0; i < dataDay.Rows.Count - 2; i++)
                 try
                 {
