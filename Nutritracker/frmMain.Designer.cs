@@ -37,21 +37,6 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.dataDay = new System.Windows.Forms.DataGridView();
-            this.columnMeals = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.columnSrvngSze = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.columnCal = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.columnProtein = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.columnFat = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.columnCarbs = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.columnSugar = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.columnFiber = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.columnSatFat = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.columnCholest = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.columnSodium = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.columnCalcium = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.columnIron = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.columnVitA = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.columnVitC = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.txtExerciseVal = new System.Windows.Forms.TextBox();
             this.btnRemEx = new System.Windows.Forms.Button();
@@ -204,22 +189,6 @@
             // 
             this.dataDay.AllowUserToDeleteRows = false;
             this.dataDay.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataDay.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.columnMeals,
-            this.columnSrvngSze,
-            this.columnCal,
-            this.columnProtein,
-            this.columnFat,
-            this.columnCarbs,
-            this.columnSugar,
-            this.columnFiber,
-            this.columnSatFat,
-            this.columnCholest,
-            this.columnSodium,
-            this.columnCalcium,
-            this.columnIron,
-            this.columnVitA,
-            this.columnVitC});
             this.dataDay.Location = new System.Drawing.Point(17, 49);
             this.dataDay.MultiSelect = false;
             this.dataDay.Name = "dataDay";
@@ -228,122 +197,6 @@
             this.dataDay.TabStop = false;
             this.dataDay.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataDay_CellValueChanged);
             this.dataDay.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dataDay_KeyDown);
-            // 
-            // columnMeals
-            // 
-            this.columnMeals.HeaderText = "Meals & Foods";
-            this.columnMeals.Name = "columnMeals";
-            this.columnMeals.ReadOnly = true;
-            this.columnMeals.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
-            this.columnMeals.Width = 110;
-            // 
-            // columnSrvngSze
-            // 
-            this.columnSrvngSze.HeaderText = "Serving Size (g)";
-            this.columnSrvngSze.Name = "columnSrvngSze";
-            this.columnSrvngSze.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
-            // 
-            // columnCal
-            // 
-            this.columnCal.HeaderText = "Calories";
-            this.columnCal.Name = "columnCal";
-            this.columnCal.ReadOnly = true;
-            this.columnCal.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
-            // 
-            // columnProtein
-            // 
-            this.columnProtein.HeaderText = "Protein (g)";
-            this.columnProtein.Name = "columnProtein";
-            this.columnProtein.ReadOnly = true;
-            this.columnProtein.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
-            this.columnProtein.Width = 80;
-            // 
-            // columnFat
-            // 
-            this.columnFat.HeaderText = "Fat (g)";
-            this.columnFat.Name = "columnFat";
-            this.columnFat.ReadOnly = true;
-            this.columnFat.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
-            this.columnFat.Width = 60;
-            // 
-            // columnCarbs
-            // 
-            this.columnCarbs.HeaderText = "Carbs (g)";
-            this.columnCarbs.Name = "columnCarbs";
-            this.columnCarbs.ReadOnly = true;
-            this.columnCarbs.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
-            this.columnCarbs.Width = 75;
-            // 
-            // columnSugar
-            // 
-            this.columnSugar.HeaderText = "Sugar (g)";
-            this.columnSugar.Name = "columnSugar";
-            this.columnSugar.ReadOnly = true;
-            this.columnSugar.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
-            this.columnSugar.Width = 80;
-            // 
-            // columnFiber
-            // 
-            this.columnFiber.HeaderText = "Fiber (g)";
-            this.columnFiber.Name = "columnFiber";
-            this.columnFiber.ReadOnly = true;
-            this.columnFiber.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
-            this.columnFiber.Width = 80;
-            // 
-            // columnSatFat
-            // 
-            this.columnSatFat.HeaderText = "Sat Fat (g)";
-            this.columnSatFat.Name = "columnSatFat";
-            this.columnSatFat.ReadOnly = true;
-            this.columnSatFat.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.columnSatFat.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
-            this.columnSatFat.Width = 90;
-            // 
-            // columnCholest
-            // 
-            this.columnCholest.HeaderText = "Cholesterol (mg)";
-            this.columnCholest.Name = "columnCholest";
-            this.columnCholest.ReadOnly = true;
-            this.columnCholest.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
-            this.columnCholest.Width = 110;
-            // 
-            // columnSodium
-            // 
-            this.columnSodium.HeaderText = "Sodium (mg)";
-            this.columnSodium.Name = "columnSodium";
-            this.columnSodium.ReadOnly = true;
-            this.columnSodium.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.columnSodium.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
-            // 
-            // columnCalcium
-            // 
-            this.columnCalcium.HeaderText = "Calcium (mg)";
-            this.columnCalcium.Name = "columnCalcium";
-            this.columnCalcium.ReadOnly = true;
-            this.columnCalcium.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.columnCalcium.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
-            // 
-            // columnIron
-            // 
-            this.columnIron.HeaderText = "Iron (mg)";
-            this.columnIron.Name = "columnIron";
-            this.columnIron.ReadOnly = true;
-            this.columnIron.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.columnIron.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
-            // 
-            // columnVitA
-            // 
-            this.columnVitA.HeaderText = "Vit. A (ug)";
-            this.columnVitA.Name = "columnVitA";
-            this.columnVitA.ReadOnly = true;
-            this.columnVitA.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
-            // 
-            // columnVitC
-            // 
-            this.columnVitC.HeaderText = "Vit. C (mg)";
-            this.columnVitC.Name = "columnVitC";
-            this.columnVitC.ReadOnly = true;
-            this.columnVitC.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
             // 
             // groupBox2
             // 
@@ -621,7 +474,7 @@
             this.lstBoxRecipes.ItemHeight = 24;
             this.lstBoxRecipes.Location = new System.Drawing.Point(2, 63);
             this.lstBoxRecipes.Name = "lstBoxRecipes";
-            this.lstBoxRecipes.Size = new System.Drawing.Size(301, 148);
+            this.lstBoxRecipes.Size = new System.Drawing.Size(301, 196);
             this.lstBoxRecipes.TabIndex = 0;
             this.lstBoxRecipes.TabStop = false;
             // 
@@ -982,21 +835,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn columnCalsperMin;
         private System.Windows.Forms.DataGridViewTextBoxColumn column;
         private System.Windows.Forms.DataGridViewTextBoxColumn columnTotCal;
-        private System.Windows.Forms.DataGridViewTextBoxColumn columnMeals;
-        private System.Windows.Forms.DataGridViewTextBoxColumn columnSrvngSze;
-        private System.Windows.Forms.DataGridViewTextBoxColumn columnCal;
-        private System.Windows.Forms.DataGridViewTextBoxColumn columnProtein;
-        private System.Windows.Forms.DataGridViewTextBoxColumn columnFat;
-        private System.Windows.Forms.DataGridViewTextBoxColumn columnCarbs;
-        private System.Windows.Forms.DataGridViewTextBoxColumn columnSugar;
-        private System.Windows.Forms.DataGridViewTextBoxColumn columnFiber;
-        private System.Windows.Forms.DataGridViewTextBoxColumn columnSatFat;
-        private System.Windows.Forms.DataGridViewTextBoxColumn columnCholest;
-        private System.Windows.Forms.DataGridViewTextBoxColumn columnSodium;
-        private System.Windows.Forms.DataGridViewTextBoxColumn columnCalcium;
-        private System.Windows.Forms.DataGridViewTextBoxColumn columnIron;
-        private System.Windows.Forms.DataGridViewTextBoxColumn columnVitA;
-        private System.Windows.Forms.DataGridViewTextBoxColumn columnVitC;
         private System.Windows.Forms.ToolStripMenuItem naturalPotentialCalcToolStripMenuItem;
         private System.Windows.Forms.Button btnSearch;
         private System.Windows.Forms.ToolStripMenuItem addToLogToolStripMenuItem;

@@ -204,14 +204,15 @@ namespace Nutritracker
         List<logItem> dLog;
         logItem litm;
         public static _profile currentUser = new _profile();
-        
+        string userRoot;
+
         private void frmMain_Load(object sender, EventArgs e)
         {        
             dte = DateTime.Today.ToString("MM-dd-yyyy");
             try { currentUser.index = Convert.ToInt32(Directory.GetFiles($"{Application.StartupPath}{slash}usr")[0].Split(new string[] { $"usr{slash}default" }, StringSplitOptions.None)[1]); }
             catch { }
 
-            string userRoot = $"{Application.StartupPath}{slash}usr{slash}profile{currentUser.index}";
+            userRoot = $"{Application.StartupPath}{slash}usr{slash}profile{currentUser.index}";
 
 
             try
@@ -1094,7 +1095,6 @@ namespace Nutritracker
         }
 
         string[] basicFields ={
-            "NDBNo",
             "FoodName",
             "Cals",
             "FatTot",
@@ -1123,28 +1123,24 @@ namespace Nutritracker
             "IF_Rating",
             "ORAC"
         };
-        private List<string> fetchLogsFields(bLog b, lLog l, dLog d){
-            List<string>dbs = new List<string>();
-            foreach (logItem litm in b)
-                if (!dbs.Contains(litm._db))
-                    dbs.Add(litm._db);            
-            foreach (logItem litm in l)
-                if (!dbs.Contains(litm._db))
-                    dbs.Add(litm._db);            
-            foreach (logItem litm in d)
+        private List<string> fetchLogsFields(List<logItem> nLog)
+        {
+            List<string> dbs = new List<string>();
+            foreach (logItem litm in nLog)
                 if (!dbs.Contains(litm._db))
                     dbs.Add(litm._db);
-            
-            string pubDbRoot = $"{Application.StartupPath}{slash}usr{slash}{share}{slash}DBs";
+
+            string pubDbRoot = $"{Application.StartupPath}{slash}usr{slash}share{slash}DBs";
             List<string> lFields = new List<string>();
-            foreach (string s in Direc.GetDirectories(pubDbRoot))
-                {
-                    string[] nutKeylines = File.ReadAllLines($"{s}{slash}_nutKeyPairs.TXT");
-                    foreach (string st in nutKeylines){
-                        if (basicFields.Contains(st.Split('|')[1]) && !lFields.Contains(st.Split('|')[1]))
-                            lFields.Add(st.Split('|')[1]);
-                    }
-                }
+            foreach (string s in Directory.GetDirectories(pubDbRoot))
+            {
+                if (s.Split(Path.DirectorySeparatorChar)[s.Split(Path.DirectorySeparatorChar).Length - 1].StartsWith("_"))
+                    continue;
+                string[] nutKeylines = File.ReadAllLines($"{s}{slash}_nutKeyPairs.TXT");
+                foreach (string st in nutKeylines)                
+                    if (basicFields.Contains(st.Split('|')[1]) && !lFields.Contains(st.Split('|')[1]))
+                        lFields.Add(st.Split('|')[1]);                
+            }
 
             return lFields;
         }
@@ -1197,28 +1193,14 @@ namespace Nutritracker
                 dLog.Add(litm);
             }
 
-            foreach (string s in fetchLogsFields(bLog, dLog, dLog)){
-                dataDay.Columns
-            }
-            //
-            //
-            //
-            dte = comboLoggedDays.SelectedItem.ToString();
-            string breakfast = "";
-            string lunch = "";
-            string dinner = "";
-            try
-            {
-                breakfast = importArray($"{Application.StartupPath}{slash}usr{slash}profile{currentUser.index}{slash}foodlog{slash}{dte}.TXT")[0];
-                lunch = importArray($"{Application.StartupPath}{slash}usr{slash}profile{currentUser.index}{slash}foodlog{slash}{dte}.TXT")[1];
-                dinner = importArray($"{Application.StartupPath}{slash}usr{slash}profile{currentUser.index}{slash}foodlog{slash}{dte}.TXT")[2];
-                breakfast = breakfast.Replace("Breakfast|", "");
-                lunch = lunch.Replace("Lunch|", "");
-                dinner = dinner.Replace("Dinner|", "");
-            }
-            catch
-            {
-            }
+            List<logItem> litms = bLog;
+            litms.AddRange(lLog);
+            litms.AddRange(dLog);
+            dataDay.Columns.Add("Spacer", "");
+            string[] mainGridColumns = fetchLogsFields(litms).ToArray();
+            foreach (string s in mainGridColumns)
+                 dataDay.Columns.Add(s, s);
+            
 
 
             dataDay.Rows.Clear();
@@ -1246,13 +1228,20 @@ namespace Nutritracker
             dataDay.Rows[7].DefaultCellStyle.BackColor = Color.LightGray;
             dataDay.Rows[7].ReadOnly = true;
             dataDay.Rows[8].ReadOnly = true;
-
-
-
+            
 
 
             int bDay = 1, lDay = 3, dDay = 5, tDay = 7;
+            
 
+            //breakfast
+
+
+            ///
+            ///
+            ///
+            ///
+            ///
 
 
             //breakfast
