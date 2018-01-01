@@ -1093,9 +1093,60 @@ namespace Nutritracker
             bH = false;
         }
 
+        string[] basicFields ={
+            "NDBNo",
+            "FoodName",
+            "Cals",
+            "FatTot",
+            "FatSat",
+            "CarbsTot",
+            "Sugar", 
+            "Fiber",
+            "Protein",
+            "Cholest",
+            "Na",
+            "K",
+            "Fe",
+            "Ca",
+            "VitA",
+            "VitC",
+            "VitD",
+            "VitE",
+            "VitK",
+            "B6",
+            "B12",
+            "Mg",
+            "Zn",
+            "Se",
+            "GL_Load",
+            "GI_Rating",
+            "IF_Rating",
+            "ORAC"
+        };
         private List<string> fetchLogsFields(bLog b, lLog l, dLog d){
-            List<string> ouput;
-            return output;
+            List<string>dbs = new List<string>();
+            foreach (logItem litm in b)
+                if (!dbs.Contains(litm._db))
+                    dbs.Add(litm._db);            
+            foreach (logItem litm in l)
+                if (!dbs.Contains(litm._db))
+                    dbs.Add(litm._db);            
+            foreach (logItem litm in d)
+                if (!dbs.Contains(litm._db))
+                    dbs.Add(litm._db);
+            
+            string pubDbRoot = $"{Application.StartupPath}{slash}usr{slash}{share}{slash}DBs";
+            List<string> lFields = new List<string>();
+            foreach (string s in Direc.GetDirectories(pubDbRoot))
+                {
+                    string[] nutKeylines = File.ReadAllLines($"{s}{slash}_nutKeyPairs.TXT");
+                    foreach (string st in nutKeylines){
+                        if (basicFields.Contains(st.Split('|')[1]) && !lFields.Contains(st.Split('|')[1]))
+                            lFields.Add(st.Split('|')[1]);
+                    }
+                }
+
+            return lFields;
         }
 
         private void comboLoggedDays_SelectedIndexChanged(object sender, EventArgs e)
@@ -1146,6 +1197,9 @@ namespace Nutritracker
                 dLog.Add(litm);
             }
 
+            foreach (string s in fetchLogsFields(bLog, dLog, dLog)){
+                dataDay.Columns
+            }
             //
             //
             //
