@@ -1349,16 +1349,50 @@ namespace Nutritracker
             dataDay.Rows[7].ReadOnly = true;
             dataDay.Rows[8].ReadOnly = true;
 
-
-
             int bDay = 1, lDay = 3, dDay = 5, tDay = 7;
 
             //breakfast
+            for (int i = 0; i < dataDay.Rows.Count - 2; i++)
+                if (dataDay.Rows[i].Cells[0].Value.ToString() == "Breakfast")
+                    bDay = i + 1;
+                    
+            dataDay.Rows.Insert(bDay, bLog.Count());
             for (int i = 0; i < bLog.Count(); i++)
             {
-				string[] ingrieds = fetchNutValues(currentBasicFields, bLog[i]);//new string[currentBasicFields.Length];
+                string[] ingrieds = fetchNutValues(currentBasicFields, bLog[i]);//new string[currentBasicFields.Length];
                 for (int j = 0; j < currentBasicFields.Length; j++)                
                     dataDay.Rows[bDay + i].Cells[j + 1].Value = ingrieds[j];
+            }
+            
+            //lunch
+            for (int i = 0; i < dataDay.Rows.Count - 2; i++)
+                if (dataDay.Rows[i].Cells[0].Value.ToString() == "Lunch")
+                    lDay = i + 1;
+                    
+            dataDay.Rows.Insert(lDay, lLog.Count());
+            for (int i = 0; i < lLog.Count(); i++)
+            {
+                string[] ingrieds = fetchNutValues(currentBasicFields, lLog[i]);//new string[currentBasicFields.Length];
+                for (int j = 0; j < currentBasicFields.Length; j++)                
+                    dataDay.Rows[lDay + i].Cells[j + 1].Value = ingrieds[j];
+            }
+            
+            //dinner
+            for (int i = 0; i < dataDay.Rows.Count - 2; i++)            
+                try
+                {
+                    if (dataDay.Rows[i].Cells[0].Value.ToString() == "Dinner")
+                        dDay = i + 1;
+                }
+                catch { }
+            
+                    
+            dataDay.Rows.Insert(dDay, dLog.Count());
+            for (int i = 0; i < dLog.Count(); i++)
+            {
+                string[] ingrieds = fetchNutValues(currentBasicFields, dLog[i]);//new string[currentBasicFields.Length];
+                for (int j = 0; j < currentBasicFields.Length; j++)                
+                    dataDay.Rows[dDay + i].Cells[j + 1].Value = ingrieds[j];
             }
 
 
