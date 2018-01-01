@@ -67,7 +67,7 @@
             this.btnRunReport.TabIndex = 2;
             this.btnRunReport.Text = "Run Report";
             this.btnRunReport.UseVisualStyleBackColor = true;
-            this.btnRunReport.Click += new System.EventHandler(this.button1_Click);
+            this.btnRunReport.Click += new System.EventHandler(this.btnRunReport_Click);
             // 
             // lblOut
             // 

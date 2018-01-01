@@ -192,7 +192,7 @@ namespace Nutritracker
             public string root;
         }
 
-        class logItem
+        public class logItem
         {
             public int index;
             public string _db = "USDAstock";
@@ -1131,6 +1131,7 @@ namespace Nutritracker
             "ORAC"
         };
         
+        
         private List<string> fetchLogsFields(List<logItem> nLog)
         {
             List<string> dbs = new List<string>();
@@ -1151,13 +1152,14 @@ namespace Nutritracker
             }
             return lFields;
         }
-        class colObj
+        public class colObj
         {
             public string file;
             public string header;
             public string unit = "";
         }
-        private List<colObj> fetchLogsFieldsWithUnits(List<logItem> nLog)
+        public static List<colObj> activeFieldsWithUnits;
+        public List<colObj> fetchLogsFieldsWithUnits(List<logItem> nLog)
         {
             List<string> dbs = new List<string>();
             foreach (logItem litm in nLog)
@@ -1191,6 +1193,7 @@ namespace Nutritracker
                     }
 
             }
+            activeFieldsWithUnits = lFields;
             return lFields;
         }
         class fObj {
@@ -1206,7 +1209,6 @@ namespace Nutritracker
             List<fObj> fObjs = new List<fObj>();
             if (l._db == "USDAstock")
             {
-                //units?
                 string dbDir = $"{Application.StartupPath}{slash}usr{slash}share{slash}DBs{slash}{l._db}";
                 string[] nkp = File.ReadAllLines($"{dbDir}{slash}_nutKeyPairs.TXT");
                 foreach (string s in currentBasicFields)
@@ -1225,18 +1227,13 @@ namespace Nutritracker
                     if (fObjs[i].field == "NDBNo")
                         lines = File.ReadAllLines($"{dbDir}{slash}{fObjs[i].file}");
                 for (int i = 0; i < lines.Length; i++)
-                    if (lines[i] == l.primKeyNo)
-                    {
-                        l.index = i;
-                        break;
-                    }
-
+                    if (lines[i] == l.primKeyNo && l.index == null)
+                        l.index = i;                
 
                 for (int i = 0; i < fObjs.Count(); i++)
                     foreach (string s in fields)
                         if (s == fObjs[i].field)
                             fObjs[i].nutVal = File.ReadAllLines($"{dbDir}{slash}{fObjs[i].file}")[l.index];
-
 
                 string[] ukp = File.ReadAllLines($"{dbDir}{slash}_unitKeyPairs.TXT");
                 for (int i = 0; i < fObjs.Count(); i++)
@@ -1257,6 +1254,7 @@ namespace Nutritracker
                 return null;         
         }
 
+        public static List<logItem> litms;
         private void comboLoggedDays_SelectedIndexChanged(object sender, EventArgs e)
         {
             dataDay.Columns.Clear();
@@ -1280,7 +1278,7 @@ namespace Nutritracker
                     litm._db = st.Split('|')[0];
                     litm.primKeyNo = st.Split('|')[1];
                     litm.grams = Convert.ToDouble(st.Split('|')[2]);
-					bLog.Add(litm);
+                    bLog.Add(litm);
                 }
                 lines = s.Split(new string[] { "--Lunch--" }, StringSplitOptions.RemoveEmptyEntries)[1].Split(new string[] { "--Dinner--" }, StringSplitOptions.RemoveEmptyEntries)[0].Split('\n');
                 foreach (string st in lines)
@@ -1291,7 +1289,7 @@ namespace Nutritracker
                     litm._db = st.Split('|')[0];
                     litm.primKeyNo = st.Split('|')[1];
                     litm.grams = Convert.ToDouble(st.Split('|')[2]);
-					lLog.Add(litm);
+                    lLog.Add(litm);
                 }
                 lines = s.Split(new string[] { "--Dinner--" }, StringSplitOptions.RemoveEmptyEntries)[1].Split('\n');
                 foreach (string st in lines)
@@ -1302,13 +1300,14 @@ namespace Nutritracker
                     litm._db = st.Split('|')[0];
                     litm.primKeyNo = st.Split('|')[1];
                     litm.grams = Convert.ToDouble(st.Split('|')[2]);
-					dLog.Add(litm);
+                    dLog.Add(litm);
                 }
             }
 
-            List<logItem> litms = bLog;
-            //litms.AddRange(lLog);
-            //litms.AddRange(dLog);
+            litms = new List<logItem>();
+            litms.AddRange(bLog);
+            litms.AddRange(lLog);
+            litms.AddRange(dLog);
             dataDay.Columns.Add("MealNo", "Meal No.");
             currentBasicFields = fetchLogsFields(litms).ToArray();
             foreach (colObj c in fetchLogsFieldsWithUnits(litms))
@@ -1320,7 +1319,6 @@ namespace Nutritracker
                 col.CellTemplate = new DataGridViewTextBoxCell();
                 dataDay.Columns.Add(col);
             }
-            //add units
 
 
             dataDay.Rows.Clear();
@@ -1353,64 +1351,44 @@ namespace Nutritracker
 
             //breakfast
             for (int i = 0; i < dataDay.Rows.Count - 2; i++)
-                try
-                {
-                    if (dataDay.Rows[i].Cells[0].Value.ToString() == "Breakfast")
-                        bDay = i + 1;
-                }
-                catch { }
-                    
+                if (dataDay.Rows[i].Cells[0].Value != null && dataDay.Rows[i].Cells[0].Value.ToString() == "Breakfast")
+                    bDay = i + 1;
             dataDay.Rows.Insert(bDay, bLog.Count());
             for (int i = 0; i < bLog.Count(); i++)
             {
                 string[] ingrieds = fetchNutValues(currentBasicFields, bLog[i]);//new string[currentBasicFields.Length];
-                for (int j = 0; j < currentBasicFields.Length; j++)                
+                for (int j = 0; j < currentBasicFields.Length; j++)
                     dataDay.Rows[bDay + i].Cells[j + 1].Value = ingrieds[j];
             }
 
             //lunch
             for (int i = 0; i < dataDay.Rows.Count - 2; i++)
-                try
-                {
-                    if (dataDay.Rows[i].Cells[0].Value.ToString() == "Lunch")
-                        lDay = i + 1;
-                }
-                catch { }
-                    
+                if (dataDay.Rows[i].Cells[0].Value != null && dataDay.Rows[i].Cells[0].Value.ToString() == "Lunch")
+                    lDay = i + 1;
             dataDay.Rows.Insert(lDay, lLog.Count());
             for (int i = 0; i < lLog.Count(); i++)
             {
                 string[] ingrieds = fetchNutValues(currentBasicFields, lLog[i]);//new string[currentBasicFields.Length];
-                for (int j = 0; j < currentBasicFields.Length; j++)                
+                for (int j = 0; j < currentBasicFields.Length; j++)
                     dataDay.Rows[lDay + i].Cells[j + 1].Value = ingrieds[j];
             }
-            
+
             //dinner
-            for (int i = 0; i < dataDay.Rows.Count - 2; i++)            
-                try
-                {
-                    if (dataDay.Rows[i].Cells[0].Value.ToString() == "Dinner")
-                        dDay = i + 1;
-                }
-                catch { }
-            
-                    
+            for (int i = 0; i < dataDay.Rows.Count - 2; i++)
+                if (dataDay.Rows[i].Cells[0].Value != null && dataDay.Rows[i].Cells[0].Value.ToString() == "Dinner")
+                    dDay = i + 1;
             dataDay.Rows.Insert(dDay, dLog.Count());
             for (int i = 0; i < dLog.Count(); i++)
             {
                 string[] ingrieds = fetchNutValues(currentBasicFields, dLog[i]);//new string[currentBasicFields.Length];
-                for (int j = 0; j < currentBasicFields.Length; j++)                
+                for (int j = 0; j < currentBasicFields.Length; j++)
                     dataDay.Rows[dDay + i].Cells[j + 1].Value = ingrieds[j];
             }
 
             //totals
             for (int i = 0; i < dataDay.Rows.Count - 2; i++)
-                try
-                {
-                    if (dataDay.Rows[i].Cells[0].Value.ToString() == "Totals")
-                        tDay = i + 1;
-                }
-                catch { }
+                if (dataDay.Rows[i].Cells[0].Value != null && dataDay.Rows[i].Cells[0].Value.ToString() == "Totals")
+                    tDay = i + 1;
             tabulateNutrientColumns();
         }
         

@@ -5,7 +5,9 @@
 #Remove lines with '#', separate units with '|'
 #A full list of nutrients can be found in the help docs
 ########################################################
+############
 ## BASICS ##
+############
 Cals|2200
 #CalsFat
 FatTot|130 g
@@ -75,7 +77,9 @@ Threonine|1 g
 Tryptophan|300 mg
 Tyrosine|1400 mg
 Valine|1800 mg
+##########
 ## MISC ##
+##########
 #Choline
 EpaDha|600 mg
 Lycopene|15 mg
@@ -94,41 +98,41 @@ Oxalates|200 mg
 #############################
 ## EXTENDED FLAVONOID USDA ##
 #############################
-Cyanidin|180mg
+Cyanidin|180 mg
 #Petunidin
 #Delphinidin 
 #Malvidin
 #Pelargonidin
 #Peonidin
-(+)-Catechin|80mg
-(-)-Epigallocatechin|120mg
-(-)-Epicatechin|120mg
-(-)-Epicatechin_3-gallate|180mg
-(-)-Epigallocatechin_3-gallate|280mg
+(+)-Catechin|80 mg
+(-)-Epigallocatechin|120 mg
+(-)-Epicatechin|120 mg
+(-)-Epicatechin_3-gallate|180 mg
+(-)-Epigallocatechin_3-gallate|280 mg
 #Theaflavin
 #Thearubigins
 #Eriodictyol
 Hesperetin|120mg
 Naringenin|100mg
-Apigenin|40mg
-Luteolin|40mg
-Isorhamnetin|40mg
-Kaempferol|60mg
-Myricetin|80mg
-Quercetin|90mg
+Apigenin|40 mg
+Luteolin|40 mg
+Isorhamnetin|40 mg
+Kaempferol|60 mg
+Myricetin|80 mg
+Quercetin|90 mg
 #Theaflavin-3,3'-digallate
 #Theaflavin-3'-gallate
 #Theaflavin-3-gallate
 #(+)-Gallocatechin
-Daidzein|60mg
-Genistein|80mg
+Daidzein|60 mg
+Genistein|80 mg
 #Glycitein
-Total_isoflavones|180mg
+Total_isoflavones|180 mg
 #Biochanin_A
 #Formononetin
-Coumestrol|80mg
-Proanthocyanidin_dimers|40mg
-Proanthocyanidin_trimers|40mg
-Proanthocyanidin_4-6mers|60mg
-Proanthocyanidin_7-10mers|60mg
-Proanthocyanidin_polymers_(>10mers)|80mg
+Coumestrol|80 mg
+Proanthocyanidin_dimers|40 mg
+Proanthocyanidin_trimers|40 mg
+Proanthocyanidin_4-6mers|60 mg
+Proanthocyanidin_7-10mers|60 mg
+Proanthocyanidin_polymers_(>10mers)|80 mg
