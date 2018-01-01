@@ -194,7 +194,7 @@ namespace Nutritracker
 
         public class logItem
         {
-            public int index;
+            public int index = 0;
             public string _db = "USDAstock";
             public string primKeyNo;
             public double grams = 100;
@@ -1102,6 +1102,7 @@ namespace Nutritracker
 
         string[] currentBasicFields;
         string[] basicFields ={
+            "NDBNo",
             "FoodName",
             "Cals",
             "FatTot",
@@ -1207,6 +1208,7 @@ namespace Nutritracker
             //dataDay.Columns.Clear();
             //dataDay.Columns.Add("Spacer", "");
             List<fObj> fObjs = new List<fObj>();
+            l.index = 0;
             if (l._db == "USDAstock")
             {
                 string dbDir = $"{Application.StartupPath}{slash}usr{slash}share{slash}DBs{slash}{l._db}";
@@ -1227,7 +1229,7 @@ namespace Nutritracker
                     if (fObjs[i].field == "NDBNo")
                         lines = File.ReadAllLines($"{dbDir}{slash}{fObjs[i].file}");
                 for (int i = 0; i < lines.Length; i++)
-                    if (lines[i] == l.primKeyNo && l.index == null)
+                    if (lines[i] == l.primKeyNo && l.index == 0)
                         l.index = i;                
 
                 for (int i = 0; i < fObjs.Count(); i++)
