@@ -24,7 +24,9 @@ Sugar|70 g
 Protein|100 g
 Ca|800 mg #Calcium
 Fe|10 mg #Iron
+##############
 ## VITAMINS ##
+##############
 VitA|900 μg
 #VitC
 VitD|6 μg
@@ -38,7 +40,9 @@ B6|1200 μg
 #B7
 #B9
 B12|1mg
+##############
 ## MINERALS ##
+##############
 Mg|400 mg
 Zn|12 mg
 Se|400 μg #Selenium
@@ -50,7 +54,9 @@ Se|400 μg #Selenium
 #Cr|120 μg #Chromium
 #Mo|80 μg #Molybdenum
 Mn|5 mg #Manganese
+############
 ## Aminos ##
+############
 Alanine|1 g
 Arginine|1 g
 AsparticAcid|1 g
@@ -77,13 +83,17 @@ LutZea|12 mg
 #Carnitine
 #Lipoic acid
 Inositol|4 g
+##################
 ## USER-DEFINED ##
+##################
 #GI_Rating
 GL_Load|100
 IF_Rating|500
 ORAC|4000
 Oxalates|200 mg
+#############################
 ## EXTENDED FLAVONOID USDA ##
+#############################
 Cyanidin|180mg
 #Petunidin
 #Delphinidin 
