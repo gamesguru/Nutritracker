@@ -801,7 +801,27 @@ namespace Nutritracker
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
+            string db = comboDBs.Text.Split(' ')[0];
+            string ndbno = "";
+            double grams = 0;
+            try { grams = Convert.ToDouble(txtQty.Text); }
+            catch{
+                MessageBox.Show("Not a valid weight.", "", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
+            }
 
+            if (lstviewFoods.SelectedItems.Count == 0)
+                {
+                MessageBox.Show("No food selected.", "", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
+                }
+
+            ndbno = lstviewFoods.SelectedItems[0].SubItems[0].Text;
+            MessageBox.Show(ndbno);
+        }
+        
+        private void lstviewFoods_SelectedIndexChanged(object sender, EventArgs e){
+        
         }
     }
 }

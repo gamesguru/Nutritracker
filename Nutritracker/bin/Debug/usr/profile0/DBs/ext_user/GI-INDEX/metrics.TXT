@@ -1,0 +1,3 @@
+GI_Rating
+Carbs
+GL_Load

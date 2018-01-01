@@ -130,9 +130,9 @@ Genistein|80 mg
 Total_isoflavones|180 mg
 #Biochanin_A
 #Formononetin
-Coumestrol|80 mg
-Proanthocyanidin_dimers|40 mg
+#Coumestrol|80 mg
+#Proanthocyanidin_dimers|40 mg
 Proanthocyanidin_trimers|40 mg
 Proanthocyanidin_4-6mers|60 mg
 Proanthocyanidin_7-10mers|60 mg
-Proanthocyanidin_polymers_(>10mers)|80 mg
+#Proanthocyanidin_polymers_(>10mers)|80 mg

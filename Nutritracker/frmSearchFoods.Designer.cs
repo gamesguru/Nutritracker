@@ -184,7 +184,7 @@
             // 
             // btnAdd
             // 
-            this.btnAdd.Enabled = false;
+            this.btnAdd.Enabled = true;
             this.btnAdd.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAdd.Location = new System.Drawing.Point(19, 706);
             this.btnAdd.Name = "btnAdd";
@@ -243,6 +243,7 @@
             this.lstviewFoods.TabIndex = 18;
             this.lstviewFoods.UseCompatibleStateImageBehavior = false;
             this.lstviewFoods.View = System.Windows.Forms.View.Details;
+            this.lstviewFoods.SelectedIndexChanged += new System.EventHandler(this.lstviewFoods_SelectedIndexChanged);
             // 
             // groupBox1
             // 
