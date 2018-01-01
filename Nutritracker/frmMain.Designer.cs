@@ -114,6 +114,8 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox1.Controls.Add(this.btnGuesstimate);
             this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.btnDetailReport);
@@ -188,6 +190,9 @@
             // dataDay
             // 
             this.dataDay.AllowUserToDeleteRows = false;
+            this.dataDay.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dataDay.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.ColumnHeader;
             this.dataDay.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataDay.Location = new System.Drawing.Point(17, 49);
             this.dataDay.MultiSelect = false;

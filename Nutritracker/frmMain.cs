@@ -1309,10 +1309,17 @@ namespace Nutritracker
             List<logItem> litms = bLog;
             //litms.AddRange(lLog);
             //litms.AddRange(dLog);
-            dataDay.Columns.Add("Spacer", "");
+            dataDay.Columns.Add("MealNo", "Meal No.");
             currentBasicFields = fetchLogsFields(litms).ToArray();
             foreach (colObj c in fetchLogsFieldsWithUnits(litms))
-                dataDay.Columns.Add(c.header, (c.unit == "") ? c.header : $"{c.header} ({c.unit})");
+            {
+                DataGridViewColumn col = new DataGridViewColumn();
+                col.SortMode = DataGridViewColumnSortMode.NotSortable;
+                col.Name = c.header;
+                col.HeaderText = (c.unit == "") ? c.header : $"{c.header} ({c.unit})";
+                col.CellTemplate = new DataGridViewTextBoxCell();
+                dataDay.Columns.Add(col);
+            }
             //add units
 
 
@@ -1350,10 +1357,8 @@ namespace Nutritracker
             for (int i = 0; i < bLog.Count(); i++)
             {
 				string[] ingrieds = fetchNutValues(currentBasicFields, bLog[i]);//new string[currentBasicFields.Length];
-                for (int j = 0; j < currentBasicFields.Length; j++)
-                {
+                for (int j = 0; j < currentBasicFields.Length; j++)                
                     dataDay.Rows[bDay + i].Cells[j + 1].Value = ingrieds[j];
-                }
             }
 
 
