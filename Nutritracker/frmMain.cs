@@ -1353,8 +1353,12 @@ namespace Nutritracker
 
             //breakfast
             for (int i = 0; i < dataDay.Rows.Count - 2; i++)
-                if (dataDay.Rows[i].Cells[0].Value.ToString() == "Breakfast")
-                    bDay = i + 1;
+                try
+                {
+                    if (dataDay.Rows[i].Cells[0].Value.ToString() == "Breakfast")
+                        bDay = i + 1;
+                }
+                catch { }
                     
             dataDay.Rows.Insert(bDay, bLog.Count());
             for (int i = 0; i < bLog.Count(); i++)
@@ -1363,11 +1367,15 @@ namespace Nutritracker
                 for (int j = 0; j < currentBasicFields.Length; j++)                
                     dataDay.Rows[bDay + i].Cells[j + 1].Value = ingrieds[j];
             }
-            
+
             //lunch
             for (int i = 0; i < dataDay.Rows.Count - 2; i++)
-                if (dataDay.Rows[i].Cells[0].Value.ToString() == "Lunch")
-                    lDay = i + 1;
+                try
+                {
+                    if (dataDay.Rows[i].Cells[0].Value.ToString() == "Lunch")
+                        lDay = i + 1;
+                }
+                catch { }
                     
             dataDay.Rows.Insert(lDay, lLog.Count());
             for (int i = 0; i < lLog.Count(); i++)
@@ -1395,80 +1403,7 @@ namespace Nutritracker
                     dataDay.Rows[dDay + i].Cells[j + 1].Value = ingrieds[j];
             }
 
-
-            ///
-            ///
-            ///
-            ///
-            ///
-
-
-        //    //breakfast
-        //    for (int i = 0; i < dataDay.Rows.Count - 2; i++)
-        //        if (dataDay.Rows[i].Cells[0].Value.ToString() == "Breakfast")
-        //            bDay = i + 1;
-        //    string[] breaks = breakfast.Split(new string[] { "||" }, StringSplitOptions.None);
-        //    List<string> breaks2 = new List<string>();
-        //    for (int k = 0; k < breaks.Length; k++)
-        //        if (breaks[k] != null && breaks[k] != "")
-        //            breaks2.Add(breaks[k]);
-        //    if (breaks2.Count == 0)
-        //        goto Lunch;
-        //    dataDay.Rows.Insert(bDay, breaks2.Count);
-        //    for (int k = 0; k < breaks2.Count; k++)
-        //    {
-        //        breaks2[k] = breaks2[k].Replace("||", "");
-        //        for (int i = 0; i < dataDay.ColumnCount; i++)
-        //            dataDay.Rows[bDay + k].Cells[i].Value = breaks2[k].Split('|')[i];
-        //    }
-
-        ////lunch
-        //Lunch:
-        //    for (int i = 0; i < dataDay.Rows.Count - 2; i++)
-        //        if (dataDay.Rows[i].Cells[0].Value.ToString() == "Lunch")
-        //            lDay = i + 1;
-        //    string[] lunchs = lunch.Split(new string[] { "||" }, StringSplitOptions.None);
-        //    List<string> lunchs2 = new List<string>();
-        //    for (int k = 0; k < lunchs.Length; k++)
-        //        if (lunchs[k] != null && lunchs[k] != "")
-        //            lunchs2.Add(lunchs[k]);
-        //    if (lunchs2.Count == 0)
-        //        goto Dinner;
-        //    dataDay.Rows.Insert(lDay, lunchs2.Count);
-        //    for (int k = 0; k < lunchs2.Count; k++)
-        //    {
-        //        lunchs2[k] = lunchs2[k].Replace("||", "");
-        //        for (int i = 0; i < dataDay.ColumnCount; i++)
-        //            dataDay.Rows[lDay + k].Cells[i].Value = lunchs2[k].Split('|')[i];
-        //    }
-
-        ////dinner
-        //Dinner:
-            //for (int i = 0; i < dataDay.Rows.Count - 2; i++)
-            //{
-            //    try
-            //    {
-            //        if (dataDay.Rows[i].Cells[0].Value.ToString() == "Dinner")
-            //            dDay = i + 1;
-            //    }
-            //    catch { }
-            //}
-            //string[] dins = dinner.Split(new string[] { "||" }, StringSplitOptions.None);
-            //List<string> dins2 = new List<string>();
-            //for (int k = 0; k < dins.Length; k++)
-            //    if (dins[k] != null && dins[k] != "")
-            //        dins2.Add(dins[k]);
-            //if (dins2.Count == 0)
-            //    goto Totes;
-            //dataDay.Rows.Insert(dDay, dins2.Count);
-            //for (int k = 0; k < dins2.Count; k++)
-            //{
-            //    dins2[k] = dins2[k].Replace("||", "");
-            //    for (int i = 0; i < dataDay.ColumnCount; i++)
-            //        dataDay.Rows[dDay + k].Cells[i].Value = dins2[k].Split('|')[i];
-            //}
-
-        Totes:
+            //totals
             for (int i = 0; i < dataDay.Rows.Count - 2; i++)
                 try
                 {
@@ -1476,7 +1411,6 @@ namespace Nutritracker
                         tDay = i + 1;
                 }
                 catch { }
-
             tabulateNutrientColumns();
         }
         
