@@ -101,10 +101,9 @@
             // 
             // btnCancel
             // 
-            this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnCancel.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCancel.Location = new System.Drawing.Point(991, 771);
+            this.btnCancel.Location = new System.Drawing.Point(989, 696);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(95, 63);
             this.btnCancel.TabIndex = 29;
@@ -115,7 +114,6 @@
             // 
             // comboMeal
             // 
-            this.comboMeal.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.comboMeal.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboMeal.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.comboMeal.FormattingEnabled = true;
@@ -123,7 +121,7 @@
             "Breakfast",
             "Lunch",
             "Dinner"});
-            this.comboMeal.Location = new System.Drawing.Point(230, 787);
+            this.comboMeal.Location = new System.Drawing.Point(234, 717);
             this.comboMeal.Name = "comboMeal";
             this.comboMeal.Size = new System.Drawing.Size(127, 32);
             this.comboMeal.TabIndex = 21;
@@ -131,10 +129,9 @@
             // 
             // label6
             // 
-            this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(168, 790);
+            this.label6.Location = new System.Drawing.Point(172, 720);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(56, 24);
             this.label6.TabIndex = 28;
@@ -167,9 +164,8 @@
             // 
             // txtQty
             // 
-            this.txtQty.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.txtQty.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtQty.Location = new System.Drawing.Point(70, 726);
+            this.txtQty.Location = new System.Drawing.Point(68, 671);
             this.txtQty.MaxLength = 5;
             this.txtQty.Name = "txtQty";
             this.txtQty.Size = new System.Drawing.Size(74, 29);
@@ -178,10 +174,9 @@
             // 
             // label3
             // 
-            this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(150, 729);
+            this.label3.Location = new System.Drawing.Point(148, 674);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(62, 24);
             this.label3.TabIndex = 23;
@@ -189,22 +184,21 @@
             // 
             // btnAdd
             // 
-            this.btnAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnAdd.Enabled = false;
             this.btnAdd.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAdd.Location = new System.Drawing.Point(21, 771);
+            this.btnAdd.Location = new System.Drawing.Point(19, 706);
             this.btnAdd.Name = "btnAdd";
-            this.btnAdd.Size = new System.Drawing.Size(95, 63);
+            this.btnAdd.Size = new System.Drawing.Size(141, 53);
             this.btnAdd.TabIndex = 22;
             this.btnAdd.Text = "Add to Log";
             this.btnAdd.UseVisualStyleBackColor = true;
+            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
             // 
             // label2
             // 
-            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(21, 729);
+            this.label2.Location = new System.Drawing.Point(19, 674);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(43, 24);
             this.label2.TabIndex = 20;
@@ -245,7 +239,7 @@
             this.lstviewFoods.Location = new System.Drawing.Point(10, 95);
             this.lstviewFoods.MultiSelect = false;
             this.lstviewFoods.Name = "lstviewFoods";
-            this.lstviewFoods.Size = new System.Drawing.Size(1088, 407);
+            this.lstviewFoods.Size = new System.Drawing.Size(1088, 297);
             this.lstviewFoods.TabIndex = 18;
             this.lstviewFoods.UseCompatibleStateImageBehavior = false;
             this.lstviewFoods.View = System.Windows.Forms.View.Details;
@@ -311,7 +305,7 @@
             this.groupBox2.Controls.Add(this.lstViewSlot1);
             this.groupBox2.Controls.Add(this.txtUser1);
             this.groupBox2.Controls.Add(this.lblSlot1);
-            this.groupBox2.Location = new System.Drawing.Point(12, 508);
+            this.groupBox2.Location = new System.Drawing.Point(10, 453);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(1086, 212);
             this.groupBox2.TabIndex = 31;
@@ -715,7 +709,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnCancel;
-            this.ClientSize = new System.Drawing.Size(1110, 846);
+            this.ClientSize = new System.Drawing.Size(1110, 766);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);

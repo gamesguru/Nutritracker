@@ -223,10 +223,9 @@ namespace Nutritracker
                 List<string> dates = new List<string>();
                 foreach (string s in daysLog)
                     dates.Add(s.Split('\n')[0]);
-                foreach (string s in dates)
-                {
+                foreach (string s in dates)                
                     comboLoggedDays.Items.Add(s);
-                }
+                
 
                 bLog = new List<logItem>();
                 lLog = new List<logItem>();
