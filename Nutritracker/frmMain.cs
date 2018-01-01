@@ -195,9 +195,9 @@ namespace Nutritracker
         class logItem
         {
             public int index;
-            public string _db;
+            public string _db = "USDAstock";
             public string primKeyNo;
-            public double grams;
+            public double grams = 100;
         }
 
         List<logItem> bLog;
@@ -377,6 +377,8 @@ namespace Nutritracker
                 for (int i = 0; i < lstCustFoods.Count; i++)
                     lstBoxRecipes.Items.Add(lstCustFoods[i]);
             }
+
+            comboLoggedDays.SelectedIndex = comboLoggedDays.Items.Count - 1;
 
             //loadup = false;
             //WORK HERE ARRGGH
@@ -1128,7 +1130,7 @@ namespace Nutritracker
             "IF_Rating",
             "ORAC"
         };
-
+        
         private List<string> fetchLogsFields(List<logItem> nLog)
         {
             List<string> dbs = new List<string>();
@@ -1145,7 +1147,49 @@ namespace Nutritracker
                 string[] nutKeylines = File.ReadAllLines($"{s}{slash}_nutKeyPairs.TXT");
                 foreach (string st in nutKeylines)
                     if (basicFields.Contains(st.Split('|')[1]) && !lFields.Contains(st.Split('|')[1]))
-                        lFields.Add(st.Split('|')[1]);
+                        lFields.Add(st.Split('|')[1]);                    
+            }
+            return lFields;
+        }
+        class colObj
+        {
+            public string file;
+            public string header;
+            public string unit = "";
+        }
+        private List<colObj> fetchLogsFieldsWithUnits(List<logItem> nLog)
+        {
+            List<string> dbs = new List<string>();
+            foreach (logItem litm in nLog)
+                if (!dbs.Contains(litm._db))
+                    dbs.Add(litm._db);
+
+            string pubDbRoot = $"{Application.StartupPath}{slash}usr{slash}share{slash}DBs";
+            List<colObj> lFields = new List<colObj>();
+            foreach (string s in Directory.GetDirectories(pubDbRoot))
+            {
+                if (s.Split(Path.DirectorySeparatorChar)[s.Split(Path.DirectorySeparatorChar).Length - 1].StartsWith("_"))
+                    continue;
+                string[] nutKeylines = File.ReadAllLines($"{s}{slash}_nutKeyPairs.TXT");
+                string[] unitKeyLines = File.ReadAllLines($"{s}{slash}_unitKeyPairs.TXT");
+                foreach (string st in nutKeylines)
+                    if (basicFields.Contains(st.Split('|')[1]))
+                    {
+                        bool dupe = false;
+                        foreach (colObj _c in lFields)
+                            if (_c.header == st.Split('|')[1])
+                                dupe = true;
+                        if (dupe)
+                            continue;
+                        colObj c = new colObj();
+                        c.file = st.Split('|')[0];
+                        c.header = st.Split('|')[1];
+                        foreach (string str in unitKeyLines)
+                            if (str.Split('|')[0] == c.file)
+                                c.unit = str.Split('|')[1];
+                        lFields.Add(c);
+                    }
+
             }
             return lFields;
         }
@@ -1154,11 +1198,15 @@ namespace Nutritracker
             public string field = "";
             public string nutVal = "";
             public string index = "";
+            public string unit = "";
         };
-        private string[] fetchNutValues(string[] fields, logItem l){        
+        private string[] fetchNutValues(string[] fields, logItem l, bool includeUnits = false){
+            //dataDay.Columns.Clear();
+            //dataDay.Columns.Add("Spacer", "");
             List<fObj> fObjs = new List<fObj>();
             if (l._db == "USDAstock")
             {
+                //units?
                 string dbDir = $"{Application.StartupPath}{slash}usr{slash}share{slash}DBs{slash}{l._db}";
                 string[] nkp = File.ReadAllLines($"{dbDir}{slash}_nutKeyPairs.TXT");
                 foreach (string s in currentBasicFields)
@@ -1167,6 +1215,7 @@ namespace Nutritracker
                         {
                             fObj f = new fObj();
                             f.field = s;
+                            //dataDay.Columns.Add(s, s);
                             f.file = st.Split('|')[0];
                             fObjs.Add(f);
                         }
@@ -1189,17 +1238,20 @@ namespace Nutritracker
                             fObjs[i].nutVal = File.ReadAllLines($"{dbDir}{slash}{fObjs[i].file}")[l.index];
 
 
-
+                string[] ukp = File.ReadAllLines($"{dbDir}{slash}_unitKeyPairs.TXT");
+                for (int i = 0; i < fObjs.Count(); i++)
+                    foreach (string s in ukp)
+                        if (fObjs[i].file == s.Split('|')[0])
+                            fObjs[i].unit = s.Split('|')[1];
 
                 double conv = l.grams / 100;
-                string unit = "";
-                for (int i = 0; i < fObjs.Count(); i++)
-                    nutVals[i] = fObjs[i].nutVal;
-
-
-
+                if (includeUnits)
+                    for (int i = 0; i < fObjs.Count(); i++)
+                        nutVals[i] = (fObjs[i].unit == "")?fObjs[i].nutVal:$"{fObjs[i].nutVal} ({fObjs[i].unit})";
+                else
+                    for (int i = 0; i < fObjs.Count(); i++)
+                        nutVals[i] = fObjs[i].nutVal;
                 return nutVals;
-
             }
             else
                 return null;         
@@ -1259,9 +1311,9 @@ namespace Nutritracker
             //litms.AddRange(dLog);
             dataDay.Columns.Add("Spacer", "");
             currentBasicFields = fetchLogsFields(litms).ToArray();
-            foreach (string s in currentBasicFields)
-                dataDay.Columns.Add(s, s);
-
+            foreach (colObj c in fetchLogsFieldsWithUnits(litms))
+                dataDay.Columns.Add(c.header, (c.unit == "") ? c.header : $"{c.header} ({c.unit})");
+            //add units
 
 
             dataDay.Rows.Clear();
@@ -1300,7 +1352,7 @@ namespace Nutritracker
 				string[] ingrieds = fetchNutValues(currentBasicFields, bLog[i]);//new string[currentBasicFields.Length];
                 for (int j = 0; j < currentBasicFields.Length; j++)
                 {
-                    dataDay.Rows[bDay + i].Cells[j].Value = ingrieds[j];
+                    dataDay.Rows[bDay + i].Cells[j + 1].Value = ingrieds[j];
                 }
             }
 

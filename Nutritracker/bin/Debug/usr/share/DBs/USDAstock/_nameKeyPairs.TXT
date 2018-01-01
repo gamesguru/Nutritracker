@@ -39,8 +39,8 @@ BET37.TXT|Beta_Crypt_(µg)
 LYC.TXT|Lycopene_(µg)
 LUT.TXT|Lut+Zea_ (µg)
 VIT40.TXT|Vit_E_(mg)
-VIT41.TXT|Vit_D_µg
-VIT42.TXT|Vit_D_IU
+VIT41.TXT|Vit_D_(µg)
+VIT42.TXT|Vit_D_(IU)
 VIT43.TXT|Vit_K_(µg)
 FA_.TXT|FA_Sat_(g)
 FA_45.TXT|FA_Mono_(g)
