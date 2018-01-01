@@ -1314,7 +1314,7 @@ namespace Nutritracker
             foreach (colObj c in fetchLogsFieldsWithUnits(litms))
             {
                 DataGridViewColumn col = new DataGridViewColumn();
-                col.SortMode = DataGridViewColumnSortMode.NotSortable;
+                col.SortMode = DataGridViewColumnSortMode.Programmatic;
                 col.Name = c.header;
                 col.HeaderText = (c.unit == "") ? c.header : $"{c.header} ({c.unit})";
                 col.CellTemplate = new DataGridViewTextBoxCell();

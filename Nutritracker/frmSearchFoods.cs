@@ -43,35 +43,11 @@ namespace Nutritracker
         string[] pubDBs;
         string[] userDBs;
         string slash = Path.DirectorySeparatorChar.ToString();
-        private class slotObj
-        {
-            public List<dbc> dbConfigKeys = new List<dbc>();
-            public List<dbi> dbInitKeys = new List<dbi>();
-            public string _dbInit;
-            public string _dbConfig;
-            public int z;
-            public string[] names;
-            public string[] vals;
-            public string[] weights;
-            //public string[] units;
-        }
-        private class dbc
-        {
-            public string file;
-            public string field;
-            public string metricName;
-        }
-        private class dbi
-        {
-            public string file;
-            public string header;
-            public string unit;
-        }
-        slotObj[] slotObjs = new slotObj[4];
 
 
         private void frmSearchFoods_Load(object sender, EventArgs e)
         {
+            this.Text = $"Search and Add Foods to Log — [{frmMain.dte}]";
             try
             {
                 comboMeal.SelectedIndex = Convert.ToInt32(File.ReadAllText($"{Application.StartupPath}{slash}usr{slash}profile{frmMain.currentUser.index}{slash}DBs{slash}Meal.TXT"));
@@ -107,262 +83,7 @@ namespace Nutritracker
             {
                 int index = Convert.ToInt32(File.ReadAllLines($"{Application.StartupPath}{slash}usr{slash}profile{frmMain.currentUser.index}{slash}DBs{slash}Default.TXT")[0]);
                 comboDBs.SelectedIndex = index;
-            }
-
-            //Loads the user-defined fields
-            slotObjs[0] = new slotObj();
-            slotObjs[1] = new slotObj();
-            slotObjs[2] = new slotObj();
-            slotObjs[3] = new slotObj();
-
-            //try
-            // {
-            string[] slots = File.ReadAllLines($"{Application.StartupPath}{slash}usr{slash}profile{frmMain.currentUser.index}{slash}DBs{slash}Slots.TXT");
-            int n = slots.Length > 4 ? 4 : slots.Length;
-            for (int i = 0; i < n; i++)
-            {
-                string dir = $"{Application.StartupPath}{slash}usr{slash}profile{frmMain.currentUser.index}{slash}DBs{slash}{slots[i]}";
-                slotObjs[i]._dbConfig = File.ReadAllText(dir + slash + "_dbConfig.TXT").Replace("\r", "");
-                slotObjs[i]._dbInit = File.ReadAllText(dir + slash + "_dbInit.TXT").Replace("\r", "");
-                string[] splitConfig = slotObjs[i]._dbConfig.Split(new string[] { "[File]" }, StringSplitOptions.RemoveEmptyEntries);
-                string[] splitInit = slotObjs[i]._dbInit.Split(new string[] { "[File]" }, StringSplitOptions.RemoveEmptyEntries);
-
-                foreach (string s in splitConfig)
-                {
-                    string[] lines = s.Split('\n');
-                    dbc kc = new dbc();
-                    kc.file = lines[0];
-                    foreach (string st in lines)
-                    {
-                        if (st.Contains("[Field]"))
-                            kc.field = st.Replace("[Field]", "");
-                        if (st.Contains("[MetricName]"))
-                            kc.metricName = st.Replace("[MetricName]", "");
-                    }
-                    slotObjs[i].dbConfigKeys.Add(kc);
-                }
-
-                foreach (string s in splitInit)
-                {
-                    string[] lines = s.Split('\n');
-                    dbi ki = new dbi();
-                    ki.file = lines[0];
-                    ki.header = lines[1].Replace("[Header]", "");
-                    foreach (string st in lines)
-                        if (st.Contains("[Unit]"))
-                            ki.unit = st.Replace("[Unit]", "");
-                    slotObjs[i].dbInitKeys.Add(ki);
-                }
-
-                dbc nameFile = new dbc();
-                foreach (dbc kc in slotObjs[i].dbConfigKeys)
-                    if (kc.field == "FoodName")
-                        slotObjs[i].z = File.ReadAllLines(dir + slash + kc.file).Length;
-
-                //reads files and prepares the listViews
-                if (i == 0)
-                {
-                    lstViewSlot1.Clear();
-                    lblSlot1.Text = slots[i].Replace("f_user_", "");
-                }
-                else if (i == 1)
-                {
-                    lstViewSlot2.Clear();
-                    lblSlot2.Text = slots[i].Replace("f_user_", "");
-                }
-                else if (i == 2)
-                {
-                    lstViewSlot3.Clear();
-                    lblSlot3.Text = slots[i].Replace("f_user_", "");
-                }
-                else if (i == 3)
-                {
-                    lstViewSlot4.Clear();
-                    lblSlot4.Text = slots[i].Replace("f_user_", "");
-                }
-                foreach (dbc kc in slotObjs[i].dbConfigKeys)
-                {
-                    if (i == 0)
-                    {
-                        if (kc.field == "FoodName")
-                        {
-                            slotObjs[i].names = File.ReadAllLines(dir + slash + kc.file);
-                            lstViewSlot1.Columns.Add(kc.field);
-                        }
-                        if (kc.field == "Value1")
-                        {
-                            slotObjs[i].vals = File.ReadAllLines(dir + slash + kc.file);
-                            lstViewSlot1.Columns.Add(kc.metricName);
-                        }
-                        if (kc.field == "Weight")
-                        {
-                            slotObjs[i].weights = File.ReadAllLines(dir + slash + kc.file);
-                            lstViewSlot1.Columns.Add(kc.field);
-                        }
-                    }
-                    else if (i == 1)
-                    {
-                        if (kc.field == "FoodName")
-                        {
-                            slotObjs[i].names = File.ReadAllLines(dir + slash + kc.file);
-                            lstViewSlot2.Columns.Add(kc.field);
-                        }
-                        if (kc.field == "Value1")
-                        {
-                            slotObjs[i].vals = File.ReadAllLines(dir + slash + kc.file);
-                            lstViewSlot2.Columns.Add(kc.metricName);
-                        }
-                        if (kc.field == "Weight")
-                        {
-                            slotObjs[i].weights = File.ReadAllLines(dir + slash + kc.file);
-                            lstViewSlot2.Columns.Add(kc.field);
-                        }
-                    }
-                    else if (i == 2)
-                    {
-                        if (kc.field == "FoodName")
-                        {
-                            slotObjs[i].names = File.ReadAllLines(dir + slash + kc.file);
-                            lstViewSlot3.Columns.Add(kc.field);
-                        }
-                        if (kc.field == "Value1")
-                        {
-                            slotObjs[i].vals = File.ReadAllLines(dir + slash + kc.file);
-                            lstViewSlot3.Columns.Add(kc.metricName);
-                        }
-                        if (kc.field == "Weight")
-                        {
-                            slotObjs[i].weights = File.ReadAllLines(dir + slash + kc.file);
-                            lstViewSlot3.Columns.Add(kc.field);
-                        }
-                    }
-                    else if (i == 3)
-                    {
-                        if (kc.field == "FoodName")
-                        {
-                            slotObjs[i].names = File.ReadAllLines(dir + slash + kc.file);
-                            lstViewSlot4.Columns.Add(kc.field);
-                        }
-                        if (kc.field == "Value1")
-                        {
-                            slotObjs[i].vals = File.ReadAllLines(dir + slash + kc.file);
-                            lstViewSlot4.Columns.Add(kc.metricName);
-                        }
-                        if (kc.field == "Weight")
-                        {
-                            slotObjs[i].weights = File.ReadAllLines(dir + slash + kc.file);
-                            lstViewSlot4.Columns.Add(kc.field);
-                        }
-                    }
-                }
-
-                if (i == 0)
-                    lstViewSlot1.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
-                else if (i == 1)
-                    lstViewSlot2.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
-                else if (i == 2)
-                    lstViewSlot3.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
-                else if (i == 3)
-                    lstViewSlot4.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
-
-                //populates the listViews
-                List<ListViewItem> itms;
-                if (i == 0)
-                {
-                    itms = new List<ListViewItem>();
-
-                    for (int j = 0; j < slotObjs[i].z; j++)
-                    {
-                        ListViewItem itm = new ListViewItem();
-                        foreach (dbc kc in slotObjs[i].dbConfigKeys)
-                        {
-                            if (kc.field == "FoodName")
-                                itm.Text = slotObjs[i].names[j];
-                            else if (kc.field == "Value1")
-                                itm.SubItems.Add(slotObjs[i].vals[j]);
-                            else if (kc.field == "Weight")
-                                itm.SubItems.Add(slotObjs[i].weights[j]);
-                        }
-                        itms.Add(itm);
-                    }
-                    lstViewSlot1.BeginUpdate();
-                    foreach (ListViewItem itm in itms)
-                        lstViewSlot1.Items.Add(itm);
-                    lstViewSlot1.EndUpdate();
-                }
-                else if (i == 1)
-                {
-                    itms = new List<ListViewItem>();
-
-                    for (int j = 0; j < slotObjs[i].z; j++)
-                    {
-                        ListViewItem itm = new ListViewItem();
-                        foreach (dbc kc in slotObjs[i].dbConfigKeys)
-                        {
-                            if (kc.field == "FoodName")
-                                itm.Text = slotObjs[i].names[j];
-                            else if (kc.field == "Value1")
-                                itm.SubItems.Add(slotObjs[i].vals[j]);
-                            else if (kc.field == "Weight")
-                                itm.SubItems.Add(slotObjs[i].weights[j]);
-                        }
-                        itms.Add(itm);
-                    }
-                    lstViewSlot2.BeginUpdate();
-                    foreach (ListViewItem itm in itms)
-                        lstViewSlot2.Items.Add(itm);
-                    lstViewSlot2.EndUpdate();
-                }
-                else if (i == 2)
-                {
-                    itms = new List<ListViewItem>();
-
-                    for (int j = 0; j < slotObjs[i].z; j++)
-                    {
-                        ListViewItem itm = new ListViewItem();
-                        foreach (dbc kc in slotObjs[i].dbConfigKeys)
-                        {
-                            if (kc.field == "FoodName")
-                                itm.Text = slotObjs[i].names[j];
-                            else if (kc.field == "Value1")
-                                itm.SubItems.Add(slotObjs[i].vals[j]);
-                            else if (kc.field == "Weight")
-                                itm.SubItems.Add(slotObjs[i].weights[j]);
-                        }
-                        itms.Add(itm);
-                    }
-                    lstViewSlot3.BeginUpdate();
-                    foreach (ListViewItem itm in itms)
-                        lstViewSlot3.Items.Add(itm);
-                    lstViewSlot3.EndUpdate();
-                }
-                else if (i == 3)
-                {
-                    itms = new List<ListViewItem>();
-
-                    for (int j = 0; j < slotObjs[i].z; j++)
-                    {
-                        ListViewItem itm = new ListViewItem();
-                        foreach (dbc kc in slotObjs[i].dbConfigKeys)
-                        {
-                            if (kc.field == "FoodName")
-                                itm.Text = slotObjs[i].names[j];
-                            else if (kc.field == "Value1")
-                                itm.SubItems.Add(slotObjs[i].vals[j]);
-                            else if (kc.field == "Weight")
-                                itm.SubItems.Add(slotObjs[i].weights[j]);
-                        }
-                        itms.Add(itm);
-                    }
-                    lstViewSlot4.BeginUpdate();
-                    foreach (ListViewItem itm in itms)
-                        lstViewSlot4.Items.Add(itm);
-                    lstViewSlot4.EndUpdate();
-                }
-
-            }
-            //}
-            //catch { }            
+            }           
         }
 
         private string nameKeyPath = "";
@@ -508,11 +229,6 @@ namespace Nutritracker
             srchTmout.Stop();
             srchTmout.Start();
             richTxtWarn.Text = "";
-
-            txtUser1.Text = txtSrch.Text;
-            txtUser2.Text = txtSrch.Text;
-            txtUser3.Text = txtSrch.Text;
-            txtUser4.Text = txtSrch.Text;
         }
 
         string lastQuery = "";
@@ -661,131 +377,27 @@ namespace Nutritracker
                             lstviewFoods.Invoke(new MethodInvoker(delegate { lstviewFoods.Columns[i].AutoResize(ColumnHeaderAutoResizeStyle.ColumnContent); }));
 
                     warning = false;
-                    this.Invoke(new MethodInvoker(delegate { richTxtWarn.Text = "Finished!"; }));
+                    this.Invoke(new MethodInvoker(delegate { richTxtWarn.Text = "Finished!";
+                        lstviewFoods.Focus();
+                        try { lstviewFoods.Items[0].Focused = true;
+                            lstviewFoods.Items[0].Selected = true;
+                        }//lstviewFoods.SelectedIndices.Add(0); }
+                        catch { }
+                    }));
                     this.Invoke(new MethodInvoker(delegate { this.UseWaitCursor = false; }));
                 };
                 bw.RunWorkerAsync();
             }
         }
 
-        private void txtUser1_TextChanged(object sender, EventArgs e)
-        {
-            if (slotObjs[0].names == null)
-                return;
-            lstViewSlot1.Items.Clear();
-            itms = new List<ListViewItem>();
-            for (int i = 0; i < slotObjs[0].names.Length; i++)
-            {
-                if (slotObjs[0].names[i].ToUpper().Contains(txtUser1.Text.ToUpper()))
-                {
-                    ListViewItem itm = new ListViewItem(slotObjs[0].names[i]);
-                    if (slotObjs[0].weights != null && slotObjs[0].names.Length == slotObjs[0].weights.Length)
-                        itm.SubItems.Add(slotObjs[0].weights[i]);
-                    if (slotObjs[0].vals != null && slotObjs[0].names.Length == slotObjs[0].vals.Length)
-                        itm.SubItems.Add(slotObjs[0].vals[i]);
-                    itms.Add(itm);
-                }
-            }
-            lstViewSlot1.BeginUpdate();
-            foreach (ListViewItem itm in itms)
-                lstViewSlot1.Items.Add(itm);
-            lstViewSlot1.EndUpdate();
-            if (itms.Count == 0)
-                lstViewSlot1.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
-            else
-                lstViewSlot1.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
-        }
-
-        private void txtUser2_TextChanged(object sender, EventArgs e)
-        {
-            if (slotObjs[1].names == null)
-                return;
-            lstViewSlot2.Items.Clear();
-            itms = new List<ListViewItem>();
-            for (int i = 0; i < slotObjs[1].names.Length; i++)
-            {
-                if (slotObjs[1].names[i].ToUpper().Contains(txtUser2.Text.ToUpper()))
-                {
-                    ListViewItem itm = new ListViewItem(slotObjs[1].names[i]);
-                    if (slotObjs[1].weights != null && slotObjs[1].names.Length == slotObjs[1].weights.Length)
-                        itm.SubItems.Add(slotObjs[1].weights[i]);
-                    if (slotObjs[1].vals != null && slotObjs[1].names.Length == slotObjs[1].vals.Length)
-                        itm.SubItems.Add(slotObjs[1].vals[i]);
-                    itms.Add(itm);
-                }
-            }
-            lstViewSlot2.BeginUpdate();
-            foreach (ListViewItem itm in itms)
-                lstViewSlot2.Items.Add(itm);
-            lstViewSlot2.EndUpdate();
-            if (itms.Count == 0)
-                lstViewSlot2.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
-            else
-                lstViewSlot2.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
-        }
-
-        private void txtUser3_TextChanged(object sender, EventArgs e)
-        {
-            if (slotObjs[2].names == null)
-                return;
-            lstViewSlot3.Items.Clear();
-            itms = new List<ListViewItem>();
-            for (int i = 0; i < slotObjs[2].names.Length; i++)
-            {
-                if (slotObjs[2].names[i].ToUpper().Contains(txtUser3.Text.ToUpper()))
-                {
-                    ListViewItem itm = new ListViewItem(slotObjs[2].names[i]);
-                    if (slotObjs[2].weights != null && slotObjs[2].names.Length == slotObjs[2].weights.Length)
-                        itm.SubItems.Add(slotObjs[2].weights[i]);
-                    if (slotObjs[2].vals != null && slotObjs[2].names.Length == slotObjs[2].vals.Length)
-                        itm.SubItems.Add(slotObjs[2].vals[i]);
-                    itms.Add(itm);
-                }
-            }
-            lstViewSlot3.BeginUpdate();
-            foreach (ListViewItem itm in itms)
-                lstViewSlot3.Items.Add(itm);
-            lstViewSlot3.EndUpdate();
-            if (itms.Count == 0)
-                lstViewSlot3.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
-            else
-                lstViewSlot3.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
-        }
-
-        private void txtUser4_TextChanged(object sender, EventArgs e)
-        {
-            itms = new List<ListViewItem>();
-            if (slotObjs[3].names == null)
-                return;
-            lstViewSlot4.Items.Clear();
-            for (int i = 0; i < slotObjs[3].names.Length; i++)
-            {
-                if (slotObjs[3].names[i].ToUpper().Contains(txtUser4.Text.ToUpper()))
-                {
-                    ListViewItem itm = new ListViewItem(slotObjs[3].names[i]);
-                    if (slotObjs[3].weights != null && slotObjs[3].names.Length == slotObjs[3].weights.Length)
-                        itm.SubItems.Add(slotObjs[3].weights[i]);
-                    if (slotObjs[3].vals != null && slotObjs[3].names.Length == slotObjs[3].vals.Length)
-                        itm.SubItems.Add(slotObjs[3].vals[i]);
-                    itms.Add(itm);
-                }
-            }
-            lstViewSlot4.BeginUpdate();
-            foreach (ListViewItem itm in itms)
-                lstViewSlot4.Items.Add(itm);
-            lstViewSlot4.EndUpdate();
-            if (itms.Count == 0)
-                lstViewSlot4.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
-            else
-                lstViewSlot4.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
-        }
-
         private void txtQty_TextChanged(object sender, EventArgs e)
         {
-            txtUser1Qty.Text = txtQty.Text;
-            txtUser2Qty.Text = txtQty.Text;
-            txtUser3Qty.Text = txtQty.Text;
-            txtUser4Qty.Text = txtQty.Text;
+            try { grams = Convert.ToDouble(txtQty.Text); }
+            catch
+            {
+                grams = 0;
+            }
+            selectCheck();
         }
 
         private void comboMeal_SelectedIndexChanged(object sender, EventArgs e)
@@ -799,11 +411,12 @@ namespace Nutritracker
             frmMF.ShowDialog();
         }
 
+        string ndbno = "";
+        double grams = 0;
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            string db = comboDBs.Text.Split(' ')[0];
-            string ndbno = "";
-            double grams = 0;
+            db = comboDBs.Text.Split(' ')[0];
+            grams = 0;
             try { grams = Convert.ToDouble(txtQty.Text); }
             catch{
                 MessageBox.Show("Not a valid weight.", "", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
@@ -817,11 +430,37 @@ namespace Nutritracker
                 }
 
             ndbno = lstviewFoods.SelectedItems[0].SubItems[0].Text;
-            MessageBox.Show(ndbno);
+            selectCheck();
         }
-        
-        private void lstviewFoods_SelectedIndexChanged(object sender, EventArgs e){
-        
+
+        private void lstviewFoods_Leave(object sender, EventArgs e)
+        {
+            try
+            {
+                ndbno = lstviewFoods.SelectedItems[0].SubItems[0].Text;
+                label1.Text = ndbno;
+
+            }
+            catch { }
+            selectCheck();
+        }
+
+        private void selectCheck()
+        {
+            if (db != "" && ndbno != "" && grams > 0)
+                btnAdd.Enabled = true;
+            else
+                btnAdd.Enabled = false;
+        }
+
+        private void lstviewFoods_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                ndbno = lstviewFoods.SelectedItems[0].SubItems[0].Text;
+                lblCurrentFood.Text = "Selected food: " + lstviewFoods.SelectedItems[0].SubItems[1].Text.Substring(0, Math.Min(30, lstviewFoods.SelectedItems[0].SubItems[1].Text.Length));
+            }
+            catch { }
         }
     }
 }
