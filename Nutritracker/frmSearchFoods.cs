@@ -334,42 +334,51 @@ namespace Nutritracker
             if (e.KeyCode == Keys.Return && warning)
             {
                 e.Handled = true;
-                //if (!richTxtWarn.Enabled)
-                //return;
-                richTxtWarn.Text = "searching...";
-                lstviewFoods.Items.Clear();
-                bw = new BackgroundWorker();
-                bw.DoWork += delegate
-                {
-                    this.Invoke(new MethodInvoker(delegate { this.UseWaitCursor = true; }));
-
-                    lstviewFoods.Invoke(new MethodInvoker(delegate
-                    {
-                        lstviewFoods.BeginUpdate();
-                        foreach (ListViewItem itm in itms)
-                            lstviewFoods.Items.Add(itm);
-                        lstviewFoods.EndUpdate();
-                    }));
-                    for (int i = 0; i < nutKeyPairs.Length; i++)
-                        if (nutKeyPairs[i].Contains("|FoodName"))
-                            lstviewFoods.Invoke(new MethodInvoker(delegate { lstviewFoods.Columns[i].AutoResize(ColumnHeaderAutoResizeStyle.ColumnContent); }));
-
-                    warning = false;
-                    this.Invoke(new MethodInvoker(delegate
-                    {
-                        richTxtWarn.Text = "Finished!";
-                        lstviewFoods.Focus();
-                        try
-                        {
-                            lstviewFoods.Items[0].Focused = true;
-                            lstviewFoods.Items[0].Selected = true;
-                        }//lstviewFoods.SelectedIndices.Add(0); }
-                        catch { }
-                    }));
-                    this.Invoke(new MethodInvoker(delegate { this.UseWaitCursor = false; }));
-                };
-                bw.RunWorkerAsync();
+                ignoreWarn();
             }
+        }
+        private void richTxtWarn_MouseClick(object sender, MouseEventArgs e){
+            if (warning)
+                ignoreWarn();
+        }
+
+        private void ignoreWarn()
+        {
+            //if (!richTxtWarn.Enabled)
+            //return;
+            richTxtWarn.Text = "searching...";
+            lstviewFoods.Items.Clear();
+            bw = new BackgroundWorker();
+            bw.DoWork += delegate
+            {
+                this.Invoke(new MethodInvoker(delegate { this.UseWaitCursor = true; }));
+
+                lstviewFoods.Invoke(new MethodInvoker(delegate
+                {
+                    lstviewFoods.BeginUpdate();
+                    foreach (ListViewItem itm in itms)
+                        lstviewFoods.Items.Add(itm);
+                    lstviewFoods.EndUpdate();
+                }));
+                for (int i = 0; i < nutKeyPairs.Length; i++)
+                    if (nutKeyPairs[i].Contains("|FoodName"))
+                        lstviewFoods.Invoke(new MethodInvoker(delegate { lstviewFoods.Columns[i].AutoResize(ColumnHeaderAutoResizeStyle.ColumnContent); }));
+
+                warning = false;
+                this.Invoke(new MethodInvoker(delegate
+                {
+                    richTxtWarn.Text = "Finished!";
+                    lstviewFoods.Focus();
+                    try
+                    {
+                        lstviewFoods.Items[0].Focused = true;
+                        lstviewFoods.Items[0].Selected = true;
+                    }//lstviewFoods.SelectedIndices.Add(0); }
+                        catch { }
+                }));
+                this.Invoke(new MethodInvoker(delegate { this.UseWaitCursor = false; }));
+            };
+            bw.RunWorkerAsync();
         }
 
         private void txtQty_TextChanged(object sender, EventArgs e)
@@ -467,13 +476,10 @@ namespace Nutritracker
                     if (daysLogLines[j][k] != "--Lunch--")
                         logObjs[j].lEntries.Add(daysLogLines[j][k]);
                 }
-                while (true)
-                {
-                    if (k++ == daysLogLines[j].Length - 1)
-                        break;
-                    if (daysLogLines[j][k] != "--Dinner--")
+                while (k++ < daysLogLines[j].Length - 1)
+                    if (daysLogLines[j][k] != "--Dinner--" && daysLogLines[j][k] != "")
                         logObjs[j].dEntries.Add(daysLogLines[j][k]);
-                }
+                
                 Thread.Sleep(10);
             }
             foreach (dLogObj l in logObjs)
@@ -538,9 +544,11 @@ namespace Nutritracker
         }
         
         private void lstviewFoods_KeyDown(object sender, KeyEventArgs e){
-            if (e.KeyCode == Keys.Return){
-                txtQty.Focus();
-            }
+            if (e.KeyCode == Keys.Return)
+                txtQty.Focus();            
+        }
+        private void lstviewFoods_MouseUp(object sender, MouseEventArgs e){
+            txtQty.Focus();
         }
     }
 }

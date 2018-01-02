@@ -213,6 +213,7 @@
             this.lstviewFoods.TabStop = false;
             this.lstviewFoods.UseCompatibleStateImageBehavior = false;
             this.lstviewFoods.View = System.Windows.Forms.View.Details;
+            this.lstviewFoods.MouseUp += new System.Windows.Forms.MouseEventHandler(this.lstviewFoods_MouseUp);
             this.lstviewFoods.SelectedIndexChanged += new System.EventHandler(this.lstviewFoods_SelectedIndexChanged);
             this.lstviewFoods.KeyDown += new System.Windows.Forms.KeyEventHandler(this.lstviewFoods_KeyDown);
             this.lstviewFoods.Leave += new System.EventHandler(this.lstviewFoods_Leave);
@@ -305,11 +306,13 @@
             this.richTxtWarn.ForeColor = System.Drawing.Color.Red;
             this.richTxtWarn.Location = new System.Drawing.Point(6, 19);
             this.richTxtWarn.Name = "richTxtWarn";
+            this.richTxtWarn.Cursor = System.Windows.Forms.Cursors.Hand;
             this.richTxtWarn.ReadOnly = true;
             this.richTxtWarn.Size = new System.Drawing.Size(209, 37);
             this.richTxtWarn.TabIndex = 0;
             this.richTxtWarn.TabStop = false;
             this.richTxtWarn.Text = "";
+            this.richTxtWarn.MouseClick += new System.Windows.Forms.MouseEventHandler(this.richTxtWarn_MouseClick);
             // 
             // lblCurrentFood
             // 

@@ -225,6 +225,9 @@ namespace Nutritracker
                     dates.Add(s.Split('\n')[0]);
                 foreach (string s in dates)                
                     comboLoggedDays.Items.Add(s);
+                string _today = DateTime.Now.ToString().Split(' ')[0];
+                if (!dates.Contains(_today))
+                    comboLoggedDays.Items.Add(_today);
                 
 
                 bLog = new List<logItem>();
@@ -1517,10 +1520,8 @@ namespace Nutritracker
         //string[] rwEx = new string[5];
         private void dataExercise_KeyDown(object sender, KeyEventArgs e)
         {
-
             if (e.KeyCode.ToString() == "Delete")
                 btnRemEx.PerformClick();
-
         }
         private void txtExerciseVal_KeyPress(object sender, KeyPressEventArgs e)
         {
