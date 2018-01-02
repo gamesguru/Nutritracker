@@ -120,14 +120,14 @@ namespace Nutritracker
                     int c = lines[i].IndexOf("#");
                     
                     richTxtInput.Select(m + c, l - c);
-                    richTxtInput.SelectionColor = Color.Blue;
+                    richTxtInput.SelectionColor = Color.Gray;
                     richTxtInput.SelectionFont = new Font(font, FontStyle.Italic);
                     richTxtInput.Select(z, 0);
                 }
                 else
                 {
                     richTxtInput.Select(m, l);
-                    richTxtInput.SelectionColor = Color.Black;
+                    richTxtInput.SelectionColor = Color.Red;
                     richTxtInput.SelectionFont = new Font(font, FontStyle.Regular);
                     richTxtInput.Select(z, 0);
                 }
@@ -139,7 +139,7 @@ namespace Nutritracker
                     if (availFields.Contains(words[j]))
                     {
                         richTxtInput.Select(n, words[j].Length);
-                        richTxtInput.SelectionColor = Color.Red;
+                        richTxtInput.SelectionColor = Color.Blue;
                         richTxtInput.SelectionFont = new Font(font, FontStyle.Bold);
                         richTxtInput.Select(z, 0);
                     }

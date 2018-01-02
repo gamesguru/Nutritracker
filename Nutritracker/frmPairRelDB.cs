@@ -212,6 +212,7 @@ namespace Nutritracker
         int _n = 0;
         private void checkedListBox1_KeyDown(object sender, KeyEventArgs e)
         {
+            //numUpDown++
             if (e.KeyCode == Keys.Return)            
                 nextEntry();            
         }
@@ -288,6 +289,10 @@ namespace Nutritracker
         char[] _delims = new char[] { '/', ',', ' ' };
         private void txtTweak_TextChanged(object sender, EventArgs e)
         {
+            //
+            //refresh listview
+            //search over fieldObjs
+            //
             if (mH)
                 return;
             checkedListBox1.Items.Clear();
@@ -344,17 +349,29 @@ namespace Nutritracker
         string metricName = "";
         private void numUpDownIndex_ValueChanged(object sender, EventArgs e)
         {
+            //
+            //refresh listview, groupbox, lblVal, and txtTweak
+            //use numIndex and fieldObjs
+            //
             _n = Convert.ToInt32(numUpDownIndex.Value) - 1;
+            fObj f = fieldObjs[_n];
+            foreach (vObj v in valNamePairs)
+                if (v.name == foodNamesToPair[_n])
+                {
+                    lblFieldVal.Text = $"{metricName} value: {v.val}";
+                    value = v.val;
+                    //MessageBox.Show(value);
+                }
             checkedListBox1.Items.Clear();
             usdaDB.wMatch = new int[usdaDB.names.Length];
             foreach (string s in foodNamesToPair[_n].Split(_delims))
                 for (int i = 0; i < usdaDB.names.Length; i++)
-                    if (s.Length > 2 && usdaDB.names[i].ToUpper().Contains(s.ToUpper()))
-                    {
-                        usdaDB.wMatch[i]++;
-                        usdaDB.joinedMatches[i] += s + ", ";
-                    }
-
+                    if (s.Length > 2 && usdaDB.names[i].ToUpper().Contains(s.ToUpper()))                    
+                        usdaDB.wMatch[i]++; //usdaDB.joinedMatches[i] += s + ", ";
+                    
+            //    foreach (var c in checkedListBox1.CheckedItems)
+            //        ns.Add(c.ToString().Split(new string[] { "--" }, StringSplitOptions.None)[0]);
+            //    fieldObjs[i].ndbnos = ns.ToArray();
             int m = usdaDB.wMatch.Max();
             int q = 0;
             for (int i = m; i > 0; i--)
@@ -365,28 +382,25 @@ namespace Nutritracker
                         checkedListBox1.Items.Add(itm);
                         q++;
                     }
-
             n = foodNamesToPair.Length;
             groupBox1.Text = $"{q} Possible Matches ({_n} of {n})  — {foodNamesToPair[_n]}";
-            foreach (vObj v in valNamePairs)
-                if (v.name == foodNamesToPair[_n])
-                {
-                    lblFieldVal.Text = $"{metricName} value: {v.val}";
-                    value = v.val;
-                }
-            for (int i = 0; i < fieldObjs.Length; i++)
-            {
-                //fieldObjs[i] = new fObj();
-                fieldObjs[i].index = i;
-                fieldObjs[i].value = value;
-                List<string> ns = new List<string>();
-                foreach (var c in checkedListBox1.CheckedItems)
-                    ns.Add(c.ToString().Split(new string[] { "--" }, StringSplitOptions.None)[0]);
-                fieldObjs[i].ndbnos = ns.ToArray();
-            }
             mH = true;
             txtTweak.Text = foodNamesToPair[_n];
             mH = false;
+
+            //for (int i = 0; i < fieldObjs.Length; i++)
+            //{
+            //    //fieldObjs[i] = new fObj();
+            //    fieldObjs[i].index = i;
+            //    fieldObjs[i].value = value;
+            //    List<string> ns = new List<string>();
+            //    foreach (var c in checkedListBox1.CheckedItems)
+            //        ns.Add(c.ToString().Split(new string[] { "--" }, StringSplitOptions.None)[0]);
+            //    fieldObjs[i].ndbnos = ns.ToArray();
+            //}
+            //mH = true;
+            //txtTweak.Text = foodNamesToPair[_n];
+            //mH = false;
         }
 
         private void button2_Click(object sender, EventArgs e)
