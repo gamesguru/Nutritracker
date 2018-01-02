@@ -561,8 +561,8 @@
             // 
             this.decomposeRecipeToolStripMenuItem.Name = "decomposeRecipeToolStripMenuItem";
             this.decomposeRecipeToolStripMenuItem.Size = new System.Drawing.Size(216, 22);
-            this.decomposeRecipeToolStripMenuItem.Text = "Decompose Recipe";
-            this.decomposeRecipeToolStripMenuItem.Click += new System.EventHandler(this.decomposeRecipeToolStripMenuItem_Click);
+            this.decomposeRecipeToolStripMenuItem.Text = "Analyze Ingriedent List";
+            this.decomposeRecipeToolStripMenuItem.Click += new System.EventHandler(this.analyzeIngriedientListToolStripMenuItem_Click);
             // 
             // rankFoodsByNutrientToolStripMenuItem
             // 

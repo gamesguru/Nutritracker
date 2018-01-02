@@ -1,13 +1,12 @@
 ﻿<Properties StartupConfiguration="{086472C5-DD1F-4872-9BF1-9F9B633A376F}|Default">
   <MonoDevelop.Ide.Workbench ActiveDocument="Nutritracker/frmSearchFoods.cs">
     <Files>
+      <File FileName="Nutritracker/frmMain.cs" Line="1710" Column="10" />
+      <File FileName="Nutritracker/frmNewDBrel.cs" Line="352" Column="24" />
+      <File FileName="Nutritracker/frmPairRelDB.cs" Line="247" Column="43" />
       <File FileName="Nutritracker/frmManageDB.cs" Line="795" Column="26" />
-      <File FileName="Nutritracker/frmPairRelDB.cs" Line="77" Column="47" />
       <File FileName="Nutritracker/frmDetailReport.cs" Line="116" Column="47" />
-      <File FileName="Nutritracker/frmDecomposeRecipe.cs" Line="11" Column="23" />
-      <File FileName="Nutritracker/frmSearchFoods.cs" Line="791" Column="80" />
-      <File FileName="Nutritracker/frmMain.cs" Line="1104" Column="13" />
-      <File FileName="Nutritracker/frmNewDBrel.cs" Line="360" Column="69" />
+      <File FileName="Nutritracker/frmSearchFoods.cs" Line="508" Column="26" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />

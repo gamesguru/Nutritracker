@@ -1706,7 +1706,7 @@ namespace Nutritracker
             frmAF.ShowDialog();
         }
 
-        private void decomposeRecipeToolStripMenuItem_Click(object sender, EventArgs e)
+        private void analyzeIngriedientListToolStripMenuItem_Click(object sender, EventArgs e)
         {
             frmDecomposeRecipe frmDR = new frmDecomposeRecipe();
             frmDR.ShowDialog();

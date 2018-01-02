@@ -83,7 +83,7 @@ namespace Nutritracker
             {
                 int index = Convert.ToInt32(File.ReadAllLines($"{Application.StartupPath}{slash}usr{slash}profile{frmMain.currentUser.index}{slash}DBs{slash}Default.TXT")[0]);
                 comboDBs.SelectedIndex = index;
-            }           
+            }
         }
 
         private string nameKeyPath = "";
@@ -168,7 +168,7 @@ namespace Nutritracker
                 {
                     MessageBox.Show("The nutrient keys have not been paired for this database.  You will be taken to the admin center.", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     frmManageDB frmMDB = new frmManageDB();
-                    NewMethod(frmMDB);
+                    frmMDB.nutkeyPath = $"{Application.StartupPath}{slash}usr{slash}share{slash}DBs{slash}{db}{slash}_nutKeyPairs.TXT";
                     frmMDB.ShowDialog();
                 }
             }
@@ -201,12 +201,6 @@ namespace Nutritracker
             }
         }
 
-        private void NewMethod(frmManageDB frmMDB)
-        {
-            frmMDB.nutkeyPath = $"{Application.StartupPath}{slash}usr{slash}share{slash}DBs{slash}{db}{slash}_nutKeyPairs.TXT";
-
-        }
-
         private void manageBasicFieldsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             string db = comboDBs.Text.Replace(" (share)", "");
@@ -216,13 +210,7 @@ namespace Nutritracker
         }
 
 
-
-
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
+        private void btnCancel_Click(object sender, EventArgs e) => this.Close();
 
         private void txtSrch_TextChanged(object sender, EventArgs e)
         {
@@ -245,10 +233,7 @@ namespace Nutritracker
             bw.DoWork += delegate
             {
                 try { search(); }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.ToString());
-                }
+                catch (Exception ex) { MessageBox.Show(ex.ToString()); }
             };
             try
             {
@@ -334,20 +319,13 @@ namespace Nutritracker
                 if (nutKeyPairs[i].Contains("|FoodName"))
                     lstviewFoods.Invoke(new MethodInvoker(delegate { lstviewFoods.Columns[i].AutoResize(ColumnHeaderAutoResizeStyle.ColumnContent); }));
 
-
             this.Invoke(new MethodInvoker(delegate { this.UseWaitCursor = false; }));
         }
 
         private bool warn(int n)
         {
             this.Invoke(new MethodInvoker(delegate { richTxtWarn.Text = $"Search for {n} foods? It may go slow\nPress enter to continue.."; }));
-
             return false;
-        }
-
-        private void richTxtWarn_DoubleClick(object sender, EventArgs e)
-        {
-
         }
 
         bool warning = false;
@@ -377,9 +355,13 @@ namespace Nutritracker
                             lstviewFoods.Invoke(new MethodInvoker(delegate { lstviewFoods.Columns[i].AutoResize(ColumnHeaderAutoResizeStyle.ColumnContent); }));
 
                     warning = false;
-                    this.Invoke(new MethodInvoker(delegate { richTxtWarn.Text = "Finished!";
+                    this.Invoke(new MethodInvoker(delegate
+                    {
+                        richTxtWarn.Text = "Finished!";
                         lstviewFoods.Focus();
-                        try { lstviewFoods.Items[0].Focused = true;
+                        try
+                        {
+                            lstviewFoods.Items[0].Focused = true;
                             lstviewFoods.Items[0].Selected = true;
                         }//lstviewFoods.SelectedIndices.Add(0); }
                         catch { }
@@ -400,6 +382,12 @@ namespace Nutritracker
             selectCheck();
         }
 
+        private void txtQty_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Return && btnAdd.Enabled)
+                btnAdd.PerformClick();
+        }
+
         private void comboMeal_SelectedIndexChanged(object sender, EventArgs e)
         {
             File.WriteAllText($"{Application.StartupPath}{slash}usr{slash}profile{frmMain.currentUser.index}{slash}DBs{slash}Meal.TXT", comboMeal.SelectedIndex.ToString());
@@ -412,35 +400,123 @@ namespace Nutritracker
         }
 
         string ndbno = "";
-        double grams = 0;
+        double grams = 0.0;
         private void btnAdd_Click(object sender, EventArgs e)
         {
             db = comboDBs.Text.Split(' ')[0];
             grams = 0;
             try { grams = Convert.ToDouble(txtQty.Text); }
-            catch{
+            catch
+            {
                 MessageBox.Show("Not a valid weight.", "", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return;
             }
 
             if (lstviewFoods.SelectedItems.Count == 0)
-                {
+            {
                 MessageBox.Show("No food selected.", "", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return;
-                }
+            }
+            if (grams == 0.0)
+            {
+                MessageBox.Show("Invalid weight.", "", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
+            }
 
             ndbno = lstviewFoods.SelectedItems[0].SubItems[0].Text;
-            selectCheck();
-        }
+            string[] wholeLogLines = File.ReadAllLines($"{Application.StartupPath}{slash}usr{slash}profile{frmMain.currentUser.index}{slash}foodLog.TXT");
+            List<string[]> daysLogLines = new List<string[]>();
 
+            int dCount = 0;
+            foreach (string s in wholeLogLines)
+                if (s == "===========")
+                    dCount++;
+
+            int i = 0;
+            while (true)
+            {
+                if (i == wholeLogLines.Length - 1)
+                    break;
+                List<string> entry = new List<string>();
+                while (wholeLogLines[++i] != "===========")
+                {
+                    if (i == wholeLogLines.Length - 1)
+                        break;
+                    entry.Add(wholeLogLines[i]);
+                }
+                if (entry.Count > 0)
+                    daysLogLines.Add(entry.ToArray());
+            }
+            dLogObj[] logObjs = new dLogObj[dCount];
+            for (int j = 0; j < dCount; j++)
+                logObjs[j] = new dLogObj();
+
+            for (int j = 0; j < dCount; j++)
+            {
+                logObjs[j].date = daysLogLines[j][0];
+                int k = 0;
+                while (true)
+                {
+                    if (daysLogLines[j][++k] == "--Lunch--")
+                        break;
+                    if (daysLogLines[j][k] != "--Breakfast--")
+                        logObjs[j].bEntries.Add(daysLogLines[j][k]);
+                }
+                while (true)
+                {
+                    if (daysLogLines[j][++k] == "--Dinner--")
+                        break;
+                    if (daysLogLines[j][k] != "--Lunch--")
+                        logObjs[j].lEntries.Add(daysLogLines[j][k]);
+                }
+                while (true)
+                {
+                    if (k++ == daysLogLines[j].Length - 1)
+                        break;
+                    if (daysLogLines[j][k] != "--Dinner--")
+                        logObjs[j].dEntries.Add(daysLogLines[j][k]);
+                }
+            }
+            foreach (dLogObj l in logObjs)
+                if (l.date == frmMain.dte)
+                {
+                    if (comboMeal.SelectedIndex == 0) //breakfast   
+                        l.bEntries.Add($"{db}|{ndbno}|{grams}");
+                    else if (comboMeal.SelectedIndex == 1) //lunch
+                        l.lEntries.Add($"{db}|{ndbno}|{grams}");
+                    else //dinner
+                        l.dEntries.Add($"{db}|{ndbno}|{grams}");
+                }
+
+            List<string> output = new List<string>();
+            foreach (dLogObj l in logObjs)
+            {
+                output.Add("===========");
+                output.Add(l.date);
+                output.Add("--Breakfast--");
+                foreach (string st in l.bEntries)
+                    output.Add($"{st.Split('|')[0]}|{st.Split('|')[1]}|{st.Split('|')[2]}");
+                output.Add("--Lunch--");
+                foreach (string st in l.lEntries)
+                    output.Add($"{st.Split('|')[0]}|{st.Split('|')[1]}|{st.Split('|')[2]}");
+                output.Add("--Dinner--");
+                foreach (string st in l.dEntries)
+                    output.Add($"{st.Split('|')[0]}|{st.Split('|')[1]}|{st.Split('|')[2]}");
+            }
+            output.Add("");
+            File.WriteAllLines($"{Application.StartupPath}{slash}usr{slash}profile{frmMain.currentUser.index}{slash}foodLog.TXT", output);
+            this.Close();
+        }
+    
+        class dLogObj{
+            public string date;
+            public List<string> bEntries = new List<string>();
+            public List<string> lEntries = new List<string>();
+            public List<string> dEntries = new List<string>();
+        }
         private void lstviewFoods_Leave(object sender, EventArgs e)
         {
-            try
-            {
-                ndbno = lstviewFoods.SelectedItems[0].SubItems[0].Text;
-                label1.Text = ndbno;
-
-            }
+            try { ndbno = lstviewFoods.SelectedItems[0].SubItems[0].Text;  }
             catch { }
             selectCheck();
         }
@@ -458,9 +534,15 @@ namespace Nutritracker
             try
             {
                 ndbno = lstviewFoods.SelectedItems[0].SubItems[0].Text;
-                lblCurrentFood.Text = "Selected food: " + lstviewFoods.SelectedItems[0].SubItems[1].Text.Substring(0, Math.Min(30, lstviewFoods.SelectedItems[0].SubItems[1].Text.Length));
+                lblCurrentFood.Text = "Selected food: " + ndbno;//lblCurrentFood.Text = "Selected food: " + lstviewFoods.SelectedItems[0].SubItems[1].Text.Substring(0, Math.Min(30, lstviewFoods.SelectedItems[0].SubItems[1].Text.Length));
             }
             catch { }
+        }
+        
+        private void lstviewFoods_KeyDown(object sender, KeyEventArgs e){
+            if (e.KeyCode == Keys.Return){
+                txtQty.Focus();
+            }
         }
     }
 }

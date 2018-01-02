@@ -70,7 +70,7 @@
             this.btnCancel.TabStop = false;
             this.btnCancel.Text = "Exit";
             this.btnCancel.UseVisualStyleBackColor = true;
-            this.btnCancel.Click += new System.EventHandler(this.button1_Click);
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
             // comboMeal
             // 
@@ -85,7 +85,7 @@
             this.comboMeal.Location = new System.Drawing.Point(224, 511);
             this.comboMeal.Name = "comboMeal";
             this.comboMeal.Size = new System.Drawing.Size(127, 32);
-            this.comboMeal.TabIndex = 3;
+            this.comboMeal.TabIndex = 4;
             this.comboMeal.SelectedIndexChanged += new System.EventHandler(this.comboMeal_SelectedIndexChanged);
             // 
             // label6
@@ -134,8 +134,9 @@
             this.txtQty.MaxLength = 5;
             this.txtQty.Name = "txtQty";
             this.txtQty.Size = new System.Drawing.Size(74, 29);
-            this.txtQty.TabIndex = 1;
+            this.txtQty.TabIndex = 2;
             this.txtQty.TextChanged += new System.EventHandler(this.txtQty_TextChanged);
+            this.txtQty.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtQty_KeyDown);
             // 
             // label3
             // 
@@ -156,7 +157,7 @@
             this.btnAdd.Location = new System.Drawing.Point(9, 500);
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Size = new System.Drawing.Size(141, 53);
-            this.btnAdd.TabIndex = 2;
+            this.btnAdd.TabIndex = 3;
             this.btnAdd.Text = "Add to Log";
             this.btnAdd.UseVisualStyleBackColor = true;
             this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
@@ -208,12 +209,13 @@
             this.lstviewFoods.MultiSelect = false;
             this.lstviewFoods.Name = "lstviewFoods";
             this.lstviewFoods.Size = new System.Drawing.Size(1088, 297);
-            this.lstviewFoods.TabIndex = 18;
+            this.lstviewFoods.TabIndex = 1;
             this.lstviewFoods.TabStop = false;
             this.lstviewFoods.UseCompatibleStateImageBehavior = false;
             this.lstviewFoods.View = System.Windows.Forms.View.Details;
             this.lstviewFoods.SelectedIndexChanged += new System.EventHandler(this.lstviewFoods_SelectedIndexChanged);
             this.lstviewFoods.Leave += new System.EventHandler(this.lstviewFoods_Leave);
+            this.lstviewFoods.KeyDown += new System.Windows.Forms.KeyEventHandler(this.lstviewFoods_KeyDown);
             // 
             // groupBox1
             // 
@@ -285,7 +287,7 @@
             // srchTmout
             // 
             this.srchTmout.Enabled = true;
-            this.srchTmout.Interval = 450;
+            this.srchTmout.Interval = 180;
             this.srchTmout.Tick += new System.EventHandler(this.srchTmout_Tick);
             // 
             // groupBox3
@@ -308,7 +310,6 @@
             this.richTxtWarn.TabIndex = 0;
             this.richTxtWarn.TabStop = false;
             this.richTxtWarn.Text = "";
-            this.richTxtWarn.DoubleClick += new System.EventHandler(this.richTxtWarn_DoubleClick);
             // 
             // lblCurrentFood
             // 
