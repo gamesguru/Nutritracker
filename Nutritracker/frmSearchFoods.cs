@@ -433,14 +433,12 @@ namespace Nutritracker
                     dCount++;
 
             int i = 0;
-            while (true)
+            while (i < wholeLogLines.Length)
             {
-                if (i == wholeLogLines.Length - 1)
-                    break;
                 List<string> entry = new List<string>();
-                while (wholeLogLines[++i] != "===========")
+                while (++i < wholeLogLines.Length)
                 {
-                    if (i == wholeLogLines.Length - 1)
+                    if (wholeLogLines[i] == "===========")
                         break;
                     entry.Add(wholeLogLines[i]);
                 }
@@ -476,6 +474,7 @@ namespace Nutritracker
                     if (daysLogLines[j][k] != "--Dinner--")
                         logObjs[j].dEntries.Add(daysLogLines[j][k]);
                 }
+                Thread.Sleep(10);
             }
             foreach (dLogObj l in logObjs)
                 if (l.date == frmMain.dte)
@@ -503,7 +502,6 @@ namespace Nutritracker
                 foreach (string st in l.dEntries)
                     output.Add($"{st.Split('|')[0]}|{st.Split('|')[1]}|{st.Split('|')[2]}");
             }
-            output.Add("");
             File.WriteAllLines($"{Application.StartupPath}{slash}usr{slash}profile{frmMain.currentUser.index}{slash}foodLog.TXT", output);
             this.Close();
         }

@@ -63,7 +63,7 @@
             this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnCancel.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCancel.Location = new System.Drawing.Point(979, 495);
+            this.btnCancel.Location = new System.Drawing.Point(696, 495);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(119, 63);
             this.btnCancel.TabIndex = 29;
@@ -208,14 +208,14 @@
             this.lstviewFoods.Location = new System.Drawing.Point(10, 162);
             this.lstviewFoods.MultiSelect = false;
             this.lstviewFoods.Name = "lstviewFoods";
-            this.lstviewFoods.Size = new System.Drawing.Size(1088, 297);
+            this.lstviewFoods.Size = new System.Drawing.Size(805, 297);
             this.lstviewFoods.TabIndex = 1;
             this.lstviewFoods.TabStop = false;
             this.lstviewFoods.UseCompatibleStateImageBehavior = false;
             this.lstviewFoods.View = System.Windows.Forms.View.Details;
             this.lstviewFoods.SelectedIndexChanged += new System.EventHandler(this.lstviewFoods_SelectedIndexChanged);
-            this.lstviewFoods.Leave += new System.EventHandler(this.lstviewFoods_Leave);
             this.lstviewFoods.KeyDown += new System.Windows.Forms.KeyEventHandler(this.lstviewFoods_KeyDown);
+            this.lstviewFoods.Leave += new System.EventHandler(this.lstviewFoods_Leave);
             // 
             // groupBox1
             // 
@@ -255,7 +255,7 @@
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            this.menuStrip1.Size = new System.Drawing.Size(1110, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(827, 24);
             this.menuStrip1.TabIndex = 32;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -327,7 +327,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnCancel;
-            this.ClientSize = new System.Drawing.Size(1110, 570);
+            this.ClientSize = new System.Drawing.Size(827, 570);
             this.Controls.Add(this.lblCurrentFood);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox1);
