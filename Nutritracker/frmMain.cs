@@ -1357,7 +1357,8 @@ namespace Nutritracker
             for (int i = 0; i < dataDay.Rows.Count - 2; i++)
                 if (dataDay.Rows[i].Cells[0].Value != null && dataDay.Rows[i].Cells[0].Value.ToString() == "Breakfast")
                     bDay = i + 1;
-            dataDay.Rows.Insert(bDay, bLog.Count());
+            if (bLog.Count() > 0)
+                dataDay.Rows.Insert(bDay, bLog.Count());
             for (int i = 0; i < bLog.Count(); i++)
             {
                 string[] ingrieds = fetchNutValues(currentBasicFields, bLog[i]);//new string[currentBasicFields.Length];
@@ -1369,7 +1370,8 @@ namespace Nutritracker
             for (int i = 0; i < dataDay.Rows.Count - 2; i++)
                 if (dataDay.Rows[i].Cells[0].Value != null && dataDay.Rows[i].Cells[0].Value.ToString() == "Lunch")
                     lDay = i + 1;
-            dataDay.Rows.Insert(lDay, lLog.Count());
+            if (lLog.Count() > 0)
+                dataDay.Rows.Insert(lDay, lLog.Count());
             for (int i = 0; i < lLog.Count(); i++)
             {
                 string[] ingrieds = fetchNutValues(currentBasicFields, lLog[i]);//new string[currentBasicFields.Length];
@@ -1381,7 +1383,8 @@ namespace Nutritracker
             for (int i = 0; i < dataDay.Rows.Count - 2; i++)
                 if (dataDay.Rows[i].Cells[0].Value != null && dataDay.Rows[i].Cells[0].Value.ToString() == "Dinner")
                     dDay = i + 1;
-            dataDay.Rows.Insert(dDay, dLog.Count());
+            if (dLog.Count() > 0)
+                dataDay.Rows.Insert(dDay, dLog.Count());
             for (int i = 0; i < dLog.Count(); i++)
             {
                 string[] ingrieds = fetchNutValues(currentBasicFields, dLog[i]);//new string[currentBasicFields.Length];

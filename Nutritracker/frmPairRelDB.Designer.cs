@@ -34,11 +34,13 @@
             this.btnBegin = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.checkedListBox1 = new System.Windows.Forms.CheckedListBox();
-            this.btnGoBack = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.txtTweak = new System.Windows.Forms.TextBox();
             this.lblTweak = new System.Windows.Forms.Label();
+            this.numUpDownIndex = new System.Windows.Forms.NumericUpDown();
+            this.lblNum = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numUpDownIndex)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -77,9 +79,9 @@
             // 
             this.groupBox1.Controls.Add(this.checkedListBox1);
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox1.Location = new System.Drawing.Point(12, 74);
+            this.groupBox1.Location = new System.Drawing.Point(12, 63);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(594, 208);
+            this.groupBox1.Size = new System.Drawing.Size(594, 203);
             this.groupBox1.TabIndex = 4;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Possible Matches (0 of 0)  — none";
@@ -93,29 +95,20 @@
             this.checkedListBox1.Name = "checkedListBox1";
             this.checkedListBox1.Size = new System.Drawing.Size(582, 174);
             this.checkedListBox1.TabIndex = 7;
+            this.checkedListBox1.TabStop = false;
             this.checkedListBox1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.checkedListBox1_KeyDown);
-            // 
-            // btnGoBack
-            // 
-            this.btnGoBack.Enabled = false;
-            this.btnGoBack.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnGoBack.Location = new System.Drawing.Point(12, 289);
-            this.btnGoBack.Name = "btnGoBack";
-            this.btnGoBack.Size = new System.Drawing.Size(92, 36);
-            this.btnGoBack.TabIndex = 5;
-            this.btnGoBack.Text = "Go Back";
-            this.btnGoBack.UseVisualStyleBackColor = true;
             // 
             // button2
             // 
-            this.button2.Enabled = false;
             this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button2.Location = new System.Drawing.Point(533, 289);
+            this.button2.Location = new System.Drawing.Point(467, 272);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(92, 36);
+            this.button2.Size = new System.Drawing.Size(139, 36);
             this.button2.TabIndex = 6;
-            this.button2.Text = "Save!";
+            this.button2.TabStop = false;
+            this.button2.Text = "Close";
             this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // txtTweak
             // 
@@ -126,6 +119,7 @@
             this.txtTweak.TabIndex = 7;
             this.txtTweak.Visible = false;
             this.txtTweak.TextChanged += new System.EventHandler(this.txtTweak_TextChanged);
+            this.txtTweak.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtTweak_KeyDown);
             // 
             // lblTweak
             // 
@@ -138,15 +132,42 @@
             this.lblTweak.Text = "Tweak name:";
             this.lblTweak.Visible = false;
             // 
+            // numUpDownIndex
+            // 
+            this.numUpDownIndex.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.numUpDownIndex.Location = new System.Drawing.Point(15, 287);
+            this.numUpDownIndex.Name = "numUpDownIndex";
+            this.numUpDownIndex.Size = new System.Drawing.Size(89, 26);
+            this.numUpDownIndex.TabIndex = 9;
+            this.numUpDownIndex.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numUpDownIndex.Visible = false;
+            this.numUpDownIndex.ValueChanged += new System.EventHandler(this.numUpDownIndex_ValueChanged);
+            // 
+            // lblNum
+            // 
+            this.lblNum.AutoSize = true;
+            this.lblNum.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblNum.Location = new System.Drawing.Point(12, 268);
+            this.lblNum.Name = "lblNum";
+            this.lblNum.Size = new System.Drawing.Size(82, 16);
+            this.lblNum.TabIndex = 10;
+            this.lblNum.Text = "Goto entry #:";
+            this.lblNum.Visible = false;
+            // 
             // frmPairRelDB
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(637, 337);
+            this.ClientSize = new System.Drawing.Size(617, 322);
+            this.Controls.Add(this.lblNum);
+            this.Controls.Add(this.numUpDownIndex);
             this.Controls.Add(this.lblTweak);
             this.Controls.Add(this.txtTweak);
             this.Controls.Add(this.button2);
-            this.Controls.Add(this.btnGoBack);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.btnBegin);
             this.Controls.Add(this.comboBox1);
@@ -159,6 +180,7 @@
             this.Text = "frmPairRelDB";
             this.Load += new System.EventHandler(this.frmPairRelDB_Load);
             this.groupBox1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.numUpDownIndex)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -170,10 +192,11 @@
         private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.Button btnBegin;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.Button btnGoBack;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.CheckedListBox checkedListBox1;
         private System.Windows.Forms.TextBox txtTweak;
         private System.Windows.Forms.Label lblTweak;
+        private System.Windows.Forms.NumericUpDown numUpDownIndex;
+        private System.Windows.Forms.Label lblNum;
     }
 }
