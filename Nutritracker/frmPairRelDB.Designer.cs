@@ -39,6 +39,7 @@
             this.lblTweak = new System.Windows.Forms.Label();
             this.numUpDownIndex = new System.Windows.Forms.NumericUpDown();
             this.lblNum = new System.Windows.Forms.Label();
+            this.lblFieldVal = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numUpDownIndex)).BeginInit();
             this.SuspendLayout();
@@ -96,6 +97,7 @@
             this.checkedListBox1.Size = new System.Drawing.Size(582, 174);
             this.checkedListBox1.TabIndex = 7;
             this.checkedListBox1.TabStop = false;
+            this.checkedListBox1.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.checkedListBox1_ItemCheck);
             this.checkedListBox1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.checkedListBox1_KeyDown);
             // 
             // button2
@@ -158,11 +160,23 @@
             this.lblNum.Text = "Goto entry #:";
             this.lblNum.Visible = false;
             // 
+            // lblFieldVal
+            // 
+            this.lblFieldVal.AutoSize = true;
+            this.lblFieldVal.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblFieldVal.Location = new System.Drawing.Point(152, 281);
+            this.lblFieldVal.Name = "lblFieldVal";
+            this.lblFieldVal.Size = new System.Drawing.Size(122, 24);
+            this.lblFieldVal.TabIndex = 11;
+            this.lblFieldVal.Text = "Field value: 0";
+            this.lblFieldVal.Visible = false;
+            // 
             // frmPairRelDB
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(617, 322);
+            this.Controls.Add(this.lblFieldVal);
             this.Controls.Add(this.lblNum);
             this.Controls.Add(this.numUpDownIndex);
             this.Controls.Add(this.lblTweak);
@@ -198,5 +212,6 @@
         private System.Windows.Forms.Label lblTweak;
         private System.Windows.Forms.NumericUpDown numUpDownIndex;
         private System.Windows.Forms.Label lblNum;
+        private System.Windows.Forms.Label lblFieldVal;
     }
 }

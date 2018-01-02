@@ -60,6 +60,7 @@ namespace Nutritracker
             txtTweak.Visible = true;
             lblNum.Visible = true;
             numUpDownIndex.Visible = true;
+            lblFieldVal.Visible = true;
             
             string[] usdaNutKeyPairLines = File.ReadAllLines($"{usdaRoot}{slash}_nutKeyPairs.TXT");
             foreach (string s in usdaNutKeyPairLines)
@@ -102,13 +103,19 @@ namespace Nutritracker
         }
         private class fObj
         {
-            int index = 0;
-            string value;
-            string[] ndbnos;
+            public int index = 0;
+            public string value;
+            public string[] ndbnos;
+        }
+        private class vObj
+        {
+            public string val;
+            public string name;
         }
 
-        fObj[] fieldObjs = new fObj[0];
         List<string> metricsToTrack;
+        fObj[] fieldObjs = new fObj[0];
+        List<vObj> valNamePairs;
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             ndbs = new List<string>();
@@ -124,13 +131,12 @@ namespace Nutritracker
                 dbi d = new dbi();
                 string[] lines = s.Replace("\r", "").Split('\n');
                 d.file = lines[0];
-                foreach (string st in lines)
-                {
+                foreach (string st in lines)                
                     if (st.StartsWith("[Header]"))
                         d.header = st.Replace("[Header]", "");
                     else if (st.StartsWith("[Unit]"))
                         d.unit = st.Replace("[Unit]", "");
-                }
+                
                 dbInitKeys.Add(d);
             }
             foreach (string s in dbConfigItems)
@@ -146,14 +152,33 @@ namespace Nutritracker
                 dbConfigKeys.Add(d);
             }
 
-            foreach (dbc d in dbConfigKeys)
+            valNamePairs = new List<vObj>();
+            foreach (dbc d in dbConfigKeys)            
                 if (d.field == "FoodName")
+                {
                     foodNamesToPair = File.ReadAllLines(fieldRoot + d.file);
+                    string[] valsToPair = new string[0];
+                    foreach (dbc d2 in dbConfigKeys)
+                        if (d2.field=="Value1")
+                            valsToPair = File.ReadAllLines(fieldRoot + d2.file);
+                    for (int i = 0; i < foodNamesToPair.Length; i++)
+                    {
+                        vObj v = new vObj();
+                        v.name = foodNamesToPair[i];
+                        v.val = valsToPair[i];
+                        valNamePairs.Add(v);
+                    } 
+                }
+                            
 
             metricsToTrack = new List<string>();
             foreach (dbc d in dbConfigKeys)
+            {
                 if (d.metric != null && d.metric != "" && !metricsToTrack.Contains(d.metric))
                     metricsToTrack.Add(d.metric);
+                if (d.metric != null && d.metric != "" && d.field == "Value1")
+                    metricName = d.metric;
+            }
 
             n = foodNamesToPair.Length;
             fieldObjs = new fObj[n];
@@ -164,6 +189,9 @@ namespace Nutritracker
             numUpDownIndex.Maximum = n;
             groupBox1.Text = $"Possible Matches (1 of {n})  — {foodNamesToPair[0]}";
             this.Text = $"Pair {n} items for {comboBox1.Text} with USDA";
+            foreach (vObj v in valNamePairs)
+                if (v.name == foodNamesToPair[0])
+                    lblFieldVal.Text = $"{metricName} value: {v.val}";
             mH = true;
             numUpDownIndex.Value = 1;
             txtTweak.Text = foodNamesToPair[0];
@@ -223,6 +251,9 @@ namespace Nutritracker
 
             n = foodNamesToPair.Length;
             groupBox1.Text = $"{q} Possible Matches ({_n} of {n})  — {foodNamesToPair[_n]}";
+            foreach (vObj v in valNamePairs)
+                if (v.name == foodNamesToPair[_n])
+                    lblFieldVal.Text = $"{metricName} value: {v.val}";
             mH = true;
             numUpDownIndex.Value = _n;
             txtTweak.Text = foodNamesToPair[_n];
@@ -264,12 +295,16 @@ namespace Nutritracker
             
             n = foodNamesToPair.Length; 
             groupBox1.Text = $"{q} Possible Matches ({_n} of {n})  — {foodNamesToPair[_n]}";
+            foreach (vObj v in valNamePairs)
+                if (v.name == foodNamesToPair[_n])
+                    lblFieldVal.Text = $"{metricName} value: {v.val}";
             checkedListBox1.BeginUpdate();
             for (int i = 0; i < itms.Count;i++)
                 checkedListBox1.Items.Add(itms[i]);            
             checkedListBox1.EndUpdate();
         }
 
+        string metricName = "";
         private void numUpDownIndex_ValueChanged(object sender, EventArgs e)
         {
             _n = Convert.ToInt32(numUpDownIndex.Value);
@@ -296,6 +331,9 @@ namespace Nutritracker
 
             n = foodNamesToPair.Length;
             groupBox1.Text = $"{q} Possible Matches ({_n} of {n})  — {foodNamesToPair[_n]}";
+            foreach (vObj v in valNamePairs)
+                if (v.name == foodNamesToPair[_n])
+                    lblFieldVal.Text = $"{metricName} value: {v.val}";
             mH = true;
             txtTweak.Text = foodNamesToPair[_n];
             mH = false;
@@ -313,6 +351,11 @@ namespace Nutritracker
                 e.Handled = true;
                 checkedListBox1.Focus();
             }
+        }
+
+        private void checkedListBox1_ItemCheck(object sender, ItemCheckEventArgs e)
+        {
+
         }
     }
 }
