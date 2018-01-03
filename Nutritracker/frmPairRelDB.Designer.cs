@@ -142,7 +142,7 @@
             this.numUpDownIndex.Size = new System.Drawing.Size(89, 26);
             this.numUpDownIndex.TabIndex = 9;
             this.numUpDownIndex.Value = new decimal(new int[] {
-            1,
+            0,
             0,
             0,
             0});

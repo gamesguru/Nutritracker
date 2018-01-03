@@ -3,10 +3,11 @@
     <Files>
       <File FileName="Nutritracker/frmMain.cs" Line="1507" Column="28" />
       <File FileName="Nutritracker/frmNewDBrel.cs" Line="352" Column="24" />
-      <File FileName="Nutritracker/frmPairRelDB.cs" Line="357" Column="14" />
+      <File FileName="Nutritracker/frmPairRelDB.cs" Line="422" Column="102" />
       <File FileName="Nutritracker/frmManageDB.cs" Line="795" Column="26" />
       <File FileName="Nutritracker/frmDetailReport.cs" Line="116" Column="47" />
-      <File FileName="Nutritracker/frmSearchFoods.cs" Line="513" Column="10" />
+      <File FileName="Nutritracker/frmSearchFoods.cs" Line="366" Column="1" />
+      <File FileName="Nutritracker/frmPairRelDB.Designer.cs" Line="145" Column="14" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
