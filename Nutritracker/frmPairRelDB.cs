@@ -251,47 +251,48 @@ namespace Nutritracker
             //File.WriteAllText($"{dir}{slash}progress.TXT", _n.ToString());
 
             _n++;
-            fObj f = fieldObjs[_n];
-            checkedListBox1.Items.Clear();
-            usdaDB.wMatch = new int[usdaDB.names.Length];
-            foreach (string s in foodNamesToPair[_n].Split(_delims))
-                for (int i = 0; i < usdaDB.names.Length; i++)
-                    if (s.Length > 2 && usdaDB.names[i].ToUpper().Contains(s.ToUpper()))
-                    {
-                        usdaDB.wMatch[i]++;
-                        usdaDB.joinedMatches[i] += s + ", ";
-                    }
+            numUpDownIndex.Value = _n;
+            //fObj f = fieldObjs[_n];
+            //checkedListBox1.Items.Clear();
+            //usdaDB.wMatch = new int[usdaDB.names.Length];
+            //foreach (string s in foodNamesToPair[_n].Split(_delims))
+            //    for (int i = 0; i < usdaDB.names.Length; i++)
+            //        if (s.Length > 2 && usdaDB.names[i].ToUpper().Contains(s.ToUpper()))
+            //        {
+            //            usdaDB.wMatch[i]++;
+            //            usdaDB.joinedMatches[i] += s + ", ";
+            //        }
 
-            int m = usdaDB.wMatch.Max();
-            int q = 0;
-            for (int i = m; i > 0; i--)
-                for (int j = 0; j < usdaDB.names.Length; j++)
-                    if (usdaDB.wMatch[j] == i)
-                    {
-                        if (q == 30)
-                            goto next;
-                        string itm = $"{usdaDB.ndbs[j]}--{usdaDB.names[j]}-[{usdaDB.wMatch[j]}]"; //-({usdaDB.joinedMatches[j]})";
-                        checkedListBox1.Items.Add(itm);
-                        q++;
-                    }
-                next:
-            n = foodNamesToPair.Length;
-            groupBox1.Text = $"{q} Possible Matches ({_n + 1} of {n})  — {foodNamesToPair[_n]}";
-            foreach (vObj v in valNamePairs)
-                if (v.name == foodNamesToPair[_n])
-                {
-                    lblFieldVal.Text = $"{metricName} value: {v.val}"; // at what point is v.val assigned??
-                    value = v.val;
-                }
+            //int m = usdaDB.wMatch.Max();
+            //int q = 0;
+            //for (int i = m; i > 0; i--)
+            //    for (int j = 0; j < usdaDB.names.Length; j++)
+            //        if (usdaDB.wMatch[j] == i)
+            //        {
+            //            if (q == 30)
+            //                goto next;
+            //            string itm = $"{usdaDB.ndbs[j]}--{usdaDB.names[j]}-[{usdaDB.wMatch[j]}]"; //-({usdaDB.joinedMatches[j]})";
+            //            checkedListBox1.Items.Add(itm);
+            //            q++;
+            //        }
+            //    next:
+            //n = foodNamesToPair.Length;
+            //groupBox1.Text = $"{q} Possible Matches ({_n + 1} of {n})  — {foodNamesToPair[_n]}";
+            //foreach (vObj v in valNamePairs)
+            //    if (v.name == foodNamesToPair[_n])
+            //    {
+            //        lblFieldVal.Text = $"{metricName} value: {v.val}"; // at what point is v.val assigned??
+            //        value = v.val;
+            //    }
 
-            List<string> ns = new List<string>();
-            foreach (var c in checkedListBox1.CheckedItems)
-                ns.Add(c.ToString().Split(new string[] { "--" }, StringSplitOptions.None)[0]);
-            f.ndbnos = ns.ToArray();
-            mH = true;
-            numUpDownIndex.Value = _n + 1;
-            txtTweak.Text = foodNamesToPair[_n];
-            mH = false;
+            //List<string> ns = new List<string>();
+            //foreach (var c in checkedListBox1.CheckedItems)
+            //    ns.Add(c.ToString().Split(new string[] { "--" }, StringSplitOptions.None)[0]);
+            //f.ndbnos = ns.ToArray();
+            //mH = true;
+            //numUpDownIndex.Value = _n + 1;
+            //txtTweak.Text = foodNamesToPair[_n];
+            //mH = false;
         }
 
         bool mH = false;
@@ -415,8 +416,7 @@ namespace Nutritracker
         }
         string value = "";
         List<string> chkNdbnos;
-        private void checkedListBox1_ItemCheck(object sender, ItemCheckEventArgs e)
-        {
+        private void checkedListBox1_Leave(object sender, EventArgs eventArgs){
             chkNdbnos = new List<string>();
             foreach (var c in checkedListBox1.CheckedItems)
                 chkNdbnos.Add(c.ToString().Split(new string[] { "--" }, StringSplitOptions.None)[0]);
