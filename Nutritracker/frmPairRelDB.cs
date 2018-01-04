@@ -71,7 +71,7 @@ namespace Nutritracker
 
             //work here
             storDir = $"{Application.StartupPath}{slash}usr{slash}profile{frmMain.currentUser.index}{slash}DBs{slash}_par_f{slash}{comboBox1.Text}";
-            MessageBox.Show(File.ReadAllText($"{storDir}{slash}progress.TXT"));
+            //MessageBox.Show(File.ReadAllText($"{storDir}{slash}progress.TXT"));
             try { _n = Convert.ToInt32(File.ReadAllText($"{storDir}{slash}progress.TXT")); }
             catch { _n = 0; }
             numUpDownIndex.Maximum = n;
