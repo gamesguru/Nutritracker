@@ -110,6 +110,7 @@ namespace Nutritracker
         private class fObj
         {
             public int index = 0;
+            public string name;
             public string value;
             public string[] ndbnos;
         }
@@ -117,8 +118,15 @@ namespace Nutritracker
         {
             public string val;
             public string name;
+            public int index;
         }
-
+        private class ndbNo{
+            public string num;
+            public string val;
+            //Gi readline index
+            //or Gi name??
+        }
+        List<string> ndbNos;
         List<string> metricsToTrack;
         fObj[] fieldObjs = new fObj[0];
         List<vObj> valNamePairs;
@@ -171,6 +179,7 @@ namespace Nutritracker
                         vObj v = new vObj();
                         v.name = foodNamesToPair[i];
                         v.val = valsToPair[i];
+                        v.index = i;
                         valNamePairs.Add(v);
                     }
                 }
@@ -188,6 +197,17 @@ namespace Nutritracker
             n = foodNamesToPair.Length;
             try { _n = Convert.ToInt32(File.ReadAllLines($"{storDir}{slash}progress.TXT")); }
             catch { _n = 0; }
+
+            // try 
+            // {
+            //     ndbNos = new List<ndbNo>();
+            //     foreach (string s in File.ReadAllLines($"{storDir}{slash}pairings.TXT")){
+            //         ndbNo n = new ndbNo();
+            //         n.num
+            //     }
+
+            // }
+            // catch { _n = 0; }
 
             mH = true;
             numUpDownIndex.Minimum = 1;
@@ -224,7 +244,22 @@ namespace Nutritracker
         {
             //numUpDown++
             if (e.KeyCode == Keys.Return)
-                nextEntry();
+            {
+                if (btnBegin.Enabled)
+                {
+                    MessageBox.Show("Please press begin!!");
+                    return;
+                }
+                if (checkedListBox1.CheckedItems.Count == 0)
+                {
+                    if (MessageBox.Show("Really skip this entry?", "", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
+                        return;
+                }
+                foreach (var c in checkedListBox1.CheckedItems)
+                    ndbs.Add(c.ToString().Split(new string[] { "--" }, StringSplitOptions.None)[0]);
+                _n++;
+                numUpDownIndex.Value = _n;
+            }
         }
 
         string storDir = "";
@@ -250,8 +285,7 @@ namespace Nutritracker
             //File.WriteAllLines($"{dir}{slash}ndbs.TXT", ndbs);
             //File.WriteAllText($"{dir}{slash}progress.TXT", _n.ToString());
 
-            _n++;
-            numUpDownIndex.Value = _n;
+
             //fObj f = fieldObjs[_n];
             //checkedListBox1.Items.Clear();
             //usdaDB.wMatch = new int[usdaDB.names.Length];
@@ -354,6 +388,7 @@ namespace Nutritracker
         }
 
         string metricName = "";
+        static fObj f;
         private void numUpDownIndex_ValueChanged(object sender, EventArgs e)
         {
             if (mH)
@@ -363,7 +398,7 @@ namespace Nutritracker
             //use numIndex and fieldObjs
             //
             _n = Convert.ToInt32(numUpDownIndex.Value) - 1;
-            fObj f = fieldObjs[_n];
+            f = fieldObjs[_n];
             foreach (vObj v in valNamePairs)
                 if (v.name == foodNamesToPair[_n])
                 {
@@ -390,7 +425,7 @@ namespace Nutritracker
                         if (q == 30)
                             goto next;
                         string itm = $"{usdaDB.ndbs[j]}--{usdaDB.names[j]}-[{usdaDB.wMatch[j]}]"; //-({usdaDB.joinedMatches[j]})";
-                        checkedListBox1.Items.Add(itm);
+                        checkedListBox1.Items.Add(itm, );
                         q++;
                     }
                 next:
@@ -415,11 +450,11 @@ namespace Nutritracker
             }
         }
         string value = "";
-        List<string> chkNdbnos;
+        //List<string> chkNdbnos;
         private void checkedListBox1_Leave(object sender, EventArgs eventArgs){
-            chkNdbnos = new List<string>();
+            f.ndbnos = new List<string>();
             foreach (var c in checkedListBox1.CheckedItems)
-                chkNdbnos.Add(c.ToString().Split(new string[] { "--" }, StringSplitOptions.None)[0]);
+                f.ndbnos.Add(c.ToString().Split(new string[] { "--" }, StringSplitOptions.None)[0]);
         }
     }
 }
