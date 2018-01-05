@@ -425,7 +425,7 @@ namespace Nutritracker
                         if (q == 30)
                             goto next;
                         string itm = $"{usdaDB.ndbs[j]}--{usdaDB.names[j]}-[{usdaDB.wMatch[j]}]"; //-({usdaDB.joinedMatches[j]})";
-                        checkedListBox1.Items.Add(itm, );
+                        checkedListBox1.Items.Add(itm);
                         q++;
                     }
                 next:
@@ -452,9 +452,9 @@ namespace Nutritracker
         string value = "";
         //List<string> chkNdbnos;
         private void checkedListBox1_Leave(object sender, EventArgs eventArgs){
-            f.ndbnos = new List<string>();
-            foreach (var c in checkedListBox1.CheckedItems)
-                f.ndbnos.Add(c.ToString().Split(new string[] { "--" }, StringSplitOptions.None)[0]);
+            //f.ndbnos = new List<string>();
+            //foreach (var c in checkedListBox1.CheckedItems)
+                //f.ndbnos.Add(c.ToString().Split(new string[] { "--" }, StringSplitOptions.None)[0]);
         }
     }
 }
