@@ -349,8 +349,8 @@ namespace Nutritracker
 
                 Directory.CreateDirectory(newRelDir);
                 
-                string ndb = "";
-                string val = "";
+                //string ndb = "";
+                //string val = "";
 
                 for (int i=0;i<relf.headers.Length;i++){
                     List<string> c = new List<string>();

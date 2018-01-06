@@ -435,23 +435,22 @@ namespace Nutritracker
             ndbno = lstviewFoods.SelectedItems[0].SubItems[0].Text;
             string todaysLog = "";
 
-            bool skipImport = false;
-            try { todaysLog = File.ReadAllText($"{Application.StartupPath}{slash}usr{slash}profile{frmMain.currentUser.index}{slash}foodlog{slash}{frmMain.dte}.TXT"); }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.ToString());
-                skipImport = true;
-            }
 
             string[] bLogLines = new string[0];
             string[] lLogLines = new string[0];
             string[] dLogLines = new string[0];
-            if (!skipImport)
+            try
             {
+                todaysLog = File.ReadAllText($"{Application.StartupPath}{slash}usr{slash}profile{frmMain.currentUser.index}{slash}foodlog{slash}{frmMain.dte}.TXT").Replace("\r", "");
                 bLogLines = todaysLog.Split(new string[] { "--Breakfast--" }, StringSplitOptions.RemoveEmptyEntries)[0].Split(new string[] { "--Lunch--" }, StringSplitOptions.RemoveEmptyEntries)[0].Split(new string[] { "\n" }, StringSplitOptions.RemoveEmptyEntries);
                 lLogLines = todaysLog.Split(new string[] { "--Lunch--" }, StringSplitOptions.RemoveEmptyEntries)[1].Split(new string[] { "--Dinner--" }, StringSplitOptions.RemoveEmptyEntries)[0].Split(new string[] { "\n" }, StringSplitOptions.RemoveEmptyEntries);
                 dLogLines = todaysLog.Split(new string[] { "--Dinner--" }, StringSplitOptions.RemoveEmptyEntries)[1].Split(new string[] { "\n" }, StringSplitOptions.RemoveEmptyEntries);
             }
+            catch //(Exception ex)
+            {
+                //MessageBox.Show(ex.ToString());
+            }
+
             List<string> output = new List<string>();
             output.Add("--Breakfast--");
             output.AddRange(bLogLines);
@@ -470,7 +469,7 @@ namespace Nutritracker
         }
     
         class dLogObj{
-            public string date;
+            //public string date;
             public List<string> bEntries = new List<string>();
             public List<string> lEntries = new List<string>();
             public List<string> dEntries = new List<string>();

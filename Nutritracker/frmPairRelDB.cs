@@ -110,7 +110,7 @@ namespace Nutritracker
         private class fObj
         {
             public int index = 0;
-            public string name;
+            //public string name;
             public string value;
             public string[] ndbnos;
         }
@@ -120,13 +120,7 @@ namespace Nutritracker
             public string name;
             public int index;
         }
-        private class ndbNo{
-            public string num;
-            public string val;
-            //Gi readline index
-            //or Gi name??
-        }
-        List<string> ndbNos;
+        //List<string> ndbNos;
         List<string> metricsToTrack;
         fObj[] fieldObjs = new fObj[0];
         List<vObj> valNamePairs;
