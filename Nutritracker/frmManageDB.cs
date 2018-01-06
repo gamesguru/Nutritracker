@@ -49,20 +49,20 @@ namespace Nutritracker
             if (pubDBs.Length == 0 && userDBs.Length == 0)
             {
                 MessageBox.Show("No databases found, try going to the spreadsheet wizard or reinstalling the program.");
-;
                 this.Close();
             }
 
             for (int i = 0; i < userDBs.Length; i++)
             {
                 userDBs[i] = userDBs[i].Replace($"{Application.StartupPath}{slash}usr{slash}profile{frmMain.currentUser.index}{slash}DBs{slash}", "");
-                if (!userDBs[i].StartsWith("f_user"))
+                if (!userDBs[i].StartsWith("f_user") && !userDBs[i].StartsWith("_"))
                     comboBox1.Items.Add(userDBs[i] + " (user)");
             }
             for (int i = 0; i < pubDBs.Length; i++)
             {
                 pubDBs[i] = pubDBs[i].Replace($"{Application.StartupPath}{slash}usr{slash}share{slash}DBs{slash}", "");
-                comboBox1.Items.Add(pubDBs[i] + " (share)");
+                if (!pubDBs[i].StartsWith("_"))
+                    comboBox1.Items.Add(pubDBs[i] + " (share)");
             }
             
             if (comboBox1.Items.Count > 0 && File.Exists($"{Application.StartupPath}{slash}usr{slash}profile{frmMain.currentUser.index}{slash}DBs{slash}Default.TXT"))

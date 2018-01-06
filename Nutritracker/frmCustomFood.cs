@@ -234,8 +234,8 @@ namespace Nutritracker
                 txtGrams.SelectionLength = 1;
                 return;
             }
-                /*if (busy)
-                return;*/
+            if (busy)
+                return;
             n = txtGrams.SelectionStart;
             int g = getBiggestInt(txtGrams.Text);
             if (g == 0)

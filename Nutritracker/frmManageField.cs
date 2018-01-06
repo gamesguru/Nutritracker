@@ -90,11 +90,6 @@ namespace Nutritracker
                     field f = new field();
                     f.name = fields[i].Replace("f_user_", "");
                     Fields.Add(f);
-
-                    comboBox1.Items.Add(field);
-                    comboBox2.Items.Add(field);
-                    comboBox3.Items.Add(field);
-                    comboBox4.Items.Add(field);
                     comboFields.Items.Add(field);
                 }
             }
@@ -141,20 +136,6 @@ namespace Nutritracker
 			}
 
             comboFields.SelectedIndex = 0;
-            string[] slots = File.ReadAllLines($"{Application.StartupPath}{slash}usr{slash}profile{frmMain.currentUser.index}{slash}DBs{slash}Slots.TXT");
-            
-            //MessageBox.Show (string.Join ("\n", slots).Replace("f_user_", ""));
-            foreach (string s in slots)
-            {
-                if (comboBox1.Items.Contains(s.Remove(0, 7)) && comboBox1.SelectedIndex == -1)
-                    comboBox1.SelectedIndex = comboBox1.Items.IndexOf(s.Remove(0, 7));
-                else if (comboBox2.Items.Contains(s.Remove(0, 7)) && comboBox2.SelectedIndex == -1)
-                    comboBox2.SelectedIndex = comboBox2.Items.IndexOf(s.Remove(0, 7));
-                else if (comboBox3.Items.Contains(s.Remove(0, 7)) && comboBox3.SelectedIndex == -1)
-                    comboBox3.SelectedIndex = comboBox3.Items.IndexOf(s.Remove(0, 7));
-                else if (comboBox4.Items.Contains(s.Remove(0, 7)) && comboBox4.SelectedIndex == -1)
-                    comboBox4.SelectedIndex = comboBox4.Items.IndexOf(s.Remove(0, 7));
-            }
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
@@ -221,7 +202,7 @@ namespace Nutritracker
                 {
                     foreach (dbc k in f.dbConfigKeys)
                     {
-                        if (k.field == "Name of Food")
+                        if (k.field == "FoodName")
                         {
                             listView1.Columns.Add(k.field);
                             f.nameOfFood = File.ReadAllLines(dr + slash + k.fileName);
@@ -242,7 +223,7 @@ namespace Nutritracker
                             listView1.Columns.Add(k.metricName);
                             f.value3 = File.ReadAllLines(dr + slash + k.fileName);
                         }
-                        else if (k.field == "Other Units")
+                        else if (k.field == "OtherUnits")
                         {
                             listView1.Columns.Add(k.field);
                             f.othUnits = File.ReadAllLines(dr + slash + k.fileName);
@@ -418,18 +399,6 @@ namespace Nutritracker
 				output.Add(string.Join("\r\n", temp));
             }
             File.WriteAllLines(dr + slash+"_dbConfig.TXT", output);
-
-            //updates the active Slots on frmSearchFoods
-			output = new List<string>();
-			if (comboBox1.SelectedIndex > -1)
-			    output.Add("f_user_" + comboBox1.SelectedItem.ToString());
-			if (comboBox2.SelectedIndex > -1)
-			    output.Add("f_user_" + comboBox2.SelectedItem.ToString());
-			if (comboBox3.SelectedIndex > -1)
-			    output.Add("f_user_" + comboBox3.SelectedItem.ToString());
-			if (comboBox4.SelectedIndex > -1)
-			    output.Add("f_user_" + comboBox4.SelectedItem.ToString());
-            File.WriteAllLines($"{Application.StartupPath}{slash}usr{slash}profile{frmMain.currentUser.index}{slash}DBs{slash}Slots.TXT", output);
 			this.Close();
         }
 

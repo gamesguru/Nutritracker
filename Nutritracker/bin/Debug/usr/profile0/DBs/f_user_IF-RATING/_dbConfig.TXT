@@ -1,5 +1,5 @@
 [File]FOO.TXT
-[Field]FoodName
+[Field]Name of Food
 
 [File]SER.TXT
 [Field]Serving

@@ -1,5 +1,5 @@
 [File]VEG.TXT
-[Field]FoodName
+[Field]Name of Food
 
 [File]OXA.TXT
 [Field]Value1

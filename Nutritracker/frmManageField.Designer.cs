@@ -56,12 +56,6 @@
             this.chkGrams = new System.Windows.Forms.CheckBox();
             this.chkCal = new System.Windows.Forms.CheckBox();
             this.grpPreviewStatus = new System.Windows.Forms.GroupBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.comboBox4 = new System.Windows.Forms.ComboBox();
-            this.comboBox3 = new System.Windows.Forms.ComboBox();
-            this.comboBox2 = new System.Windows.Forms.ComboBox();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.label2 = new System.Windows.Forms.Label();
             this.listView1 = new System.Windows.Forms.ListView();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.textBox1 = new System.Windows.Forms.TextBox();
@@ -340,77 +334,13 @@
             // 
             // grpPreviewStatus
             // 
-            this.grpPreviewStatus.Controls.Add(this.label3);
-            this.grpPreviewStatus.Controls.Add(this.comboBox4);
-            this.grpPreviewStatus.Controls.Add(this.comboBox3);
-            this.grpPreviewStatus.Controls.Add(this.comboBox2);
-            this.grpPreviewStatus.Controls.Add(this.comboBox1);
-            this.grpPreviewStatus.Controls.Add(this.label2);
             this.grpPreviewStatus.Controls.Add(this.listView1);
             this.grpPreviewStatus.Location = new System.Drawing.Point(227, 12);
             this.grpPreviewStatus.Name = "grpPreviewStatus";
             this.grpPreviewStatus.Size = new System.Drawing.Size(273, 249);
             this.grpPreviewStatus.TabIndex = 9;
             this.grpPreviewStatus.TabStop = false;
-            this.grpPreviewStatus.Text = "Preview and Seating Status";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(3, 209);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(69, 13);
-            this.label3.TabIndex = 6;
-            this.label3.Text = "Slots 3 and 4";
-            // 
-            // comboBox4
-            // 
-            this.comboBox4.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox4.FormattingEnabled = true;
-            this.comboBox4.Location = new System.Drawing.Point(171, 206);
-            this.comboBox4.Name = "comboBox4";
-            this.comboBox4.Size = new System.Drawing.Size(87, 21);
-            this.comboBox4.TabIndex = 5;
-            this.comboBox4.TabStop = false;
-            // 
-            // comboBox3
-            // 
-            this.comboBox3.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox3.FormattingEnabled = true;
-            this.comboBox3.Location = new System.Drawing.Point(78, 206);
-            this.comboBox3.Name = "comboBox3";
-            this.comboBox3.Size = new System.Drawing.Size(87, 21);
-			this.comboBox3.TabIndex = 4;
-			this.comboBox3.TabStop = false;
-            // 
-            // comboBox2
-            // 
-            this.comboBox2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Location = new System.Drawing.Point(171, 179);
-            this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(87, 21);
-			this.comboBox2.TabIndex = 3;
-			this.comboBox2.TabStop = false;
-            // 
-            // comboBox1
-            // 
-            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(78, 179);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(87, 21);
-			this.comboBox1.TabIndex = 2;
-			this.comboBox1.TabStop = false;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(3, 182);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(69, 13);
-            this.label2.TabIndex = 1;
-            this.label2.Text = "Slots 1 and 2";
+            this.grpPreviewStatus.Text = "Preview";
             // 
             // listView1
             // 
@@ -418,7 +348,7 @@
             this.listView1.FullRowSelect = true;
             this.listView1.Location = new System.Drawing.Point(6, 19);
             this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(252, 147);
+            this.listView1.Size = new System.Drawing.Size(261, 210);
             this.listView1.TabIndex = 0;
             this.listView1.TabStop = false;
             this.listView1.UseCompatibleStateImageBehavior = false;
@@ -471,7 +401,6 @@
             this.grpStandard.ResumeLayout(false);
             this.grpStandard.PerformLayout();
             this.grpPreviewStatus.ResumeLayout(false);
-            this.grpPreviewStatus.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
@@ -503,12 +432,6 @@
         private System.Windows.Forms.CheckBox chkCal;
         private System.Windows.Forms.GroupBox grpPreviewStatus;
         private System.Windows.Forms.ListView listView1;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.ComboBox comboBox4;
-        private System.Windows.Forms.ComboBox comboBox3;
-        private System.Windows.Forms.ComboBox comboBox2;
-        private System.Windows.Forms.ComboBox comboBox1;
-        private System.Windows.Forms.Label label2;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.TextBox txtValName1;

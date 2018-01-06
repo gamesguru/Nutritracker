@@ -24,69 +24,70 @@ namespace Nutritracker
 		string file = "";
         string profileRoot = Application.StartupPath + $"{slash}usr{slash}profile{frmMain.currentUser.index}";
         List<string> activeFields;                
-        frmMain.logItem litm;
-        List<frmMain.logItem> bLog;
-        List<frmMain.logItem> lLog;
-        List<frmMain.logItem> dLog;
+        //frmMain.logItem litm;
+        //List<frmMain.logItem> bLog;
+        //List<frmMain.logItem> lLog;
+        //List<frmMain.logItem> dLog;
 
         private void frmDetailReport_Load(object sender, EventArgs e)
         {
             string dte = DateTime.Now.ToString().Split(' ')[0].Replace("/", "-");
             userRoot = $"{Application.StartupPath}{slash}usr{slash}profile{frmMain.currentUser.index}";
+            string[] logFiles = Directory.GetFiles($"{userRoot}{slash}foodlog");
 
-            string[] daysLog = File.ReadAllText($"{userRoot}{slash}foodLog.TXT").Replace("\r", "").Split(new string[] { "===========\n" }, StringSplitOptions.RemoveEmptyEntries);
+            //string[] todaysLog = File.ReadAllText($"{userRoot}{slash}foodlog{slash}{dt}.TXT").Replace("\r", "").Split(new string[] { "===========\n" }, StringSplitOptions.RemoveEmptyEntries);
 
             List<string> dates = new List<string>();
-            foreach (string s in daysLog)
-                dates.Add(s.Split('\n')[0]);
+			foreach (string s in logFiles)			
+                dates.Add(s.Split(Path.DirectorySeparatorChar)[s.Split(Path.DirectorySeparatorChar).Length - 1].Replace(".TXT", ""));
             foreach (string s in dates)
                 chkLstBoxDays.Items.Add(s);
-            bLog = new List<frmMain.logItem>();
-            lLog = new List<frmMain.logItem>();
-            dLog = new List<frmMain.logItem>();
-            foreach (string s in daysLog)
-            {
-                string[] lines = s.Split(new string[] { "--Breakfast--" }, StringSplitOptions.RemoveEmptyEntries)[1].Split(new string[] { "--Lunch--" }, StringSplitOptions.RemoveEmptyEntries)[0].Split('\n');
-                for (int i = 0; i < lines.Length; i++)
-                {
-                    string st = lines[i];
-                    if (st == "")
-                        continue;
-                    litm = new frmMain.logItem();
-                    litm._db = st.Split('|')[0];
-                    litm.primKeyNo = st.Split('|')[1];
-                    litm.grams = Convert.ToDouble(st.Split('|')[2]);
-                    bLog.Add(litm);
-                }
-                lines = s.Split(new string[] { "--Lunch--" }, StringSplitOptions.RemoveEmptyEntries)[1].Split(new string[] { "--Dinner--" }, StringSplitOptions.RemoveEmptyEntries)[0].Split('\n');
-                for (int i = 0; i < lines.Length; i++)
-                {
-                    string st = lines[i];
-                    if (st == "")
-                        continue;
-                    litm = new frmMain.logItem();
-                    litm._db = st.Split('|')[0];
-                    litm.primKeyNo = st.Split('|')[1];
-                    litm.grams = Convert.ToDouble(st.Split('|')[2]);
-                    lLog.Add(litm);
-                }
-                lines = s.Split(new string[] { "--Dinner--" }, StringSplitOptions.RemoveEmptyEntries)[1].Split('\n');
-                for (int i = 0; i < lines.Length; i++)
-                {
-                    string st = lines[i];
-                    if (st == "")
-                        continue;
-                    litm = new frmMain.logItem();
-                    litm._db = st.Split('|')[0];
-                    litm.primKeyNo = st.Split('|')[1];
-                    litm.grams = Convert.ToDouble(st.Split('|')[2]);
-                    dLog.Add(litm);
-                }
-            }
+            //bLog = new List<frmMain.logItem>();
+            //lLog = new List<frmMain.logItem>();
+            //dLog = new List<frmMain.logItem>();
+            //foreach (string s in daysLog)
+            //{
+            //    string[] lines = s.Split(new string[] { "--Breakfast--" }, StringSplitOptions.RemoveEmptyEntries)[1].Split(new string[] { "--Lunch--" }, StringSplitOptions.RemoveEmptyEntries)[0].Split('\n');
+            //    for (int i = 0; i < lines.Length; i++)
+            //    {
+            //        string st = lines[i];
+            //        if (st == "")
+            //            continue;
+            //        litm = new frmMain.logItem();
+            //        litm._db = st.Split('|')[0];
+            //        litm.primKeyNo = st.Split('|')[1];
+            //        litm.grams = Convert.ToDouble(st.Split('|')[2]);
+            //        bLog.Add(litm);
+            //    }
+            //    lines = s.Split(new string[] { "--Lunch--" }, StringSplitOptions.RemoveEmptyEntries)[1].Split(new string[] { "--Dinner--" }, StringSplitOptions.RemoveEmptyEntries)[0].Split('\n');
+            //    for (int i = 0; i < lines.Length; i++)
+            //    {
+            //        string st = lines[i];
+            //        if (st == "")
+            //            continue;
+            //        litm = new frmMain.logItem();
+            //        litm._db = st.Split('|')[0];
+            //        litm.primKeyNo = st.Split('|')[1];
+            //        litm.grams = Convert.ToDouble(st.Split('|')[2]);
+            //        lLog.Add(litm);
+            //    }
+            //    lines = s.Split(new string[] { "--Dinner--" }, StringSplitOptions.RemoveEmptyEntries)[1].Split('\n');
+            //    for (int i = 0; i < lines.Length; i++)
+            //    {
+            //        string st = lines[i];
+            //        if (st == "")
+            //            continue;
+            //        litm = new frmMain.logItem();
+            //        litm._db = st.Split('|')[0];
+            //        litm.primKeyNo = st.Split('|')[1];
+            //        litm.grams = Convert.ToDouble(st.Split('|')[2]);
+            //        dLog.Add(litm);
+            //    }
+            //}
 
             chkLstBoxDays.Items.Add("All");
             int n = 0;
-            while (File.Exists(file = $"{profileRoot}{slash}detailReport_{dte}_{n}.TXT"))
+            while (File.Exists(file = $"{profileRoot}{slash}dtlreports{slash}{dte}_{n}.TXT"))
                 n++;
             txtOutput.Text = file.Replace(Application.StartupPath, "");
         }

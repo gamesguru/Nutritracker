@@ -200,6 +200,7 @@
             this.dataDay.Size = new System.Drawing.Size(920, 346);
             this.dataDay.TabIndex = 0;
             this.dataDay.TabStop = false;
+            this.dataDay.ReadOnly = true;
             this.dataDay.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataDay_CellValueChanged);
             this.dataDay.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dataDay_KeyDown);
             // 
@@ -493,7 +494,7 @@
             this.btnEditCustFoods.TabStop = false;
             this.btnEditCustFoods.Text = "Custom Foods";
             this.btnEditCustFoods.UseVisualStyleBackColor = true;
-            this.btnEditCustFoods.Click += new System.EventHandler(this.button6_Click);
+            this.btnEditCustFoods.Click += new System.EventHandler(this.btnEditCustFoods_Click);
             // 
             // menuStrip1
             // 
@@ -709,7 +710,7 @@
             this.btnRemoveFood.TabStop = false;
             this.btnRemoveFood.Text = "Remove Food";
             this.btnRemoveFood.UseVisualStyleBackColor = true;
-            this.btnRemoveFood.Click += new System.EventHandler(this.button11_Click);
+            this.btnRemoveFood.Click += new System.EventHandler(this.btnRemoveFood_Click);
             // 
             // btnSearch
             // 
@@ -720,7 +721,7 @@
             this.btnSearch.TabIndex = 11;
             this.btnSearch.Text = "Search Food Databases\r\nAdd to Log";
             this.btnSearch.UseVisualStyleBackColor = true;
-            this.btnSearch.Click += new System.EventHandler(this.btnSearchUserD_Click);
+            this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
             // 
             // btnExit
             // 
