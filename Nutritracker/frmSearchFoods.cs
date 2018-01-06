@@ -433,82 +433,39 @@ namespace Nutritracker
             }
 
             ndbno = lstviewFoods.SelectedItems[0].SubItems[0].Text;
-            string[] wholeLogLines = File.ReadAllLines($"{Application.StartupPath}{slash}usr{slash}profile{frmMain.currentUser.index}{slash}foodLog.TXT");
-            List<string[]> daysLogLines = new List<string[]>();
+            string todaysLog = "";
 
-            int dCount = 0;
-            foreach (string s in wholeLogLines)
-                if (s == "===========")
-                    dCount++;
-
-            int i = 0;
-            while (i < wholeLogLines.Length)
+            bool skipImport = false;
+            try { todaysLog = File.ReadAllText($"{Application.StartupPath}{slash}usr{slash}profile{frmMain.currentUser.index}{slash}foodlog{slash}{frmMain.dte}.TXT"); }
+            catch (Exception ex)
             {
-                List<string> entry = new List<string>();
-                while (++i < wholeLogLines.Length)
-                {
-                    if (wholeLogLines[i] == "===========")
-                        break;
-                    entry.Add(wholeLogLines[i]);
-                }
-                if (entry.Count > 0)
-                    daysLogLines.Add(entry.ToArray());
+                MessageBox.Show(ex.ToString());
+                skipImport = true;
             }
-            dLogObj[] logObjs = new dLogObj[dCount];
-            for (int j = 0; j < dCount; j++)
-                logObjs[j] = new dLogObj();
 
-            for (int j = 0; j < dCount; j++)
+            string[] bLogLines = new string[0];
+            string[] lLogLines = new string[0];
+            string[] dLogLines = new string[0];
+            if (!skipImport)
             {
-                logObjs[j].date = daysLogLines[j][0];
-                int k = 0;
-                while (true)
-                {
-                    if (daysLogLines[j][++k] == "--Lunch--")
-                        break;
-                    if (daysLogLines[j][k] != "--Breakfast--")
-                        logObjs[j].bEntries.Add(daysLogLines[j][k]);
-                }
-                while (true)
-                {
-                    if (daysLogLines[j][++k] == "--Dinner--")
-                        break;
-                    if (daysLogLines[j][k] != "--Lunch--")
-                        logObjs[j].lEntries.Add(daysLogLines[j][k]);
-                }
-                while (k++ < daysLogLines[j].Length - 1)
-                    if (daysLogLines[j][k] != "--Dinner--" && daysLogLines[j][k] != "")
-                        logObjs[j].dEntries.Add(daysLogLines[j][k]);
-                
-                Thread.Sleep(10);
+                bLogLines = todaysLog.Split(new string[] { "--Breakfast--" }, StringSplitOptions.RemoveEmptyEntries)[0].Split(new string[] { "--Lunch--" }, StringSplitOptions.RemoveEmptyEntries)[0].Split(new string[] { "\n" }, StringSplitOptions.RemoveEmptyEntries);
+                lLogLines = todaysLog.Split(new string[] { "--Lunch--" }, StringSplitOptions.RemoveEmptyEntries)[1].Split(new string[] { "--Dinner--" }, StringSplitOptions.RemoveEmptyEntries)[0].Split(new string[] { "\n" }, StringSplitOptions.RemoveEmptyEntries);
+                dLogLines = todaysLog.Split(new string[] { "--Dinner--" }, StringSplitOptions.RemoveEmptyEntries)[1].Split(new string[] { "\n" }, StringSplitOptions.RemoveEmptyEntries);
             }
-            foreach (dLogObj l in logObjs)
-                if (l.date == frmMain.dte)
-                {
-                    if (comboMeal.SelectedIndex == 0) //breakfast   
-                        l.bEntries.Add($"{db}|{ndbno}|{grams}");
-                    else if (comboMeal.SelectedIndex == 1) //lunch
-                        l.lEntries.Add($"{db}|{ndbno}|{grams}");
-                    else //dinner
-                        l.dEntries.Add($"{db}|{ndbno}|{grams}");
-                }
-
             List<string> output = new List<string>();
-            foreach (dLogObj l in logObjs)
-            {
-                output.Add("===========");
-                output.Add(l.date);
-                output.Add("--Breakfast--");
-                foreach (string st in l.bEntries)
-                    output.Add($"{st.Split('|')[0]}|{st.Split('|')[1]}|{st.Split('|')[2]}");
-                output.Add("--Lunch--");
-                foreach (string st in l.lEntries)
-                    output.Add($"{st.Split('|')[0]}|{st.Split('|')[1]}|{st.Split('|')[2]}");
-                output.Add("--Dinner--");
-                foreach (string st in l.dEntries)
-                    output.Add($"{st.Split('|')[0]}|{st.Split('|')[1]}|{st.Split('|')[2]}");
-            }
-            File.WriteAllLines($"{Application.StartupPath}{slash}usr{slash}profile{frmMain.currentUser.index}{slash}foodLog.TXT", output);
+            output.Add("--Breakfast--");
+            output.AddRange(bLogLines);
+            if (comboMeal.SelectedIndex == 0)
+                output.Add($"{db}|{ndbno}|{grams}");
+            output.Add("--Lunch--");
+            output.AddRange(lLogLines);
+            if (comboMeal.SelectedIndex == 1)
+                output.Add($"{db}|{ndbno}|{grams}");
+            output.Add("--Dinner--");
+            output.AddRange(dLogLines);
+            if (comboMeal.SelectedIndex == 2)
+                output.Add($"{db}|{ndbno}|{grams}");
+            File.WriteAllLines($"{Application.StartupPath}{slash}usr{slash}profile{frmMain.currentUser.index}{slash}foodlog{slash}{frmMain.dte}.TXT", output);
             this.Close();
         }
     
