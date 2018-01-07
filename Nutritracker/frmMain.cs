@@ -1,12 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Nutritracker
@@ -431,14 +427,6 @@ namespace Nutritracker
             //MessageBox.Show(loadIndex.ToString());
         }
 
-        private void dataDay_CellValueChanged(object sender, DataGridViewCellEventArgs e)
-        {
-            /*
-            try { label1.Text = dataDay.Rows[1].Cells["columnSrvngSze"].Value.ToString(); }
-            catch{ }
-            */
-        }
-
         #region undo delete rows
         private DataGridViewRow row;
         private int n;
@@ -469,6 +457,9 @@ namespace Nutritracker
             int o = dataDay.Rows.Count;
             row = dataDay.Rows[n];
             //MessageBox.Show(row.Cells[0].Value.ToString());
+            ///
+            /// if ! i =0 && ! i = condition below
+            ///     then reload row, else ignore.  then refresh whole datagrid!!
             if (!(n == bDay || n == lDay || n == lDay - 1 || n == dDay || n == dDay - 1 || n == tDay || n == tDay - 1 || n == o - 2))
                 dataDay.Rows.RemoveAt(n);
 
@@ -497,172 +488,9 @@ namespace Nutritracker
             for (int m = dDay; m < tDay - 2; m++)
                 output.Add($"USDAstock|{dataDay.Rows[m].Cells[1].Value}|{dataDay.Rows[m].Cells[0].Value.ToString().Split(' ')[0]}");
             File.WriteAllLines(fp, output);
+            //refreshDataDay();
+			dataDay.Focus();
             tabulateNutrientColumns();
-            dataDay.Focus();
-
-            //    string textB = "";
-            //    textB += dataDay.Rows[bDay - 1].Cells[0].Value.ToString() + "|";
-            //    for (int m = bDay; m < lDay - 2; m++)
-            //    {
-
-            //        for (int i = 0; i < dataDay.ColumnCount; i++)
-            //        {
-            //            try
-            //            {
-            //                if (dataDay.Rows[m].Cells[i].Value.ToString() == "")
-            //                    textB += " ";
-            //                textB += dataDay.Rows[m].Cells[i].Value.ToString();
-            //            }
-            //            catch { textB += " "; }
-            //            textB += "|";
-            //        }
-            //        textB += "|";
-            //    }
-            //    string textL = "";
-            //    textL += dataDay.Rows[lDay - 1].Cells[0].Value.ToString() + "|";
-            //    for (int m = lDay; m < dDay - 2; m++)
-            //    {
-
-            //        for (int i = 0; i < dataDay.ColumnCount; i++)
-            //        {
-            //            try
-            //            {
-            //                if (dataDay.Rows[m].Cells[i].Value.ToString() == "")
-            //                    textL += " ";
-            //                textL += dataDay.Rows[m].Cells[i].Value.ToString();
-            //            }
-            //            catch { textL += " "; }
-            //            textL += "|";
-            //        }
-            //        textL += "|";
-            //    }
-            //    string textD = "";
-            //    textD += dataDay.Rows[dDay - 1].Cells[0].Value.ToString() + "|";
-            //    for (int m = dDay; m < tDay - 2; m++)
-            //    {
-
-            //        for (int i = 0; i < dataDay.ColumnCount; i++)
-            //        {
-            //            try
-            //            {
-            //                if (dataDay.Rows[m].Cells[i].Value.ToString() == "")
-            //                    textD += " ";
-            //                textD += dataDay.Rows[m].Cells[i].Value.ToString();
-            //            }
-            //            catch { textD += " "; }
-            //            textD += "|";
-            //        }
-            //        textD += "|";
-            //    }
-            //    string[] text = { textB, textL, textD };
-            //    //MessageBox.Show("1");
-            //    File.WriteAllLines(fp, text);
-            //    tabulateNutrientColumns();
-            //}
-            //catch
-            //{
-            //    try
-            //    {
-            //        int bDay = 11, lDay = 33, dDay = 55, tDay = 77;
-            //        for (int i = 0; i < dataDay.Rows.Count - 2; i++)
-            //            if (dataDay.Rows[i].Cells[0].Value.ToString() == "Breakfast")
-            //                bDay = i;
-            //        for (int i = 0; i < dataDay.Rows.Count - 2; i++)
-            //            if (dataDay.Rows[i].Cells[0].Value.ToString() == "Lunch")
-            //                lDay = i;
-            //        for (int i = 0; i < dataDay.Rows.Count - 2; i++)
-            //            if (dataDay.Rows[i].Cells[0].Value.ToString() == "Dinner")
-            //                dDay = i;
-            //        for (int i = 0; i < dataDay.Rows.Count - 2; i++)
-            //            if (dataDay.Rows[i].Cells[0].Value.ToString() == "Totals")
-            //                tDay = i;
-            //        n = dataDay.CurrentCell.RowIndex;
-            //        //MessageBox.Show(dataDay.Rows[0].Cells[0].Value.ToString());
-            //        //MessageBox.Show(tDay.ToString());
-            //        //MessageBox.Show(n.ToString());
-            //        int o = dataDay.Rows.Count;
-            //        row = dataDay.Rows[n];
-            //        //MessageBox.Show(row.Cells[0].Value.ToString());
-            //        undoToolStripMenuItem.Enabled = true;
-            //        if (!(n == bDay || n == lDay || n == lDay - 1 || n == dDay || n == dDay - 1 || n == tDay || n == tDay - 1 || n == o - 2))
-            //            dataDay.Rows.RemoveAt(n);
-
-            //        for (int i = 0; i < dataDay.Rows.Count - 1; i++)
-            //            if (dataDay.Rows[i].Cells[0].Value.ToString() == "Breakfast")
-            //                bDay = i + 1;
-            //        for (int i = 0; i < dataDay.Rows.Count - 1; i++)
-            //            if (dataDay.Rows[i].Cells[0].Value.ToString() == "Lunch")
-            //                lDay = i + 1;
-            //        for (int i = 0; i < dataDay.Rows.Count - 1; i++)
-            //            if (dataDay.Rows[i].Cells[0].Value.ToString() == "Dinner")
-            //                dDay = i + 1;
-            //        for (int i = 0; i < dataDay.Rows.Count - 1; i++)
-            //            if (dataDay.Rows[i].Cells[0].Value.ToString() == "Totals")
-            //                tDay = i + 1;
-
-            //        string fp = $"{Application.StartupPath}{slash}usr{slash}profile{currentUser.index}{slash}foodlog{slash}{dte}.TXT";
-            //        string textB = "";
-            //        textB += dataDay.Rows[bDay - 1].Cells[0].Value.ToString() + "|";
-            //        for (int m = bDay; m < lDay - 2; m++)
-            //        {
-
-            //            for (int i = 0; i < dataDay.ColumnCount; i++)
-            //            {
-            //                try
-            //                {
-            //                    if (dataDay.Rows[m].Cells[i].Value.ToString() == "")
-            //                        textB += " ";
-            //                    textB += dataDay.Rows[m].Cells[i].Value.ToString();
-            //                }
-            //                catch { textB += " "; }
-            //                textB += "|";
-            //            }
-            //            textB += "|";
-            //        }
-            //        string textL = "";
-            //        textL += dataDay.Rows[lDay - 1].Cells[0].Value.ToString() + "|";
-            //        for (int m = lDay; m < dDay - 2; m++)
-            //        {
-
-            //            for (int i = 0; i < dataDay.ColumnCount; i++)
-            //            {
-            //                try
-            //                {
-            //                    if (dataDay.Rows[m].Cells[i].Value.ToString() == "")
-            //                        textL += " ";
-            //                    textL += dataDay.Rows[m].Cells[i].Value.ToString();
-            //                }
-            //                catch { textL += " "; }
-            //                textL += "|";
-            //            }
-            //            textL += "|";
-            //        }
-            //        string textD = "";
-            //        textD += dataDay.Rows[dDay - 1].Cells[0].Value.ToString() + "|";
-            //        for (int m = dDay; m < tDay - 2; m++)
-            //        {
-
-            //            for (int i = 0; i < dataDay.ColumnCount; i++)
-            //            {
-            //                try
-            //                {
-            //                    if (dataDay.Rows[m].Cells[i].Value.ToString() == "")
-            //                        textD += " ";
-            //                    textD += dataDay.Rows[m].Cells[i].Value.ToString();
-            //                }
-            //                catch { textD += " "; }
-            //                textD += "|";
-            //            }
-            //            textD += "|";
-            //        }
-            //        //MessageBox.Show("2");
-            //        string[] text = { textB, textL, textD };
-            //        File.WriteAllLines(fp, text);
-            //        tabulateNutrientColumns();
-            //    }
-            //    catch { }
-            //}
-            //dataDay.Focus();
         }
 
 
@@ -1082,7 +910,9 @@ namespace Nutritracker
 
         private void refreshDataDay()
         {
-            dataDay.Columns.Clear();
+            try { dataDay.Rows.Clear();
+                dataDay.Columns.Clear(); }
+            catch{}
             dte = comboLoggedDays.SelectedItem.ToString();
             string todaysLog = File.ReadAllText($"{userRoot}{slash}foodlog{slash}{dte}.TXT").Replace("\r", "");
 
@@ -1415,15 +1245,14 @@ namespace Nutritracker
                 mH = false;
                 txtExerciseVal.SelectionStart = n;
             }
-            else if (digs < 4)
-            {
+            else if (digs < 4)            
                 if (txtExerciseVal.Text.Contains(","))
                 {
                     n = txtExerciseVal.SelectionStart - 1;
                     txtExerciseVal.Text = txtExerciseVal.Text.Replace(",", "");
                     txtExerciseVal.SelectionStart = n > 0 ? n : 0;
                 }
-            }
+            
 
             if (ex > 0)
                 btnAddEx.Enabled = true;
@@ -1502,7 +1331,6 @@ namespace Nutritracker
 
         private void addSearchCommonFoodsToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-
             btnSearch.PerformClick();
         }
 

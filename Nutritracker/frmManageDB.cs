@@ -1,11 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 
@@ -275,7 +269,7 @@ namespace Nutritracker
                     txtIno.Text = file;
                 else if (field == "Carnitine")
                     txtCarn.Text = file;
-                else if (field == "Lipoic acid")
+                else if (field == "LipoiAcid")
                     txtLipoic.Text = file;
 
                 //tab 3
@@ -285,13 +279,13 @@ namespace Nutritracker
                     txtarg.Text = file;
                 else if (field == "Asparagine")
                     txtasparag.Text = file;
-                else if (field == "Aspartic acid")
+                else if (field == "AsparticAcid")
                     txtaspartic.Text = file;
                 else if (field == "Cysteine")
                     txtCals.Text = file;
                 else if (field == "Glutamine")
                     txtglutamine.Text = file;
-                else if (field == "Glutamic acid")
+                else if (field == "GlutamicAcid")
                     txtgluacid.Text = file;
                 else if (field == "Glycine")
                     txtgly.Text = file;
@@ -636,11 +630,11 @@ namespace Nutritracker
             List<string> text = new List<string>();
             #region write new lines
             if (txtNDB.TextLength > 0 && File.Exists($"{dbDir}{slash}{txtNDB.Text}"))
-                text.Add(txtNDB.Text + "|NDB No.");
+                text.Add(txtNDB.Text + "|NDBNo");
             if (txtname.TextLength > 0 && File.Exists($"{dbDir}{slash}{txtname.Text}"))
-                text.Add(txtname.Text + "|Name of Food");
+                text.Add(txtname.Text + "|FoodName");
             if (txtCals.TextLength > 0 && File.Exists($"{dbDir}{slash}{txtCals.Text}"))
-                text.Add(txtCals.Text + "|Calories");
+                text.Add(txtCals.Text + "|Cals");
             if (txtProtein.TextLength > 0 && File.Exists($"{dbDir}{slash}{txtProtein.Text}"))
                 text.Add(txtProtein.Text + "|Protein");
             if (txtCarbs.TextLength > 0 && File.Exists($"{dbDir}{slash}{txtCarbs.Text}"))
@@ -650,90 +644,90 @@ namespace Nutritracker
             if (txtSugar.TextLength > 0 && File.Exists($"{dbDir}{slash}{txtSugar.Text}"))
                 text.Add(txtSugar.Text + "|Sugar");
             if (txtFat.TextLength > 0 && File.Exists($"{dbDir}{slash}{txtFat.Text}"))
-                text.Add(txtFat.Text + "|Total Fat");
+                text.Add(txtFat.Text + "|FatTot");
             if (txttransFat.TextLength > 0 && File.Exists($"{dbDir}{slash}{txttransFat.Text}"))
-                text.Add(txttransFat.Text + "|Trans Fat");
+                text.Add(txttransFat.Text + "|FatTrans");
             if (txtsatFat.TextLength > 0 && File.Exists($"{dbDir}{slash}{txtsatFat.Text}"))
-                text.Add(txtsatFat.Text + "|Sat Fat");
+                text.Add(txtsatFat.Text + "|FatSat");
             if (txtpolyFat.TextLength > 0 && File.Exists($"{dbDir}{slash}{txtpolyFat.Text}"))
-                text.Add(txtpolyFat.Text + "|Poly Fat");
+                text.Add(txtpolyFat.Text + "|FatPoly");
             if (txtmonoFat.TextLength > 0 && File.Exists($"{dbDir}{slash}{txtmonoFat.Text}"))
-                text.Add(txtmonoFat.Text + "|Mono Fat");
+                text.Add(txtmonoFat.Text + "|FatMono");
             if (txtala.TextLength > 0 && File.Exists($"{dbDir}{slash}{txtala.Text}"))
                 text.Add(txtala.Text + "|ALA");
             if (txtepadha.TextLength > 0 && File.Exists($"{dbDir}{slash}{txtepadha.Text}"))
-                text.Add(txtepadha.Text + "|EPA + DHA");
+                text.Add(txtepadha.Text + "|EpaDha");
             if (txtK.TextLength > 0 && File.Exists($"{dbDir}{slash}{txtK.Text}"))
-                text.Add(txtK.Text + "|Potassium");
+                text.Add(txtK.Text + "|K");
             if (txtMg.TextLength > 0 && File.Exists($"{dbDir}{slash}{txtMg.Text}"))
-                text.Add(txtMg.Text + "|Magnesium");
+                text.Add(txtMg.Text + "|Mg");
             if (txtCholesterol.TextLength > 0 && File.Exists($"{dbDir}{slash}{txtCholesterol.Text}"))
-                text.Add(txtCholesterol.Text + "|Cholesterol");
+                text.Add(txtCholesterol.Text + "|Cholest");
             if (txtSodium.TextLength > 0 && File.Exists($"{dbDir}{slash}{txtSodium.Text}"))
-                text.Add(txtSodium.Text + "|Sodium");
+                text.Add(txtSodium.Text + "|Na");
             if (txtCalcium.TextLength > 0 && File.Exists($"{dbDir}{slash}{txtCalcium.Text}"))
-                text.Add(txtCalcium.Text + "|Calcium");
+                text.Add(txtCalcium.Text + "|Ca");
             if (txtIron.TextLength > 0 && File.Exists($"{dbDir}{slash}{txtIron.Text}"))
-                text.Add(txtIron.Text + "|Iron");
+                text.Add(txtIron.Text + "|Fe");
             if (txtVitA.TextLength > 0 && File.Exists($"{dbDir}{slash}{txtVitA.Text}"))
-                text.Add(txtVitA.Text + "|Vit A");
+                text.Add(txtVitA.Text + "|VitA");
             if (txtVitC.TextLength > 0 && File.Exists($"{dbDir}{slash}{txtVitC.Text}"))
-                text.Add(txtVitC.Text + "|Vit C");
+                text.Add(txtVitC.Text + "|VitC");
 
             //tab 2
             if (txtVitD.TextLength > 0 && File.Exists($"{dbDir}{slash}{txtVitD.Text}"))
-                text.Add(txtVitD.Text + "|Vit D");
+                text.Add(txtVitD.Text + "|VitD");
             if (txtVitE.TextLength > 0 && File.Exists($"{dbDir}{slash}{txtVitE.Text}"))
-                text.Add(txtVitE.Text + "|Vit E");
+                text.Add(txtVitE.Text + "|VitE");
             if (txtVitK.TextLength > 0 && File.Exists($"{dbDir}{slash}{txtVitK.Text}"))
-                text.Add(txtVitK.Text + "|Vit K");
+                text.Add(txtVitK.Text + "|VitK");
             if (txtB1.TextLength > 0 && File.Exists($"{dbDir}{slash}{txtB1.Text}"))
-                text.Add(txtB1.Text + "|B1, Thiamine");
+                text.Add(txtB1.Text + "|B1");
             if (txtB2.TextLength > 0 && File.Exists($"{dbDir}{slash}{txtB2.Text}"))
-                text.Add(txtB2.Text + "|B2, Riboflavin");
+                text.Add(txtB2.Text + "|B2");
             if (txtB3.TextLength > 0 && File.Exists($"{dbDir}{slash}{txtB3.Text}"))
-                text.Add(txtB3.Text + "|B3, Niacin");
+                text.Add(txtB3.Text + "|B3");
             if (txtB5.TextLength > 0 && File.Exists($"{dbDir}{slash}{txtB5.Text}"))
-                text.Add(txtB5.Text + "|B5, Pantothenate");
+                text.Add(txtB5.Text + "|B5");
             if (txtB6.TextLength > 0 && File.Exists($"{dbDir}{slash}{txtB6.Text}"))
-                text.Add(txtB6.Text + "|B6, Pyridoxine");
+                text.Add(txtB6.Text + "|B6");
             if (txtB7.TextLength > 0 && File.Exists($"{dbDir}{slash}{txtB7.Text}"))
-                text.Add(txtB7.Text + "|B7, Biotin");
+                text.Add(txtB7.Text + "|B7");
             if (txtB9.TextLength > 0 && File.Exists($"{dbDir}{slash}{txtB9.Text}"))
-                text.Add(txtB9.Text + "|B9, Folate");
+                text.Add(txtB9.Text + "|B9");
             if (txtB12.TextLength > 0 && File.Exists($"{dbDir}{slash}{txtB12.Text}"))
-                text.Add(txtB12.Text + "|B12, Cobalamins");
+                text.Add(txtB12.Text + "|B12");
 
             if (txtZn.TextLength > 0 && File.Exists($"{dbDir}{slash}{txtZn.Text}"))
-                text.Add(txtZn.Text + "|Zinc");
+                text.Add(txtZn.Text + "|Zn");
             if (txtSe.TextLength > 0 && File.Exists($"{dbDir}{slash}{txtSe.Text}"))
-                text.Add(txtSe.Text + "|Selenium");
+                text.Add(txtSe.Text + "|Se");
             if (txtB.TextLength > 0 && File.Exists($"{dbDir}{slash}{txtB.Text}"))
-                text.Add(txtB.Text + "|Boron");
+                text.Add(txtB.Text + "|B");
             if (txtP.TextLength > 0 && File.Exists($"{dbDir}{slash}{txtP.Text}"))
-                text.Add(txtP.Text + "|Phosphorus");
+                text.Add(txtP.Text + "|P");
             if (txtMn.TextLength > 0 && File.Exists($"{dbDir}{slash}{txtMn.Text}"))
-                text.Add(txtMn.Text + "|Manganese");
+                text.Add(txtMn.Text + "|Mn");
             if (txtFl.TextLength > 0 && File.Exists($"{dbDir}{slash}{txtFl.Text}"))
-                text.Add(txtFl.Text + "|Fluoride");
+                text.Add(txtFl.Text + "|F");
             if (txtCu.TextLength > 0 && File.Exists($"{dbDir}{slash}{txtCu.Text}"))
-                text.Add(txtCu.Text + "|Copper");
+                text.Add(txtCu.Text + "|Cu");
             if (txtCr.TextLength > 0 && File.Exists($"{dbDir}{slash}{txtCr.Text}"))
-                text.Add(txtCr.Text + "|Chromium");
+                text.Add(txtCr.Text + "|Cr");
             if (txtMo.TextLength > 0 && File.Exists($"{dbDir}{slash}{txtMo.Text}"))
-                text.Add(txtMo.Text + "|Molybdenum");
+                text.Add(txtMo.Text + "|Mo");
+            if (txtLyco.TextLength > 0 && File.Exists($"{dbDir}{slash}{txtLyco.Text}"))
+                text.Add(txtLyco.Text + "|Lycopene");
+            if (txtLutZea.TextLength > 0 && File.Exists($"{dbDir}{slash}{txtLutZea.Text}"))
+                text.Add(txtLutZea.Text + "|LutZea");
             if (txtCho.TextLength > 0 && File.Exists($"{dbDir}{slash}{txtCho.Text}"))
-                text.Add(txtCho.Text + "|Lycopene");
-            if (txtCho.TextLength > 0 && File.Exists($"{dbDir}{slash}{txtLyco.Text}"))
-                text.Add(txtCho.Text + "|LutZea");
-            if (txtCho.TextLength > 0 && File.Exists($"{dbDir}{slash}{txtLutZea.Text}"))
                 text.Add(txtCho.Text + "|Choline");
             if (txtIno.TextLength > 0 && File.Exists($"{dbDir}{slash}{txtIno.Text}"))
-                text.Add(txtIno.Text + "|Inositol IP6");
+                text.Add(txtIno.Text + "|Inositol");
             if (txtCarn.TextLength > 0 && File.Exists($"{dbDir}{slash}{txtCarn.Text}"))
                 text.Add(txtCarn.Text + "|Carnitine");
             if (txtLipoic.TextLength > 0 && File.Exists($"{dbDir}{slash}{txtLipoic.Text}"))
-                text.Add(txtLipoic.Text + "|Lipoic acid");
+                text.Add(txtLipoic.Text + "|LipoicAcid");
 
             //tab 3
             if (txtalan.TextLength > 0 && File.Exists($"{dbDir}{slash}{txtalan.Text}"))
@@ -743,13 +737,13 @@ namespace Nutritracker
             if (txtasparag.TextLength > 0 && File.Exists($"{dbDir}{slash}{txtasparag.Text}"))
                 text.Add(txtasparag.Text + "|Asparagine");
             if (txtaspartic.TextLength > 0 && File.Exists($"{dbDir}{slash}{txtaspartic.Text}"))
-                text.Add(txtaspartic.Text + "|Aspartic acid");
+                text.Add(txtaspartic.Text + "|AsparticAcid");
             if (txtcys.TextLength > 0 && File.Exists($"{dbDir}{slash}{txtcys.Text}"))
                 text.Add(txtcys.Text + "|Cystine");
             if (txtglutamine.TextLength > 0 && File.Exists($"{dbDir}{slash}{txtglutamine.Text}"))
                 text.Add(txtglutamine.Text + "|Glutamine");
             if (txtgluacid.TextLength > 0 && File.Exists($"{dbDir}{slash}{txtgluacid.Text}"))
-                text.Add(txtgluacid.Text + "|Glutamic acid");
+                text.Add(txtgluacid.Text + "|GlutamicAcid");
             if (txtgly.TextLength > 0 && File.Exists($"{dbDir}{slash}{txtgly.Text}"))
                 text.Add(txtgly.Text + "|Glycine");
             if (txthis.TextLength > 0 && File.Exists($"{dbDir}{slash}{txthis.Text}"))
@@ -777,15 +771,14 @@ namespace Nutritracker
 
             //last to display
             if (txtServ1.TextLength > 0 && File.Exists($"{dbDir}{slash}{txtServ1.Text}"))
-                text.Add(txtServ1.Text + "|Serving1");
+                text.Add(txtServ1.Text + "|Serving");
             if (txtServ2.TextLength > 0 && File.Exists($"{dbDir}{slash}{txtServ2.Text}"))    
                 text.Add(txtServ2.Text + "|Serving2");
             if (txtWt1.TextLength > 0 && File.Exists($"{dbDir}{slash}{txtWt1.Text}")  )    
-                text.Add(txtWt1.Text + "|Weight1");
+                text.Add(txtWt1.Text + "|Weight");
             if (txtWt2.TextLength > 0 && File.Exists($"{dbDir}{slash}{txtWt2.Text}") )
                 text.Add(txtWt2.Text + "|Weight2");
-            #endregion
-            //MessageBox.Show(text);
+                                  #endregion
             File.WriteAllLines(nutkeyPath, text);
             this.Close();
         }

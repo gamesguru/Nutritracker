@@ -1,11 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading;
 using System.Windows.Forms;
 using System.IO;
 
@@ -75,9 +71,6 @@ namespace Nutritracker
                 if (!pubDBs[i].StartsWith("_"))
                     comboDBs.Items.Add(pubDBs[i] + " (share)");
             }
-
-
-
 
             if (comboDBs.Items.Count > 0 && File.Exists($"{Application.StartupPath}{slash}usr{slash}profile{frmMain.currentUser.index}{slash}DBs{slash}Default.TXT"))
             {
@@ -161,7 +154,6 @@ namespace Nutritracker
                     lstviewFoods.EndUpdate();
 
                     //
-
                     //
                 }
                 else

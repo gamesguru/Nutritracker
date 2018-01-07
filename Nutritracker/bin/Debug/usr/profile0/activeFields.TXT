@@ -40,7 +40,7 @@ B3|20 mg
 B5|5 mg
 B6|1.2 mg
 B7|0.3 mg
-B9|0.4 mg
+B9|400 ug
 B12|1 mg
 ##############
 ## MINERALS ##
@@ -85,7 +85,7 @@ EpaDha|600 mg
 Lycopene|15 mg
 LutZea|12000 ug
 #Carnitine
-#Lipoic acid
+#LipoicAcid
 Inositol|4 g
 ##################
 ## USER-DEFINED ##

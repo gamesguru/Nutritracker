@@ -1,11 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 
@@ -285,7 +280,7 @@ namespace Nutritracker
                 if (f.name == comboFields.Text)
                     foreach (dbc k in f.dbConfigKeys)
                     {
-                        if (k.field == "Name of Food")
+                        if (k.field == "FoodName")
                             txtName.Text = k.fileName;
                         else if (k.field == "Value1")
                         {
@@ -302,7 +297,7 @@ namespace Nutritracker
                             txtVal3.Text = k.fileName;
                             txtValName3.Text = k.metricName;
                         }
-                        else if (k.field == "Other Units")
+                        else if (k.field == "OtherUnits")
                             txtOthUn.Text = k.fileName;
                         else if (k.field == "Serving")
                             txtServ.Text = k.fileName;
@@ -341,7 +336,7 @@ namespace Nutritracker
 			foreach (dbc ck in f.dbConfigKeys)
 			{
 				if (txtName.Text == ck.fileName)				
-					ck.field = "Name of Food";				
+					ck.field = "FoodName";				
 				else if (txtVal1.Text == ck.fileName)
 				{
 					ck.field = "Value1";
@@ -358,7 +353,7 @@ namespace Nutritracker
 					ck.metricName = txtValName3.Text;
 				}
 				else if (txtOthUn.Text == ck.fileName)
-					ck.field = "Other Units";
+					ck.field = "OtherUnits";
 				else if (txtServ.Text == ck.fileName)
 					ck.field = "Serving";
 				else if (txtWeight.Text == ck.fileName)

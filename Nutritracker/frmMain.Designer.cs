@@ -201,7 +201,6 @@
             this.dataDay.TabIndex = 0;
             this.dataDay.TabStop = false;
             this.dataDay.ReadOnly = true;
-            this.dataDay.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataDay_CellValueChanged);
             this.dataDay.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dataDay_KeyDown);
             // 
             // groupBox2
