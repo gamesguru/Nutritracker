@@ -90,6 +90,7 @@
             this.btnExit = new System.Windows.Forms.Button();
             this.comboLoggedDays = new System.Windows.Forms.ComboBox();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.btnDeleteDay = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataDay)).BeginInit();
             this.groupBox2.SuspendLayout();
@@ -197,10 +198,10 @@
             this.dataDay.Location = new System.Drawing.Point(17, 49);
             this.dataDay.MultiSelect = false;
             this.dataDay.Name = "dataDay";
+            this.dataDay.ReadOnly = true;
             this.dataDay.Size = new System.Drawing.Size(920, 346);
             this.dataDay.TabIndex = 0;
             this.dataDay.TabStop = false;
-            this.dataDay.ReadOnly = true;
             this.dataDay.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dataDay_KeyDown);
             // 
             // groupBox2
@@ -702,7 +703,7 @@
             // btnRemoveFood
             // 
             this.btnRemoveFood.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnRemoveFood.Location = new System.Drawing.Point(239, 29);
+            this.btnRemoveFood.Location = new System.Drawing.Point(221, 30);
             this.btnRemoveFood.Name = "btnRemoveFood";
             this.btnRemoveFood.Size = new System.Drawing.Size(127, 31);
             this.btnRemoveFood.TabIndex = 9;
@@ -751,6 +752,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.AutoScroll = true;
+            this.panel1.Controls.Add(this.btnDeleteDay);
             this.panel1.Controls.Add(this.btnSearch);
             this.panel1.Controls.Add(this.btnExit);
             this.panel1.Controls.Add(this.comboLoggedDays);
@@ -765,6 +767,18 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(988, 953);
             this.panel1.TabIndex = 24;
+            // 
+            // btnDeleteDay
+            // 
+            this.btnDeleteDay.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnDeleteDay.Location = new System.Drawing.Point(586, 31);
+            this.btnDeleteDay.Name = "btnDeleteDay";
+            this.btnDeleteDay.Size = new System.Drawing.Size(74, 31);
+            this.btnDeleteDay.TabIndex = 24;
+            this.btnDeleteDay.TabStop = false;
+            this.btnDeleteDay.Text = "Archive";
+            this.btnDeleteDay.UseVisualStyleBackColor = true;
+            this.btnDeleteDay.Click += new System.EventHandler(this.btnDeleteDay_Click);
             // 
             // frmMain
             // 
@@ -859,6 +873,7 @@
         private System.Windows.Forms.ToolStripMenuItem manageActiveFieldsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
         private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Button btnDeleteDay;
     }
 }
 

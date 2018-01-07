@@ -229,10 +229,18 @@ namespace Nutritracker
                     //frmProfile frmPr = new frmProfile();
                     //frmPr.ShowDialog();
                     Directory.CreateDirectory($"{Application.StartupPath}{slash}usr{slash}profile{currentUser.index}{slash}foodlog");
-                    File.Create($"{Application.StartupPath}{slash}usr{slash}profile{currentUser.index}{slash}foodlog{slash}{dte}.TXT");
+                    File.Create($"{Application.StartupPath}{slash}usr{slash}profile{currentUser.index}{slash}foodlog{slash}{dte}.TXT").Close();
                 }
             }
 
+            if (!comboLoggedDays.Items.Contains(DateTime.Today.ToString("MM-dd-yyyy")))
+            {
+                comboLoggedDays.Items.Add(DateTime.Today.ToString("MM-dd-yyyy"));
+                try {
+                    Directory.CreateDirectory(($"{currentUser.root}foodlog"));
+                    File.Create($"{currentUser.root}foodlog{DateTime.Today.ToString("MM-dd-yyyy")}.TXT").Close(); }
+                catch { }
+            }
 
             string root = $"{Application.StartupPath}{slash}usr";
             foreach (string s in Directory.GetFiles(root))
@@ -255,7 +263,7 @@ namespace Nutritracker
             if (profDirects.Count == 0)
             {
                 currentUser.index = 0;
-                File.Create($"{Application.StartupPath}{slash}usr{slash}default0");
+                File.Create($"{Application.StartupPath}{slash}usr{slash}default0").Close();
                 if (frmP.ShowDialog() == DialogResult.Cancel)
                     Application.Exit();
             }
@@ -926,7 +934,9 @@ namespace Nutritracker
             string[] profData = File.ReadAllLines($"{currentUser.root}profile.TXT");
             profData[8] = dte;
             File.WriteAllLines($"{currentUser.root}profile.TXT", profData);
-            string todaysLog = File.ReadAllText($"{userRoot}{slash}foodlog{slash}{dte}.TXT").Replace("\r", "");
+            string todaysLog = "";
+            try { todaysLog = File.ReadAllText($"{userRoot}{slash}foodlog{slash}{dte}.TXT").Replace("\r", ""); }
+            catch { }
 
             bLog = new List<logItem>();
             lLog = new List<logItem>();
@@ -1385,6 +1395,21 @@ namespace Nutritracker
         {
             frmPairRelDB frmGRDB = new frmPairRelDB();
             frmGRDB.ShowDialog();
+        }
+
+        private void btnDeleteDay_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("Are you sure you want to archive this day?  You can undo this manually.", "", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            {
+                Directory.CreateDirectory($"{currentUser.root}foodlog{slash}_arc");
+                string file = $"{currentUser.root}foodlog{slash}_arc{slash}{comboLoggedDays.Text}.TXT";
+                int pn = 0;
+                while (File.Exists(file = $"{currentUser.root}foodlog{slash}_arc{slash}{comboLoggedDays.Text}_{pn}.TXT"))
+                    pn++;
+                File.Move($"{currentUser.root}foodlog{slash}{comboLoggedDays.Text}.TXT", file);
+                comboLoggedDays.Items.RemoveAt(comboLoggedDays.SelectedIndex);
+                comboLoggedDays.SelectedIndex = comboLoggedDays.Items.Count - 1;
+            }
         }
     }
 }

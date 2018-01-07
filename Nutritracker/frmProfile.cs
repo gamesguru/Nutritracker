@@ -234,7 +234,7 @@ namespace Nutritracker
                 }
             }
             string gender = radioMale.Checked ? "male" : "female";
-            text = txtNewProfName.Text + "\r\n" + gender + "\r\n" + txtAge.Text + "\r\n" + txtBodyfat.Text + "\r\n" + txtWt.Text +"\r\n" +txtHt.Text +"\r\n" + comboActivity.SelectedIndex.ToString() +"\r\n" +comboGoal.SelectedIndex.ToString();
+            text = txtNewProfName.Text + "\r\n" + gender + "\r\n" + txtAge.Text + "\r\n" + txtBodyfat.Text + "\r\n" + txtWt.Text + "\r\n" + txtHt.Text + "\r\n" + comboActivity.SelectedIndex.ToString() + "\r\n" + comboGoal.SelectedIndex.ToString() + "\r\n" + frmMain.dte;
             try { System.IO.File.WriteAllText($"{root}{slash}profile{profIndex}{slash}profile.TXT", text); }
             catch
             {
