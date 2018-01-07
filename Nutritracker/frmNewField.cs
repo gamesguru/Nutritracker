@@ -33,12 +33,9 @@ namespace Nutritracker
                 try { s2 = s.Substring(0, 3); }
                 catch { s2 = s.Substring(0, 2); }
 
-                char[] iC = new char[] { '/', '\\', ':', '*', '?', '"', '<', '>', '|' , ' '};
-                foreach (char c in iC)
+                foreach (char c in new char[] { '/', '\\', ':', '*', '?', '"', '<', '>', '|' , ' '})
                     if (s2.Contains(c))
                         s2 = s2.Replace(c, 'X');
-
-
                 s2 = s2.Replace("(", i.ToString()).Replace(" ", "X");
 
                 if (!listBox2.Items.Contains(s2.ToUpper()))

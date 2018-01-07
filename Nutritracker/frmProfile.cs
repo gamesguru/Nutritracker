@@ -235,13 +235,15 @@ namespace Nutritracker
             }
             string gender = radioMale.Checked ? "male" : "female";
             text = txtNewProfName.Text + "\r\n" + gender + "\r\n" + txtAge.Text + "\r\n" + txtBodyfat.Text + "\r\n" + txtWt.Text + "\r\n" + txtHt.Text + "\r\n" + comboActivity.SelectedIndex.ToString() + "\r\n" + comboGoal.SelectedIndex.ToString() + "\r\n" + frmMain.dte;
-            try { System.IO.File.WriteAllText($"{root}{slash}profile{profIndex}{slash}profile.TXT", text); }
+            try { File.WriteAllText($"{root}{slash}profile{profIndex}{slash}profile.TXT", text); }
             catch
             {
-                Directory.CreateDirectory( $"{root}{slash}profile" + profIndex.ToString());
+                Directory.CreateDirectory( $"{root}{slash}profile{profIndex}");
+                Directory.CreateDirectory( $"{root}{slash}profile{profIndex}foodlog");
+                Directory.CreateDirectory( $"{root}{slash}profile{profIndex}dtlreports");
                 Directory.CreateDirectory($"{root}{slash}profile{profIndex}{slash}foods");
                 Directory.CreateDirectory($"{root}{slash}profile{profIndex}{slash}recipes");
-                System.IO.File.WriteAllText($"{root}{slash}profile{profIndex}{slash}profile.TXT", text);
+                File.WriteAllText($"{root}{slash}profile{profIndex}{slash}profile.TXT", text);
                 comboExistingProfs.Items.Add(txtNewProfName.Text);
                 comboExistingProfs.SelectedIndex = comboExistingProfs.Items.Count - 1;
             }
@@ -249,10 +251,19 @@ namespace Nutritracker
             {
                 foreach (string s in Directory.GetFiles(root))
                     File.Delete(s);
-                File.Create(root + $"{slash}default{frmMain.currentUser.index}").Close();
+                File.Create($"{root}{slash}default{frmMain.currentUser.index}").Close();
             }
             
             frmMain.currentUser.index = comboExistingProfs.SelectedIndex;
+            frmMain.currentUser.name = txtNewProfName.Text;
+            frmMain.currentUser.gender = gender;
+            frmMain.currentUser.age = Convert.ToInt32(txtAge.Text);
+            frmMain.currentUser.bf = Convert.ToInt32(txtBodyfat.Text);
+            frmMain.currentUser.wt = Convert.ToInt32(txtWt.Text);
+            frmMain.currentUser.ht = Convert.ToInt32(txtHt.Text);
+            frmMain.currentUser.actLvl = comboActivity.SelectedIndex;
+            frmMain.currentUser.goal = comboGoal.SelectedIndex.ToString();
+            
             this.DialogResult = DialogResult.OK;
             this.Close();
         }
@@ -283,10 +294,9 @@ namespace Nutritracker
             defaultIndex -= 1;
 
             comboExistingProfs.SelectedIndex = defaultIndex;
-
             foreach (string s in Directory.GetFiles(root))
                 File.Delete(s);
-            File.Create($"{root}{slash}default{frmMain.currentUser.index}").Close();
+            File.Create($"{root}{slash}default{comboExistingProfs.SelectedIndex}").Close();
 
             profMax = files.Length;
         }

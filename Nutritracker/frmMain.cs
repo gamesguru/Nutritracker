@@ -18,45 +18,31 @@ namespace Nutritracker
         {
             int j = s.Length;
             int g = 0;
-            for (int i = j; i > 0; i--)
-            {
-                foreach (string st in substrings(s, i))
-                {
+            List<int> gs = new List<int>();
+            for (int i = j; i > 0; i--)            
+                foreach (string st in substrings(s, i))                
                     if (int.TryParse(st, out g))
-                        return g;
-                }
-            }
-            return 0;
+                        gs.Add(g);              
+            return gs.Max();
         }
 
-        public int getBiggestInt(double d)
-        {
-            return Convert.ToInt32(d);
-        }
+        public int getBiggestInt(double d)  => Convert.ToInt32(d);
 
         public string[] substrings(string s, int n)
         {
             string[] sr = new string[s.Length - n + 1];
-
-            for (int i = 0; i < s.Length - n + 1; i++)
-            {
-                sr[i] = s.Substring(i, n).ToLower();
-            }
-
+            for (int i = 0; i < s.Length - n + 1; i++)            
+                sr[i] = s.Substring(i, n).ToLower();           
             return sr;
         }
 
         public List<String> importArray(string filename)
         {
             list.Clear();
+            string line = "";
             using (StreamReader reader = new StreamReader(filename))
-            {
-                string line;
-                while ((line = reader.ReadLine()) != null)
-                {
-                    list.Add(line); // Add to list.
-                }
-            }
+                while ((line = reader.ReadLine()) != null)                
+                    list.Add(line);
             return list;
         }
 
@@ -137,8 +123,7 @@ namespace Nutritracker
         private void tabulateNutrientColumns()
         {
             int tDay1 = 6, tDay2 = 7;
-            for (int i = 0; i < dataDay.Rows.Count - 2; i++)
-            {
+            for (int i = 0; i < dataDay.Rows.Count - 2; i++)            
                 try
                 {
                     if (dataDay.Rows[i].Cells[0].Value.ToString() == "Totals")
@@ -146,17 +131,16 @@ namespace Nutritracker
                     tDay2 = tDay1 + 1;
                 }
                 catch { }
-            }
+            
 
 
             for (int i = 3; i < dataDay.ColumnCount; i++)
             {
                 double sum = 0;
-                for (int m = 0; m < dataDay.RowCount - 3; m++)
-                {
+                for (int m = 0; m < dataDay.RowCount - 3; m++)                
                     try { sum += Convert.ToDouble(dataDay.Rows[m].Cells[i].Value); }
                     catch { }
-                }
+                
                 dataDay.Rows[tDay1].Cells[i].Value = Math.Round(sum, 2);
             }
         }
@@ -202,7 +186,6 @@ namespace Nutritracker
         List<logItem> dLog;
         logItem litm;
         public static _profile currentUser = new _profile();
-        string userRoot;
 
         private void frmMain_Load(object sender, EventArgs e)
         {
@@ -210,19 +193,19 @@ namespace Nutritracker
             catch { }
             try { dte = File.ReadAllLines($"{Application.StartupPath}{slash}usr{slash}profile{currentUser.index}{slash}profile.TXT")[8]; }
             catch { dte = DateTime.Today.ToString("MM-dd-yyyy"); }
-            userRoot = $"{Application.StartupPath}{slash}usr{slash}profile{currentUser.index}";
+            currentUser.root = $"{Application.StartupPath}{slash}usr{slash}profile{currentUser.index}";
             string todaysLog = "";
 
             try
             {
-                todaysLog = File.ReadAllText($"{Application.StartupPath}{slash}usr{slash}profile{currentUser.index}{slash}foodlog{slash}{dte}.TXT");
                 foreach (string s in Directory.GetFiles($"{Application.StartupPath}{slash}usr{slash}profile{currentUser.index}{slash}foodlog"))
                     comboLoggedDays.Items.Add(s.Split(Path.DirectorySeparatorChar)[s.Split(Path.DirectorySeparatorChar).Length - 1].Replace(".TXT", ""));            
+				todaysLog = File.ReadAllText($"{Application.StartupPath}{slash}usr{slash}profile{currentUser.index}{slash}foodlog{slash}{dte}.TXT");
             }
             catch
             {
                 if (MessageBox.Show("Warning: no foodlog found for this user today. Create one?", "", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
-                    System.Diagnostics.Process.GetCurrentProcess().Kill();
+                    Directory.CreateDirectory($"{Application.StartupPath}{slash}usr{slash}profile{currentUser.index}{slash}foodlog");
                 else
                 {
                     Directory.CreateDirectory($"{Application.StartupPath}{slash}usr");
@@ -237,21 +220,17 @@ namespace Nutritracker
             {
                 comboLoggedDays.Items.Add(DateTime.Today.ToString("MM-dd-yyyy"));
                 try {
-                    Directory.CreateDirectory(($"{currentUser.root}foodlog"));
-                    File.Create($"{currentUser.root}foodlog{DateTime.Today.ToString("MM-dd-yyyy")}.TXT").Close(); }
+                    Directory.CreateDirectory(($"{currentUser.root}{slash}foodlog"));
+                    File.Create($"{currentUser.root}{slash}foodlog{slash}{DateTime.Today.ToString("MM-dd-yyyy")}.TXT").Close(); }
                 catch { }
             }
 
             string root = $"{Application.StartupPath}{slash}usr";
             foreach (string s in Directory.GetFiles(root))
-                if (s.Split(Path.DirectorySeparatorChar)[s.Split(Path.DirectorySeparatorChar).Length - 1].StartsWith("profile"))
-                {
-                    try
-                    {
-                        currentUser.index = Convert.ToInt16(s.Replace("default", ""));
-                    }
+                if (s.Split(Path.DirectorySeparatorChar)[s.Split(Path.DirectorySeparatorChar).Length - 1].StartsWith("profile"))                
+                    try{ currentUser.index = Convert.ToInt16(s.Replace("default", "")); }
                     catch { }
-                }
+                
             string[] directs = Directory.GetDirectories(root);
             profDirects = new List<string>();
             frmProfile frmP = new frmProfile();
@@ -269,8 +248,8 @@ namespace Nutritracker
             }
 
 
-            currentUser.root = $"{root}{slash}profile{currentUser.index}{slash}";
-            List<string> profData = importArray($"{currentUser.root}profile.TXT");
+            currentUser.root = $"{root}{slash}profile{currentUser.index}";
+            List<string> profData = importArray($"{currentUser.root}{slash}profile.TXT");
             currentUser.name = profData[0];
             currentUser.gender = profData[1];
             currentUser.age = Convert.ToInt16(profData[2]);
@@ -279,6 +258,7 @@ namespace Nutritracker
             currentUser.ht = Convert.ToInt16(profData[5]);
             currentUser.actLvl = Convert.ToInt16(profData[6]);
             currentUser.goal = profData[7];
+            currentUser.dte = profData[8];
 
             this.Text = $"Nutritracker — {currentUser.name}";
 
@@ -325,11 +305,8 @@ namespace Nutritracker
             //
 
             comboMeal.SelectedIndex = 0;
-
-            //MessageBox.Show(root + "\\usr\\profile" + loadIndex.ToString() + "\\foods\\names.txt");
             if (File.Exists($"{root}{slash}profile{currentUser.index}{slash}foods{slash}names.TXT"))
             {
-                lstCustFoods = new List<string>();
                 lstCustFoods = importArray($"{root}{slash}profile{currentUser.index}{slash}foods{slash}names.TXT");
                 for (int i = 0; i < lstCustFoods.Count; i++)
                     lstBoxRecipes.Items.Add(lstCustFoods[i]);
@@ -340,16 +317,6 @@ namespace Nutritracker
                     if (c.ToString() == dte)
                         comboLoggedDays.SelectedItem = c; }
             catch { comboLoggedDays.SelectedIndex = comboLoggedDays.Items.Count - 1; }
-
-            //loadup = false;
-            //WORK HERE ARRGGH
-            /*DataGridViewRow row = (DataGridViewRow)dataDay.Rows[0].Clone();
-            row.Cells[0].Value = "Breakfast";
-            dataDay.Rows.Add(row);
-            //row.Cells[0].Value = "Lunch";
-            //dataDay.Rows.Add(row);
-            //row.Cells[0].Value = "Dinner";
-            dataDay.Rows.Add(row);*/
         }
 
         List<string> lstCustFoods;
@@ -397,16 +364,9 @@ namespace Nutritracker
 
             refreshDataDay();
 
-            if (currentUser.actLvl == 0)
-                mFactor = 1.2;
-            else if (currentUser.actLvl == 1)
-                mFactor = 1.375;
-            else if (currentUser.actLvl == 2)
-                mFactor = 1.55;
-            else if (currentUser.actLvl == 3)
-                mFactor = 1.725;
-            else if (currentUser.actLvl == 4)
-                mFactor = 1.9;
+
+            mFactor = 1.2 + currentUser.actLvl * 0.175;
+            
             if (currentUser.gender == "female")
                 bmr = Convert.ToInt32(mFactor * (10 * 0.4536 * currentUser.wt + 6.25 * 2.54 * currentUser.ht - 5 * currentUser.age) + 5);
             else
@@ -418,21 +378,19 @@ namespace Nutritracker
                 if (dataExercise[0, i].Value.ToString() == "Existing")
                 {
                     dataExercise[2, i].Value = Math.Round(bmr / 1440.0, 2);
-                    dataExercise[4, i].Value = bmr.ToString() + " kcal";
+                    dataExercise[4, i].Value = $"{bmr} kcal";
                 }
 
             int sum = 0;
             for (int i = 0; i < m; i++)
-            {
                 try
                 {
                     sum += getBiggestInt(dataExercise[4, i].Value.ToString());
                 }
-
                 catch { }
-            }
+            
 
-            dataExercise[4, m].Value = sum.ToString() + " kcal";
+            dataExercise[4, m].Value = $"{sum} kcal";
 
             //add old exercise & meals
             //tabulate rows
@@ -512,7 +470,6 @@ namespace Nutritracker
             if (e.KeyCode == Keys.Delete)            
                 btnRemoveFood.PerformClick();            
         }
-        #endregion
 
         private void undoToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -608,13 +565,7 @@ namespace Nutritracker
             //        tDay = i + 1;
             //tabulateNutrientColumns();
         }
-
-        private void numericUpDown1_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (e.KeyChar.ToString() == "-" || e.KeyChar.ToString() == ".")
-                e.Handled = true;
-        }
-
+        #endregion
 
         bool bH = false;
         private void dataExercise_CellValueChanged(object sender, DataGridViewCellEventArgs e)
@@ -739,18 +690,10 @@ namespace Nutritracker
         skip:
             int sum = 0;
             int m = dataExercise.RowCount - 2;
-            for (int i = 0; i < m; i++)
-            {
-                try
-                {
-                    int q = getBiggestInt(dataExercise[4, i].Value.ToString());
-                    //MessageBox.Show(q.ToString());
-                    sum += q;
-                }
-                catch
-                {
-                }
-            }
+            for (int i = 0; i < m; i++)            
+                try { sum += getBiggestInt(dataExercise[4, i].Value.ToString()); }
+                catch  {                }
+            
             //MessageBox.Show(m.ToString());
             dataExercise[4, m].Value = sum.ToString() + " kcal";
 
@@ -812,6 +755,7 @@ namespace Nutritracker
             }
             return lFields;
         }
+        
         public class colObj
         {
             public string file;
@@ -931,11 +875,11 @@ namespace Nutritracker
                 dataDay.Columns.Clear(); }
             catch{}
             dte = comboLoggedDays.SelectedItem.ToString();
-            string[] profData = File.ReadAllLines($"{currentUser.root}profile.TXT");
+            string[] profData = File.ReadAllLines($"{currentUser.root}{slash}profile.TXT");
             profData[8] = dte;
-            File.WriteAllLines($"{currentUser.root}profile.TXT", profData);
+            File.WriteAllLines($"{currentUser.root}{slash}profile.TXT", profData);
             string todaysLog = "";
-            try { todaysLog = File.ReadAllText($"{userRoot}{slash}foodlog{slash}{dte}.TXT").Replace("\r", ""); }
+            try { todaysLog = File.ReadAllText($"{currentUser.root}{slash}foodlog{slash}{dte}.TXT").Replace("\r", ""); }
             catch { }
 
             bLog = new List<logItem>();
@@ -1401,12 +1345,13 @@ namespace Nutritracker
         {
             if (MessageBox.Show("Are you sure you want to archive this day?  You can undo this manually.", "", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
-                Directory.CreateDirectory($"{currentUser.root}foodlog{slash}_arc");
-                string file = $"{currentUser.root}foodlog{slash}_arc{slash}{comboLoggedDays.Text}.TXT";
+                Directory.CreateDirectory($"{currentUser.root}{slash}foodlog{slash}_arc");
+                string file = $"{currentUser.root}{slash}foodlog{slash}_arc{slash}{comboLoggedDays.Text}.TXT";
                 int pn = 0;
-                while (File.Exists(file = $"{currentUser.root}foodlog{slash}_arc{slash}{comboLoggedDays.Text}_{pn}.TXT"))
+                while (File.Exists(file = $"{currentUser.root}{slash}foodlog{slash}_arc{slash}{comboLoggedDays.Text}_{pn}.TXT"))
                     pn++;
-                File.Move($"{currentUser.root}foodlog{slash}{comboLoggedDays.Text}.TXT", file);
+                try { File.Move($"{currentUser.root}{slash}foodlog{slash}{comboLoggedDays.Text}.TXT", file); }
+                catch (Exception ex) { MessageBox.Show(ex.ToString(), "", MessageBoxButtons.OK, MessageBoxIcon.Warning); }
                 int n = comboLoggedDays.SelectedIndex;
                 comboLoggedDays.SelectedIndex = 0;
                 comboLoggedDays.Items.RemoveAt(n);

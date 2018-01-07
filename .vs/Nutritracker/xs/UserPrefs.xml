@@ -1,20 +1,17 @@
 ﻿<Properties StartupConfiguration="{086472C5-DD1F-4872-9BF1-9F9B633A376F}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Nutritracker/frmMain.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Nutritracker/frmSearchFoods.cs">
     <Files>
-      <File FileName="Nutritracker/frmMain.cs" Line="1410" Column="20" />
-      <File FileName="Nutritracker/frmNewDBrel.cs" Line="17" Column="27" />
-      <File FileName="Nutritracker/frmManageDB.cs" Line="4" Column="17" />
+      <File FileName="Nutritracker/frmNewDBrel.cs" Line="353" Column="14" />
       <File FileName="Nutritracker/frmDetailReport.cs" Line="111" Column="13" />
-      <File FileName="Nutritracker/frmSearchFoods.cs" Line="156" Column="23" />
+      <File FileName="Nutritracker/frmSearchFoods.cs" Line="227" Column="26" />
       <File FileName="Nutritracker/frmPairRelDB.cs" Line="3" Column="19" />
-      <File FileName="Nutritracker/frmProfile.cs" Line="260" Column="62" />
+      <File FileName="Nutritracker/frmNewField.cs" Line="36" Column="100" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore>
-      <Breakpoint file="/home/shane/MonoProjects/Nutritracker/Nutritracker/frmPairRelDB.cs" relfile="Nutritracker/frmPairRelDB.cs" line="345" column="30" />
-      <Breakpoint file="/home/shane/MonoProjects/Nutritracker/Nutritracker/frmMain.cs" relfile="Nutritracker/frmMain.cs" line="933" column="40" />
+      <Breakpoint file="/media/shane/RaptorWS/MonoProjects/Nutritracker/Nutritracker/frmPairRelDB.cs" relfile="Nutritracker/frmPairRelDB.cs" line="345" column="30" />
     </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />

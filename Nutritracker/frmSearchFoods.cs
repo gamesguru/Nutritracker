@@ -224,8 +224,9 @@ namespace Nutritracker
 
             bw.DoWork += delegate
             {
-                try { search(); }
-                catch (Exception ex) { MessageBox.Show(ex.ToString()); }
+                search();
+                //try { search(); }
+                //catch (Exception ex) { MessageBox.Show(ex.ToString()); }
             };
             try
             {

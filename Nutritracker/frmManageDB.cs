@@ -20,10 +20,8 @@ namespace Nutritracker
             using (StreamReader reader = new StreamReader(filename))
             {
                 string line;
-                while ((line = reader.ReadLine()) != null)
-                {
-                    list.Add(line);
-                }
+                while ((line = reader.ReadLine()) != null)                
+                    list.Add(line);                
             }
             return list;
         }
@@ -60,11 +58,8 @@ namespace Nutritracker
             }
             
             if (comboBox1.Items.Count > 0 && File.Exists($"{Application.StartupPath}{slash}usr{slash}profile{frmMain.currentUser.index}{slash}DBs{slash}Default.TXT"))
-            {
-                int index = Convert.ToInt32(File.ReadAllLines($"{Application.StartupPath}{slash}usr{slash}profile{frmMain.currentUser.index}{slash}DBs{slash}Default.TXT")[0]);
-                comboBox1.SelectedIndex = index;
-            }
-
+                comboBox1.SelectedIndex = Convert.ToInt32(File.ReadAllLines($"{Application.StartupPath}{slash}usr{slash}profile{frmMain.currentUser.index}{slash}DBs{slash}Default.TXT")[0]);
+            
             //comboBox1.SelectedIndex = comboBox1.Items.Count - 1;
         }
 

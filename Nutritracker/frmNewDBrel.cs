@@ -312,7 +312,7 @@ namespace Nutritracker
                     }
                     nutrNos = nutrNos.ToArray().Distinct().ToList();
                     nutrNos.Sort();
-                    File.WriteAllText(newRelDir + slash + "_dbInit.TXT", $"[ParentDB]{comboBox1.Text}\r\n[Flav_Val]{txtFlavVal.Text}.TXT\r\n[Units]{unit}\r\n[NDB_No]$NDB_No\r\n[Nutr_No]$Nutr_No\r\n[NutrDesc]{txtNutrDesc.Text}.TXT");
+                    File.WriteAllText(newRelDir + slash + "_dbInit.TXT", $"[ParentDB]{comboBox1.Text}\r\n[FlavVal]{txtFlavVal.Text}.TXT\r\n[Units]{unit}\r\n[NDBNo]$NDBNo\r\n[NutrNo]$NutrNo\r\n[NutrDesc]{txtNutrDesc.Text}.TXT");
                     txtOutput.Text = "Units: " + unit + txtOutput.Text;
                 }
 
@@ -327,7 +327,7 @@ namespace Nutritracker
                 ndb = ndb.Replace(newRelDir, "").Replace(slash, "/");
                 nutrNo = nutrNo.Replace(newRelDir, "").Replace(slash, "/");
                 string text = File.ReadAllText(newRelDir + slash + "_dbInit.TXT");
-                text = text.Replace("$NDB_No", ndb).Replace("$Nutr_No", nutrNo);
+                text = text.Replace("$NDBNo", ndb).Replace("$NutrNo", nutrNo);
                 File.WriteAllText(newRelDir + slash + "_dbInit.TXT", text);
                 MessageBox.Show($"Database created successfully! Go to the extended tab of the {comboBox1.Text} database to configure it");
                 //this.Close();
@@ -343,15 +343,11 @@ namespace Nutritracker
                 string newRelDir = $"{Application.StartupPath}{slash}usr{slash}share{slash}rel{slash}single{slash}{txtName.Text}";
 
                 Directory.CreateDirectory(newRelDir);
-                
-                //string ndb = "";
-                //string val = "";
 
                 for (int i=0;i<relf.headers.Length;i++){
                     List<string> c = new List<string>();
-                    for (int j=1;j<relf.lines.Length;j++){
-                        c.Add(relf.lines[j].Split('\t')[i]);
-                    }
+                    for (int j=1;j<relf.lines.Length;j++)
+                        c.Add(relf.lines[j].Split('\t')[i]);                    
                     File.WriteAllLines($"{newRelDir}{slash}{headers[i]}.TXT" , c);
                 }
             }
