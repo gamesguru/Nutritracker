@@ -946,7 +946,7 @@ namespace Nutritracker
                 string[] lines = todaysLog.Split(new string[] { "--Breakfast--" }, StringSplitOptions.RemoveEmptyEntries)[0].Split(new string[] { "--Lunch--" }, StringSplitOptions.RemoveEmptyEntries)[0].Split(new string[] { "\n" }, StringSplitOptions.RemoveEmptyEntries);
                 foreach (string st in lines)
                 {
-                    litm = new logItem();
+                     litm = new logItem();
                     litm._db = st.Split('|')[0];
                     litm.primKeyNo = st.Split('|')[1];
                     litm.grams = Convert.ToDouble(st.Split('|')[2]);
@@ -1407,8 +1407,9 @@ namespace Nutritracker
                 while (File.Exists(file = $"{currentUser.root}foodlog{slash}_arc{slash}{comboLoggedDays.Text}_{pn}.TXT"))
                     pn++;
                 File.Move($"{currentUser.root}foodlog{slash}{comboLoggedDays.Text}.TXT", file);
-                comboLoggedDays.Items.RemoveAt(comboLoggedDays.SelectedIndex);
-                comboLoggedDays.SelectedIndex = comboLoggedDays.Items.Count - 1;
+                int n = comboLoggedDays.SelectedIndex;
+                comboLoggedDays.SelectedIndex = 0;
+                comboLoggedDays.Items.RemoveAt(n);
             }
         }
     }
