@@ -80,6 +80,7 @@ namespace Nutritracker
             //}
 
             chkLstBoxDays.Items.Add("All");
+            chkLstBoxDays.SetItemChecked(chkLstBoxDays.Items.Count -1, true);
             int n = 0;
             while (File.Exists(file = $"{profileRoot}{slash}dtlreports{slash}{dte}_{n}.TXT"))
                 n++;
@@ -105,11 +106,9 @@ namespace Nutritracker
             
             string[] activeNutsLines = File.ReadAllLines($"{profileRoot}{slash}activeFields.TXT");
             foreach (string s in activeNutsLines)
-            {
-                string leading = s.Split('#')[0];
-                if (leading != "") // && frmMain.activeFields.Contains(leading))
-                    activeFields.Add(leading);
-            }
+                if (s.Split('#')[0] != "") // && frmMain.activeFields.Contains(leading))
+                    activeFields.Add(s.Split('#')[0]);
+            
 
 
             ProcessStartInfo ps = new ProcessStartInfo($"{Application.StartupPath}{slash}logRunner.exe");
@@ -118,9 +117,9 @@ namespace Nutritracker
             // arg2   = unique log output *.TXT, full file name
             // arg4[] = dates
             ps.Arguments = $"{frmMain.currentUser.index} {file} {string.Join(" ", days)}";
-            Process.Start(ps);
+            Process.Start(ps).Close();
             
-            MessageBox.Show($"Log performed over {days.Count} days with {activeFields.Count} active fields\n\nWait for console to finish, it will save a log to\n{file}", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //MessageBox.Show($"Log performed over {days.Count} days with {activeFields.Count} active fields\n\nWait for console to finish, it will save a log to\n{file}", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
             this.Close();
         }
 

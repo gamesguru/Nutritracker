@@ -876,12 +876,16 @@ namespace Nutritracker
                         lines = File.ReadAllLines($"{dbDir}{slash}{fObjs[i].file}");
                 for (int i = 0; i < lines.Length; i++)
                     if (lines[i] == l.primKeyNo && l.index == 0)
-                        l.index = i;                
+                        l.index = i;
 
                 for (int i = 0; i < fObjs.Count(); i++)
                     foreach (string s in fields)
                         if (s == fObjs[i].field)
-                            fObjs[i].nutVal = File.ReadAllLines($"{dbDir}{slash}{fObjs[i].file}")[l.index];
+                            try {
+                                if (fObjs[i].field == "NDBNo")
+                                    throw new Exception();
+                            fObjs[i].nutVal = Math.Round((l.grams * 0.01) * Convert.ToDouble(File.ReadAllLines($"{dbDir}{slash}{fObjs[i].file}")[l.index]), 3).ToString(); }
+                            catch { fObjs[i].nutVal = File.ReadAllLines($"{dbDir}{slash}{fObjs[i].file}")[l.index]; }
 
                 string[] ukp = File.ReadAllLines($"{dbDir}{slash}_unitKeyPairs.TXT");
                 for (int i = 0; i < fObjs.Count(); i++)
