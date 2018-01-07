@@ -186,6 +186,7 @@ namespace Nutritracker
             public string goal = "Maintenance";
             public int index = 0; //the index among other profiles, beginning with 0
             public string root;
+            public string dte = "";
         }
 
         public class logItem
@@ -205,10 +206,10 @@ namespace Nutritracker
 
         private void frmMain_Load(object sender, EventArgs e)
         {
-            dte = DateTime.Today.ToString("MM-dd-yyyy");
             try { currentUser.index = Convert.ToInt32(Directory.GetFiles($"{Application.StartupPath}{slash}usr")[0].Split(new string[] { $"usr{slash}default" }, StringSplitOptions.None)[1]); }
             catch { }
-
+            try { dte = File.ReadAllLines($"{Application.StartupPath}{slash}usr{slash}profile{currentUser.index}{slash}profile.TXT")[8]; }
+            catch { dte = DateTime.Today.ToString("MM-dd-yyyy"); }
             userRoot = $"{Application.StartupPath}{slash}usr{slash}profile{currentUser.index}";
             string todaysLog = "";
 
@@ -326,7 +327,11 @@ namespace Nutritracker
                     lstBoxRecipes.Items.Add(lstCustFoods[i]);
             }
 
-            comboLoggedDays.SelectedIndex = comboLoggedDays.Items.Count - 1;
+            try {
+                foreach (var c in comboLoggedDays.Items)
+                    if (c.ToString() == dte)
+                        comboLoggedDays.SelectedItem = c; }
+            catch { comboLoggedDays.SelectedIndex = comboLoggedDays.Items.Count - 1; }
 
             //loadup = false;
             //WORK HERE ARRGGH
@@ -918,6 +923,9 @@ namespace Nutritracker
                 dataDay.Columns.Clear(); }
             catch{}
             dte = comboLoggedDays.SelectedItem.ToString();
+            string[] profData = File.ReadAllLines($"{currentUser.root}profile.TXT");
+            profData[8] = dte;
+            File.WriteAllLines($"{currentUser.root}profile.TXT", profData);
             string todaysLog = File.ReadAllText($"{userRoot}{slash}foodlog{slash}{dte}.TXT").Replace("\r", "");
 
             bLog = new List<logItem>();

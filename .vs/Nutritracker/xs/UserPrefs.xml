@@ -1,7 +1,7 @@
 ﻿<Properties StartupConfiguration="{086472C5-DD1F-4872-9BF1-9F9B633A376F}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Nutritracker/frmDetailReport.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Nutritracker/frmMain.cs">
     <Files>
-      <File FileName="Nutritracker/frmMain.cs" Line="1023" Column="22" />
+      <File FileName="Nutritracker/frmMain.cs" Line="928" Column="76" />
       <File FileName="Nutritracker/frmNewDBrel.cs" Line="17" Column="27" />
       <File FileName="Nutritracker/frmManageDB.cs" Line="4" Column="17" />
       <File FileName="Nutritracker/frmDetailReport.cs" Line="111" Column="13" />
