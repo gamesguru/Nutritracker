@@ -221,7 +221,8 @@ namespace Nutritracker
                 comboLoggedDays.Items.Add(DateTime.Today.ToString("MM-dd-yyyy"));
                 try {
                     Directory.CreateDirectory(($"{currentUser.root}{slash}foodlog"));
-                    File.Create($"{currentUser.root}{slash}foodlog{slash}{DateTime.Today.ToString("MM-dd-yyyy")}.TXT").Close(); }
+                    //File.Create($"{currentUser.root}{slash}foodlog{slash}{DateTime.Today.ToString("MM-dd-yyyy")}.TXT").Close(); 
+                    }
                 catch { }
             }
 

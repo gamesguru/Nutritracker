@@ -7,7 +7,7 @@
       <File FileName="Nutritracker/frmPairRelDB.cs" Line="17" Column="53" />
       <File FileName="Nutritracker/frmNewField.cs" Line="36" Column="100" />
       <File FileName="Nutritracker/frmActiveFields.cs" Line="168" Column="1" />
-      <File FileName="Nutritracker/frmMain.cs" Line="891" Column="32" />
+      <File FileName="Nutritracker/frmMain.cs" Line="225" Column="21" />
       <File FileName="Nutritracker/frmProfile.cs" Line="257" Column="74" />
     </Files>
   </MonoDevelop.Ide.Workbench>
@@ -15,7 +15,6 @@
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore>
       <Breakpoint file="/media/shane/RaptorWS/MonoProjects/Nutritracker/Nutritracker/frmPairRelDB.cs" relfile="Nutritracker/frmPairRelDB.cs" line="345" column="30" />
-      <Breakpoint file="/media/shane/RaptorWS/MonoProjects/Nutritracker/Nutritracker/frmMain.cs" relfile="Nutritracker/frmMain.cs" line="891" column="29" />
     </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
