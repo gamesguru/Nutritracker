@@ -1,6 +1,0 @@
-[ParentDB]USDAstock
-[ParentKey]/FLAV_DAT/NDB_No.TXT
-[ChildKey]/NUTR_DEF/Nutr_No.TXT
-[Fields]NutrDesc.TXT
-[Values]Flav_Val.TXT
-[Units]mg Per 100g
