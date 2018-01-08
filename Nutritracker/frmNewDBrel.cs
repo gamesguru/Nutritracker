@@ -312,7 +312,7 @@ namespace Nutritracker
                     }
                     nutrNos = nutrNos.ToArray().Distinct().ToList();
                     nutrNos.Sort();
-                    File.WriteAllText(newRelDir + slash + "_dbInit.TXT", $"[ParentDB]{comboBox1.Text}\r\n[FlavVal]{txtFlavVal.Text}.TXT\r\n[Units]{unit}\r\n[NDBNo]$NDBNo\r\n[NutrNo]$NutrNo\r\n[NutrDesc]{txtNutrDesc.Text}.TXT");
+                    File.WriteAllText(newRelDir + slash + "_dbInit.TXT", $"[ParentDB]{comboBox1.Text}\r\n[Values]{txtFlavVal.Text}.TXT\r\n[Units]{unit}\r\n[ParentKey]$NDBNo\r\n[ChildKey]$NutrNo\r\n[Fields]{txtNutrDesc.Text}.TXT");
                     txtOutput.Text = "Units: " + unit + txtOutput.Text;
                 }
 

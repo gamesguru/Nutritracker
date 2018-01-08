@@ -871,16 +871,22 @@ namespace Nutritracker
 
         private void refreshDataDay()
         {
-            try { dataDay.Rows.Clear();
-                dataDay.Columns.Clear(); }
+            dataDay.DataSource = null;
+            dataDay.Refresh();
+            try{dataDay.Columns.Clear(); }
             catch{}
-            dte = comboLoggedDays.SelectedItem.ToString();
+            try{dataDay.Rows.Clear();}
+            catch{}
+            try { dte = comboLoggedDays.SelectedItem.ToString(); }
+            catch { dte = DateTime.Today.ToString("MM-dd-yyyy").Replace("/", "-"); }
             string[] profData = File.ReadAllLines($"{currentUser.root}{slash}profile.TXT");
             profData[8] = dte;
             File.WriteAllLines($"{currentUser.root}{slash}profile.TXT", profData);
             string todaysLog = "";
             try { todaysLog = File.ReadAllText($"{currentUser.root}{slash}foodlog{slash}{dte}.TXT").Replace("\r", ""); }
-            catch { }
+            catch { File.Create($"{currentUser.root}{slash}foodlog{slash}{dte}.TXT"); }
+            if (!comboLoggedDays.Items.Contains(dte))
+                comboLoggedDays.Items.Add(dte);
 
             bLog = new List<logItem>();
             lLog = new List<logItem>();

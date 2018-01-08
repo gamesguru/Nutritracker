@@ -1,6 +1,6 @@
 [ParentDB]USDAstock
-[FlavVal]Isfl_Val.TXT
+[Values]Isfl_Val.TXT
 [Units]mg Per 100g
-[NDBNo]/ISFL_DAT/NDB_No.TXT
-[NutrNo]/NUTR_DEF/Nutr_No.TXT
-[NutrDesc]NutrDesc.TXT
+[ParentKey]/ISFL_DAT/NDB_No.TXT
+[ChildKey]/NUTR_DEF/Nutr_No.TXT
+[Fields]NutrDesc.TXT

@@ -10,7 +10,6 @@ namespace Nutritracker
 {
     public partial class frmActiveFields : Form
     {
-		FileSystemWatcher watcher = new FileSystemWatcher();
         public frmActiveFields()
         {
             InitializeComponent();
@@ -18,51 +17,52 @@ namespace Nutritracker
 
         List<string> availFields = new List<string>();
         List<string> oldInput;
-        string slash = Path.DirectorySeparatorChar.ToString();
+        string sl = Path.DirectorySeparatorChar.ToString();
         string userRoot = "";
         private void frmActiveFields_Load(object sender, EventArgs e)
         {
-            userRoot = $"{Application.StartupPath}{slash}usr{slash}profile{frmMain.currentUser.index}";
-            watcher.Path = userRoot;
-			//watcher.EnableRaisingEvents = true;
-            watcher.Changed += new FileSystemEventHandler(watcher_OnChanged);
+            userRoot = $"{Application.StartupPath}{sl}usr{sl}profile{frmMain.currentUser.index}";
             this.Text = $"Editing {frmMain.currentUser.name}'s Active Fields";
-            oldInput = File.ReadAllLines($"{userRoot}{slash}activeFields.TXT").ToList();
+            oldInput = File.ReadAllLines($"{userRoot}{sl}activeFields.TXT").ToList();
             for (int i = 0; i < oldInput.Count; i++)
                 if (oldInput[i] == "")
                     oldInput.RemoveAt(i);
                 else
                     oldInput[i] = oldInput[i].Replace("\r", "");
 
-            string[] dbs = Directory.GetDirectories($"{Application.StartupPath}{slash}usr{slash}share{slash}DBs");
+            //primary DBs (USDA, CNV, etc)
+            string[] dbs = Directory.GetDirectories($"{Application.StartupPath}{sl}usr{sl}share{sl}DBs");
             foreach (string s in dbs)
             {
                 string name = s.Split(Path.DirectorySeparatorChar)[s.Split(Path.DirectorySeparatorChar).Length - 1];
                 if (!name.StartsWith("_"))
                 {
-                    string[] nutLines = File.ReadAllLines($"{s}{slash}_nutKeyPairs.TXT");
+                    string[] nutLines = File.ReadAllLines($"{s}{sl}_nutKeyPairs.TXT");
                     foreach (string st in nutLines)
                         if (!st.StartsWith("#") && !availFields.Contains(st.Split('|')[1]))
                             availFields.Add(st.Split('|')[1]);
                 }
             }
-            dbs = Directory.GetDirectories($"{Application.StartupPath}{slash}usr{slash}profile{frmMain.currentUser.index}{slash}DBs");
+            
+            //user fields
+            dbs = Directory.GetDirectories($"{Application.StartupPath}{sl}usr{sl}profile{frmMain.currentUser.index}{sl}DBs");
             foreach (string s in dbs)            
                 if (s.Contains("f_user_")){
-                    string[] configLines = File.ReadAllLines($"{s}{slash}_dbConfig.TXT");
+                    string[] configLines = File.ReadAllLines($"{s}{sl}_dbConfig.TXT");
                     foreach (string st in configLines)
                         if (st.StartsWith("[MetricName]") && !availFields.Contains(st.Replace("[MetricName]", "")))
                             availFields.Add(st.Replace("[MetricName]", ""));                                                          
                 }
-                     
-            dbs = Directory.GetDirectories($"{Application.StartupPath}{slash}usr{slash}share{slash}rel{slash}multi");
+            
+            //extended flavonoid DB         
+            dbs = Directory.GetDirectories($"{Application.StartupPath}{sl}usr{sl}share{sl}rel{sl}multi");
             foreach (string s in dbs)
             {
-                string[] initLines = File.ReadAllLines($"{s}{slash}_dbInit.TXT");
+                string[] initLines = File.ReadAllLines($"{s}{sl}_dbInit.TXT");
                 string nutrDescFile = "";
                 foreach (string st in initLines)
-                    if (st.StartsWith("[NutrDesc]"))
-                        nutrDescFile = st.Replace("[NutrDesc]", "");
+                    if (st.StartsWith("[Fields]"))
+                        nutrDescFile = st.Replace("[Fields]", "");
                 nutrDescFile = Directory.GetFiles(s, nutrDescFile, SearchOption.AllDirectories)[0];
 
                 foreach (string st in File.ReadAllLines(nutrDescFile))
@@ -70,29 +70,12 @@ namespace Nutritracker
                         availFields.Add(st);
             }
             
-		    //availFields.Sort();
+		    //availFields.Sort(); //undesirable
             richTxtInput.Text = string.Join("\n", oldInput);
         }
 
         private void btnDone_Click(object sender, EventArgs e)
         {
-                        //bool edited = false;
-            //List<string> newOutput = richTxtInput.Text.Split('\n').ToList();
-
-            //for (int i = 0; i < newOutput.Count; i++)
-            //{
-            //    if (newOutput.Count != oldInput.Count)
-            //    {
-            //        edited = true;
-            //        break;
-            //    }
-            //    newOutput[i].Replace("\r", "");
-            //    if (newOutput[i] != oldInput[i])
-            //        edited = true;
-            //}
-
-            //if (edited && MessageBox.Show("Save changes?", "", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
-            //    File.WriteAllLines($"{Application.StartupPath}{slash}usr{slash}profile{frmMain.currentUser.index}{slash}activeFields.TXT", richTxtInput.Text.Split('\n'));
             this.Close();
         }
 
@@ -150,14 +133,6 @@ namespace Nutritracker
                 m += lines[i].Length + 1;
             }
         }
-
-        private void watcher_OnChanged(object source, FileSystemEventArgs e)
-        {
-            watcher.EnableRaisingEvents = false;
-            if (e.Name.EndsWith("activeFields.TXT"))
-                richTxtInput.Text = File.ReadAllText($"{userRoot}{slash}activeFields.TXT").Replace("\r", "");
-            watcher.EnableRaisingEvents = true;           
-        }
         
         private void btnListFields_Click(object sender, EventArgs e)
         {
@@ -175,14 +150,14 @@ namespace Nutritracker
 
         private void refreshToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            richTxtInput.Text = File.ReadAllText($"{userRoot}{slash}activeFields.TXT");
+            richTxtInput.Text = File.ReadAllText($"{userRoot}{sl}activeFields.TXT");
         }
 
         private void editToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ProcessStartInfo ps = new ProcessStartInfo();
-            ps.Arguments = $"{userRoot}{slash}activeFields.TXT";
-            if (slash == "/")
+            ps.Arguments = $"{userRoot}{sl}activeFields.TXT";
+            if (sl == "/")
                 ps.FileName = "gedit";
             else
                 ps.FileName = "notepad";

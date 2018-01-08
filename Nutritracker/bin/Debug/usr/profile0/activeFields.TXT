@@ -112,8 +112,8 @@ Cyanidin|180 mg
 #Theaflavin
 #Thearubigins
 #Eriodictyol
-Hesperetin|120mg
-Naringenin|100mg
+Hesperetin|120 mg
+Naringenin|100 mg
 Apigenin|40 mg
 Luteolin|40 mg
 Isorhamnetin|40 mg

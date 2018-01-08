@@ -255,6 +255,7 @@ namespace Nutritracker
             }
             
             frmMain.currentUser.index = comboExistingProfs.SelectedIndex;
+            frmMain.currentUser.root = $"{root}{slash}profile{frmMain.currentUser.index}";
             frmMain.currentUser.name = txtNewProfName.Text;
             frmMain.currentUser.gender = gender;
             frmMain.currentUser.age = Convert.ToInt32(txtAge.Text);
