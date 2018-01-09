@@ -253,27 +253,40 @@ namespace Nutritracker
             }
 
 
+
             currentUser.root = $"{root}{slash}profile{currentUser.index}";
-            foreach (string s in File.ReadAllLines($"{currentUser.root}{slash}profile.TXT"))
+            try
             {
-                if (s.StartsWith("[Gender]"))
-                    currentUser.gender = s.Replace("[Gender]", "");
-                else if (s.StartsWith("[Name]"))
-                    currentUser.name =  s.Replace("[Name]", "");
-                else if (s.StartsWith("[Age]"))
-                     currentUser.age = Convert.ToInt32(s.Replace("[Age]", ""));
-                else if (s.StartsWith("[Bodyfat]"))
-                   currentUser.bf = Convert.ToDouble(s.Replace("[Bodyfat]", ""));
-                else if (s.StartsWith("[Weight]"))
-                    currentUser.wt = Convert.ToInt32(s.Replace("[Weight]", ""));
-                else if (s.StartsWith("[Height]"))
-                    currentUser.ht = Convert.ToInt32(s.Replace("[Height]", ""));
-                else if (s.StartsWith("[ActLvl]"))
-                    currentUser.actLvl = Convert.ToInt32(s.Replace("[ActLvl]", ""));
-                else if (s.StartsWith("[Goal]"))
-                    currentUser.goal = s.Replace("[Goal]", "");
-                else if (s.StartsWith("[Date]"))
-                    currentUser.dte = s.Replace("[Date]", "");
+                if (!File.Exists($"{currentUser.root}{slash}profile.TXT") || !(File.ReadAllLines($"{currentUser.root}{slash}profile.TXT").Contains("[License]true")))
+                {
+                    licenseDialog frmli = new licenseDialog();
+                    frmli.ShowDialog();
+                }
+                foreach (string s in File.ReadAllLines($"{currentUser.root}{slash}profile.TXT"))
+                {
+                    if (s.StartsWith("[Gender]"))
+                        currentUser.gender = s.Replace("[Gender]", "");
+                    else if (s.StartsWith("[Name]"))
+                        currentUser.name = s.Replace("[Name]", "");
+                    else if (s.StartsWith("[Age]"))
+                        currentUser.age = Convert.ToInt32(s.Replace("[Age]", ""));
+                    else if (s.StartsWith("[Bodyfat]"))
+                        currentUser.bf = Convert.ToDouble(s.Replace("[Bodyfat]", ""));
+                    else if (s.StartsWith("[Weight]"))
+                        currentUser.wt = Convert.ToInt32(s.Replace("[Weight]", ""));
+                    else if (s.StartsWith("[Height]"))
+                        currentUser.ht = Convert.ToInt32(s.Replace("[Height]", ""));
+                    else if (s.StartsWith("[ActLvl]"))
+                        currentUser.actLvl = Convert.ToInt32(s.Replace("[ActLvl]", ""));
+                    else if (s.StartsWith("[Goal]"))
+                        currentUser.goal = s.Replace("[Goal]", "");
+                    else if (s.StartsWith("[Date]"))
+                        currentUser.dte = s.Replace("[Date]", "");
+                }
+            }
+            catch
+            {
+                frmP.ShowDialog();
             }
 
             this.Text = $"Nutritracker — {currentUser.name}";

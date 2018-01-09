@@ -1,0 +1,9 @@
+[Name]Shane
+[Gender]male
+[Age]24
+[Bodyfat]13
+[Weight]160
+[Height]70
+[ActLvl]1
+[Goal]3
+01-08-2018

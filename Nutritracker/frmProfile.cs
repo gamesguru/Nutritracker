@@ -151,17 +151,22 @@ namespace Nutritracker
             string[] directs = Directory.GetDirectories(root);
             //MessageBox.Show(string.Join(", ", directs));
             List<string> profs = new List<string>();
-            for (int i=0;i<directs.Length;i++)
-                if (directs[i].EndsWith($"{sl}profile{i}"))
-                {
-                    string name = "";
-                    foreach (string s in File.ReadAllLines($"{directs[i]}{sl}profile.TXT"))
-                        if (s.StartsWith("[Name]"))
-                            name = s.Replace("[Name]", "");
-                    profs.Add(directs[i]);
-                    comboExistingProfs.Items
-                        .Add(name);;
-                }
+            try
+            {
+                for (int i = 0; i < directs.Length; i++)
+                    if (directs[i].EndsWith($"{sl}profile{i}"))
+                    {
+                        string name = "";
+                        foreach (string s in File.ReadAllLines($"{directs[i]}{sl}profile.TXT"))
+                            if (s.StartsWith("[Name]"))
+                                name = s.Replace("[Name]", "");
+                        profs.Add(directs[i]);
+                        comboExistingProfs.Items
+                            .Add(name); ;
+                    }
+            }
+            catch { }
+
             if (comboExistingProfs.Items.Count > 0)
                 comboExistingProfs.SelectedIndex = profIndex;
 
@@ -199,25 +204,29 @@ namespace Nutritracker
             
             //profMax = files.Length;
             profs = new List<string>();
-            for (int i = 0; i < directs.Length; i++)
+            try
             {
-                string name = "";
-                foreach (string s in File.ReadAllLines($"{directs[i]}{sl}profile.TXT"))
-                    if (s.StartsWith("[Name]"))
-                        name = s.Replace("[Name]", "");
-                if (directs[i].EndsWith($"{sl}profile{i}")
-                    && name.ToLower() == comboExistingProfs.Text.ToLower())
+                for (int i = 0; i < directs.Length; i++)
                 {
-                    profIndex = i;
-                    profs.Add(directs[i]);
-                    comboExistingProfs.Items
-                        .Add(name); //importArray(root + "profile.txt")[0]);
-                    break;
+                    string name = "";
+                    foreach (string s in File.ReadAllLines($"{directs[i]}{sl}profile.TXT"))
+                        if (s.StartsWith("[Name]"))
+                            name = s.Replace("[Name]", "");
+                    if (directs[i].EndsWith($"{sl}profile{i}")
+                        && name.ToLower() == comboExistingProfs.Text.ToLower())
+                    {
+                        profIndex = i;
+                        profs.Add(directs[i]);
+                        comboExistingProfs.Items
+                            .Add(name); //importArray(root + "profile.txt")[0]);
+                        break;
+                    }
+                    else
+                        profIndex = profMax;
                 }
-                else
-                    profIndex = profMax;
             }
-            
+
+            catch { }
             
             string gender = radioMale.Checked ? "male" : "female";
             profData.Add($"[Name]{txtNewProfName.Text}");
