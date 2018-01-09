@@ -1,9 +1,9 @@
-Rocky
-male
-20
-18
-17
-25
-1
-0
+[Name]Rocky
+[Gender]male
+[Age]20
+[Bodyfat]18
+[Weight]17
+[Height]25
+[ActLvl]1
+[Goal]0
 01-07-2018

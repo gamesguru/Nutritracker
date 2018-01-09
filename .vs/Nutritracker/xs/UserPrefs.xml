@@ -1,5 +1,5 @@
 ﻿<Properties StartupConfiguration="{086472C5-DD1F-4872-9BF1-9F9B633A376F}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Nutritracker/frmMain.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Nutritracker/frmProfile.cs">
     <Files>
       <File FileName="Nutritracker/frmDetailReport.cs" Line="116" Column="1" />
       <File FileName="Nutritracker/frmSearchFoods.cs" Line="227" Column="26" />
@@ -7,8 +7,9 @@
       <File FileName="Nutritracker/frmPairRelDB.cs" Line="17" Column="53" />
       <File FileName="Nutritracker/frmNewField.cs" Line="36" Column="100" />
       <File FileName="Nutritracker/frmActiveFields.cs" Line="168" Column="1" />
-      <File FileName="Nutritracker/frmMain.cs" Line="225" Column="21" />
-      <File FileName="Nutritracker/frmProfile.cs" Line="257" Column="74" />
+      <File FileName="Nutritracker/frmMain.cs" Line="233" Column="1" />
+      <File FileName="Nutritracker/frmProfile.cs" Line="233" Column="54" />
+      <File FileName="Nutritracker/Program.cs" Line="19" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />

@@ -191,7 +191,11 @@ namespace Nutritracker
         {
             try { currentUser.index = Convert.ToInt32(Directory.GetFiles($"{Application.StartupPath}{slash}usr")[0].Split(new string[] { $"usr{slash}default" }, StringSplitOptions.None)[1]); }
             catch { }
-            try { dte = File.ReadAllLines($"{Application.StartupPath}{slash}usr{slash}profile{currentUser.index}{slash}profile.TXT")[8]; }
+            try {
+                foreach (string s in File.ReadAllLines($"{Application.StartupPath}{slash}usr{slash}profile{currentUser.index}{slash}profile.TXT"))
+                    if (s.StartsWith("[Date]"))
+                        dte = s.Replace("[Date]", "");
+            }
             catch { dte = DateTime.Today.ToString("MM-dd-yyyy"); }
             currentUser.root = $"{Application.StartupPath}{slash}usr{slash}profile{currentUser.index}";
             string todaysLog = "";
@@ -250,16 +254,27 @@ namespace Nutritracker
 
 
             currentUser.root = $"{root}{slash}profile{currentUser.index}";
-            List<string> profData = importArray($"{currentUser.root}{slash}profile.TXT");
-            currentUser.name = profData[0];
-            currentUser.gender = profData[1];
-            currentUser.age = Convert.ToInt16(profData[2]);
-            currentUser.bf = Convert.ToDouble(profData[3]);
-            currentUser.wt = Convert.ToInt16(profData[4]);
-            currentUser.ht = Convert.ToInt16(profData[5]);
-            currentUser.actLvl = Convert.ToInt16(profData[6]);
-            currentUser.goal = profData[7];
-            currentUser.dte = profData[8];
+            foreach (string s in File.ReadAllLines($"{currentUser.root}{slash}profile.TXT"))
+            {
+                if (s.StartsWith("[Gender]"))
+                    currentUser.gender = s.Replace("[Gender]", "");
+                else if (s.StartsWith("[Name]"))
+                    currentUser.name =  s.Replace("[Name]", "");
+                else if (s.StartsWith("[Age]"))
+                     currentUser.age = Convert.ToInt32(s.Replace("[Age]", ""));
+                else if (s.StartsWith("[Bodyfat]"))
+                   currentUser.bf = Convert.ToDouble(s.Replace("[Bodyfat]", ""));
+                else if (s.StartsWith("[Weight]"))
+                    currentUser.wt = Convert.ToInt32(s.Replace("[Weight]", ""));
+                else if (s.StartsWith("[Height]"))
+                    currentUser.ht = Convert.ToInt32(s.Replace("[Height]", ""));
+                else if (s.StartsWith("[ActLvl]"))
+                    currentUser.actLvl = Convert.ToInt32(s.Replace("[ActLvl]", ""));
+                else if (s.StartsWith("[Goal]"))
+                    currentUser.goal = s.Replace("[Goal]", "");
+                else if (s.StartsWith("[Date]"))
+                    currentUser.dte = s.Replace("[Date]", "");
+            }
 
             this.Text = $"Nutritracker — {currentUser.name}";
 
