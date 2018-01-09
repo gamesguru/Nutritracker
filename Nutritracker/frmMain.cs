@@ -163,11 +163,11 @@ namespace Nutritracker
         public class _profile
         {
             public string name = "";
-            public string gender = "female";
-            public int age = 23;
-            public double bf = 17.0;
-            public int wt = 115;
-            public int ht = 63;
+            public string gender = "";
+            public int age;
+            public double bf;
+            public int wt;
+            public int ht;
             public int actLvl = 2;
             public string goal = "Maintenance";
             public int index = 0; //the index among other profiles, beginning with 0
@@ -175,6 +175,7 @@ namespace Nutritracker
             public string dte = "";
             public bool license;
         }
+        public int defaultIndex = 0;
 
         public class logItem
         {
@@ -189,6 +190,60 @@ namespace Nutritracker
         List<logItem> dLog;
         logItem litm;
         public static _profile currentUser = new _profile();
+
+        public _profile profileParser(string[] input)
+        {
+            _profile p = new _profile();
+            foreach (string s in input)
+                if (s.StartsWith("[Gender]"))
+                    p.gender = s.Replace("[Gender]", "");
+                else if (s.StartsWith("[Name]"))
+                    p.name = s.Replace("[Name]", "");
+                else if (s.StartsWith("[Age]"))
+                    p.age = Convert.ToInt32(s.Replace("[Age]", ""));
+                else if (s.StartsWith("[Bodyfat]"))
+                    p.bf = Convert.ToDouble(s.Replace("[Bodyfat]", ""));
+                else if (s.StartsWith("[Weight]"))
+                    p.wt = Convert.ToInt32(s.Replace("[Weight]", ""));
+                else if (s.StartsWith("[Height]"))
+                    p.ht = Convert.ToInt32(s.Replace("[Height]", ""));
+                else if (s.StartsWith("[ActLvl]"))
+                    p.actLvl = Convert.ToInt32(s.Replace("[ActLvl]", ""));
+                else if (s.StartsWith("[Goal]"))
+                    p.goal = s.Replace("[Goal]", "");
+                else if (s.StartsWith("[Date]"))
+                    p.dte = s.Replace("[Date]", "");
+                else if (s.StartsWith("[License]"))
+                    p.license = Convert.ToBoolean(s.Replace("[License]", ""));
+            return p;
+        }
+
+        public void profileWriter (_profile p)
+        {
+            List<string> output = new List<string>();
+            if (p.name != "")
+                output.Add($"[Name]{p.name}");
+            if (p.gender != "")
+                output.Add($"[Gender]{p.name}");
+            if (p.age != 0)
+                output.Add($"[Age]{p.age}");
+            if (p.bf != 0)
+                output.Add($"[Bodyfat]{p.bf}");
+            if (p.wt != 0)
+                output.Add($"[Weight]{p.wt}");
+            if (p.ht != 0)
+                output.Add($"[Height]{p.ht}");
+            if (p.actLvl != 0)
+                output.Add($"[ActLvl]{p.actLvl}");
+            if (p.dte != "")
+                output.Add($"[Date]{p.dte}");
+            output.Add($"[License]{p.license.ToString().ToLower()}");
+
+            if (p.root != "")
+                File.WriteAllLines($"{p.root}{slash}profile.TXT", output);
+            else
+                MessageBox.Show("null user directory");
+        }
 
         private void frmMain_Load(object sender, EventArgs e)
         {
