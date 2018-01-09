@@ -19,22 +19,22 @@ namespace Nutritracker
            Process.GetCurrentProcess().Kill();
         }
 
+        public List<string> profData;
+        public string rt = "";
         string sl = Path.DirectorySeparatorChar.ToString();
+        bool license;
         private void btnAccept_Click(object sender, EventArgs e)
         {
-            List<string> profData = File.ReadAllLines($"{frmMain.currentUser.root}{sl}profile.TXT").ToList();
-            for (int i = 0; i < profData.Count; i++)
-                if (profData[i].Contains("[License]"))
-                {
-                    profData[i] = "[License]true";
-                    File.WriteAllLines($"{frmMain.currentUser.root}{sl}profile.TXT", profData);
-                    this.Close();
-                }
+            profData.Add("[License]true");
+            File.WriteAllLines($"{rt}profile.TXT", profData);
+            license = true;
+            this.Close();
         }
 
         private void licenseDialog_FormClosing(object sender, FormClosingEventArgs e)
         {
-            Process.GetCurrentProcess().Kill();
+            if (!license)
+                Process.GetCurrentProcess().Kill();
         }
     }
 }

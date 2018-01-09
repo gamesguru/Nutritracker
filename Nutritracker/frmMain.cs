@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
+using System.Diagnostics;
 using System.Linq;
 using System.Windows.Forms;
+using System.Threading;
 
 namespace Nutritracker
 {
@@ -171,6 +173,7 @@ namespace Nutritracker
             public int index = 0; //the index among other profiles, beginning with 0
             public string root;
             public string dte = "";
+            public bool license;
         }
 
         public class logItem
@@ -197,8 +200,64 @@ namespace Nutritracker
                         dte = s.Replace("[Date]", "");
             }
             catch { dte = DateTime.Today.ToString("MM-dd-yyyy"); }
-            currentUser.root = $"{Application.StartupPath}{slash}usr{slash}profile{currentUser.index}";
+            //currentUser.root = $"{Application.StartupPath}{slash}usr{slash}profile{currentUser.index}";
             string todaysLog = "";
+
+            string root = $"{Application.StartupPath}{slash}usr";
+            foreach (string s in Directory.GetFiles(root))
+                if (s.Split(Path.DirectorySeparatorChar)[s.Split(Path.DirectorySeparatorChar).Length - 1].StartsWith("profile"))
+                    try { currentUser.index = Convert.ToInt16(s.Replace("default", "")); }
+                    catch { }
+
+            string[] directs = Directory.GetDirectories(root);
+            profDirects = new List<string>();
+            frmProfile frmP = new frmProfile();
+            for (int i = 0; i < directs.Length; i++)
+                if (directs[i].EndsWith($"{slash}profile" + i.ToString()))
+                    profDirects.Add(directs[i]);
+
+            try
+            {
+                string rt = $"{Application.StartupPath}{slash}usr{slash}profile{currentUser.index}{slash}";
+                if (!File.Exists($"{rt}profile.TXT") || !(File.ReadAllLines($"{rt}profile.TXT").Contains("[License]true")))
+                {
+                    licenseDialog frmli = new licenseDialog();
+                    frmli.profData = File.ReadAllLines($"{rt}profile.TXT").ToList();
+                    frmli.rt = rt;
+                    frmli.ShowDialog();
+                    if (!File.ReadAllLines($"{rt}profile.TXT").Contains("[License]true"))
+                        Process.GetCurrentProcess().Kill();
+                }
+                foreach (string s in File.ReadAllLines($"{rt}profile.TXT"))
+                {
+                    if (s.StartsWith("[Gender]"))
+                        currentUser.gender = s.Replace("[Gender]", "");
+                    else if (s.StartsWith("[Name]"))
+                        currentUser.name = s.Replace("[Name]", "");
+                    else if (s.StartsWith("[Age]"))
+                        currentUser.age = Convert.ToInt32(s.Replace("[Age]", ""));
+                    else if (s.StartsWith("[Bodyfat]"))
+                        currentUser.bf = Convert.ToDouble(s.Replace("[Bodyfat]", ""));
+                    else if (s.StartsWith("[Weight]"))
+                        currentUser.wt = Convert.ToInt32(s.Replace("[Weight]", ""));
+                    else if (s.StartsWith("[Height]"))
+                        currentUser.ht = Convert.ToInt32(s.Replace("[Height]", ""));
+                    else if (s.StartsWith("[ActLvl]"))
+                        currentUser.actLvl = Convert.ToInt32(s.Replace("[ActLvl]", ""));
+                    else if (s.StartsWith("[Goal]"))
+                        currentUser.goal = s.Replace("[Goal]", "");
+                    else if (s.StartsWith("[Date]"))
+                        currentUser.dte = s.Replace("[Date]", "");
+                }
+                currentUser.root = $"{Application.StartupPath}{slash}usr{slash}profile{frmMain.currentUser.index}";
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.ToString());
+                frmP.ShowDialog();
+                if (currentUser.root == null)
+                    Process.GetCurrentProcess().Kill();
+            }
 
             try
             {
@@ -225,24 +284,9 @@ namespace Nutritracker
                 comboLoggedDays.Items.Add(DateTime.Today.ToString("MM-dd-yyyy"));
                 try {
                     Directory.CreateDirectory(($"{currentUser.root}{slash}foodlog"));
-                    //File.Create($"{currentUser.root}{slash}foodlog{slash}{DateTime.Today.ToString("MM-dd-yyyy")}.TXT").Close(); 
                     }
                 catch { }
             }
-
-            string root = $"{Application.StartupPath}{slash}usr";
-            foreach (string s in Directory.GetFiles(root))
-                if (s.Split(Path.DirectorySeparatorChar)[s.Split(Path.DirectorySeparatorChar).Length - 1].StartsWith("profile"))                
-                    try{ currentUser.index = Convert.ToInt16(s.Replace("default", "")); }
-                    catch { }
-                
-            string[] directs = Directory.GetDirectories(root);
-            profDirects = new List<string>();
-            frmProfile frmP = new frmProfile();
-            for (int i = 0; i < directs.Length; i++)
-                if (directs[i].EndsWith($"{slash}profile" + i.ToString()))
-                    profDirects.Add(directs[i]);
-
 
             if (profDirects.Count == 0)
             {
@@ -252,42 +296,6 @@ namespace Nutritracker
                     Application.Exit();
             }
 
-
-
-            currentUser.root = $"{root}{slash}profile{currentUser.index}";
-            try
-            {
-                if (!File.Exists($"{currentUser.root}{slash}profile.TXT") || !(File.ReadAllLines($"{currentUser.root}{slash}profile.TXT").Contains("[License]true")))
-                {
-                    licenseDialog frmli = new licenseDialog();
-                    frmli.ShowDialog();
-                }
-                foreach (string s in File.ReadAllLines($"{currentUser.root}{slash}profile.TXT"))
-                {
-                    if (s.StartsWith("[Gender]"))
-                        currentUser.gender = s.Replace("[Gender]", "");
-                    else if (s.StartsWith("[Name]"))
-                        currentUser.name = s.Replace("[Name]", "");
-                    else if (s.StartsWith("[Age]"))
-                        currentUser.age = Convert.ToInt32(s.Replace("[Age]", ""));
-                    else if (s.StartsWith("[Bodyfat]"))
-                        currentUser.bf = Convert.ToDouble(s.Replace("[Bodyfat]", ""));
-                    else if (s.StartsWith("[Weight]"))
-                        currentUser.wt = Convert.ToInt32(s.Replace("[Weight]", ""));
-                    else if (s.StartsWith("[Height]"))
-                        currentUser.ht = Convert.ToInt32(s.Replace("[Height]", ""));
-                    else if (s.StartsWith("[ActLvl]"))
-                        currentUser.actLvl = Convert.ToInt32(s.Replace("[ActLvl]", ""));
-                    else if (s.StartsWith("[Goal]"))
-                        currentUser.goal = s.Replace("[Goal]", "");
-                    else if (s.StartsWith("[Date]"))
-                        currentUser.dte = s.Replace("[Date]", "");
-                }
-            }
-            catch
-            {
-                frmP.ShowDialog();
-            }
 
             this.Text = $"Nutritracker — {currentUser.name}";
 
@@ -908,8 +916,12 @@ namespace Nutritracker
             catch{}
             try { dte = comboLoggedDays.SelectedItem.ToString(); }
             catch { dte = DateTime.Today.ToString("MM-dd-yyyy").Replace("/", "-"); }
-            string[] profData = File.ReadAllLines($"{currentUser.root}{slash}profile.TXT");
-            profData[8] = dte;
+
+            //rework this
+            //also make comboLogged days save to disk, so dte is remembered...
+            string[] profData = File.ReadAllLines($"{currentUser.root}{slash}profile.TXT"); //root not defined yet
+            profData[8] = $"[Date]{dte}"; //8th index, really?
+
             File.WriteAllLines($"{currentUser.root}{slash}profile.TXT", profData);
             string todaysLog = "";
             try { todaysLog = File.ReadAllText($"{currentUser.root}{slash}foodlog{slash}{dte}.TXT").Replace("\r", ""); }
@@ -1287,7 +1299,7 @@ namespace Nutritracker
         {
 
             frmBodyfatCalc.currentName = importArray($"{Application.StartupPath}{slash}usr{slash}profile{currentUser.index}{slash}profile.TXT")[0];
-            frmBodyfatCalc frmBFC = new Nutritracker.frmBodyfatCalc();
+            frmBodyfatCalc frmBFC = new frmBodyfatCalc();
             frmBFC.gender = importArray($"{Application.StartupPath}{slash}usr{slash}profile{currentUser.index}{slash}profile.TXT")[1];
             frmBFC.age = Convert.ToInt32(importArray($"{Application.StartupPath}{slash}usr{slash}profile{currentUser.index}{slash}profile.TXT")[2]);
             frmBFC.wt = Convert.ToInt32(importArray($"{Application.StartupPath}{slash}usr{slash}profile{currentUser.index}{slash}profile.TXT")[4]);

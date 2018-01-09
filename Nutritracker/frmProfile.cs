@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Windows.Forms;
 using System.IO;
+using System.Diagnostics;
+using System.Linq;
 
 namespace Nutritracker
 {
@@ -137,6 +139,8 @@ namespace Nutritracker
         public int defaultIndex;
         private void frmProfile_Load(object sender, EventArgs e)
         {
+            comboActivity.SelectedIndex = 1;
+            comboGoal.SelectedIndex = 3;
             profIndex = frmMain.currentUser.index;
             string root = $"{Application.StartupPath}{sl}usr";
             try
@@ -145,7 +149,7 @@ namespace Nutritracker
             }
             catch{
                 defaultIndex = 0;
-                File.Create($"{root}{sl}default0");
+                File.Create($"{root}{sl}default0").Close();
             }
 
             string[] directs = Directory.GetDirectories(root);
@@ -204,6 +208,7 @@ namespace Nutritracker
             
             //profMax = files.Length;
             profs = new List<string>();
+            bool license = false;
             try
             {
                 for (int i = 0; i < directs.Length; i++)
@@ -212,6 +217,8 @@ namespace Nutritracker
                     foreach (string s in File.ReadAllLines($"{directs[i]}{sl}profile.TXT"))
                         if (s.StartsWith("[Name]"))
                             name = s.Replace("[Name]", "");
+                        else if (s.StartsWith("[License]true"))
+                            license = true;
                     if (directs[i].EndsWith($"{sl}profile{i}")
                         && name.ToLower() == comboExistingProfs.Text.ToLower())
                     {
@@ -238,6 +245,8 @@ namespace Nutritracker
             profData.Add($"[ActLvl]{comboActivity.SelectedIndex}");
             profData.Add($"[Goal]{comboGoal.SelectedIndex}");
             profData.Add($"[Date]{frmMain.dte}");
+            if (license)
+                profData.Add($"[License]true");
             
             try { File.WriteAllLines($"{root}{sl}profile{profIndex}{sl}profile.TXT", profData); }
             catch
@@ -269,7 +278,18 @@ namespace Nutritracker
                     File.Delete(s);
                 File.Create($"{root}{sl}default{frmMain.currentUser.index}").Close();
             }
+
             
+            if (!File.ReadAllLines($"{frmMain.currentUser.root}{sl}profile.TXT").Contains("[License]true"))
+            {
+                licenseDialog frmli = new licenseDialog();
+                frmli.profData = File.ReadAllLines($"{frmMain.currentUser.root}{sl}profile.TXT").ToList();
+                frmli.rt = $"{frmMain.currentUser.root}{sl}";
+                frmli.ShowDialog();
+                if (!File.ReadAllLines($"{frmMain.currentUser.root}{sl}profile.TXT").ToList().Contains("[License]true"))
+                    Process.GetCurrentProcess().Kill();
+            }
+
             this.DialogResult = DialogResult.OK;
             this.Close();
         }

@@ -1,9 +1,10 @@
-[Name]Shan
+[Name]Shane
 [Gender]male
-[Age]15
-[Bodyfat]15
-[Weight]60
-[Height]15
+[Age]24
+[Bodyfat]13
+[Weight]160
+[Height]70
 [ActLvl]1
 [Goal]3
-01-09-2018
+[Date]01-06-2018
+[License]true
