@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace NutApp.Properties {
+namespace Nutritracker.Properties {
     using System;
     
     
@@ -19,7 +19,7 @@ namespace NutApp.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Resources {
@@ -39,7 +39,7 @@ namespace NutApp.Properties {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("NutApp.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Nutritracker.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -57,6 +57,124 @@ namespace NutApp.Properties {
             }
             set {
                 resourceCulture = value;
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {\rtf1\ansi\deff0\nouicompat{\fonttbl{\f0\froman\fcharset128 Helvetica;}{\f1\froman\fprq2\fcharset0 Liberation Serif;}{\f2\froman\fcharset0 Helvetica;}}
+        ///{\colortbl ;\red0\green0\blue255;}
+        ///{\*\generator Riched20 10.0.16299}\viewkind4\uc1 
+        ///\pard\nowidctlpar\sa180\kerning1\b\f0\fs28\lang1033 GNU LESSER GENERAL PUBLIC LICENSE\b0\f1\fs24\par
+        ///\f0 Version 3, 29 June 2007\f1\par
+        ///\f0 Copyright \f2\&apos;a9 2007 Free Software Foundation, Inc. &lt;{\f0\lang255{\field{\*\fldinst{HYPERLINK &quot;https://fsf.org/&quot;}}{\fldrslt{htt [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string gnl1 {
+            get {
+                return ResourceManager.GetString("gnl1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {\rtf1\ansi\ansicpg932\deff0\nouicompat{\fonttbl{\f0\froman\fcharset128 Helvetica;}{\f1\fnil\fcharset0 Calibri;}}
+        ///{\*\generator Riched20 10.0.16299}\viewkind4\uc1 
+        ///\pard\nowidctlpar\sa180\kerning1\f0\fs24\lang1033 If the Library as you received it specifies that a proxy can decide whether future versions of the GNU Lesser General Public License shall apply, that proxy&apos;s public statement of acceptance of any version is permanent authorization for you to choose that version for the Library.\kerning0\f1\fs22 [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string gnl10 {
+            get {
+                return ResourceManager.GetString("gnl10", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {\rtf1\ansi\ansicpg932\deff0\nouicompat{\fonttbl{\f0\froman\fcharset128 Helvetica;}{\f1\froman\fprq2\fcharset0 Liberation Serif;}{\f2\fnil\fcharset0 Calibri;}}
+        ///{\*\generator Riched20 10.0.16299}\viewkind4\uc1 
+        ///\pard\nowidctlpar\sa180\kerning1\f0\fs24\lang1033\ldblquote The Library\rdblquote  refers to a covered work governed by this License, other than an Application or a Combined Work as defined below.\f1\par
+        ///\f0 An \ldblquote Application\rdblquote  is any work that makes use of an interface provided by [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string gnl2 {
+            get {
+                return ResourceManager.GetString("gnl2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {\rtf1\ansi\deff0\nouicompat{\fonttbl{\f0\froman\fcharset128 Helvetica;}{\f1\froman\fprq2\fcharset0 Liberation Serif;}{\f2\fnil\fcharset0 Calibri;}}
+        ///{\*\generator Riched20 10.0.16299}\viewkind4\uc1 
+        ///\pard\nowidctlpar\sa180\kerning1\f0\fs24\lang1033 The \ldblquote Corresponding Application Code\rdblquote  for a Combined Work means the object code and/or source code for the Application, including any data and utility programs needed for reproducing the Combined Work from the Application, but excluding the S [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string gnl3 {
+            get {
+                return ResourceManager.GetString("gnl3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {\rtf1\ansi\deff0\nouicompat{\fonttbl{\f0\froman\fcharset128 Helvetica;}{\f1\froman\fprq2\fcharset0 Liberation Serif;}{\f2\fnil\fcharset0 Calibri;}}
+        ///{\*\generator Riched20 10.0.16299}\viewkind4\uc1 
+        ///\pard\nowidctlpar\fi-360\li360\kerning1\f0\fs24\lang1033\bullet\tab a) under this License, provided that you make a good faith effort to ensure that, in the event an Application does not supply the function or data, the facility still operates, and performs whatever part of its purpose remains meaningful, or\f [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string gnl4 {
+            get {
+                return ResourceManager.GetString("gnl4", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {\rtf1\ansi\deff0\nouicompat{\fonttbl{\f0\froman\fcharset128 Helvetica;}{\f1\froman\fprq2\fcharset0 Liberation Serif;}{\f2\fnil\fcharset0 Calibri;}}
+        ///{\*\generator Riched20 10.0.16299}\viewkind4\uc1 
+        ///\pard\nowidctlpar\fi-360\li360\kerning1\f0\fs24\lang1033\bullet\tab a) Give prominent notice with each copy of the object code that the Library is used in it and that the Library and its use are covered by this License.\f1\par
+        ///\f0\bullet\tab b) Accompany the object code with a copy of the GNU GPL and this lic [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string gnl5 {
+            get {
+                return ResourceManager.GetString("gnl5", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {\rtf1\ansi\deff0\nouicompat{\fonttbl{\f0\froman\fcharset128 Helvetica;}{\f1\froman\fprq2\fcharset0 Liberation Serif;}{\f2\fnil\fcharset0 Calibri;}}
+        ///{\*\generator Riched20 10.0.16299}\viewkind4\uc1 
+        ///\pard\nowidctlpar\fi-360\li360\kerning1\f0\fs24\lang1033\bullet\tab b) Accompany the Combined Work with a copy of the GNU GPL and this license document.\f1\par
+        ///\f0\bullet\tab c) For a Combined Work that displays copyright notices during execution, include the copyright notice for the Library among these notic [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string gnl6 {
+            get {
+                return ResourceManager.GetString("gnl6", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {\rtf1\ansi\deff0\nouicompat{\fonttbl{\f0\froman\fcharset128 Helvetica;}{\f1\froman\fprq2\fcharset0 Liberation Serif;}{\f2\fnil\fcharset0 Calibri;}}
+        ///{\*\generator Riched20 10.0.16299}\viewkind4\uc1 
+        ///\pard\nowidctlpar\fi-360\li720\kerning1\f0\fs24\lang1033\endash\tab 1) Use a suitable shared library mechanism for linking with the Library. A suitable mechanism is one that (a) uses at run time a copy of the Library already present on the user&apos;s computer system, and (b) will operate properly with a modified v [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string gnl7 {
+            get {
+                return ResourceManager.GetString("gnl7", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {\rtf1\ansi\deff0\nouicompat{\fonttbl{\f0\froman\fcharset128 Helvetica;}{\f1\froman\fprq2\fcharset0 Liberation Serif;}{\f2\fnil\fcharset0 Calibri;}}
+        ///{\*\generator Riched20 10.0.16299}\viewkind4\uc1 
+        ///\pard\nowidctlpar\sa180\kerning1\b\f0\fs24\lang1033 5. Combined Libraries.\b0\f1\par
+        ///\f0 You may place library facilities that are a work based on the Library side by side in a single library together with other library facilities that are not Applications and are not covered by this License, and convey such  [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string gnl8 {
+            get {
+                return ResourceManager.GetString("gnl8", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {\rtf1\ansi\deff0\nouicompat{\fonttbl{\f0\froman\fcharset128 Helvetica;}{\f1\froman\fprq2\fcharset0 Liberation Serif;}{\f2\fnil\fcharset0 Calibri;}}
+        ///{\*\generator Riched20 10.0.16299}\viewkind4\uc1 
+        ///\pard\nowidctlpar\sa180\kerning1\b\f0\fs24\lang1033 6. Revised Versions of the GNU Lesser General Public License.\b0\f1\par
+        ///\f0 The Free Software Foundation may publish revised and/or new versions of the GNU Lesser General Public License from time to time. Such new versions will be similar in spirit to the pr [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string gnl9 {
+            get {
+                return ResourceManager.GetString("gnl9", resourceCulture);
             }
         }
         

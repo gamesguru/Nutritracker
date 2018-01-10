@@ -36,5 +36,37 @@ namespace Nutritracker
             if (!license)
                 Process.GetCurrentProcess().Kill();
         }
+
+        string[] rtfs = new string[] { Nutritracker.Properties.Resources.gnl1, Nutritracker.Properties.Resources.gnl2, Nutritracker.Properties.Resources.gnl3,
+            Nutritracker.Properties.Resources.gnl4, Nutritracker.Properties.Resources.gnl5, Nutritracker.Properties.Resources.gnl6,
+            Nutritracker.Properties.Resources.gnl7, Nutritracker.Properties.Resources.gnl9, Nutritracker.Properties.Resources.gnl10 };
+        int m = 0;
+        private void licenseDialog_Load(object sender, EventArgs e)
+        {
+            richTextBox1.Rtf = rtfs[m];
+        }
+
+        private void btnForward_Click(object sender, EventArgs e)
+        {
+            btnBack.Enabled = true;
+            if (m < 8)
+                m++;
+            richTextBox1.Rtf = rtfs[m];
+            if (m == 8)
+            {
+                btnForward.Enabled = false;
+                btnAccept.Enabled = true;
+            }
+        }
+
+        private void btnBack_Click(object sender, EventArgs e)
+        {
+            btnForward.Enabled = true;            
+            if (m > 0)
+                m--;
+            richTextBox1.Rtf = rtfs[m];
+            if (m == 0)
+                btnBack.Enabled = false;
+        }
     }
 }

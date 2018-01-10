@@ -7,4 +7,3 @@
 [ActLvl]1
 [Goal]3
 [Date]01-06-2018
-[License]true
