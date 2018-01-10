@@ -69,6 +69,8 @@
             this.txtIngrieds.Size = new System.Drawing.Size(343, 165);
             this.txtIngrieds.TabIndex = 1;
             this.txtIngrieds.TextChanged += new System.EventHandler(this.txtIngrieds_TextChanged);
+            this.txtIngrieds.Enter += new System.EventHandler(this.txtIngrieds_Enter);
+            this.txtIngrieds.Leave += new System.EventHandler(this.txtIngrieds_Leave);
             // 
             // groupBox1
             // 
