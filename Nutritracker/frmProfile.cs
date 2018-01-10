@@ -217,7 +217,7 @@ namespace Nutritracker
                     foreach (string s in File.ReadAllLines($"{directs[i]}{sl}profile.TXT"))
                         if (s.StartsWith("[Name]"))
                             name = s.Replace("[Name]", "");
-                        else if (s.StartsWith("[License]true"))
+                        else if (s.StartsWith($"[License]StallmanApproves_{name.GetHashCode()}"))
                             license = true;
                     if (directs[i].EndsWith($"{sl}profile{i}")
                         && name.ToLower() == comboExistingProfs.Text.ToLower())
@@ -246,7 +246,7 @@ namespace Nutritracker
             profData.Add($"[Goal]{comboGoal.SelectedIndex}");
             profData.Add($"[Date]{frmMain.dte}");
             if (license)
-                profData.Add($"[License]true");
+                profData.Add($"[License]StallmanApproves_{txtNewProfName.Text.GetHashCode()}");
             
             try { File.WriteAllLines($"{root}{sl}profile{profIndex}{sl}profile.TXT", profData); }
             catch
@@ -280,13 +280,13 @@ namespace Nutritracker
             }
 
             
-            if (!File.ReadAllLines($"{frmMain.currentUser.root}{sl}profile.TXT").Contains("[License]true"))
+            if (!File.ReadAllLines($"{frmMain.currentUser.root}{sl}profile.TXT").Contains($"[License]StallmanApproves_{txtNewProfName.Text.GetHashCode()}"))
             {
                 licenseDialog frmli = new licenseDialog();
                 frmli.profData = File.ReadAllLines($"{frmMain.currentUser.root}{sl}profile.TXT").ToList();
                 frmli.rt = $"{frmMain.currentUser.root}{sl}";
                 frmli.ShowDialog();
-                if (!File.ReadAllLines($"{frmMain.currentUser.root}{sl}profile.TXT").ToList().Contains("[License]true"))
+                if (!File.ReadAllLines($"{frmMain.currentUser.root}{sl}profile.TXT").ToList().Contains($"[License]StallmanApproves_{txtNewProfName.Text.GetHashCode()}"))
                     Process.GetCurrentProcess().Kill();
             }
 

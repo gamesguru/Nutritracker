@@ -25,7 +25,7 @@ namespace Nutritracker
         bool license;
         private void btnAccept_Click(object sender, EventArgs e)
         {
-            profData.Add("[License]true");
+            profData.Add($"[License]StallmanApproves_{name.GetHashCode()}");
             File.WriteAllLines($"{rt}profile.TXT", profData);
             license = true;
             this.Close();
@@ -41,12 +41,18 @@ namespace Nutritracker
             Nutritracker.Properties.Resources.gnl4, Nutritracker.Properties.Resources.gnl5, Nutritracker.Properties.Resources.gnl6,
             Nutritracker.Properties.Resources.gnl7, Nutritracker.Properties.Resources.gnl9, Nutritracker.Properties.Resources.gnl10 };
         int m = 0;
+        string name;
+        int nameHash;
         private void licenseDialog_Load(object sender, EventArgs e)
         {
             richTextBox1.Rtf = rtfs[m];
             foreach (string s in profData)
                 if (s.StartsWith("[Name]"))
-                    this.Text = $"License Agreement — {s.Replace("[Name]", "")}";
+                {
+                    name = s.Replace("[Name]", "");
+                    nameHash = name.GetHashCode();
+                    this.Text = $"License Agreement — {name}";
+                }
         }
 
         private void btnForward_Click(object sender, EventArgs e)

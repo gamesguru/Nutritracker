@@ -213,8 +213,8 @@ namespace Nutritracker
                     p.goal = s.Replace("[Goal]", "");
                 else if (s.StartsWith("[Date]"))
                     p.dte = s.Replace("[Date]", "");
-                else if (s.StartsWith("[License]"))
-                    p.license = Convert.ToBoolean(s.Replace("[License]", ""));
+                else if (s.StartsWith($"[License]StallmanApproves_{p.name.GetHashCode()}"))
+                    p.license = true;
             return p;
         }
 
@@ -224,7 +224,7 @@ namespace Nutritracker
             if (p.name != "")
                 output.Add($"[Name]{p.name}");
             if (p.gender != "")
-                output.Add($"[Gender]{p.name}");
+                output.Add($"[Gender]{p.age}");
             if (p.age != 0)
                 output.Add($"[Age]{p.age}");
             if (p.bf != 0)
@@ -237,7 +237,10 @@ namespace Nutritracker
                 output.Add($"[ActLvl]{p.actLvl}");
             if (p.dte != "")
                 output.Add($"[Date]{p.dte}");
-            output.Add($"[License]{p.license.ToString().ToLower()}");
+            if (p.license)
+                output.Add($"[License]StallmanApproves_{p.name.GetHashCode()}");
+            else
+                output.Add("[License]StallmanDisapproves");
 
             if (p.root != "")
                 File.WriteAllLines($"{p.root}{slash}profile.TXT", output);
@@ -307,13 +310,13 @@ namespace Nutritracker
 
             try
             {
-                if (!File.ReadAllLines($"{rt}profile.TXT").Contains("[License]true"))
+                if (!File.ReadAllLines($"{rt}profile.TXT").Contains($"[License]StallmanApproves_{currentUser.name.GetHashCode()}"))
                 {
                     licenseDialog frmli = new licenseDialog();
                     frmli.profData = File.ReadAllLines($"{rt}profile.TXT").ToList();
                     frmli.rt = rt;
                     frmli.ShowDialog();
-                    if (!File.ReadAllLines($"{rt}profile.TXT").Contains("[License]true"))
+                    if (!File.ReadAllLines($"{rt}profile.TXT").Contains($"[License]StallmanApproves_{currentUser.name.GetHashCode()}"))
                         Process.GetCurrentProcess().Kill();
                 }
             }
