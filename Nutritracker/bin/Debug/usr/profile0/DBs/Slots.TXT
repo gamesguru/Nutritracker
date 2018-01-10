@@ -1,4 +1,0 @@
-f_user_GI-INDEX
-f_user_IF-RATING
-f_user_ORAC
-f_user_OXALATES-VEGGIES
