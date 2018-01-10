@@ -296,7 +296,7 @@
             // 
             this.txtBodyfat.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtBodyfat.Location = new System.Drawing.Point(79, 127);
-            this.txtBodyfat.MaxLength = 3;
+            this.txtBodyfat.MaxLength = 4;
             this.txtBodyfat.Name = "txtBodyfat";
             this.txtBodyfat.Size = new System.Drawing.Size(54, 26);
             this.txtBodyfat.TabIndex = 20;
@@ -355,7 +355,7 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "frmProfile";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Profile Editor";
             this.Load += new System.EventHandler(this.frmProfile_Load);
             this.ResumeLayout(false);

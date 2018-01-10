@@ -82,7 +82,7 @@ namespace Nutritracker
             {
                 if ((radioMale.Checked || radioFemale.Checked) &&
                     Convert.ToInt32(txtHt.Text) > 9 && Convert.ToInt32(txtWt.Text) > 4 &&
-                    Convert.ToInt32(txtAge.Text) > 0 && comboActivity.SelectedIndex > -1 && comboGoal.SelectedIndex > -1)
+                    Convert.ToInt32(txtAge.Text) > 0)
                     btnSave.Enabled = true;
                 else
                     btnSave.Enabled = false;
@@ -93,8 +93,8 @@ namespace Nutritracker
 
                 comboActivity.Enabled = true;
                 comboGoal.Enabled = true;
-                comboActivity.SelectedIndex = -1;
-                comboGoal.SelectedIndex = -1;
+                comboActivity.SelectedIndex = 1;
+                comboGoal.SelectedIndex = 3;
 
                 radioFemale.Enabled = true;
                 radioMale.Enabled = true;
@@ -117,8 +117,8 @@ namespace Nutritracker
 
             comboActivity.Enabled = false;
             comboGoal.Enabled = false;
-            comboActivity.SelectedIndex = -1;
-            comboGoal.SelectedIndex = -1;
+            comboActivity.SelectedIndex = 1;
+            comboGoal.SelectedIndex = 3;
 
             radioFemale.Enabled = false;
             radioMale.Enabled = false;
@@ -174,7 +174,7 @@ namespace Nutritracker
             if (comboExistingProfs.Items.Count > 0)
                 comboExistingProfs.SelectedIndex = profIndex;
 
-            if (defaultIndex > comboExistingProfs.Items.Count-1)
+            if (defaultIndex > comboExistingProfs.Items.Count - 1)
                 defaultIndex -= 1;
 
             foreach (string s in Directory.GetFiles(root))
@@ -334,7 +334,7 @@ namespace Nutritracker
             {
                 if (txtNewProfName.TextLength > 1 && (radioMale.Checked || radioFemale.Checked) &&
                     Convert.ToInt32(txtHt.Text) > 9 && Convert.ToInt32(txtWt.Text) > 4 &&
-                    Convert.ToInt32(txtAge.Text) > 0 && comboActivity.SelectedIndex > -1 && comboGoal.SelectedIndex > -1)
+                    Convert.ToInt32(txtAge.Text) > 0)
                     btnSave.Enabled = true;
                 else
                     btnSave.Enabled = false;
@@ -349,7 +349,7 @@ namespace Nutritracker
             {
                 if (txtNewProfName.TextLength > 1 && (radioMale.Checked || radioFemale.Checked) &&
                     Convert.ToInt32(txtHt.Text) > 9 && Convert.ToInt32(txtWt.Text) > 4 &&
-                    Convert.ToInt32(txtAge.Text) > 0 && comboActivity.SelectedIndex > -1 && comboGoal.SelectedIndex > -1)
+                    Convert.ToInt32(txtAge.Text) > 0 )
                     btnSave.Enabled = true;
                 else
                     btnSave.Enabled = false;
@@ -364,7 +364,7 @@ namespace Nutritracker
             {
                 if (txtNewProfName.TextLength > 1 && (radioMale.Checked || radioFemale.Checked) &&
                     Convert.ToInt32(txtHt.Text) > 9 && Convert.ToInt32(txtWt.Text) > 4 &&
-                    Convert.ToInt32(txtAge.Text) > 0 && comboActivity.SelectedIndex > -1 && comboGoal.SelectedIndex > -1)
+                    Convert.ToInt32(txtAge.Text) > 0)
                     btnSave.Enabled = true;
                 else
                     btnSave.Enabled = false;
@@ -379,7 +379,7 @@ namespace Nutritracker
             {
                 if (txtNewProfName.TextLength > 1 && (radioMale.Checked || radioFemale.Checked) &&
                     Convert.ToInt32(txtHt.Text) > 9 && Convert.ToInt32(txtWt.Text) > 4 &&
-                    Convert.ToInt32(txtAge.Text) > 0 && comboActivity.SelectedIndex > -1 && comboGoal.SelectedIndex > -1)
+                    Convert.ToInt32(txtAge.Text) > 0 )
                     btnSave.Enabled = true;
                 else
                     btnSave.Enabled = false;
@@ -394,7 +394,7 @@ namespace Nutritracker
             {
                 if (txtNewProfName.TextLength > 1 && (radioMale.Checked || radioFemale.Checked) &&
                     Convert.ToInt32(txtHt.Text) > 9 && Convert.ToInt32(txtWt.Text) > 4 &&
-                    Convert.ToInt32(txtAge.Text) > 0 && comboActivity.SelectedIndex > -1 &&comboGoal.SelectedIndex > -1)
+                    Convert.ToInt32(txtAge.Text) > 0)
                     btnSave.Enabled = true;
                 else
                     btnSave.Enabled = false;
@@ -466,7 +466,7 @@ namespace Nutritracker
             {
                 if (txtNewProfName.TextLength > 1 && (radioMale.Checked || radioFemale.Checked) &&
                     Convert.ToInt32(txtHt.Text) > 9 && Convert.ToInt32(txtWt.Text) > 4 &&
-                    Convert.ToInt32(txtAge.Text) > 0 && comboActivity.SelectedIndex > -1 && comboGoal.SelectedIndex > -1)
+                    Convert.ToInt32(txtAge.Text) > 0)
                     btnSave.Enabled = true;
                 else
                     btnSave.Enabled = false;
@@ -481,7 +481,7 @@ namespace Nutritracker
             {
                 if (txtNewProfName.TextLength > 1 && (radioMale.Checked || radioFemale.Checked) &&
                     Convert.ToInt32(txtHt.Text) > 9 && Convert.ToInt32(txtWt.Text) > 4 &&
-                    Convert.ToInt32(txtAge.Text) > 0 && comboActivity.SelectedIndex > -1 && comboGoal.SelectedIndex > -1)
+                    Convert.ToInt32(txtAge.Text) > 0)
                     btnSave.Enabled = true;
                 else
                     btnSave.Enabled = false;

@@ -271,18 +271,9 @@ namespace Nutritracker
                 if (directs[i].EndsWith($"{slash}profile" + i.ToString()))
                     profDirects.Add(directs[i]);
 
+			string rt = $"{Application.StartupPath}{slash}usr{slash}profile{currentUser.index}{slash}";
             try
             {
-                string rt = $"{Application.StartupPath}{slash}usr{slash}profile{currentUser.index}{slash}";
-                if (!File.Exists($"{rt}profile.TXT") || !(File.ReadAllLines($"{rt}profile.TXT").Contains("[License]true")))
-                {
-                    licenseDialog frmli = new licenseDialog();
-                    frmli.profData = File.ReadAllLines($"{rt}profile.TXT").ToList();
-                    frmli.rt = rt;
-                    frmli.ShowDialog();
-                    if (!File.ReadAllLines($"{rt}profile.TXT").Contains("[License]true"))
-                        Process.GetCurrentProcess().Kill();
-                }
                 foreach (string s in File.ReadAllLines($"{rt}profile.TXT"))
                 {
                     if (s.StartsWith("[Gender]"))
@@ -312,6 +303,24 @@ namespace Nutritracker
                 frmP.ShowDialog();
                 if (currentUser.root == null)
                     Process.GetCurrentProcess().Kill();
+            }
+
+            try
+            {
+                if (!File.ReadAllLines($"{rt}profile.TXT").Contains("[License]true"))
+                {
+                    licenseDialog frmli = new licenseDialog();
+                    frmli.profData = File.ReadAllLines($"{rt}profile.TXT").ToList();
+                    frmli.rt = rt;
+                    frmli.ShowDialog();
+                    if (!File.ReadAllLines($"{rt}profile.TXT").Contains("[License]true"))
+                        Process.GetCurrentProcess().Kill();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+                Process.GetCurrentProcess().Kill();
             }
 
             try

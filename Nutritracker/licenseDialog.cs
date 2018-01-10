@@ -44,29 +44,32 @@ namespace Nutritracker
         private void licenseDialog_Load(object sender, EventArgs e)
         {
             richTextBox1.Rtf = rtfs[m];
+            foreach (string s in profData)
+                if (s.StartsWith("[Name]"))
+                    this.Text = $"License Agreement — {s.Replace("[Name]", "")}";
         }
 
         private void btnForward_Click(object sender, EventArgs e)
         {
-            btnBack.Enabled = true;
+            btnBack.Visible = true;
             if (m < 8)
                 m++;
             richTextBox1.Rtf = rtfs[m];
             if (m == 8)
             {
-                btnForward.Enabled = false;
-                btnAccept.Enabled = true;
+                btnForward.Visible = false;
+                btnAccept.Visible = true;
             }
         }
 
         private void btnBack_Click(object sender, EventArgs e)
         {
-            btnForward.Enabled = true;            
+            btnForward.Visible = true;            
             if (m > 0)
                 m--;
             richTextBox1.Rtf = rtfs[m];
             if (m == 0)
-                btnBack.Enabled = false;
+                btnBack.Visible = false;
         }
     }
 }

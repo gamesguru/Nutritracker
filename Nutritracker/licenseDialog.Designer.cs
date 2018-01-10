@@ -49,7 +49,7 @@
             // 
             // btnAccept
             // 
-            this.btnAccept.Enabled = false;
+            this.btnAccept.Visible = false;
             this.btnAccept.Location = new System.Drawing.Point(187, 400);
             this.btnAccept.Name = "btnAccept";
             this.btnAccept.Size = new System.Drawing.Size(90, 35);
@@ -83,7 +83,7 @@
             // 
             // btnBack
             // 
-            this.btnBack.Enabled = false;
+            this.btnBack.Visible = false;
             this.btnBack.Location = new System.Drawing.Point(12, 400);
             this.btnBack.Name = "btnBack";
             this.btnBack.Size = new System.Drawing.Size(37, 35);
