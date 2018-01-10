@@ -37,14 +37,17 @@
             this.lstBoxIngrieds = new System.Windows.Forms.ListBox();
             this.txtTweakName = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.listView1 = new System.Windows.Forms.ListView();
+            this.lblNDBNo = new System.Windows.Forms.Label();
+            this.lstViewDBresults = new System.Windows.Forms.ListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.btnSave = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
             this.trackGeo = new System.Windows.Forms.TrackBar();
+            this.txtRecipeName = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackGeo)).BeginInit();
             this.SuspendLayout();
@@ -74,6 +77,7 @@
             this.groupBox1.Controls.Add(this.lstBoxIngrieds);
             this.groupBox1.Controls.Add(this.txtTweakName);
             this.groupBox1.Controls.Add(this.label3);
+            this.groupBox1.Controls.Add(this.lblNDBNo);
             this.groupBox1.Location = new System.Drawing.Point(361, 12);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(224, 233);
@@ -100,12 +104,14 @@
             // 
             // lstBoxIngrieds
             // 
+            this.lstBoxIngrieds.Cursor = System.Windows.Forms.Cursors.Hand;
             this.lstBoxIngrieds.FormattingEnabled = true;
             this.lstBoxIngrieds.Location = new System.Drawing.Point(6, 19);
             this.lstBoxIngrieds.Name = "lstBoxIngrieds";
-            this.lstBoxIngrieds.Size = new System.Drawing.Size(212, 134);
+            this.lstBoxIngrieds.Size = new System.Drawing.Size(212, 108);
             this.lstBoxIngrieds.TabIndex = 12;
             this.lstBoxIngrieds.SelectedIndexChanged += new System.EventHandler(this.lstBoxIngrieds_SelectedIndexChanged);
+            this.lstBoxIngrieds.MouseUp += new System.Windows.Forms.MouseEventHandler(this.lstBoxIngrieds_MouseUp);
             // 
             // txtTweakName
             // 
@@ -124,27 +130,28 @@
             this.label3.TabIndex = 12;
             this.label3.Text = "Tweak name:";
             // 
-            // label2
+            // lblNDBNo
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(195, 228);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(160, 13);
-            this.label2.TabIndex = 8;
-            this.label2.Text = "USDA NDB#: <click to choose>";
+            this.lblNDBNo.AutoSize = true;
+            this.lblNDBNo.Location = new System.Drawing.Point(9, 130);
+            this.lblNDBNo.Name = "lblNDBNo";
+            this.lblNDBNo.Size = new System.Drawing.Size(155, 13);
+            this.lblNDBNo.TabIndex = 8;
+            this.lblNDBNo.Text = "USDA NDB#: <none selected>";
             // 
-            // listView1
+            // lstViewDBresults
             // 
-            this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.lstViewDBresults.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader1,
             this.columnHeader2,
             this.columnHeader3});
-            this.listView1.Location = new System.Drawing.Point(12, 251);
-            this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(573, 219);
-            this.listView1.TabIndex = 5;
-            this.listView1.UseCompatibleStateImageBehavior = false;
-            this.listView1.View = System.Windows.Forms.View.Details;
+            this.lstViewDBresults.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.lstViewDBresults.Location = new System.Drawing.Point(12, 251);
+            this.lstViewDBresults.Name = "lstViewDBresults";
+            this.lstViewDBresults.Size = new System.Drawing.Size(573, 219);
+            this.lstViewDBresults.TabIndex = 5;
+            this.lstViewDBresults.UseCompatibleStateImageBehavior = false;
+            this.lstViewDBresults.View = System.Windows.Forms.View.Details;
             // 
             // columnHeader1
             // 
@@ -162,19 +169,19 @@
             // 
             // btnSave
             // 
-            this.btnSave.Enabled = false;
-            this.btnSave.Location = new System.Drawing.Point(510, 476);
+            this.btnSave.Location = new System.Drawing.Point(495, 478);
             this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(75, 23);
+            this.btnSave.Size = new System.Drawing.Size(90, 35);
             this.btnSave.TabIndex = 6;
             this.btnSave.Text = "Save";
             this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(429, 476);
+            this.btnCancel.Location = new System.Drawing.Point(399, 478);
             this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(75, 23);
+            this.btnCancel.Size = new System.Drawing.Size(90, 35);
             this.btnCancel.TabIndex = 7;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
@@ -182,23 +189,52 @@
             // 
             // trackGeo
             // 
-            this.trackGeo.Location = new System.Drawing.Point(15, 196);
+            this.trackGeo.AutoSize = false;
+            this.trackGeo.Location = new System.Drawing.Point(51, 210);
             this.trackGeo.Name = "trackGeo";
-            this.trackGeo.Size = new System.Drawing.Size(177, 45);
+            this.trackGeo.Size = new System.Drawing.Size(292, 35);
             this.trackGeo.TabIndex = 8;
             this.trackGeo.TabStop = false;
+            this.trackGeo.Value = 4;
             this.trackGeo.Scroll += new System.EventHandler(this.trackGeo_Scroll);
+            // 
+            // txtRecipeName
+            // 
+            this.txtRecipeName.Location = new System.Drawing.Point(12, 489);
+            this.txtRecipeName.Name = "txtRecipeName";
+            this.txtRecipeName.Size = new System.Drawing.Size(195, 20);
+            this.txtRecipeName.TabIndex = 17;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(12, 473);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(82, 13);
+            this.label5.TabIndex = 16;
+            this.label5.Text = "Name of recipe:";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(81, 194);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(133, 13);
+            this.label6.TabIndex = 16;
+            this.label6.Text = "Ratio between ingredients:";
             // 
             // frmDecomposeRecipe
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(597, 506);
+            this.ClientSize = new System.Drawing.Size(597, 520);
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.txtRecipeName);
+            this.Controls.Add(this.label5);
             this.Controls.Add(this.trackGeo);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnSave);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.listView1);
+            this.Controls.Add(this.lstViewDBresults);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.txtIngrieds);
             this.Controls.Add(this.label1);
@@ -222,10 +258,10 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox txtIngrieds;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.ListView listView1;
+        private System.Windows.Forms.ListView lstViewDBresults;
         private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.Button btnCancel;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label lblNDBNo;
         private System.Windows.Forms.TrackBar trackGeo;
         private System.Windows.Forms.TextBox txtTweakName;
         private System.Windows.Forms.Label label3;
@@ -235,5 +271,8 @@
         private System.Windows.Forms.ColumnHeader columnHeader3;
         private System.Windows.Forms.TextBox txtTweakWeight;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.TextBox txtRecipeName;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label6;
     }
 }

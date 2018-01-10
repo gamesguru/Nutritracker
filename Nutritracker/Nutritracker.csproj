@@ -62,6 +62,12 @@
     <Compile Include="frmCustomFood.Designer.cs">
       <DependentUpon>frmCustomFood.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmManageRel.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmManageRel.Designer.cs">
+      <DependentUpon>frmManageRel.cs</DependentUpon>
+    </Compile>
     <Compile Include="ingriedientListAnalyzer.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -169,6 +175,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmCustomFood.resx">
       <DependentUpon>frmCustomFood.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmManageRel.resx">
+      <DependentUpon>frmManageRel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ingriedientListAnalyzer.resx">
       <DependentUpon>ingriedientListAnalyzer.cs</DependentUpon>
