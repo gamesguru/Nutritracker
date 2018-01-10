@@ -152,6 +152,8 @@
             this.lstViewDBresults.TabIndex = 5;
             this.lstViewDBresults.UseCompatibleStateImageBehavior = false;
             this.lstViewDBresults.View = System.Windows.Forms.View.Details;
+            this.lstViewDBresults.SelectedIndexChanged += new System.EventHandler(this.lstViewDBresults_SelectedIndexChanged);
+            this.lstViewDBresults.MouseUp += new System.Windows.Forms.MouseEventHandler(this.lstViewDBresults_MouseUp);
             // 
             // columnHeader1
             // 

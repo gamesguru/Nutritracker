@@ -42,7 +42,6 @@ namespace Nutritracker
             Nutritracker.Properties.Resources.gnl7, Nutritracker.Properties.Resources.gnl9, Nutritracker.Properties.Resources.gnl10 };
         int m = 0;
         string name;
-        int nameHash;
         private void licenseDialog_Load(object sender, EventArgs e)
         {
             richTextBox1.Rtf = rtfs[m];
@@ -50,7 +49,6 @@ namespace Nutritracker
                 if (s.StartsWith("[Name]"))
                 {
                     name = s.Replace("[Name]", "");
-                    nameHash = name.GetHashCode();
                     this.Text = $"License Agreement — {name}";
                 }
         }

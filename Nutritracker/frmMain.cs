@@ -300,7 +300,7 @@ namespace Nutritracker
                 }
                 currentUser.root = $"{Application.StartupPath}{slash}usr{slash}profile{frmMain.currentUser.index}";
             }
-            catch (Exception ex)
+            catch //(Exception ex)
             {
                 //MessageBox.Show(ex.ToString());
                 frmP.ShowDialog();
@@ -338,29 +338,21 @@ namespace Nutritracker
                     Directory.CreateDirectory($"{Application.StartupPath}{slash}usr{slash}profile{currentUser.index}{slash}foodlog");
                 else
                 {
-                    Directory.CreateDirectory($"{Application.StartupPath}{slash}usr");
-                    //frmProfile frmPr = new frmProfile();
-                    //frmPr.ShowDialog();
                     Directory.CreateDirectory($"{Application.StartupPath}{slash}usr{slash}profile{currentUser.index}{slash}foodlog");
                     File.Create($"{Application.StartupPath}{slash}usr{slash}profile{currentUser.index}{slash}foodlog{slash}{dte}.TXT").Close();
                 }
             }
 
-            if (!comboLoggedDays.Items.Contains(DateTime.Today.ToString("MM-dd-yyyy")))
-            {
+            if (!comboLoggedDays.Items.Contains(DateTime.Today.ToString("MM-dd-yyyy")))            
                 comboLoggedDays.Items.Add(DateTime.Today.ToString("MM-dd-yyyy"));
-                try {
-                    Directory.CreateDirectory(($"{currentUser.root}{slash}foodlog"));
-                    }
-                catch { }
-            }
+            
 
             if (profDirects.Count == 0)
             {
                 currentUser.index = 0;
                 File.Create($"{Application.StartupPath}{slash}usr{slash}default0").Close();
                 if (frmP.ShowDialog() == DialogResult.Cancel)
-                    Application.Exit();
+                    Process.GetCurrentProcess().Kill();
             }
 
 
