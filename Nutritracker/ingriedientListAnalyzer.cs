@@ -12,7 +12,19 @@ namespace Nutritracker
         {
             InitializeComponent();
         }
+        static string nl;
+		static string sl;
 
+
+        private static class DB
+        {
+            public static string[] ndbs;
+            public static string[] names;
+            public static string[] cals;
+            public static int[] wMatch;
+            public static string[] joinedMatches;
+        }
+        char[] _delims = new char[] { '/', ',', ' ', '-', ';', '(', ')' };
         private class _dbObj
         {
             public string db = "USDAstock";
@@ -23,19 +35,8 @@ namespace Nutritracker
         }
         List<_dbObj> dbobjs;
         int curDbIndex;
-        //_dbObj currentObj;
-        private static class DB
-        {
-            public static string[] ndbs;
-            public static string[] names;
-            public static string[] cals;
-            public static int[] wMatch;
-            public static string[] joinedMatches;
-        }
-        char[] _delims = new char[] { '/', ',', ' ', '-', ';', '(', ')' };
 
-        static string nl;
-		static string sl;
+
         private void frmDecomposeRecipe_Load(object sender, EventArgs e)
         {
             updatePer();
@@ -67,8 +68,6 @@ namespace Nutritracker
                 d.name = s;
                 dbobjs.Add(d);
             }
-            //try { currentObj = dbobjs[dbobjs.Count - 1]; }
-            //catch { }
             updatePer();
             updateList();
         }
@@ -76,8 +75,6 @@ namespace Nutritracker
 
         private void btnCancel_Click(object sender, EventArgs e) => this.Close();
 
-        //string chosenName;
-        //string chosenQuery;
         private void lstBoxIngrieds_MouseUp(object sender, MouseEventArgs e) => assignCurObj();
         private void lstBoxIngrieds_SelectedIndexChanged(object sender, EventArgs e) => assignCurObj();
 
@@ -88,14 +85,15 @@ namespace Nutritracker
         private void txtTweakName_TextChanged(object sender, EventArgs e) => search();
         private void txtTweakWeight_TextChanged(object sender, EventArgs e) { 
             try { dbobjs[curDbIndex].weight = Convert.ToDouble(txtTweakWeight.Text);
-
              } catch { }
             updateList();
         }
         
         private void assignNdb()
         {
-            try { dbobjs[curDbIndex].ndbno = lstViewDBresults.SelectedItems[0].SubItems[0].Text; }
+            try { dbobjs[curDbIndex].ndbno = lstViewDBresults.SelectedItems[0].SubItems[0].Text;
+                lblNDBNo.Text = $"USDA NDB#: {dbobjs[curDbIndex].ndbno}";
+            }
             catch { }
         }
 
@@ -104,13 +102,12 @@ namespace Nutritracker
             try{curDbIndex = lstBoxIngrieds.SelectedIndex;
                 txtTweakName.Text = dbobjs[curDbIndex].name;
                 txtTweakWeight.Text = Convert.ToString(dbobjs[curDbIndex].weight);
+                lblNDBNo.Text = $"USDA NDB#: {dbobjs[curDbIndex].ndbno}";
             }
             catch{}
-
         }
 
         double x = 0.4;
-        //double[] percents;
         private void trackGeo_Scroll(object sender, EventArgs e)
         {
             updatePer();
@@ -128,12 +125,11 @@ namespace Nutritracker
         }
         private void updatePer()
         {
-            x = (double)trackGeo.Value / trackGeo.Maximum;
-            if (dbobjs == null|| dbobjs.Count == 0) {
-                //percents = new double[] { 100.0 };
+            if (dbobjs == null || dbobjs.Count == 0) {
             return;
             }
 
+            x = (double)trackGeo.Value / trackGeo.Maximum;
             double q = 0;
             for (int i = 0; i < dbobjs.Count; i++)
                 q += Math.Pow(x, i);
@@ -142,56 +138,49 @@ namespace Nutritracker
             for (int i = 0; i < dbobjs.Count; i++)
             {
                 double m = dbobjs[i].percent;
-                //dbobjs[i].weight = dbobjs[i].weight * (Math.Round(a * Math.Pow(x, i), 3) * 100 / dbobjs[i].percent);
                 dbobjs[i].percent = Math.Round(a * Math.Pow(x, i), 3) * 100;
                 dbobjs[i].weight = dbobjs[i].percent;
                 //dbobjs[i].weight *= dbobjs[i].percent / m;
+                //dbobjs[i].weight = dbobjs[i].weight * (Math.Round(a * Math.Pow(x, i), 3) * 100 / dbobjs[i].percent);
             }
         }
 
         private void search()
         {
             lstViewDBresults.Items.Clear();
-            //int[] wordMatch = new int[usdaDB.names.Length];
             DB.wMatch = new int[DB.names.Length];
             DB.joinedMatches = new string[DB.names.Length];
-            string[] words;
 
-            if (txtTweakName.TextLength < 4)
+
+            string[] words;
+            if (txtTweakName.TextLength < 3)
                 return;
-            else if (txtTweakName.Text.Split(new char[] { ' ', '\n' }).Length < 2)
+            else if (txtTweakName.Text.Split(' ').Length < 2) //just 1 word
                 words = new string[] { txtTweakName.Text };
             else
-                words = txtTweakName.Text.Split(_delims);
+                words = txtTweakName.Text.Split(_delims); //a sentence
 
             foreach (string s in words)
                 for (int i = 0; i < DB.names.Length; i++)
                     if (s.Length > 2 && DB.names[i].ToUpper()/*.Split(_delims)*/.Contains(s.ToUpper()))
-                        DB.wMatch[i]++; //usdaDB.joinedMatches[i] += s + ", ";                       
-
-
+                        DB.wMatch[i]++; //usdaDB.joinedMatches[i] += s + ", ";                                   
             int m = DB.wMatch.Max();
-            int q = 0;
             List<ListViewItem> itms = new List<ListViewItem>();
             for (int i = m; i > 0; i--)
                 for (int j = 0; j < DB.names.Length; j++)
-                    if (DB.wMatch[j] == i && q++ > 0)
+                    if (DB.wMatch[j] == i)
                     {
                         ListViewItem itm = new ListViewItem(DB.ndbs[j]);
                         itm.SubItems.Add($"{DB.names[j]} -- [{DB.wMatch[j]}]");
-                        //itm.SubItems.Add($) //cals?
+                        itm.SubItems.Add(DB.cals[j]);
+                        itms.Add(itm);
                     }         
-
-
             lstViewDBresults.BeginUpdate();
             for (int i = 0; i < itms.Count; i++)
                 lstViewDBresults.Items.Add(itms[i]);
             lstViewDBresults.EndUpdate();
-            //List<string> ns = new List<string>();
-            //currentObj.ndbno = chosenQuery.Split; //????????????????????????????????
         }
-
-        //List<double> _percents;
+        
         private void btnSave_Click(object sender, EventArgs e)
         {
             if (txtRecipeName.TextLength < 4)
@@ -205,9 +194,24 @@ namespace Nutritracker
                     MessageBox.Show("Error: recipe name contains illegal characters.  Letters, digits and spaces only.", "", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
-            //_percents = new List<double>();
-            //foreach (string s in lstBoxIngrieds.Items)            
-                //_percents.Add(Convert.ToDouble(s.Split(new string[] { " -- " }, StringSplitOptions.RemoveEmptyEntries)[1]));            
+            //
+            //...
+
+            string fp = $"{Application.StartupPath}{sl}usr{sl}profile{frmMain.currentUser.index}{sl}DBs{sl}recipes";
+            Directory.CreateDirectory(fp);
+            fp += $"{sl}{txtRecipeName.Text}.TXT";
+
+            List<string> output = new List<string>();
+            foreach (_dbObj d in dbobjs)
+                output.Add($"USDAstock|{d.ndbno}|{d.weight}");
+            if (File.Exists(fp))
+            {
+                MessageBox.Show($"File already exists under this name.  Please change the name, archive it or edit it manually in the 'DBs{sl}recipes' folder.", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+            File.WriteAllLines(fp, output);
+            MessageBox.Show("Saved to the recipes folder.  You can add manual entries by opening the .TXT file.", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            this.Close();
         }
 
         bool mH;

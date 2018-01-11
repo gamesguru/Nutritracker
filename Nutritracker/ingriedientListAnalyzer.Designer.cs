@@ -148,6 +148,7 @@
             this.columnHeader2,
             this.columnHeader3});
             this.lstViewDBresults.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.lstViewDBresults.FullRowSelect = true;
             this.lstViewDBresults.Location = new System.Drawing.Point(12, 251);
             this.lstViewDBresults.Name = "lstViewDBresults";
             this.lstViewDBresults.Size = new System.Drawing.Size(573, 219);

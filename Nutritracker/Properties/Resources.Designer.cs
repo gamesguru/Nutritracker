@@ -61,12 +61,8 @@ namespace Nutritracker.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {\rtf1\ansi\deff0\nouicompat{\fonttbl{\f0\froman\fcharset128 Helvetica;}{\f1\froman\fprq2\fcharset0 Liberation Serif;}{\f2\froman\fcharset0 Helvetica;}}
-        ///{\colortbl ;\red0\green0\blue255;}
-        ///{\*\generator Riched20 10.0.16299}\viewkind4\uc1 
-        ///\pard\nowidctlpar\sa180\kerning1\b\f0\fs28\lang1033 GNU LESSER GENERAL PUBLIC LICENSE\b0\f1\fs24\par
-        ///\f0 Version 3, 29 June 2007\f1\par
-        ///\f0 Copyright \f2\&apos;a9 2007 Free Software Foundation, Inc. &lt;{\f0\lang255{\field{\*\fldinst{HYPERLINK &quot;https://fsf.org/&quot;}}{\fldrslt{htt [rest of string was truncated]&quot;;.
+        ///   Looks up a localized string similar to {\rtf1\adeflang1025\ansi\ansicpg1252\uc1\adeff31507\deff0\stshfdbch31505\stshfloch31506\stshfhich31506\stshfbi31507\deflang1033\deflangfe1033\themelang1033\themelangfe0\themelangcs0{\fonttbl{\f0\fbidi \froman\fcharset0\fprq2{\*\panose 02020603050405020304}Times New Roman;}{\f4\fbidi \fswiss\fcharset0\fprq2{\*\panose 020b0604020202020204}Helvetica;}
+        ///{\f34\fbidi \froman\fcharset0\fprq2{\*\panose 02040503050406030204}Cambria Math;}{\f39\fbidi \froman\fcharset0\fprq2{\*\panose 00000000000000000000}Liberation S [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string gnl1 {
             get {
@@ -75,9 +71,9 @@ namespace Nutritracker.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {\rtf1\ansi\ansicpg932\deff0\nouicompat{\fonttbl{\f0\froman\fcharset128 Helvetica;}{\f1\fnil\fcharset0 Calibri;}}
-        ///{\*\generator Riched20 10.0.16299}\viewkind4\uc1 
-        ///\pard\nowidctlpar\sa180\kerning1\f0\fs24\lang1033 If the Library as you received it specifies that a proxy can decide whether future versions of the GNU Lesser General Public License shall apply, that proxy&apos;s public statement of acceptance of any version is permanent authorization for you to choose that version for the Library.\kerning0\f1\fs22 [rest of string was truncated]&quot;;.
+        ///   Looks up a localized string similar to {\rtf1\ansi\deff3\adeflang1025
+        ///{\fonttbl{\f0\froman\fprq2\fcharset0 Times New Roman;}{\f1\froman\fprq2\fcharset2 Symbol;}{\f2\fswiss\fprq2\fcharset0 Arial;}{\f3\froman\fprq2\fcharset0 Liberation Serif{\*\falt Times New Roman};}{\f4\froman\fprq2\fcharset0 Liberation Sans{\*\falt Arial};}{\f5\froman\fprq2\fcharset0 Helvetica{\*\falt Arial};}{\f6\fnil\fprq2\fcharset0 Lohit Devanagari;}{\f7\fnil\fprq2\fcharset0 Helvetica{\*\falt Arial};}{\f8\fnil\fprq2\fcharset0 Liberation Serif{\*\falt Times New Roman};}}
+        ///{\co [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string gnl10 {
             get {

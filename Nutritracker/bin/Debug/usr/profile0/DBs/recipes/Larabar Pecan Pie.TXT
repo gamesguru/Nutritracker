@@ -1,0 +1,3 @@
+USDAstock|09421|60
+USDAstock|12643|45
+USDAstock|12065|25
