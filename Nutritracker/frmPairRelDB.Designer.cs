@@ -30,7 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmPairRelDB));
             this.label1 = new System.Windows.Forms.Label();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.comboFields = new System.Windows.Forms.ComboBox();
             this.btnBegin = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.checkedListBox1 = new System.Windows.Forms.CheckedListBox();
@@ -54,16 +54,16 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Choose field to pair with USDA:";
             // 
-            // comboBox1
+            // comboFields
             // 
-            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(12, 28);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(192, 24);
-            this.comboBox1.TabIndex = 1;
-            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
+            this.comboFields.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboFields.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.comboFields.FormattingEnabled = true;
+            this.comboFields.Location = new System.Drawing.Point(12, 28);
+            this.comboFields.Name = "comboFields";
+            this.comboFields.Size = new System.Drawing.Size(192, 24);
+            this.comboFields.TabIndex = 1;
+            this.comboFields.SelectedIndexChanged += new System.EventHandler(this.comboFields_SelectedIndexChanged);
             // 
             // btnBegin
             // 
@@ -141,11 +141,6 @@
             this.numUpDownIndex.Name = "numUpDownIndex";
             this.numUpDownIndex.Size = new System.Drawing.Size(89, 26);
             this.numUpDownIndex.TabIndex = 9;
-            this.numUpDownIndex.Value = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
             this.numUpDownIndex.Visible = false;
             this.numUpDownIndex.ValueChanged += new System.EventHandler(this.numUpDownIndex_ValueChanged);
             // 
@@ -184,7 +179,7 @@
             this.Controls.Add(this.button2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.btnBegin);
-            this.Controls.Add(this.comboBox1);
+            this.Controls.Add(this.comboFields);
             this.Controls.Add(this.label1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -203,7 +198,7 @@
         #endregion
 
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox comboFields;
         private System.Windows.Forms.Button btnBegin;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Button button2;

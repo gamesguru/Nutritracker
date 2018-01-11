@@ -21,13 +21,13 @@ namespace Nutritracker
             string[] dbs = Directory.GetDirectories($"{Application.StartupPath}{slash}usr{slash}profile{frmMain.currentUser.index}{slash}DBs");
             foreach (string s in dbs)
                 if (s.Contains("f_user_"))
-                    comboBox1.Items.Add(s.Split(new string[] { $"{slash}f_user_" }, StringSplitOptions.None)[1]);
-            if (comboBox1.Items.Count == 0)
+                    comboFields.Items.Add(s.Split(new string[] { $"{slash}f_user_" }, StringSplitOptions.None)[1]);
+            if (comboFields.Items.Count == 0)
             {
                 MessageBox.Show("Please create some fields before using this form.");
                 this.Close();
             }
-            comboBox1.SelectedIndex = 0;
+            comboFields.SelectedIndex = 0;
         }
 
         class dbi
@@ -50,7 +50,7 @@ namespace Nutritracker
         private void btnBegin_Click(object sender, EventArgs e)
         {
             btnBegin.Enabled = false;
-            comboBox1.Enabled = false;
+            comboFields.Enabled = false;
             lblTweak.Visible = true;
             txtTweak.Visible = true;
             lblNum.Visible = true;
@@ -65,7 +65,7 @@ namespace Nutritracker
                     usdaDB.ndbs = File.ReadAllLines($"{usdaRoot}{slash}{s.Split('|')[0]}");
 
             //work here
-            storDir = $"{Application.StartupPath}{slash}usr{slash}profile{frmMain.currentUser.index}{slash}DBs{slash}_par_f{slash}{comboBox1.Text}";
+            storDir = $"{Application.StartupPath}{slash}usr{slash}profile{frmMain.currentUser.index}{slash}DBs{slash}_par_f{slash}{comboFields.Text}";
             //MessageBox.Show(File.ReadAllText($"{storDir}{slash}progress.TXT"));
             try { _n = Convert.ToInt32(File.ReadAllText($"{storDir}{slash}progress.TXT")); }
             catch { _n = 0; }
@@ -109,21 +109,21 @@ namespace Nutritracker
             public string value;
             public string[] ndbnos;
         }
-        private class vObj
-        {
-            public string val;
-            public string name;
-            public int index;
-        }
+        //private class vObj
+        //{
+        //    public string val;
+        //    public string name;
+        //    public int index;
+        //}
         //List<string> ndbNos;
         List<string> metricsToTrack;
         fObj[] fieldObjs = new fObj[0];
-        List<vObj> valNamePairs;
-        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        //List<vObj> valNamePairs;
+        private void comboFields_SelectedIndexChanged(object sender, EventArgs e)
         {
             ndbs = new List<string>();
-            this.Text = $"Pair {comboBox1.Text} with USDA";
-            string fieldRoot = $"{Application.StartupPath}{slash}usr{slash}profile{frmMain.currentUser.index}{slash}DBs{slash}f_user_{comboBox1.Text}{slash}";
+            this.Text = $"Pair {comboFields.Text} with USDA";
+            string fieldRoot = $"{Application.StartupPath}{slash}usr{slash}profile{frmMain.currentUser.index}{slash}DBs{slash}f_user_{comboFields.Text}{slash}";
             dbInitKeys = new List<dbi>();
             dbConfigKeys = new List<dbc>();
             string[] dbInitItems = File.ReadAllText(fieldRoot + "_dbInit.TXT").Split(new string[] { "[File]" }, StringSplitOptions.None);
@@ -154,7 +154,7 @@ namespace Nutritracker
                 dbConfigKeys.Add(d);
             }
 
-            valNamePairs = new List<vObj>();
+            //valNamePairs = new List<vObj>();
             foreach (dbc d in dbConfigKeys)
                 if (d.field == "FoodName")
                 {
@@ -204,7 +204,7 @@ namespace Nutritracker
             numUpDownIndex.Value = _n + 1;
             mH = false;
             groupBox1.Text = $"Possible Matches ({_n + 1} of {n})  — {foodNamesToPair[_n]}";
-            this.Text = $"Pair {n} items for {comboBox1.Text} with USDA";
+            this.Text = $"Pair {n} items for {comboFields.Text} with USDA";
             foreach (vObj v in valNamePairs)
                 if (v.name == foodNamesToPair[_n])
                 {
@@ -340,7 +340,7 @@ namespace Nutritracker
             else if (txtTweak.Text.Split(' ').Length < 2)
                 words = new string[] { txtTweak.Text };
             else
-                words = txtTweak.Text.Split(_delims);
+                words = txtTweak.Text.Split(' '); //(_delims);
 
             foreach (string s in words)
                 for (int i = 0; i < usdaDB.names.Length; i++)
