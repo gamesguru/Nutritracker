@@ -155,23 +155,22 @@ namespace Nutritracker
             string[] words;
             if (txtTweakName.TextLength < 3)
                 return;
-            else if (txtTweakName.Text.Split(' ').Length < 2) //just 1 word
+            else if (txtTweakName.Text.Split(' ').Length < 2)   //just 1 word
                 words = new string[] { txtTweakName.Text };
             else
-                words = txtTweakName.Text.Split(_delims); //a sentence
+                words = txtTweakName.Text.Split(_delims);       //a sentence
 
             foreach (string s in words)
                 for (int i = 0; i < DB.names.Length; i++)
                     if (s.Length > 2 && DB.names[i].ToUpper()/*.Split(_delims)*/.Contains(s.ToUpper()))
-                        DB.wMatch[i]++; //usdaDB.joinedMatches[i] += s + ", ";                                   
-            int m = DB.wMatch.Max();
+                        DB.wMatch[i]++; //usdaDB.joinedMatches[i] += s + ", ";     
             List<ListViewItem> itms = new List<ListViewItem>();
-            for (int i = m; i > 0; i--)
+            for (int i = DB.wMatch.Max(); i > 0; i--)
                 for (int j = 0; j < DB.names.Length; j++)
                     if (DB.wMatch[j] == i)
                     {
                         ListViewItem itm = new ListViewItem(DB.ndbs[j]);
-                        itm.SubItems.Add($"{DB.names[j]} -- [{DB.wMatch[j]}]");
+                        itm.SubItems.Add(DB.names[j]); //$"{DB.names[j]} -- [{DB.wMatch[j]}]");
                         itm.SubItems.Add(DB.cals[j]);
                         itms.Add(itm);
                     }         
@@ -194,8 +193,6 @@ namespace Nutritracker
                     MessageBox.Show("Error: recipe name contains illegal characters.  Letters, digits and spaces only.", "", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
-            //
-            //...
 
             string fp = $"{Application.StartupPath}{sl}usr{sl}profile{frmMain.currentUser.index}{sl}DBs{sl}recipes";
             Directory.CreateDirectory(fp);
@@ -206,11 +203,11 @@ namespace Nutritracker
                 output.Add($"USDAstock|{d.ndbno}|{d.weight}");
             if (File.Exists(fp))
             {
-                MessageBox.Show($"File already exists under this name.  Please change the name, archive it or edit it manually in the 'DBs{sl}recipes' folder.", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show($"File already exists under this name.  Please change the name, archive it or edit it manually in your 'DBs{sl}recipes' folder.", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
             File.WriteAllLines(fp, output);
-            MessageBox.Show("Saved to the recipes folder.  You can add manual entries by opening the .TXT file.", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show($"Saved to the recipes folder.  You can manually edit entries by opening the .TXT file in your 'DBs{sl}recipes' folder. and following the formatting instructions.", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
             this.Close();
         }
 

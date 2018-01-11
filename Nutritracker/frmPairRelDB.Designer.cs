@@ -33,8 +33,8 @@
             this.comboFields = new System.Windows.Forms.ComboBox();
             this.btnBegin = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.checkedListBox1 = new System.Windows.Forms.CheckedListBox();
-            this.button2 = new System.Windows.Forms.Button();
+            this.chkLstBoxUSDAresults = new System.Windows.Forms.CheckedListBox();
+            this.btnClose = new System.Windows.Forms.Button();
             this.txtTweak = new System.Windows.Forms.TextBox();
             this.lblTweak = new System.Windows.Forms.Label();
             this.numUpDownIndex = new System.Windows.Forms.NumericUpDown();
@@ -78,7 +78,7 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.checkedListBox1);
+            this.groupBox1.Controls.Add(this.chkLstBoxUSDAresults);
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.Location = new System.Drawing.Point(12, 63);
             this.groupBox1.Name = "groupBox1";
@@ -87,30 +87,30 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Possible Matches (0 of 0)  — none";
             // 
-            // checkedListBox1
+            // chkLstBoxUSDAresults
             // 
-            this.checkedListBox1.CheckOnClick = true;
-            this.checkedListBox1.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.checkedListBox1.FormattingEnabled = true;
-            this.checkedListBox1.Location = new System.Drawing.Point(6, 21);
-            this.checkedListBox1.Name = "checkedListBox1";
-            this.checkedListBox1.Size = new System.Drawing.Size(582, 174);
-            this.checkedListBox1.TabIndex = 7;
-            this.checkedListBox1.TabStop = false;
-            this.checkedListBox1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.checkedListBox1_KeyDown);
-            this.checkedListBox1.Leave += new System.EventHandler(this.checkedListBox1_Leave);
+            this.chkLstBoxUSDAresults.CheckOnClick = true;
+            this.chkLstBoxUSDAresults.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.chkLstBoxUSDAresults.FormattingEnabled = true;
+            this.chkLstBoxUSDAresults.Location = new System.Drawing.Point(6, 21);
+            this.chkLstBoxUSDAresults.Name = "chkLstBoxUSDAresults";
+            this.chkLstBoxUSDAresults.Size = new System.Drawing.Size(582, 174);
+            this.chkLstBoxUSDAresults.TabIndex = 7;
+            this.chkLstBoxUSDAresults.TabStop = false;
+            this.chkLstBoxUSDAresults.KeyDown += new System.Windows.Forms.KeyEventHandler(this.chkLstBoxUSDAresults_KeyDown);
+            this.chkLstBoxUSDAresults.Leave += new System.EventHandler(this.chkLstBoxUSDAresults_Leave);
             // 
-            // button2
+            // btnClose
             // 
-            this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button2.Location = new System.Drawing.Point(467, 272);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(139, 36);
-            this.button2.TabIndex = 6;
-            this.button2.TabStop = false;
-            this.button2.Text = "Close";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.btnClose.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnClose.Location = new System.Drawing.Point(467, 272);
+            this.btnClose.Name = "btnClose";
+            this.btnClose.Size = new System.Drawing.Size(139, 36);
+            this.btnClose.TabIndex = 6;
+            this.btnClose.TabStop = false;
+            this.btnClose.Text = "Close";
+            this.btnClose.UseVisualStyleBackColor = true;
+            this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
             // 
             // txtTweak
             // 
@@ -176,7 +176,7 @@
             this.Controls.Add(this.numUpDownIndex);
             this.Controls.Add(this.lblTweak);
             this.Controls.Add(this.txtTweak);
-            this.Controls.Add(this.button2);
+            this.Controls.Add(this.btnClose);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.btnBegin);
             this.Controls.Add(this.comboFields);
@@ -201,8 +201,8 @@
         private System.Windows.Forms.ComboBox comboFields;
         private System.Windows.Forms.Button btnBegin;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.CheckedListBox checkedListBox1;
+        private System.Windows.Forms.Button btnClose;
+        private System.Windows.Forms.CheckedListBox chkLstBoxUSDAresults;
         private System.Windows.Forms.TextBox txtTweak;
         private System.Windows.Forms.Label lblTweak;
         private System.Windows.Forms.NumericUpDown numUpDownIndex;
