@@ -306,7 +306,10 @@ namespace Nutritracker
 
             chkLstBoxUSDAresults.BeginUpdate();
             for (int i = 0; i < itms.Count; i++)
-                chkLstBoxUSDAresults.Items.Add(itms[i]);
+            {
+				chkLstBoxUSDAresults.Items.Add(itms[i]);
+                if (f.)
+            }
             chkLstBoxUSDAresults.EndUpdate();
 
 
@@ -346,9 +349,9 @@ namespace Nutritracker
         }
 
         private void chkLstBoxUSDAresults_Leave(object sender, EventArgs eventArgs){
-            //f.ndbnos = new List<string>();
-            //foreach (var c in checkedListBox1.CheckedItems)
-                //f.ndbnos.Add(c.ToString().Split(new string[] { "--" }, StringSplitOptions.None)[0]);
+            f.ndbnos = new List<string>();
+            foreach (var c in checkedListBox1.CheckedItems)
+                f.ndbnos.Add(c.ToString().Split(new string[] { "--" }, StringSplitOptions.None)[0]);
         }
     }
 }
