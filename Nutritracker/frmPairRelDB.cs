@@ -97,6 +97,11 @@ namespace Nutritracker
         }
 
         List<_diskEntry> diskEntries;
+        private static void writeDisk(List<string> dEntries)
+        {
+            List<string> output = new List<string>();
+        
+        }
 
         //private class fObj
         //{
@@ -197,7 +202,7 @@ namespace Nutritracker
 						_n = Convert.ToInt32(s.Replace("[Progress]", ""));
                 
                 diskEntries = new List<_diskEntry>();
-                foreach (string s in diskContents){
+                foreach (string s in diskContents)
                     if (s.StartsWith("[Pair]"))
                     {
                         string st = s.Replace("[Pair]");
@@ -207,7 +212,6 @@ namespace Nutritracker
                         d.fIndex = Convert.ToInt32(st.Split('|')[2]);
                         diskEntries.Add(d);
                     }
-                }
             }
             catch{}
 
@@ -216,7 +220,7 @@ namespace Nutritracker
             numUpDownIndex.Maximum = n;
             numUpDownIndex.Value = _n + 1;
             mH = false;
-            groupBox1.Text = $"Possible Matches ({_n + 1} of {n})  — {fobjs[_n].foodName}";
+            groupBox1.Text = $"Possible Matches ({_n + 1} of {n}) — {fobjs[_n].foodName}";
             this.Text = $"Pair {n} items for {comboFields.Text} with USDA";
             foreach (_fObj f in fobjs)
                 if (f.foodName == fobjs[_n].foodName)
@@ -297,7 +301,7 @@ namespace Nutritracker
                         itms.Add($"{usdaDB.ndbs[j]} -- {usdaDB.names[j]} -- {usdaDB.wMatch[j]}"); //-({usdaDB.joinedMatches[j]})");                     
 
             n = fobjs.Count();
-            groupBox1.Text = $"{q} Possible Matches ({_n + 1} of {n})  — {f.foodName}";
+            groupBox1.Text = $"{q} Possible Matches ({_n + 1} of {n}) — {f.foodName}";
             lblFieldVal.Text = $"{f.mainMetric} value: {f.value}";
 
             chkLstBoxUSDAresults.BeginUpdate();
