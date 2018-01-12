@@ -1,10 +1,9 @@
 [Progress]12
-[MetricName]GI_Rating
-[Par]1001|250|Potato, white, boiled (average)
-[Par]1002|250|Potato, white, boiled (average)
-[Par]1003|250|Potato, white, boiled (average)
+[Pair]1001|250|Potato, white, boiled (average)
+[Pair]1002|250|Potato, white, boiled (average)
+[Pair]1003|250|Potato, white, boiled (average)
 
 or
 
-ndb|val|index (amongst f_user)
-1001|250|1
+[Pair]ndb|val|index (amongst f_user)
+[Pair]1001|250|1

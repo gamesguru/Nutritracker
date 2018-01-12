@@ -146,7 +146,7 @@ namespace Nutritracker
                 File.WriteAllLines($"{fp}{slash}{listBox2.Items[i]}.TXT", colVal); //writes the stores for each unit
             }
             //File.WriteAllLines(fp + $"{slash}_nameKeyPairs.txt", nameKeyPairs);
-            string[] firstCommit = { searchKey + "|Name of Food", calorieKey + "|Calories" };
+            string[] firstCommit = { searchKey + "|FoodName", calorieKey + "|Calories" };
             File.WriteAllLines($"{fp}{slash}_nutKeyPairs.TXT", firstCommit); //writes the initial key pairs for nutrients and txt files
 
 			List<string> nameKeyPairs = new List<string>();

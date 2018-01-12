@@ -106,7 +106,7 @@ namespace Nutritracker
                 k.fileName = files[i];
                 k.headers = frmParseCustomDatabase.columns[i].header;
                 if (k.fileName == searchKey)
-                    k.fields = "Name of Food";
+                    k.fields = "FoodName";
                 else if (k.fileName == value1Key)
                     k.fields = "Value1";
 

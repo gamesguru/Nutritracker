@@ -211,7 +211,6 @@ namespace Nutritracker
             this.Close();
         }
 
-        bool mH;
         bool tweak;
         private void txtIngrieds_Leave(object sender, EventArgs e) => tweak = true;
         private void txtIngrieds_Enter(object sender, EventArgs e)
