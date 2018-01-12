@@ -68,23 +68,23 @@ namespace Nutritracker
 
             //work here
             //storDir = $"{Application.StartupPath}{slash}usr{slash}profile{frmMain.currentUser.index}{slash}DBs{slash}_par_f{slash}{comboFields.Text}";
-            storLoc = $"{Application.StartupPath}{slash}usr{slash}profile{frmMain.currentUser.index}{slash}DBs{slash}_par_f{slash}{comboFields.Text}.TXT";
+            //storLoc = $"{Application.StartupPath}{slash}usr{slash}profile{frmMain.currentUser.index}{slash}DBs{slash}_par_f{slash}{comboFields.Text}.TXT";
 
-            //new work
-            diskContents = File.ReadAllLines(storLoc).ToList();
-            foreach (string s in diskContents)
-                if (s.StartsWith("[Progress]"))
-                    _n = Convert.ToInt32(s.Replace("[Progress]", ""));
+            ////new work
+            //diskContents = File.ReadAllLines(storLoc).ToList();
+            //foreach (string s in diskContents)
+            //    if (s.StartsWith("[Progress]"))
+            //        _n = Convert.ToInt32(s.Replace("[Progress]", ""));
 
-            numUpDownIndex.Maximum = n;
-            numUpDownIndex.Value = _n + 1;
-            numUpDownIndex.Minimum = 1;
+            //numUpDownIndex.Maximum = n;
+            //numUpDownIndex.Value = _n + 1;
+            //numUpDownIndex.Minimum = 1;
         }
 
         //private class fieldObj
         //{
         //    string fileLoc;
-        //    public int index; // among, say the 34 foods in the field
+        //    public int index; // among, say, the 34 foods in the field
         //    string foodName;
         //    public string[] ndbnos;
         //    public string value;
@@ -97,23 +97,23 @@ namespace Nutritracker
             public static int[] wMatch;
             public static string[] joinedMatches;
         }
-        private class fObj
-        {
-            public int index = 0;
-            //public string name;
-            public string value;
-            public string[] ndbnos;
-        }
-        private class vObj
-        {
-            public string val;
-            public string name;
-            public int index;
-        }
+        //private class fObj
+        //{
+        //    public int index = 0;
+        //    //public string name;
+        //    public string value;
+        //    public string[] ndbnos;
+        //}
+        //private class vObj
+        //{
+        //    public string val;
+        //    public string name;
+        //    public int index;
+        //}
         //List<string> ndbNos;
-        List<string> metricsToTrack;
-        fObj[] fieldObjs = new fObj[0];
-        List<vObj> valNamePairs;
+        //List<string> metricsToTrack;
+        //fObj[] fieldObjs = new fObj[0];
+        //List<vObj> valNamePairs;
         private void comboFields_SelectedIndexChanged(object sender, EventArgs e)
         {
             ndbs = new List<string>();
@@ -149,92 +149,92 @@ namespace Nutritracker
                 dbConfigKeys.Add(d);
             }
 
-            valNamePairs = new List<vObj>();
-            foreach (dbc d in dbConfigKeys)
-                if (d.field == "FoodName")
-                {
-                    foodNamesToPair = File.ReadAllLines(fieldRoot + d.file);
-                    string[] valsToPair = new string[0];
-                    foreach (dbc d2 in dbConfigKeys)
-                        if (d2.field == "Value1")
-                            valsToPair = File.ReadAllLines(fieldRoot + d2.file);
-                    for (int i = 0; i < foodNamesToPair.Length; i++)
-                    {
-                        vObj v = new vObj();
-                        v.name = foodNamesToPair[i];
-                        v.val = valsToPair[i];
-                        v.index = i;
-                        valNamePairs.Add(v);
-                    }
-                }
+            //valNamePairs = new List<vObj>();
+            //foreach (dbc d in dbConfigKeys)
+            //    if (d.field == "FoodName")
+            //    {
+            //        foodNamesToPair = File.ReadAllLines(fieldRoot + d.file);
+            //        string[] valsToPair = new string[0];
+            //        foreach (dbc d2 in dbConfigKeys)
+            //            if (d2.field == "Value1")
+            //                valsToPair = File.ReadAllLines(fieldRoot + d2.file);
+            //        for (int i = 0; i < foodNamesToPair.Length; i++)
+            //        {
+            //            vObj v = new vObj();
+            //            v.name = foodNamesToPair[i];
+            //            v.val = valsToPair[i];
+            //            v.index = i;
+            //            valNamePairs.Add(v);
+            //        }
+            //    }
 
 
-            metricsToTrack = new List<string>();
-            foreach (dbc d in dbConfigKeys)
-            {
-                if (d.metric != null && d.metric != "" && !metricsToTrack.Contains(d.metric))
-                    metricsToTrack.Add(d.metric);
-                if (d.metric != null && d.metric != "" && d.field == "Value1")
-                    metricName = d.metric;
-            }
+            //metricsToTrack = new List<string>();
+            //foreach (dbc d in dbConfigKeys)
+            //{
+            //    if (d.metric != null && d.metric != "" && !metricsToTrack.Contains(d.metric))
+            //        metricsToTrack.Add(d.metric);
+            //    if (d.metric != null && d.metric != "" && d.field == "Value1")
+            //        metricName = d.metric;
+            //}
 
-            n = foodNamesToPair.Length;
-            string[] rawOldData = File.ReadAllLines(storLoc);
-            foreach (string s in rawOldData)
-                if (s.StartsWith("[Progress]"))
-                    _n = Convert.ToInt32(s.Replace("[Progress]", ""));
+            //n = foodNamesToPair.Length;
+            //string[] rawOldData = File.ReadAllLines(storLoc);
+            //foreach (string s in rawOldData)
+            //    if (s.StartsWith("[Progress]"))
+            //        _n = Convert.ToInt32(s.Replace("[Progress]", ""));
 
-            mH = true;
-            numUpDownIndex.Minimum = 1;
-            numUpDownIndex.Maximum = n;
-            numUpDownIndex.Value = _n + 1;
-            mH = false;
-            groupBox1.Text = $"Possible Matches ({_n + 1} of {n})  — {foodNamesToPair[_n]}";
-            this.Text = $"Pair {n} items for {comboFields.Text} with USDA";
-            foreach (vObj v in valNamePairs)
-                if (v.name == foodNamesToPair[_n])
-                {
-                    lblFieldVal.Text = $"{metricName} value: {v.val}";
-                    value = v.val;
-                }
-            fieldObjs = new fObj[n];
-            for (int i = 0; i < fieldObjs.Length; i++)
-            {
-                fieldObjs[i] = new fObj();
-                fieldObjs[i].index = i;
-                fieldObjs[i].value = value;
-                List<string> ns = new List<string>();
-                foreach (var c in chkLstBoxUSDAresults.CheckedItems)
-                    ns.Add(c.ToString().Split(new string[] { "--" }, StringSplitOptions.None)[0]);
-                fieldObjs[i].ndbnos = ns.ToArray();
-            }
-            mH = true;
-            numUpDownIndex.Value = _n + 1;
-            txtTweak.Text = foodNamesToPair[_n];
-            mH = false;
+            //mH = true;
+            //numUpDownIndex.Minimum = 1;
+            //numUpDownIndex.Maximum = n;
+            //numUpDownIndex.Value = _n + 1;
+            //mH = false;
+            //groupBox1.Text = $"Possible Matches ({_n + 1} of {n})  — {foodNamesToPair[_n]}";
+            //this.Text = $"Pair {n} items for {comboFields.Text} with USDA";
+            //foreach (vObj v in valNamePairs)
+            //    if (v.name == foodNamesToPair[_n])
+            //    {
+            //        lblFieldVal.Text = $"{metricName} value: {v.val}";
+            //        value = v.val;
+            //    }
+            //fieldObjs = new fObj[n];
+            //for (int i = 0; i < fieldObjs.Length; i++)
+            //{
+            //    fieldObjs[i] = new fObj();
+            //    fieldObjs[i].index = i;
+            //    fieldObjs[i].value = value;
+            //    List<string> ns = new List<string>();
+            //    foreach (var c in chkLstBoxUSDAresults.CheckedItems)
+            //        ns.Add(c.ToString().Split(new string[] { "--" }, StringSplitOptions.None)[0]);
+            //    fieldObjs[i].ndbnos = ns.ToArray();
+            //}
+            //mH = true;
+            //numUpDownIndex.Value = _n + 1;
+            //txtTweak.Text = foodNamesToPair[_n];
+            //mH = false;
         }
-        List<string> ndbs;
-        int _n = 0;
+        //List<string> ndbs;
+        //int _n = 0;
         private void chkLstBoxUSDAresults_KeyDown(object sender, KeyEventArgs e)
         {
             //triggers numUpDown++
-            if (e.KeyCode == Keys.Return)
-            {
-                if (btnBegin.Enabled)
-                {
-                    MessageBox.Show("Please press begin!!");
-                    return;
-                }
-                if (chkLstBoxUSDAresults.CheckedItems.Count == 0)
-                {
-                    if (MessageBox.Show("Really skip this entry?", "", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
-                        return;
-                }
-                foreach (var c in chkLstBoxUSDAresults.CheckedItems)
-                    ndbs.Add(c.ToString().Split(new string[] { "--" }, StringSplitOptions.None)[0]);
-                _n++;
-                numUpDownIndex.Value = _n;
-            }
+            //if (e.KeyCode == Keys.Return)
+            //{
+            //    if (btnBegin.Enabled)
+            //    {
+            //        MessageBox.Show("Please press begin!!");
+            //        return;
+            //    }
+            //    if (chkLstBoxUSDAresults.CheckedItems.Count == 0)
+            //    {
+            //        if (MessageBox.Show("Really skip this entry?", "", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
+            //            return;
+            //    }
+            //    foreach (var c in chkLstBoxUSDAresults.CheckedItems)
+            //        ndbs.Add(c.ToString().Split(new string[] { "--" }, StringSplitOptions.None)[0]);
+            //    _n++;
+            //    numUpDownIndex.Value = _n;
+            //}
         }
 
         string storLoc = "";
@@ -248,56 +248,56 @@ namespace Nutritracker
             //
             if (mH)
                 return;
-            fObj f = fieldObjs[_n];
-            chkLstBoxUSDAresults.Items.Clear();
-            //int[] wordMatch = new int[usdaDB.names.Length];
-            usdaDB.wMatch = new int[usdaDB.names.Length];
-            usdaDB.joinedMatches = new string[usdaDB.names.Length];
-            string[] words;
+            //fObj f = fieldObjs[_n];
+            //chkLstBoxUSDAresults.Items.Clear();
+            ////int[] wordMatch = new int[usdaDB.names.Length];
+            //usdaDB.wMatch = new int[usdaDB.names.Length];
+            //usdaDB.joinedMatches = new string[usdaDB.names.Length];
+            //string[] words;
 
-            if (txtTweak.TextLength < 4)
-                return;
-            else if (txtTweak.Text.Split(' ').Length < 2)
-                words = new string[] { txtTweak.Text };
-            else
-                words = txtTweak.Text.Split(' '); //(_delims);
+            //if (txtTweak.TextLength < 4)
+            //    return;
+            //else if (txtTweak.Text.Split(' ').Length < 2)
+            //    words = new string[] { txtTweak.Text };
+            //else
+            //    words = txtTweak.Text.Split(' '); //(_delims);
 
-            foreach (string s in words)
-                for (int i = 0; i < usdaDB.names.Length; i++)
-                    if (s.Length > 2 && usdaDB.names[i].ToUpper()/*.Split(_delims)*/.Contains(s.ToUpper()))
-                        usdaDB.wMatch[i]++; //usdaDB.joinedMatches[i] += s + ", ";                       
-
-
-            int m = usdaDB.wMatch.Max();
-            int q = 0;
-            List<string> itms = new List<string>();
-            for (int i = m; i > 0; i--)
-                for (int j = 0; j < usdaDB.names.Length; j++)
-                    if (usdaDB.wMatch[j] == i && q++ > 0)
-                        itms.Add($"{usdaDB.ndbs[j]}--{usdaDB.names[j]}-[{usdaDB.wMatch[j]}]"); //-({usdaDB.joinedMatches[j]})");                     
-
-            n = foodNamesToPair.Length;
-            groupBox1.Text = $"{q} Possible Matches ({_n + 1} of {n})  — {foodNamesToPair[_n]}";
-            foreach (vObj v in valNamePairs)
-                if (v.name == foodNamesToPair[_n])
-                {
-                    lblFieldVal.Text = $"{metricName} value: {v.val}";
-                    value = v.val;
-                }
+            //foreach (string s in words)
+            //    for (int i = 0; i < usdaDB.names.Length; i++)
+            //        if (s.Length > 2 && usdaDB.names[i].ToUpper()/*.Split(_delims)*/.Contains(s.ToUpper()))
+            //            usdaDB.wMatch[i]++; //usdaDB.joinedMatches[i] += s + ", ";                       
 
 
-            chkLstBoxUSDAresults.BeginUpdate();
-            for (int i = 0; i < itms.Count; i++)
-                chkLstBoxUSDAresults.Items.Add(itms[i]);
-            chkLstBoxUSDAresults.EndUpdate();
-            List<string> ns = new List<string>();
-            foreach (var c in chkLstBoxUSDAresults.CheckedItems)
-                ns.Add(c.ToString().Split(new string[] { "--" }, StringSplitOptions.None)[0]);
-            f.ndbnos = ns.ToArray();
+            //int m = usdaDB.wMatch.Max();
+            //int q = 0;
+            //List<string> itms = new List<string>();
+            //for (int i = m; i > 0; i--)
+            //    for (int j = 0; j < usdaDB.names.Length; j++)
+            //        if (usdaDB.wMatch[j] == i && q++ > 0)
+            //            itms.Add($"{usdaDB.ndbs[j]}--{usdaDB.names[j]}-[{usdaDB.wMatch[j]}]"); //-({usdaDB.joinedMatches[j]})");                     
+
+            //n = foodNamesToPair.Length;
+            //groupBox1.Text = $"{q} Possible Matches ({_n + 1} of {n})  — {foodNamesToPair[_n]}";
+            //foreach (vObj v in valNamePairs)
+            //    if (v.name == foodNamesToPair[_n])
+            //    {
+            //        lblFieldVal.Text = $"{metricName} value: {v.val}";
+            //        value = v.val;
+            //    }
+
+
+            //chkLstBoxUSDAresults.BeginUpdate();
+            //for (int i = 0; i < itms.Count; i++)
+            //    chkLstBoxUSDAresults.Items.Add(itms[i]);
+            //chkLstBoxUSDAresults.EndUpdate();
+            //List<string> ns = new List<string>();
+            //foreach (var c in chkLstBoxUSDAresults.CheckedItems)
+            //    ns.Add(c.ToString().Split(new string[] { "--" }, StringSplitOptions.None)[0]);
+            //f.ndbnos = ns.ToArray();
         }
 
-        string metricName = "";
-        static fObj f;
+        //string metricName = "";
+        //static fObj f;
         private void numUpDownIndex_ValueChanged(object sender, EventArgs e)
         {
             if (mH)
@@ -306,44 +306,44 @@ namespace Nutritracker
             //refresh listview, groupbox, lblVal, and txtTweak
             //use numIndex and fieldObjs
             //
-            _n = Convert.ToInt32(numUpDownIndex.Value) - 1;
-            f = fieldObjs[_n];
-            foreach (vObj v in valNamePairs)
-                if (v.name == foodNamesToPair[_n])
-                {
-                    lblFieldVal.Text = $"{metricName} value: {v.val}";
-                    value = v.val;
-                    //MessageBox.Show(value);
-                }
-            chkLstBoxUSDAresults.Items.Clear();
-            usdaDB.wMatch = new int[usdaDB.names.Length];
-            foreach (string s in foodNamesToPair[_n].Split(_delims))
-                for (int i = 0; i < usdaDB.names.Length; i++)
-                    if (s.Length > 2 && usdaDB.names[i].ToUpper().Contains(s.ToUpper()))
-                        usdaDB.wMatch[i]++; //usdaDB.joinedMatches[i] += s + ", ";
-            List<string> ns = new List<string>();
-            foreach (var c in chkLstBoxUSDAresults.CheckedItems)
-                ns.Add(c.ToString().Split(new string[] { "--" }, StringSplitOptions.None)[0]);
-            f.ndbnos = ns.ToArray();
-            int m = usdaDB.wMatch.Max();
-            int q = 0;
-            for (int i = m; i > 0; i--)
-                for (int j = 0; j < usdaDB.names.Length; j++)
-                    if (usdaDB.wMatch[j] == i)
-                    {
-                        if (q == 30)
-                            goto next;
-                        string itm = $"{usdaDB.ndbs[j]}--{usdaDB.names[j]}-[{usdaDB.wMatch[j]}]"; //-({usdaDB.joinedMatches[j]})";
-                        chkLstBoxUSDAresults.Items.Add(itm);
-                        q++;
-                    }
-                next:
-            n = foodNamesToPair.Length;
-            groupBox1.Text = $"{q} Possible Matches ({_n + 1} of {n})  — {foodNamesToPair[_n]}";
-            mH = true;
-            txtTweak.Text = foodNamesToPair[_n];
-            mH = false;
-            checkItemsFromDisk();
+            //_n = Convert.ToInt32(numUpDownIndex.Value) - 1;
+            //f = fieldObjs[_n];
+            //foreach (vObj v in valNamePairs)
+            //    if (v.name == foodNamesToPair[_n])
+            //    {
+            //        lblFieldVal.Text = $"{metricName} value: {v.val}";
+            //        value = v.val;
+            //        //MessageBox.Show(value);
+            //    }
+            //chkLstBoxUSDAresults.Items.Clear();
+            //usdaDB.wMatch = new int[usdaDB.names.Length];
+            //foreach (string s in foodNamesToPair[_n].Split(_delims))
+            //    for (int i = 0; i < usdaDB.names.Length; i++)
+            //        if (s.Length > 2 && usdaDB.names[i].ToUpper().Contains(s.ToUpper()))
+            //            usdaDB.wMatch[i]++; //usdaDB.joinedMatches[i] += s + ", ";
+            //List<string> ns = new List<string>();
+            //foreach (var c in chkLstBoxUSDAresults.CheckedItems)
+            //    ns.Add(c.ToString().Split(new string[] { "--" }, StringSplitOptions.None)[0]);
+            //f.ndbnos = ns.ToArray();
+            //int m = usdaDB.wMatch.Max();
+            //int q = 0;
+            //for (int i = m; i > 0; i--)
+            //    for (int j = 0; j < usdaDB.names.Length; j++)
+            //        if (usdaDB.wMatch[j] == i)
+            //        {
+            //            if (q == 30)
+            //                goto next;
+            //            string itm = $"{usdaDB.ndbs[j]}--{usdaDB.names[j]}-[{usdaDB.wMatch[j]}]"; //-({usdaDB.joinedMatches[j]})";
+            //            chkLstBoxUSDAresults.Items.Add(itm);
+            //            q++;
+            //        }
+            //    next:
+            //n = foodNamesToPair.Length;
+            //groupBox1.Text = $"{q} Possible Matches ({_n + 1} of {n})  — {foodNamesToPair[_n]}";
+            //mH = true;
+            //txtTweak.Text = foodNamesToPair[_n];
+            //mH = false;
+            //checkItemsFromDisk();
         }
 
         private void btnClose_Click(object sender, EventArgs e) => this.Close();
