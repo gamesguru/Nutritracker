@@ -81,14 +81,16 @@ namespace Nutritracker
             //numUpDownIndex.Minimum = 1;
         }
 
-        //private class fieldObj
-        //{
-        //    string fileLoc;
-        //    public int index; // among, say, the 34 foods in the field
-        //    string foodName;
-        //    public string[] ndbnos;
-        //    public string value;
-        //}
+        private class _fObj
+        {
+			public int index; // among, say, the 34 foods in the field
+            public List<string> metricsToTrack;
+            public string mainMetric;
+            public string foodName;
+			public string value;
+			public List<string> ndbnos = new List<string>();
+        }
+        List<_fObj> fobjs;
 
         public static class usdaDB
         {
@@ -110,19 +112,17 @@ namespace Nutritracker
         //    public string name;
         //    public int index;
         //}
-        //List<string> ndbNos;
         //List<string> metricsToTrack;
-        //fObj[] fieldObjs = new fObj[0];
-        //List<vObj> valNamePairs;
+        //_fObj[] fieldObjs = new _fObj[0];
         private void comboFields_SelectedIndexChanged(object sender, EventArgs e)
         {
-            ndbs = new List<string>();
             this.Text = $"Pair {comboFields.Text} with USDA";
             string fieldRoot = $"{Application.StartupPath}{slash}usr{slash}profile{frmMain.currentUser.index}{slash}DBs{slash}f_user_{comboFields.Text}{slash}";
             dbInitKeys = new List<dbi>();
             dbConfigKeys = new List<dbc>();
             string[] dbInitItems = File.ReadAllText(fieldRoot + "_dbInit.TXT").Split(new string[] { "[File]" }, StringSplitOptions.None);
             string[] dbConfigItems = File.ReadAllText(fieldRoot + "_dbConfig.TXT").Split(new string[] { "[File]" }, StringSplitOptions.None);
+            string[] fieldInfo = File.ReadAllLines($"{Application.StartupPath}{slash}usr{slash}profile{frmMain.currentUser.index}{slash}DBs{slash}_par_f{slash}{comboFields.Text}.TXT");
 
             foreach (string s in dbInitItems)
             {
@@ -147,6 +147,41 @@ namespace Nutritracker
                     else if (st.StartsWith("[MetricName]"))
                         d.metric = st.Replace("[MetricName]", "");
                 dbConfigKeys.Add(d);
+            }
+
+            //loads in data for all field entries
+            fobjs = new List<_fObj>();
+            foreach (dbc d in dbConfigKeys)
+            {
+                string[] names;
+                string[] vals;
+                if (d.field == "FoodName")
+                {
+                    names = File.ReadAllLines(fieldRoot + d.file);
+                    foreach (dbc d2 in dbConfigKeys)
+                        if (d2.field == "Value1")
+                        {
+                            vals = File.ReadAllLines(fieldRoot + d.file);
+                            for (int i = 0; i < names.Length; i++)
+                            {
+                                _fObj f = new _fObj();
+                                f.index = i;
+                                f.foodName = names[i];
+                                f.value = vals[i];
+                                foreach (string s in fieldInfo)
+                                    try
+                                    {
+                                        if (Convert.ToInt32(s.Split('|')[2]) == f.index && !f.ndbnos.Contains(s.Split('|')[1]))
+                                            f.ndbnos.Add(s.Split('|')[1]);
+                                    }
+                                    catch { }
+							if (d.metric != null && d.metric != "" && !f.metricsToTrack.Contains(d.metric))
+								f.metricsToTrack.Add(d.metric);
+							if (d.metric != null && d.metric != "" && d.field == "Value1")
+                                f.mainMetric = d.metric;
+                            }
+                        }
+                }
             }
 
             //valNamePairs = new List<vObj>();
@@ -213,7 +248,7 @@ namespace Nutritracker
             //txtTweak.Text = foodNamesToPair[_n];
             //mH = false;
         }
-        //List<string> ndbs;
+        List<string> selectedNdbs;
         //int _n = 0;
         private void chkLstBoxUSDAresults_KeyDown(object sender, KeyEventArgs e)
         {
