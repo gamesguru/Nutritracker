@@ -3,9 +3,9 @@ using System.Windows.Forms;
 
 namespace Nutritracker
 {
-    public partial class frmBodyfatCalc : Form
+    public partial class sfCalc : Form
     {
-        public frmBodyfatCalc()
+        public sfCalc()
         {
             InitializeComponent();
         }

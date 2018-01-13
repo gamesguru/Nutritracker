@@ -1,0 +1,4 @@
+Shrt_Desc|FoodName
+
+NDB|File.TXT
+1003|BUTT25.TXT

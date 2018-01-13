@@ -33,8 +33,6 @@
             this.btnAccept = new System.Windows.Forms.Button();
             this.btnDecline = new System.Windows.Forms.Button();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
-            this.btnBack = new System.Windows.Forms.Button();
-            this.btnForward = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -43,27 +41,31 @@
             this.label1.Location = new System.Drawing.Point(13, 9);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(282, 16);
+            this.label1.Size = new System.Drawing.Size(630, 16);
             this.label1.TabIndex = 1;
-            this.label1.Text = "Please read the following agreement carefully:";
+            this.label1.Text = "Please read the following agreement carefully, and type your name at the end as i" +
+    "t appears atop this form:";
             // 
             // btnAccept
             // 
-            this.btnAccept.Visible = false;
-            this.btnAccept.Location = new System.Drawing.Point(187, 400);
+            this.btnAccept.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.btnAccept.Location = new System.Drawing.Point(266, 406);
             this.btnAccept.Name = "btnAccept";
             this.btnAccept.Size = new System.Drawing.Size(90, 35);
             this.btnAccept.TabIndex = 2;
+            this.btnAccept.TabStop = false;
             this.btnAccept.Text = "I Accept";
             this.btnAccept.UseVisualStyleBackColor = true;
+            this.btnAccept.Visible = false;
             this.btnAccept.Click += new System.EventHandler(this.btnAccept_Click);
             // 
             // btnDecline
             // 
-            this.btnDecline.Location = new System.Drawing.Point(283, 400);
+            this.btnDecline.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.btnDecline.Location = new System.Drawing.Point(362, 406);
             this.btnDecline.Name = "btnDecline";
             this.btnDecline.Size = new System.Drawing.Size(90, 35);
-            this.btnDecline.TabIndex = 3;
+            this.btnDecline.TabIndex = 2;
             this.btnDecline.Text = "I Decline";
             this.btnDecline.UseVisualStyleBackColor = true;
             this.btnDecline.Click += new System.EventHandler(this.btnDecline_Click);
@@ -75,45 +77,24 @@
             this.richTextBox1.Location = new System.Drawing.Point(13, 29);
             this.richTextBox1.Margin = new System.Windows.Forms.Padding(4);
             this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.ReadOnly = true;
             this.richTextBox1.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
-            this.richTextBox1.Size = new System.Drawing.Size(557, 354);
+            this.richTextBox1.Size = new System.Drawing.Size(691, 359);
             this.richTextBox1.TabIndex = 0;
+            this.richTextBox1.TabStop = false;
             this.richTextBox1.Text = resources.GetString("richTextBox1.Text");
-            // 
-            // btnBack
-            // 
-            this.btnBack.Visible = false;
-            this.btnBack.Location = new System.Drawing.Point(12, 400);
-            this.btnBack.Name = "btnBack";
-            this.btnBack.Size = new System.Drawing.Size(37, 35);
-            this.btnBack.TabIndex = 4;
-            this.btnBack.Text = "<--";
-            this.btnBack.UseVisualStyleBackColor = true;
-            this.btnBack.Click += new System.EventHandler(this.btnBack_Click);
-            // 
-            // btnForward
-            // 
-            this.btnForward.Location = new System.Drawing.Point(534, 400);
-            this.btnForward.Name = "btnForward";
-            this.btnForward.Size = new System.Drawing.Size(37, 35);
-            this.btnForward.TabIndex = 5;
-            this.btnForward.Text = "-->";
-            this.btnForward.UseVisualStyleBackColor = true;
-            this.btnForward.Click += new System.EventHandler(this.btnForward_Click);
+            this.richTextBox1.TextChanged += new System.EventHandler(this.richTextBox1_TextChanged);
             // 
             // licenseDialog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(583, 458);
-            this.Controls.Add(this.btnForward);
-            this.Controls.Add(this.btnBack);
+            this.ClientSize = new System.Drawing.Size(717, 464);
             this.Controls.Add(this.richTextBox1);
             this.Controls.Add(this.btnDecline);
             this.Controls.Add(this.btnAccept);
             this.Controls.Add(this.label1);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximizeBox = false;
@@ -133,7 +114,5 @@
         private System.Windows.Forms.Button btnAccept;
         private System.Windows.Forms.Button btnDecline;
         private System.Windows.Forms.RichTextBox richTextBox1;
-        private System.Windows.Forms.Button btnBack;
-        private System.Windows.Forms.Button btnForward;
     }
 }

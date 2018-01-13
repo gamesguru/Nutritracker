@@ -5,5 +5,4 @@ recipes/foods on tab view
 
 TROUBLING QUERIES
 watermelon
-crisp rice
-rice cereal
+rice crisp vs rice cereal///crisp rice//rice cereal

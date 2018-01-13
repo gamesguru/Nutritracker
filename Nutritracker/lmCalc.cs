@@ -4,9 +4,9 @@ using System.IO;
 
 namespace Nutritracker
 {
-    public partial class frmLeanPotentialCalc : Form
+    public partial class lmCalc : Form
     {
-        public frmLeanPotentialCalc()
+        public lmCalc()
         {
             InitializeComponent();
         }

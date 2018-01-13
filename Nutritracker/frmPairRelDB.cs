@@ -30,6 +30,9 @@ namespace Nutritracker
             comboFields.SelectedIndex = 0;
         }
 
+        //
+        //database key structs
+        //
         class dbi
         {
             public string file;
@@ -42,6 +45,8 @@ namespace Nutritracker
             public string field;
             public string metric;
         }
+
+
         int n = 0;
         int _n = 0;
         List<dbi> dbInitKeys;
@@ -70,16 +75,9 @@ namespace Nutritracker
             txtTweak.Text = fobjs[_n].foodName;
         }
 
-        private class _fObj
-        {
-			public int index; // among, say, the 34 foods in the field
-            //public List<string> metricsToTrack;
-            public string mainMetric;
-            public string foodName;
-			public string value;
-        }
-        List<_fObj> fobjs;
-
+        //
+        //general classes
+        //
         public static class usdaDB
         {
             public static string[] ndbs;
@@ -87,6 +85,16 @@ namespace Nutritracker
             public static int[] wMatch;
             public static string[] joinedMatches;
         }
+
+        private class _fObj
+        {
+            public int index; // among, say, the 34 foods in the field
+            //public List<string> metricsToTrack;
+            public string mainMetric;
+            public string foodName;
+            public string value;
+        }
+        List<_fObj> fobjs;
 
         private class _diskEntry
         {
@@ -105,23 +113,13 @@ namespace Nutritracker
             File.WriteAllLines(storLoc, output);
         }
 
-        //private class fObj
-        //{
-        //    public int index = 0;
-        //    //public string name;
-        //    public string value;
-        //    public string[] ndbnos;
-        //}
-        //private class vObj
-        //{
-        //    public string val;
-        //    public string name;
-        //    public int index;
-        //}
-        //List<string> metricsToTrack;
-        //_fObj[] fieldObjs = new _fObj[0];
         private void comboFields_SelectedIndexChanged(object sender, EventArgs e)
         {
+            //
+            //changes the field objects
+            //loads other things behind the scenes
+            //
+
             this.Text = $"Pair {comboFields.Text} with USDA";
             string fieldRoot = $"{Application.StartupPath}{slash}usr{slash}profile{frmMain.currentUser.index}{slash}DBs{slash}f_user_{comboFields.Text}{slash}";
             storLoc = $"{Application.StartupPath}{slash}usr{slash}profile{frmMain.currentUser.index}{slash}DBs{slash}_par_f{slash}{comboFields.Text}.TXT";
@@ -158,7 +156,9 @@ namespace Nutritracker
                 dbConfigKeys.Add(d);
             }
 
+            //
             //loads in data for all field entries
+            //
             fobjs = new List<_fObj>();
             foreach (dbc d in dbConfigKeys)
             {
@@ -229,24 +229,26 @@ namespace Nutritracker
 
         private void chkLstBoxUSDAresults_KeyDown(object sender, KeyEventArgs e)
         {
+            //
             //triggers numUpDown++
-            //if (e.KeyCode == Keys.Return)
-            //{
-            //    if (btnBegin.Enabled)
-            //    {
-            //        MessageBox.Show("Please press begin!!");
-            //        return;
-            //    }
-            //    if (chkLstBoxUSDAresults.CheckedItems.Count == 0)
-            //    {
-            //        if (MessageBox.Show("Really skip this entry?", "", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
-            //            return;
-            //    }
-            //    foreach (var c in chkLstBoxUSDAresults.CheckedItems)
-            //        ndbs.Add(c.ToString().Split(new string[] { "--" }, StringSplitOptions.None)[0]);
-            //    _n++;
-            //    numUpDownIndex.Value = _n;
-            //}
+            //            
+
+            if (e.KeyCode == Keys.Return)
+            {
+               if (btnBegin.Enabled)
+               {
+                   MessageBox.Show("Please press begin!!");
+                   return;
+               }
+               if (chkLstBoxUSDAresults.CheckedItems.Count == 0)
+               {
+                   if (MessageBox.Show("Really skip this entry?", "", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
+                       return;
+               }
+               _n++;
+               numUpDownIndex.Value = _n;
+               txtTweak.Focus();
+            }
         }
 
         string storLoc = "";
@@ -258,11 +260,11 @@ namespace Nutritracker
             //refresh listview
             //search over fieldObjs
             //
+
             if (mH)
                 return;
             _fObj f = fobjs[_n];
             chkLstBoxUSDAresults.Items.Clear();
-            ////int[] wordMatch = new int[usdaDB.names.Length];
             usdaDB.wMatch = new int[usdaDB.names.Length];
             usdaDB.joinedMatches = new string[usdaDB.names.Length];
             string[] words;
@@ -303,16 +305,15 @@ namespace Nutritracker
             chkLstBoxUSDAresults.EndUpdate();
         }
 
-        //string metricName = "";
-        //static fObj f;
+
         private void numUpDownIndex_ValueChanged(object sender, EventArgs e)
         {
-            if (mH)
-                return;
             //
             //refresh listview, groupbox, lblVal, and txtTweak
             //use numIndex and fieldObjs
             //
+            if (mH)
+                return;
             _n = Convert.ToInt32(numUpDownIndex.Value) - 1;
             _fObj f = fobjs[_n];
             lblFieldVal.Text = $"{f.mainMetric} value: {f.value}";

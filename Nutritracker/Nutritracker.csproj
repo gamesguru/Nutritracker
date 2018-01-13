@@ -50,11 +50,11 @@
     <Compile Include="frmActiveFields.Designer.cs">
       <DependentUpon>frmActiveFields.cs</DependentUpon>
     </Compile>
-    <Compile Include="frmBodyfatCalc.cs">
+    <Compile Include="sfCalc.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmBodyfatCalc.Designer.cs">
-      <DependentUpon>frmBodyfatCalc.cs</DependentUpon>
+    <Compile Include="sfCalc.Designer.cs">
+      <DependentUpon>sfCalc.cs</DependentUpon>
     </Compile>
     <Compile Include="frmCustomFood.cs">
       <SubType>Form</SubType>
@@ -86,11 +86,11 @@
     <Compile Include="frmPairRelDB.Designer.cs">
       <DependentUpon>frmPairRelDB.cs</DependentUpon>
     </Compile>
-    <Compile Include="frmLeanPotentialCalc.cs">
+    <Compile Include="lmCalc.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmLeanPotentialCalc.Designer.cs">
-      <DependentUpon>frmLeanPotentialCalc.cs</DependentUpon>
+    <Compile Include="lmCalc.Designer.cs">
+      <DependentUpon>lmCalc.cs</DependentUpon>
     </Compile>
     <Compile Include="frmMain.cs">
       <SubType>Form</SubType>
@@ -146,11 +146,11 @@
     <Compile Include="frmSearchFoods.Designer.cs">
       <DependentUpon>frmSearchFoods.cs</DependentUpon>
     </Compile>
-    <Compile Include="frmSettings.cs">
+    <Compile Include="settings.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmSettings.Designer.cs">
-      <DependentUpon>frmSettings.cs</DependentUpon>
+    <Compile Include="settings.Designer.cs">
+      <DependentUpon>settings.cs</DependentUpon>
     </Compile>
     <Compile Include="itemListerDialog.cs">
       <SubType>Form</SubType>
@@ -175,8 +175,8 @@
     <EmbeddedResource Include="frmActiveFields.resx">
       <DependentUpon>frmActiveFields.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmBodyfatCalc.resx">
-      <DependentUpon>frmBodyfatCalc.cs</DependentUpon>
+    <EmbeddedResource Include="sfCalc.resx">
+      <DependentUpon>sfCalc.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmCustomFood.resx">
       <DependentUpon>frmCustomFood.cs</DependentUpon>
@@ -193,8 +193,8 @@
     <EmbeddedResource Include="frmPairRelDB.resx">
       <DependentUpon>frmPairRelDB.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmLeanPotentialCalc.resx">
-      <DependentUpon>frmLeanPotentialCalc.cs</DependentUpon>
+    <EmbeddedResource Include="lmCalc.resx">
+      <DependentUpon>lmCalc.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmMain.resx">
       <DependentUpon>frmMain.cs</DependentUpon>
@@ -223,8 +223,8 @@
     <EmbeddedResource Include="frmSearchFoods.resx">
       <DependentUpon>frmSearchFoods.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmSettings.resx">
-      <DependentUpon>frmSettings.cs</DependentUpon>
+    <EmbeddedResource Include="settings.resx">
+      <DependentUpon>settings.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="itemListerDialog.resx">
       <DependentUpon>itemListerDialog.cs</DependentUpon>
@@ -242,17 +242,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\gnl.rtf" />
-    <None Include="Resources\gnl1.rtf" />
-    <None Include="Resources\gnl10.rtf" />
-    <None Include="Resources\gnl2.rtf" />
-    <None Include="Resources\gnl3.rtf" />
-    <None Include="Resources\gnl4.rtf" />
-    <None Include="Resources\gnl5.rtf" />
-    <None Include="Resources\gnl6.rtf" />
-    <None Include="Resources\gnl7.rtf" />
-    <None Include="Resources\gnl8.rtf" />
-    <None Include="Resources\gnl9.rtf" />
+    <None Include="Resources\apache.rtf" />
     <None Include="Resources\img.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

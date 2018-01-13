@@ -118,35 +118,8 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="gnl1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\gnl1.rtf;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
-  </data>
-  <data name="gnl10" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\gnl10.rtf;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
-  </data>
-  <data name="gnl2" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\gnl2.rtf;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
-  </data>
-  <data name="gnl3" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\gnl3.rtf;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
-  </data>
-  <data name="gnl4" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\gnl4.rtf;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
-  </data>
-  <data name="gnl5" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\gnl5.rtf;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
-  </data>
-  <data name="gnl6" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\gnl6.rtf;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
-  </data>
-  <data name="gnl7" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\gnl7.rtf;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
-  </data>
-  <data name="gnl8" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\gnl8.rtf;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
-  </data>
-  <data name="gnl9" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\gnl9.rtf;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  <data name="apache" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\apache.rtf;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
   <data name="img" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\img.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>

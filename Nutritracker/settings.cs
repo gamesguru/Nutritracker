@@ -3,16 +3,16 @@ using System.Windows.Forms;
 
 namespace Nutritracker
 {
-    public partial class frmSettings : Form
+    public partial class settings : Form
     {
-        public frmSettings()
+        public settings()
         {
             InitializeComponent();
         }
 
         private void frmSettings_Load(object sender, EventArgs e)
         {
-
+            this.Text = $"Settings — {frmMain.currentUser.name}";
         }
     }
 }

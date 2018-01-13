@@ -61,116 +61,12 @@ namespace Nutritracker.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {\rtf1\adeflang1025\ansi\ansicpg1252\uc1\adeff31507\deff0\stshfdbch31505\stshfloch31506\stshfhich31506\stshfbi31507\deflang1033\deflangfe1033\themelang1033\themelangfe0\themelangcs0{\fonttbl{\f0\fbidi \froman\fcharset0\fprq2{\*\panose 02020603050405020304}Times New Roman;}{\f4\fbidi \fswiss\fcharset0\fprq2{\*\panose 020b0604020202020204}Helvetica;}
-        ///{\f34\fbidi \froman\fcharset0\fprq2{\*\panose 02040503050406030204}Cambria Math;}{\f39\fbidi \froman\fcharset0\fprq2{\*\panose 00000000000000000000}Liberation S [rest of string was truncated]&quot;;.
+        ///   Looks up a localized string similar to {\rtf1\adeflang1025\ansi\ansicpg1252\uc1\adeff31507\deff0\stshfdbch31506\stshfloch31506\stshfhich31506\stshfbi31507\deflang1033\deflangfe1033\themelang1033\themelangfe0\themelangcs0{\fonttbl{\f0\fbidi \froman\fcharset0\fprq2{\*\panose 02020603050405020304}Times New Roman;}{\f34\fbidi \froman\fcharset0\fprq2{\*\panose 02040503050406030204}Cambria Math;}
+        ///{\f39\fbidi \froman\fcharset0\fprq2{\*\panose 00000000000000000000}Georgia;}{\flomajor\f31500\fbidi \froman\fcharset0\fprq2{\*\panose 02020603050405020304}T [rest of string was truncated]&quot;;.
         /// </summary>
-        internal static string gnl1 {
+        internal static string apache {
             get {
-                return ResourceManager.GetString("gnl1", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to {\rtf1\ansi\deff3\adeflang1025
-        ///{\fonttbl{\f0\froman\fprq2\fcharset0 Times New Roman;}{\f1\froman\fprq2\fcharset2 Symbol;}{\f2\fswiss\fprq2\fcharset0 Arial;}{\f3\froman\fprq2\fcharset0 Liberation Serif{\*\falt Times New Roman};}{\f4\froman\fprq2\fcharset0 Liberation Sans{\*\falt Arial};}{\f5\froman\fprq2\fcharset0 Helvetica{\*\falt Arial};}{\f6\fnil\fprq2\fcharset0 Lohit Devanagari;}{\f7\fnil\fprq2\fcharset0 Helvetica{\*\falt Arial};}{\f8\fnil\fprq2\fcharset0 Liberation Serif{\*\falt Times New Roman};}}
-        ///{\co [rest of string was truncated]&quot;;.
-        /// </summary>
-        internal static string gnl10 {
-            get {
-                return ResourceManager.GetString("gnl10", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to {\rtf1\ansi\ansicpg932\deff0\nouicompat{\fonttbl{\f0\froman\fcharset128 Helvetica;}{\f1\froman\fprq2\fcharset0 Liberation Serif;}{\f2\fnil\fcharset0 Calibri;}}
-        ///{\*\generator Riched20 10.0.16299}\viewkind4\uc1 
-        ///\pard\nowidctlpar\sa180\kerning1\f0\fs24\lang1033\ldblquote The Library\rdblquote  refers to a covered work governed by this License, other than an Application or a Combined Work as defined below.\f1\par
-        ///\f0 An \ldblquote Application\rdblquote  is any work that makes use of an interface provided by [rest of string was truncated]&quot;;.
-        /// </summary>
-        internal static string gnl2 {
-            get {
-                return ResourceManager.GetString("gnl2", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to {\rtf1\ansi\deff0\nouicompat{\fonttbl{\f0\froman\fcharset128 Helvetica;}{\f1\froman\fprq2\fcharset0 Liberation Serif;}{\f2\fnil\fcharset0 Calibri;}}
-        ///{\*\generator Riched20 10.0.16299}\viewkind4\uc1 
-        ///\pard\nowidctlpar\sa180\kerning1\f0\fs24\lang1033 The \ldblquote Corresponding Application Code\rdblquote  for a Combined Work means the object code and/or source code for the Application, including any data and utility programs needed for reproducing the Combined Work from the Application, but excluding the S [rest of string was truncated]&quot;;.
-        /// </summary>
-        internal static string gnl3 {
-            get {
-                return ResourceManager.GetString("gnl3", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to {\rtf1\ansi\deff0\nouicompat{\fonttbl{\f0\froman\fcharset128 Helvetica;}{\f1\froman\fprq2\fcharset0 Liberation Serif;}{\f2\fnil\fcharset0 Calibri;}}
-        ///{\*\generator Riched20 10.0.16299}\viewkind4\uc1 
-        ///\pard\nowidctlpar\fi-360\li360\kerning1\f0\fs24\lang1033\bullet\tab a) under this License, provided that you make a good faith effort to ensure that, in the event an Application does not supply the function or data, the facility still operates, and performs whatever part of its purpose remains meaningful, or\f [rest of string was truncated]&quot;;.
-        /// </summary>
-        internal static string gnl4 {
-            get {
-                return ResourceManager.GetString("gnl4", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to {\rtf1\ansi\deff0\nouicompat{\fonttbl{\f0\froman\fcharset128 Helvetica;}{\f1\froman\fprq2\fcharset0 Liberation Serif;}{\f2\fnil\fcharset0 Calibri;}}
-        ///{\*\generator Riched20 10.0.16299}\viewkind4\uc1 
-        ///\pard\nowidctlpar\fi-360\li360\kerning1\f0\fs24\lang1033\bullet\tab a) Give prominent notice with each copy of the object code that the Library is used in it and that the Library and its use are covered by this License.\f1\par
-        ///\f0\bullet\tab b) Accompany the object code with a copy of the GNU GPL and this lic [rest of string was truncated]&quot;;.
-        /// </summary>
-        internal static string gnl5 {
-            get {
-                return ResourceManager.GetString("gnl5", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to {\rtf1\ansi\deff0\nouicompat{\fonttbl{\f0\froman\fcharset128 Helvetica;}{\f1\froman\fprq2\fcharset0 Liberation Serif;}{\f2\fnil\fcharset0 Calibri;}}
-        ///{\*\generator Riched20 10.0.16299}\viewkind4\uc1 
-        ///\pard\nowidctlpar\fi-360\li360\kerning1\f0\fs24\lang1033\bullet\tab b) Accompany the Combined Work with a copy of the GNU GPL and this license document.\f1\par
-        ///\f0\bullet\tab c) For a Combined Work that displays copyright notices during execution, include the copyright notice for the Library among these notic [rest of string was truncated]&quot;;.
-        /// </summary>
-        internal static string gnl6 {
-            get {
-                return ResourceManager.GetString("gnl6", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to {\rtf1\ansi\deff0\nouicompat{\fonttbl{\f0\froman\fcharset128 Helvetica;}{\f1\froman\fprq2\fcharset0 Liberation Serif;}{\f2\fnil\fcharset0 Calibri;}}
-        ///{\*\generator Riched20 10.0.16299}\viewkind4\uc1 
-        ///\pard\nowidctlpar\fi-360\li720\kerning1\f0\fs24\lang1033\endash\tab 1) Use a suitable shared library mechanism for linking with the Library. A suitable mechanism is one that (a) uses at run time a copy of the Library already present on the user&apos;s computer system, and (b) will operate properly with a modified v [rest of string was truncated]&quot;;.
-        /// </summary>
-        internal static string gnl7 {
-            get {
-                return ResourceManager.GetString("gnl7", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to {\rtf1\ansi\deff0\nouicompat{\fonttbl{\f0\froman\fcharset128 Helvetica;}{\f1\froman\fprq2\fcharset0 Liberation Serif;}{\f2\fnil\fcharset0 Calibri;}}
-        ///{\*\generator Riched20 10.0.16299}\viewkind4\uc1 
-        ///\pard\nowidctlpar\sa180\kerning1\b\f0\fs24\lang1033 5. Combined Libraries.\b0\f1\par
-        ///\f0 You may place library facilities that are a work based on the Library side by side in a single library together with other library facilities that are not Applications and are not covered by this License, and convey such  [rest of string was truncated]&quot;;.
-        /// </summary>
-        internal static string gnl8 {
-            get {
-                return ResourceManager.GetString("gnl8", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to {\rtf1\ansi\deff0\nouicompat{\fonttbl{\f0\froman\fcharset128 Helvetica;}{\f1\froman\fprq2\fcharset0 Liberation Serif;}{\f2\fnil\fcharset0 Calibri;}}
-        ///{\*\generator Riched20 10.0.16299}\viewkind4\uc1 
-        ///\pard\nowidctlpar\sa180\kerning1\b\f0\fs24\lang1033 6. Revised Versions of the GNU Lesser General Public License.\b0\f1\par
-        ///\f0 The Free Software Foundation may publish revised and/or new versions of the GNU Lesser General Public License from time to time. Such new versions will be similar in spirit to the pr [rest of string was truncated]&quot;;.
-        /// </summary>
-        internal static string gnl9 {
-            get {
-                return ResourceManager.GetString("gnl9", resourceCulture);
+                return ResourceManager.GetString("apache", resourceCulture);
             }
         }
         

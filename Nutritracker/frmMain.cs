@@ -405,7 +405,7 @@ namespace Nutritracker
             {
                 lstCustFoods = importArray($"{root}{slash}profile{currentUser.index}{slash}DBs{slash}_foods{slash}names.TXT");
                 for (int i = 0; i < lstCustFoods.Count; i++)
-                    lstBoxRecipes.Items.Add(lstCustFoods[i]);
+                    lstBoxFoods.Items.Add(lstCustFoods[i]);
             }
 
             try {
@@ -1357,8 +1357,8 @@ namespace Nutritracker
         private void bodyFatCalcToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
-            frmBodyfatCalc.currentName = importArray($"{Application.StartupPath}{slash}usr{slash}profile{currentUser.index}{slash}profile.TXT")[0];
-            frmBodyfatCalc frmBFC = new frmBodyfatCalc();
+            sfCalc.currentName = importArray($"{Application.StartupPath}{slash}usr{slash}profile{currentUser.index}{slash}profile.TXT")[0];
+            sfCalc frmBFC = new sfCalc();
             frmBFC.gender = importArray($"{Application.StartupPath}{slash}usr{slash}profile{currentUser.index}{slash}profile.TXT")[1];
             frmBFC.age = Convert.ToInt32(importArray($"{Application.StartupPath}{slash}usr{slash}profile{currentUser.index}{slash}profile.TXT")[2]);
             frmBFC.wt = Convert.ToInt32(importArray($"{Application.StartupPath}{slash}usr{slash}profile{currentUser.index}{slash}profile.TXT")[4]);
@@ -1373,10 +1373,10 @@ namespace Nutritracker
 
         private void naturalPotentialCalcToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            frmLeanPotentialCalc.bodyfat = Convert.ToInt32(importArray($"{Application.StartupPath}{slash}usr{slash}profile{currentUser.index}{slash}profile.TXT")[3]);
-            frmLeanPotentialCalc.weight = Convert.ToInt32(importArray($"{Application.StartupPath}{slash}usr{slash}profile{currentUser.index}{slash}profile.TXT")[4]);
-            frmLeanPotentialCalc.height = Convert.ToInt32(importArray($"{Application.StartupPath}{slash}usr{slash}profile{currentUser.index}{slash}profile.TXT")[5]);
-            frmLeanPotentialCalc frmNatPot = new Nutritracker.frmLeanPotentialCalc();            
+            lmCalc.bodyfat = Convert.ToInt32(importArray($"{Application.StartupPath}{slash}usr{slash}profile{currentUser.index}{slash}profile.TXT")[3]);
+            lmCalc.weight = Convert.ToInt32(importArray($"{Application.StartupPath}{slash}usr{slash}profile{currentUser.index}{slash}profile.TXT")[4]);
+            lmCalc.height = Convert.ToInt32(importArray($"{Application.StartupPath}{slash}usr{slash}profile{currentUser.index}{slash}profile.TXT")[5]);
+            lmCalc frmNatPot = new Nutritracker.lmCalc();            
             frmNatPot.ShowDialog();
         }
 
@@ -1390,7 +1390,7 @@ namespace Nutritracker
         {
             if (!Directory.Exists($"{Application.StartupPath}{slash}usr{slash}share{slash}DBs") && !Directory.Exists($"{Application.StartupPath}{slash}usr{slash}profile{currentUser.index}{slash}DBs"))
             {
-                MessageBox.Show("There don't seem to be any shared OR user loaded databases.  Try going to the spreadsheet wizard (under tools) to import some, or manually copy some from another user.", "Nothing found", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("There don't seem to be any shared OR user databases.  Try going to the spreadsheet wizard (under tools) to import some, or borrow copies from another user.", "Nothing found", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
             else
@@ -1462,6 +1462,12 @@ namespace Nutritracker
                 comboLoggedDays.SelectedIndex = 0;
                 comboLoggedDays.Items.RemoveAt(n);
             }
+        }
+
+        private void settingsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            settings frmSet = new settings();
+            frmSet.ShowDialog();
         }
     }
 }

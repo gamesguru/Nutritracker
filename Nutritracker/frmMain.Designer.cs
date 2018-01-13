@@ -58,8 +58,7 @@
             this.label5 = new System.Windows.Forms.Label();
             this.btnLogCustFood = new System.Windows.Forms.Button();
             this.label7 = new System.Windows.Forms.Label();
-            this.btnEditRecipe = new System.Windows.Forms.Button();
-            this.lstBoxRecipes = new System.Windows.Forms.ListBox();
+            this.lstBoxFoods = new System.Windows.Forms.ListBox();
             this.btnEditCustFoods = new System.Windows.Forms.Button();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -91,6 +90,12 @@
             this.comboLoggedDays = new System.Windows.Forms.ComboBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.btnDeleteDay = new System.Windows.Forms.Button();
+            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.tabFoods = new System.Windows.Forms.TabPage();
+            this.tabRecipes = new System.Windows.Forms.TabPage();
+            this.button1 = new System.Windows.Forms.Button();
+            this.lstBoxRecipes = new System.Windows.Forms.ListBox();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataDay)).BeginInit();
             this.groupBox2.SuspendLayout();
@@ -98,6 +103,9 @@
             this.groupBox3.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
+            this.tabControl1.SuspendLayout();
+            this.tabFoods.SuspendLayout();
+            this.tabRecipes.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnAddEx
@@ -370,15 +378,13 @@
             // groupBox3
             // 
             this.groupBox3.BackColor = System.Drawing.Color.Transparent;
+            this.groupBox3.Controls.Add(this.tabControl1);
             this.groupBox3.Controls.Add(this.comboMeal);
             this.groupBox3.Controls.Add(this.label6);
             this.groupBox3.Controls.Add(this.txtQty);
             this.groupBox3.Controls.Add(this.label5);
             this.groupBox3.Controls.Add(this.btnLogCustFood);
             this.groupBox3.Controls.Add(this.label7);
-            this.groupBox3.Controls.Add(this.btnEditRecipe);
-            this.groupBox3.Controls.Add(this.lstBoxRecipes);
-            this.groupBox3.Controls.Add(this.btnEditCustFoods);
             this.groupBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox3.Location = new System.Drawing.Point(636, 542);
             this.groupBox3.Name = "groupBox3";
@@ -462,37 +468,25 @@
             this.label7.TabIndex = 16;
             this.label7.Text = "Qty:";
             // 
-            // btnEditRecipe
+            // lstBoxFoods
             // 
-            this.btnEditRecipe.Enabled = false;
-            this.btnEditRecipe.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnEditRecipe.Location = new System.Drawing.Point(6, 28);
-            this.btnEditRecipe.Name = "btnEditRecipe";
-            this.btnEditRecipe.Size = new System.Drawing.Size(137, 28);
-            this.btnEditRecipe.TabIndex = 3;
-            this.btnEditRecipe.TabStop = false;
-            this.btnEditRecipe.Text = "Edit Recipes";
-            this.btnEditRecipe.UseVisualStyleBackColor = true;
-            // 
-            // lstBoxRecipes
-            // 
-            this.lstBoxRecipes.FormattingEnabled = true;
-            this.lstBoxRecipes.ItemHeight = 24;
-            this.lstBoxRecipes.Location = new System.Drawing.Point(2, 63);
-            this.lstBoxRecipes.Name = "lstBoxRecipes";
-            this.lstBoxRecipes.Size = new System.Drawing.Size(301, 196);
-            this.lstBoxRecipes.TabIndex = 0;
-            this.lstBoxRecipes.TabStop = false;
+            this.lstBoxFoods.FormattingEnabled = true;
+            this.lstBoxFoods.ItemHeight = 24;
+            this.lstBoxFoods.Location = new System.Drawing.Point(8, 41);
+            this.lstBoxFoods.Name = "lstBoxFoods";
+            this.lstBoxFoods.Size = new System.Drawing.Size(289, 148);
+            this.lstBoxFoods.TabIndex = 0;
+            this.lstBoxFoods.TabStop = false;
             // 
             // btnEditCustFoods
             // 
             this.btnEditCustFoods.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnEditCustFoods.Location = new System.Drawing.Point(148, 28);
+            this.btnEditCustFoods.Location = new System.Drawing.Point(41, 7);
             this.btnEditCustFoods.Name = "btnEditCustFoods";
-            this.btnEditCustFoods.Size = new System.Drawing.Size(154, 28);
+            this.btnEditCustFoods.Size = new System.Drawing.Size(220, 28);
             this.btnEditCustFoods.TabIndex = 2;
             this.btnEditCustFoods.TabStop = false;
-            this.btnEditCustFoods.Text = "Custom Foods";
+            this.btnEditCustFoods.Text = "Edit Custom Foods";
             this.btnEditCustFoods.UseVisualStyleBackColor = true;
             this.btnEditCustFoods.Click += new System.EventHandler(this.btnEditCustFoods_Click);
             // 
@@ -520,7 +514,8 @@
             this.undoToolStripMenuItem,
             this.decomposeRecipeToolStripMenuItem,
             this.rankFoodsByNutrientToolStripMenuItem,
-            this.helpToolStripMenuItem});
+            this.helpToolStripMenuItem,
+            this.aboutToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.fileToolStripMenuItem.Text = "File";
@@ -636,6 +631,7 @@
             this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
             this.settingsToolStripMenuItem.Size = new System.Drawing.Size(199, 22);
             this.settingsToolStripMenuItem.Text = "Settings";
+            this.settingsToolStripMenuItem.Click += new System.EventHandler(this.settingsToolStripMenuItem_Click);
             // 
             // bodyFatCalcToolStripMenuItem
             // 
@@ -780,6 +776,69 @@
             this.btnDeleteDay.UseVisualStyleBackColor = true;
             this.btnDeleteDay.Click += new System.EventHandler(this.btnDeleteDay_Click);
             // 
+            // aboutToolStripMenuItem
+            // 
+            this.aboutToolStripMenuItem.Enabled = false;
+            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(216, 22);
+            this.aboutToolStripMenuItem.Text = "About";
+            // 
+            // tabControl1
+            // 
+            this.tabControl1.Controls.Add(this.tabFoods);
+            this.tabControl1.Controls.Add(this.tabRecipes);
+            this.tabControl1.Location = new System.Drawing.Point(6, 28);
+            this.tabControl1.Name = "tabControl1";
+            this.tabControl1.SelectedIndex = 0;
+            this.tabControl1.Size = new System.Drawing.Size(311, 233);
+            this.tabControl1.TabIndex = 10;
+            // 
+            // tabFoods
+            // 
+            this.tabFoods.Controls.Add(this.btnEditCustFoods);
+            this.tabFoods.Controls.Add(this.lstBoxFoods);
+            this.tabFoods.Location = new System.Drawing.Point(4, 33);
+            this.tabFoods.Name = "tabFoods";
+            this.tabFoods.Padding = new System.Windows.Forms.Padding(3);
+            this.tabFoods.Size = new System.Drawing.Size(303, 196);
+            this.tabFoods.TabIndex = 0;
+            this.tabFoods.Text = "Foods";
+            this.tabFoods.UseVisualStyleBackColor = true;
+            // 
+            // tabRecipes
+            // 
+            this.tabRecipes.Controls.Add(this.button1);
+            this.tabRecipes.Controls.Add(this.lstBoxRecipes);
+            this.tabRecipes.Location = new System.Drawing.Point(4, 33);
+            this.tabRecipes.Name = "tabRecipes";
+            this.tabRecipes.Padding = new System.Windows.Forms.Padding(3);
+            this.tabRecipes.Size = new System.Drawing.Size(303, 196);
+            this.tabRecipes.TabIndex = 1;
+            this.tabRecipes.Text = "Recipes";
+            this.tabRecipes.UseVisualStyleBackColor = true;
+            // 
+            // button1
+            // 
+            this.button1.Enabled = false;
+            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button1.Location = new System.Drawing.Point(40, 7);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(220, 28);
+            this.button1.TabIndex = 4;
+            this.button1.TabStop = false;
+            this.button1.Text = "Edit Recipes";
+            this.button1.UseVisualStyleBackColor = true;
+            // 
+            // lstBoxRecipes
+            // 
+            this.lstBoxRecipes.FormattingEnabled = true;
+            this.lstBoxRecipes.ItemHeight = 24;
+            this.lstBoxRecipes.Location = new System.Drawing.Point(7, 41);
+            this.lstBoxRecipes.Name = "lstBoxRecipes";
+            this.lstBoxRecipes.Size = new System.Drawing.Size(289, 148);
+            this.lstBoxRecipes.TabIndex = 3;
+            this.lstBoxRecipes.TabStop = false;
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -806,6 +865,9 @@
             this.menuStrip1.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            this.tabControl1.ResumeLayout(false);
+            this.tabFoods.ResumeLayout(false);
+            this.tabRecipes.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -827,9 +889,8 @@
         private System.Windows.Forms.Button btnProfile;
         private System.Windows.Forms.Button btnAdvCalc;
         private System.Windows.Forms.GroupBox groupBox3;
-        private System.Windows.Forms.Button btnEditRecipe;
         private System.Windows.Forms.Button btnEditCustFoods;
-        private System.Windows.Forms.ListBox lstBoxRecipes;
+        private System.Windows.Forms.ListBox lstBoxFoods;
         private System.Windows.Forms.ComboBox comboMeal;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox txtQty;
@@ -874,6 +935,12 @@
         private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button btnDeleteDay;
+        private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
+        private System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.TabPage tabFoods;
+        private System.Windows.Forms.TabPage tabRecipes;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.ListBox lstBoxRecipes;
     }
 }
 
