@@ -279,7 +279,7 @@ namespace Nutritracker
             startingVits = richtextvits.Text;
             startingMins = richtextmins.Text;
 
-            fr = Application.StartupPath + $"{slash}usr{slash}profile{frmMain.currentUser.index}{slash}foods";
+            fr = Application.StartupPath + $"{slash}usr{slash}profile{frmMain.currentUser.index}{slash}DBs{slash}_foods";
 
             //q = Convert.ToInt32(comboBox1.Text);
 

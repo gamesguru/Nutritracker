@@ -24,8 +24,8 @@ namespace Nutritracker
                     comboFields.Items.Add(s.Split(new string[] { $"{slash}f_user_" }, StringSplitOptions.None)[1]);
             if (comboFields.Items.Count == 0)
             {
-                MessageBox.Show("Please create some fields before using this form.");
                 this.Close();
+                MessageBox.Show("Please create some fields before using this form.");
             }
             comboFields.SelectedIndex = 0;
         }
@@ -77,7 +77,6 @@ namespace Nutritracker
             public string mainMetric;
             public string foodName;
 			public string value;
-			public List<string> ndbnos = new List<string>();
         }
         List<_fObj> fobjs;
 
@@ -97,10 +96,13 @@ namespace Nutritracker
         }
 
         List<_diskEntry> diskEntries;
-        private static void writeDisk(List<string> dEntries)
+        private void writeDisk(List<_diskEntry> dEntries)
         {
             List<string> output = new List<string>();
-        
+            output.Add($"[Progress]{_n}");
+            foreach (_diskEntry d in dEntries)
+                output.Add($"{d.ndb}|{d.value}|{d.fIndex}");
+            File.WriteAllLines(storLoc, output);
         }
 
         //private class fObj
@@ -176,13 +178,6 @@ namespace Nutritracker
                                 f.index = i;
                                 f.foodName = names[i];
                                 f.value = vals[i];
-                                foreach (string s in fieldInfo)
-                                    try
-                                    {
-                                        if (Convert.ToInt32(s.Split('|')[2]) == f.index && !f.ndbnos.Contains(s.Split('|')[1]))
-                                            f.ndbnos.Add(s.Split('|')[1]);
-                                    }
-                                    catch { }
                                 //if (!string.IsNullOrEmpty(d.metric) && !f.metricsToTrack.Contains(d.metric))
                                     //f.metricsToTrack.Add(d.metric);
                                 if (!string.IsNullOrEmpty(d.metric) && d.field == "Value1")
@@ -199,17 +194,19 @@ namespace Nutritracker
 
 				foreach (string s in diskContents)
 					if (s.StartsWith("[Progress]"))
+                    {
 						_n = Convert.ToInt32(s.Replace("[Progress]", ""));
+                        break;
+                    }
                 
                 diskEntries = new List<_diskEntry>();
                 foreach (string s in diskContents)
-                    if (s.StartsWith("[Pair]"))
+                    if (!s.StartsWith("["))
                     {
-                        string st = s.Replace("[Pair]");
                         _diskEntry d = new _diskEntry();
-                        d.ndb = st.Split('|')[0];
-                        d.value = Convert.ToInt32(st.Split('|')[1]);
-                        d.fIndex = Convert.ToInt32(st.Split('|')[2]);
+                        d.ndb = s.Split('|')[0];
+                        d.value = s.Split('|')[1];
+                        d.fIndex = Convert.ToInt32(s.Split('|')[2]);
                         diskEntries.Add(d);
                     }
             }
@@ -225,15 +222,6 @@ namespace Nutritracker
             foreach (_fObj f in fobjs)
                 if (f.foodName == fobjs[_n].foodName)
                     lblFieldVal.Text = $"{f.mainMetric} value: {f.value}";
-
-
-            for (int i = 0; i < fobjs.Count; i++)
-            {
-                List<string> ns = new List<string>();
-                foreach (var c in chkLstBoxUSDAresults.CheckedItems)
-                    ns.Add(c.ToString().Split(new string[] { "--" }, StringSplitOptions.None)[0]);
-                fobjs[i].ndbnos = ns;
-            }
             mH = true;
             numUpDownIndex.Value = _n + 1;
             mH = false;
@@ -298,7 +286,7 @@ namespace Nutritracker
             for (int i = m; i > 0; i--)
                 for (int j = 0; j < usdaDB.names.Length; j++)
                     if (usdaDB.wMatch[j] == i && ++q > 0)
-                        itms.Add($"{usdaDB.ndbs[j]} -- {usdaDB.names[j]} -- {usdaDB.wMatch[j]}"); //-({usdaDB.joinedMatches[j]})");                     
+                        itms.Add($"{usdaDB.ndbs[j]} -- {usdaDB.names[j]}"); // -- {usdaDB.wMatch[j]}"); //-({usdaDB.joinedMatches[j]})");                     
 
             n = fobjs.Count();
             groupBox1.Text = $"{q} Possible Matches ({_n + 1} of {n}) — {f.foodName}";
@@ -307,18 +295,12 @@ namespace Nutritracker
             chkLstBoxUSDAresults.BeginUpdate();
             for (int i = 0; i < itms.Count; i++)
             {
-				chkLstBoxUSDAresults.Items.Add(itms[i]);
-                if (f.)
+			chkLstBoxUSDAresults.Items.Add(itms[i]);
+                foreach (_diskEntry d in diskEntries)
+                    if (d.ndb == itms[i].Split(new string[] { " -- " }, StringSplitOptions.None)[0])
+                        chkLstBoxUSDAresults.SetItemChecked(i, true);
             }
             chkLstBoxUSDAresults.EndUpdate();
-
-
-
-            ///????????????????????????????????????????????
-            //List<string> ns = new List<string>();
-            //foreach (var c in chkLstBoxUSDAresults.CheckedItems)
-            //    ns.Add(c.ToString().Split(new string[] { "--" }, StringSplitOptions.None)[0]);
-            //f.ndbnos = ns.ToArray();
         }
 
         //string metricName = "";
@@ -349,9 +331,28 @@ namespace Nutritracker
         }
 
         private void chkLstBoxUSDAresults_Leave(object sender, EventArgs eventArgs){
-            f.ndbnos = new List<string>();
-            foreach (var c in checkedListBox1.CheckedItems)
-                f.ndbnos.Add(c.ToString().Split(new string[] { "--" }, StringSplitOptions.None)[0]);
+            foreach (var c in chkLstBoxUSDAresults.CheckedItems)
+            {
+                bool dupe = false;
+                foreach (_diskEntry d in diskEntries)
+                    if (d.ndb == c.ToString().Split(new string[] { " -- " }, StringSplitOptions.None)[0])
+                        dupe = true;
+                if (!dupe)
+                {
+                    _diskEntry d = new _diskEntry();
+                    d.ndb = c.ToString().Split(new string[] { " -- " }, StringSplitOptions.None)[0];
+                    d.fIndex = _n;
+                    d.value = fobjs[_n].value;
+                    diskEntries.Add(d);
+                }
+            }
+
+            for (int i = 0; i < diskEntries.Count; i++)
+                for (int j=0;j<chkLstBoxUSDAresults.Items.Count;j++)
+                    if (diskEntries[i].ndb == chkLstBoxUSDAresults.Items[j].ToString().Split(new string[] { " -- " }, StringSplitOptions.None)[0] && !chkLstBoxUSDAresults.GetItemChecked(j))
+                        try { diskEntries.RemoveAt(i); }
+                        catch { }
+            writeDisk(diskEntries);
         }
     }
 }

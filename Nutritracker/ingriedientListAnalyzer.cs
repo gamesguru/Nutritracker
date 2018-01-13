@@ -194,7 +194,7 @@ namespace Nutritracker
                     return;
                 }
 
-            string fp = $"{Application.StartupPath}{sl}usr{sl}profile{frmMain.currentUser.index}{sl}DBs{sl}recipes";
+            string fp = $"{Application.StartupPath}{sl}usr{sl}profile{frmMain.currentUser.index}{sl}DBs{sl}_recipes";
             Directory.CreateDirectory(fp);
             fp += $"{sl}{txtRecipeName.Text}.TXT";
 
@@ -203,11 +203,11 @@ namespace Nutritracker
                 output.Add($"USDAstock|{d.ndbno}|{d.weight}");
             if (File.Exists(fp))
             {
-                MessageBox.Show($"File already exists under this name.  Please change the name, archive it or edit it manually in your 'DBs{sl}recipes' folder.", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show($"File already exists under this name.  Please change the name, archive it or edit it manually in your 'DBs{sl}_recipes' folder.", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
             File.WriteAllLines(fp, output);
-            MessageBox.Show($"Saved to the recipes folder.  You can manually edit entries by opening the .TXT file in your 'DBs{sl}recipes' folder. and following the formatting instructions.", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show($"Saved to the recipes folder.  You can manually edit entries by opening the .TXT file in your 'DBs{sl}_recipes' folder. and following the formatting instructions.", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
             this.Close();
         }
 

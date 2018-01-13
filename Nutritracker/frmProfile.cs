@@ -251,10 +251,11 @@ namespace Nutritracker
             try { File.WriteAllLines($"{root}{sl}profile{profIndex}{sl}profile.TXT", profData); }
             catch
             {
-                Directory.CreateDirectory( $"{root}{sl}profile{profIndex}foodlog");
+                Directory.CreateDirectory($"{root}{sl}profile{profIndex}foodlog");
+                Directory.CreateDirectory($"{root}{sl}profile{profIndex}exlog");
                 Directory.CreateDirectory( $"{root}{sl}profile{profIndex}dtlreports");
-                Directory.CreateDirectory($"{root}{sl}profile{profIndex}{sl}foods");
-                Directory.CreateDirectory($"{root}{sl}profile{profIndex}{sl}recipes");
+                Directory.CreateDirectory($"{root}{sl}profile{profIndex}DBs{sl}_foods");
+                Directory.CreateDirectory($"{root}{sl}profile{profIndex}DBs{sl}_recipes");
                 File.WriteAllLines($"{root}{sl}profile{profIndex}{sl}profile.TXT", profData);
                 comboExistingProfs.Items.Add(txtNewProfName.Text);
                 comboExistingProfs.SelectedIndex = comboExistingProfs.Items.Count - 1;

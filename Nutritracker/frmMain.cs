@@ -401,9 +401,9 @@ namespace Nutritracker
             //
 
             comboMeal.SelectedIndex = 0;
-            if (File.Exists($"{root}{slash}profile{currentUser.index}{slash}foods{slash}names.TXT"))
+            if (File.Exists($"{root}{slash}profile{currentUser.index}{slash}DBs{slash}_foods{slash}names.TXT"))
             {
-                lstCustFoods = importArray($"{root}{slash}profile{currentUser.index}{slash}foods{slash}names.TXT");
+                lstCustFoods = importArray($"{root}{slash}profile{currentUser.index}{slash}DBs{slash}_foods{slash}names.TXT");
                 for (int i = 0; i < lstCustFoods.Count; i++)
                     lstBoxRecipes.Items.Add(lstCustFoods[i]);
             }
