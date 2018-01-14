@@ -269,7 +269,7 @@ namespace Nutritracker
 
             string[] directs = Directory.GetDirectories(root);
             profDirects = new List<string>();
-            frmProfile frmP = new frmProfile();
+            profileMgr frmP = new profileMgr();
             for (int i = 0; i < directs.Length; i++)
                 if (directs[i].EndsWith($"{slash}profile" + i.ToString()))
                     profDirects.Add(directs[i]);
@@ -447,7 +447,7 @@ namespace Nutritracker
 
         private void btnProfile_Click(object sender, EventArgs e)
         {
-            frmProfile frm = new frmProfile();
+            profileMgr frm = new profileMgr();
             frm.ShowDialog();
 
             comboLoggedDays.Items.Clear();

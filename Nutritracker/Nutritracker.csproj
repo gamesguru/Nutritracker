@@ -50,6 +50,12 @@
     <Compile Include="frmActiveFields.Designer.cs">
       <DependentUpon>frmActiveFields.cs</DependentUpon>
     </Compile>
+    <Compile Include="progBarWait.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="progBarWait.Designer.cs">
+      <DependentUpon>progBarWait.cs</DependentUpon>
+    </Compile>
     <Compile Include="sfCalc.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -134,11 +140,11 @@
     <Compile Include="frmParseCustomDatabase.Designer.cs">
       <DependentUpon>frmParseCustomDatabase.cs</DependentUpon>
     </Compile>
-    <Compile Include="frmProfile.cs">
+    <Compile Include="profileMgr.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmProfile.Designer.cs">
-      <DependentUpon>frmProfile.cs</DependentUpon>
+    <Compile Include="profileMgr.Designer.cs">
+      <DependentUpon>profileMgr.cs</DependentUpon>
     </Compile>
     <Compile Include="frmSearchFoods.cs">
       <SubType>Form</SubType>
@@ -174,6 +180,9 @@
     </Compile>
     <EmbeddedResource Include="frmActiveFields.resx">
       <DependentUpon>frmActiveFields.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="progBarWait.resx">
+      <DependentUpon>progBarWait.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="sfCalc.resx">
       <DependentUpon>sfCalc.cs</DependentUpon>
@@ -217,8 +226,8 @@
     <EmbeddedResource Include="frmParseCustomDatabase.resx">
       <DependentUpon>frmParseCustomDatabase.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmProfile.resx">
-      <DependentUpon>frmProfile.cs</DependentUpon>
+    <EmbeddedResource Include="profileMgr.resx">
+      <DependentUpon>profileMgr.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmSearchFoods.resx">
       <DependentUpon>frmSearchFoods.cs</DependentUpon>

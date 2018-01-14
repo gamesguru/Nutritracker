@@ -198,11 +198,6 @@ namespace Nutritracker
             else { MessageBox.Show("You haven't transferred more than 1 column to the list!"); }
         }
 
-        private void btnNewDBrel_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void btnNewField_Click(object sender, EventArgs e)
         {
             int n = lstViewResult.Columns.Count;
@@ -223,6 +218,27 @@ namespace Nutritracker
             return lstViewResult.Items[i].SubItems[j].Text;
         }
 
+        public List<string> getCol(string header)
+        {
+            List<string> output = new List<string>();
+            for (int i = 0; i < lstViewResult.Columns.Count; i++)
+                if (lstViewResult.Columns[i].Text == header)
+                {
+                    for (int j = 0; j < lstViewResult.Items.Count; j++)
+                        output.Add(lstViewResult.Items[j].SubItems[i].Text);
+                    break;
+                }
+            return output;
+        }
+
+        public List<string> getRow(int x, List<string> headers)
+        {
+            List<string> output = new List<string>();
+            for (int i = 0; i < lstViewResult.Columns.Count; i++)
+                if (headers.Contains(lstViewResult.Columns[i].Text))
+                    output.Add(lstViewResult.Items[x].SubItems[i].Text);
+            return output;
+        }
 
         private void parseInput()
         {

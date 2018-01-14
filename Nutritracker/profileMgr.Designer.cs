@@ -1,6 +1,6 @@
 ﻿namespace Nutritracker
 {
-    partial class frmProfile
+    partial class profileMgr
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmProfile));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(profileMgr));
             this.lblCreateNew = new System.Windows.Forms.Label();
             this.txtNewProfName = new System.Windows.Forms.TextBox();
             this.lblEditExisting = new System.Windows.Forms.Label();

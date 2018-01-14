@@ -15,21 +15,6 @@ namespace Nutritracker
             InitializeComponent();
         }
 
-        public List<String> importArray(string filename)
-        {
-            list.Clear();
-            using (StreamReader reader = new StreamReader(filename))
-            {
-                string line;
-                while ((line = reader.ReadLine()) != null)
-                {
-                    list.Add(line); // Add to list.
-                }
-            }
-            return list;
-        }
-        List<string> list = new List<string>();
-
         private class nutNameKey
         {
             public string columnHeader;
@@ -44,21 +29,24 @@ namespace Nutritracker
         private void frmNewDB_Load(object sender, EventArgs e)
         {
             txtLoc.Text = $"{slash}usr{slash}profile{frmMain.currentUser.index}{slash}DBs{slash}";
-            /////////////////////////////////////////////////lblRowCount.Text = $"Your database will have {n} entries and {m} columns";
-            List<string> tmp = new List<string>();
-            for (int i=0;i<arr.Count;i++)
-                tmp.Add($"{arr[i]}=");            
-            txtConfig.Lines = tmp.ToArray();
 
-            //gather active nutrients, work this into frmMain as it is with logRunner
+            //gather active nutrients, TODO: work this into frmMain as it is with logRunner
             activeNutes = new List<string>();
+            activeNutes.Add("NDBNo");
+            activeNutes.Add("FoodName");
             foreach (string s in File.ReadAllLines($"{Application.StartupPath}{slash}usr{slash}profile{frmMain.currentUser.index}{slash}activeFields.TXT"))
                 if (!s.StartsWith("#") && s.Contains("|"))
                     activeNutes.Add(s.Split('#')[0].Split('|')[0]);
             foreach (string s in activeNutes)
                 lstBoxNutes.Items.Add(s);
-            //
 
+            //populate txtConfig box
+            List<string> tmp = new List<string>();
+            for (int i = 0; i < arr.Count; i++)
+                tmp.Add($"{arr[i]}=");        
+            txtConfig.Lines = tmp.ToArray();
+
+            //loads the columnHeader-nutrientName key-val pairs
             p = 0;
             nutNameKeys = new List<nutNameKey>();
             foreach (string s in txtConfig.Lines)
@@ -75,34 +63,7 @@ namespace Nutritracker
                     }
                     catch { }
                 }
-
             lblStatus.Text = $"You have {n} entries — {p} properties ({nutNameKeys.Count} configured)";
-            //for (int i = 0; i < arr.Count; i++)
-            //{
-            //    string s = arr[i];
-            //    listBox1.Items.Add(s);
-            //    string s2 = "";
-            //    try {  s2 = s.Substring(0, 3); }
-            //    catch {  s2 = s.Substring(0, 2); }
-
-            //    char[] iC = new char[] {'/', '\\', ':', '*', '?', '"', '<', '>', '|', ' '};
-            //    foreach (char c in iC)
-            //        if (s2.Contains(c))
-            //            s2 = s2.Replace(c, 'X');
-                
-
-            //    s2 = s2.Replace("(", i.ToString()).Replace(" ", "X");
-
-            //    if (!listBox2.Items.Contains(s2.ToUpper()))
-            //        listBox2.Items.Add(s2.ToUpper());
-            //    else { listBox2.Items.Add(s2.ToUpper() + i.ToString()); }
-            //}
-            //nameKeyPairs = new List<string>();
-            //for (int i = 0; i < listBox1.Items.Count; i++)            
-            //    nameKeyPairs.Add(listBox1.Items[i].ToString() + "|" + listBox2.Items[i].ToString());
-
-            
-            //lblColumnCount.Text = $"Your {listBox1.Items.Count} columns";
         }
 
         private void txtName_TextChanged(object sender, EventArgs e)
@@ -117,8 +78,8 @@ namespace Nutritracker
 
             if (txtName.TextLength < 2)
                 btnCreate.Enabled = false;
-
         }
+
         private void radioShared_CheckedChanged(object sender, EventArgs e)
         {
             if (radioShared.Checked)
@@ -126,36 +87,14 @@ namespace Nutritracker
             else
                 txtLoc.Text = $"{slash}usr{slash}profile{frmMain.currentUser.index}{slash}DBs{slash}{txtName.Text}";
         }
-
-
+        
         private void txtName_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (!Char.IsLetterOrDigit(e.KeyChar) && !Char.IsControl(e.KeyChar) && !Char.IsSeparator(e.KeyChar) && e.KeyChar != ',')
                 e.Handled = true;
         }
 
-        private void btnClearChoices_Click(object sender, EventArgs e)
-        {
-            //lblSearchField.Text = "N/A";
-            //lblCalories.Text = "N/A";
-            searchKey = "";
-            calorieKey = "";
-            btnCreate.Enabled = false;
-        }
-
         int nameColumn = -1;
-        string searchKey = "";
-        string calorieKey = "";
-        List<string> nameKeyPairs;
-        private void listBox1_MouseClick(object sender, MouseEventArgs e)
-        {
-            //if (nameColumn > -1 && MessageBox.Show($"About to set {listBox1.Text} as the name column.  After this you will be able to press 'Create'", "", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
-            //{
-            //    nameColumn = listBox1.SelectedIndex;
-            //    btnCreate.Enabled = true;
-            //}
-        }
-
         private void btnCreate_Click(object sender, EventArgs e)
         {
             string fp = Application.StartupPath + txtLoc.Text;
@@ -167,10 +106,22 @@ namespace Nutritracker
                 string[] st = Directory.GetFiles(fp);
                 for (int i = 0; i < st.Length; i++)
                     File.Delete(st[i]);
-                goto nxt;
             }
-            Directory.CreateDirectory(fp);
-            nxt:
+            else
+                Directory.CreateDirectory(fp);
+
+            List<string> itmsOut = new List<string>();
+            List<string> hashMapOut = new List<string>();
+            for (int i = 0; i < n; i++) //loop over each ENTRY in the database, e.g. 8760 for USDA
+            {
+                itmsOut.Add()
+                //////////////////////////??????????????????
+            }
+
+            
+            
+            File.WriteAllLines($"{fp}{slash}_hashInfo.ini", txtConfig.Lines);
+            File.WriteAllLines($"{fp}{slash}_hashMap.ini", hashMapOut);
             //for (int i = 0; i < listBox1.Items.Count; i++)
             //{
             //    string[] colVal = new string[n];
@@ -179,11 +130,11 @@ namespace Nutritracker
             //    File.WriteAllLines($"{fp}{slash}{listBox2.Items[i]}.TXT", colVal); //writes the stores for each unit
             //}
             //File.WriteAllLines(fp + $"{slash}_nameKeyPairs.txt", nameKeyPairs);
-            string[] firstCommit = { searchKey + "|FoodName", calorieKey + "|Calories" };
-            File.WriteAllLines($"{fp}{slash}_nutKeyPairs.TXT", firstCommit); //writes the initial key pairs for nutrients and txt files
+            //         string[] firstCommit = { searchKey + "|FoodName", calorieKey + "|Calories" };
+            //         File.WriteAllLines($"{fp}{slash}_nutKeyPairs.TXT", firstCommit); //writes the initial key pairs for nutrients and txt files
 
-			List<string> nameKeyPairs = new List<string>();
-			List<string> unitKeyPairs = new List<string>();
+            //List<string> nameKeyPairs = new List<string>();
+            //List<string> unitKeyPairs = new List<string>();
 
             //for (int i = 0; i < listBox2.Items.Count; i++){
             //    string header = frmParseCustomDatabase.columns[i].header;
@@ -205,9 +156,9 @@ namespace Nutritracker
             //    if (unit.Length > 0)
             //        unitKeyPairs.Add($"{listBox2.Items[i]}.TXT|" + unit);
             //}
-            File.WriteAllLines($"{fp}{slash}_nameKeyPairs.TXT", nameKeyPairs); //writes the names (and often) the units
-            if (unitKeyPairs.Count() > 0)
-                File.WriteAllLines($"{fp}{slash}_unitKeyPairs.TXT", unitKeyPairs);
+            //File.WriteAllLines($"{fp}{slash}_nameKeyPairs.TXT", nameKeyPairs); //writes the names (and often) the units
+            //if (unitKeyPairs.Count() > 0)
+            //    File.WriteAllLines($"{fp}{slash}_unitKeyPairs.TXT", unitKeyPairs);
 
             MessageBox.Show("Database created successfully.  Please use the search function on the main page to try it out.  Your first time using it, you will be asked to assign real nutrient names to the imported fields.  The software isn't able to do that yet.", "Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
             this.Close();
@@ -215,14 +166,7 @@ namespace Nutritracker
 
         private void txtConfig_TextChanged(object sender, EventArgs e)
         {
-            activeNutes = new List<string>();
-            activeNutes.Add("FoodName");
-            activeNutes.Add("NDBNo");
-            foreach (string s in File.ReadAllLines($"{Application.StartupPath}{slash}usr{slash}profile{frmMain.currentUser.index}{slash}activeFields.TXT"))
-                if (!s.StartsWith("#") && s.Contains("|"))
-                    activeNutes.Add(s.Split('#')[0].Split('|')[0]);
-            //
-
+            //re-tallies the active nutrients
             p = 0;
             nutNameKeys = new List<nutNameKey>();
             foreach (string s in txtConfig.Lines)
@@ -240,6 +184,7 @@ namespace Nutritracker
                     catch { }
                 }
 
+            //updates label and listBox
             lblStatus.Text = $"You have {n} entries — {p} properties ({nutNameKeys.Count} configured)";
             lstBoxNutes.Items.Clear();
             foreach (string s in activeNutes)
@@ -249,6 +194,7 @@ namespace Nutritracker
 
         private void lstBoxNutes_MouseClick(object sender, MouseEventArgs e)
         {
+            //copies over to txtConfig
             try {
                 string updated = txtConfig.Text.Substring(0, txtConfig.SelectionStart);
                 updated += lstBoxNutes.Text;

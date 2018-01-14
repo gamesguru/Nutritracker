@@ -7,9 +7,9 @@ using System.Linq;
 
 namespace Nutritracker
 {
-    public partial class frmProfile : Form
+    public partial class profileMgr : Form
     {
-        public frmProfile()
+        public profileMgr()
         {
             InitializeComponent();
         }
