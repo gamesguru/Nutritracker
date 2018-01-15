@@ -266,10 +266,9 @@ namespace Nutritracker
                 {
                     columns[i].header = sourceInput[0].Split('\t')[i];
                     columns[i].items = new string[sourceInput.Length];
-                    for (int j = 0; j < sourceInput.Length; j++)
-                    {
+                    for (int j = 0; j < sourceInput.Length; j++)                    
                         columns[i].items[j] = sourceInput[j].Split('\t')[i];
-                    }
+                    
                 }
             }
             catch (Exception ex)
@@ -302,7 +301,6 @@ namespace Nutritracker
             
         }
 
-        //string sourceInput = "";
         string[] sourceInput;
 
         private void importFromtxtFilequickestToolStripMenuItem_Click(object sender, EventArgs e)

@@ -15,11 +15,8 @@ namespace Nutritracker
             InitializeComponent();
         }
 
-        private void btnDecline_Click(object sender, EventArgs e)
-        {
-           Process.GetCurrentProcess().Kill();
-        }
-
+        private void btnDecline_Click(object sender, EventArgs e) => Process.GetCurrentProcess().Kill();
+        
         string[] apache;
         public List<string> profData;
         public string rt = "";
@@ -33,23 +30,20 @@ namespace Nutritracker
             this.Close();
         }
 
-        private void licenseDialog_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            if (!license)
-                Process.GetCurrentProcess().Kill();
-        }
+        private void licenseDialog_FormClosing(object sender, FormClosingEventArgs e) { if (!license) Process.GetCurrentProcess().Kill(); }
+        
 
         string name;
         private void licenseDialog_Load(object sender, EventArgs e)
         {
             mH = true;
+            richTextBox1.Clear();
             richTextBox1.Rtf = Nutritracker.Properties.Resources.apache;
+            List<string> tmp = richTextBox1.Lines.ToList();
+            tmp.RemoveAt(40);
+            richTextBox1.Lines = tmp.ToArray();
             mH = false;
             apache = richTextBox1.Lines;
-            //richTextBox1.Rtf = rtfs[m];
-            //Size size = TextRenderer.MeasureText(richTextBox1.Text, richTextBox1.Font);
-            ////richTextBox1.Width = size.Width;
-            //richTextBox1.Height = size.Height;
             foreach (string s in profData)
                 if (s.StartsWith("[Name]"))
                 {
@@ -57,33 +51,6 @@ namespace Nutritracker
                     this.Text = $"License Agreement — {name}";
                     break;
                 }
-        }
-
-        private void btnForward_Click(object sender, EventArgs e)
-        {
-            //btnBack.Visible = true;
-            //if (m < 6)
-            //    m++;
-            //richTextBox1.Rtf = rtfs[m];
-            //if (m == 6)
-            //{
-            //    btnForward.Visible = false;
-            //    btnAccept.Visible = true;
-            //    btnBack.Focus();
-            //}
-        }
-
-        private void btnBack_Click(object sender, EventArgs e)
-        {
-        //    btnForward.Visible = true;
-        //    if (m > 0)
-        //        m--;
-        //    richTextBox1.Rtf = rtfs[m];
-        //    if (m == 0)
-        //    {
-        //        btnBack.Visible = false;
-        //        btnForward.Focus();
-        //    }
         }
 
         bool mH = false;
@@ -95,6 +62,8 @@ namespace Nutritracker
             for (int i = 0; i < richTextBox1.Lines.Length; i++)
                 if (richTextBox1.Lines[i].Replace($"in acknowledgement: {name}", "in acknowledgement: ") != apache[i])
                     en = false;
+            if (!richTextBox1.Lines[richTextBox1.Lines.Length - 1].Contains(name))
+                en = false;
             btnAccept.Visible = en;
         }
     }

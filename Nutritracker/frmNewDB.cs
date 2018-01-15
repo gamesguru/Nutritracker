@@ -73,7 +73,7 @@ namespace Nutritracker
             else            
                 txtLoc.Text = $"{slash}usr{slash}profile{frmMain.currentUser.index}{slash}DBs{slash}{txtName.Text}";
 
-            if (txtName.TextLength > 2 && nameColumn > -1)
+            if (txtName.TextLength > 2)//////////////// && nameColumn > -1)
                 btnCreate.Enabled = true;
 
             if (txtName.TextLength < 2)
@@ -111,23 +111,42 @@ namespace Nutritracker
                 Directory.CreateDirectory(fp);
 
             List<int> colInts = new List<int>();
-            for (int i = 0; i < arr.Count;i++)
-                if (txtConfig.Text.Contains($"{arr[i]}="))
-                    colInts.Add(i);
+            for (int i = 0; i < arr.Count; i++)
+                foreach (string s in activeNutes)
+                    foreach (string st in txtConfig.Lines)
+                        if (st == $"{arr[i]}={s}")
+                            colInts.Add(i);
             
             List<string> itmsOut = new List<string>();
-            List<string> hashMapOut = new List<string>();
+            List<string> hashLangOut = new List<string>();
+            List<string> hashKeyOut = new List<string>();
+            string langColumnStr = "", keyColumnStr = "";
+            int langColumn, keyColumn;
+            foreach (nutNameKey n in nutNameKeys)
+                if (n.nutrient == "FoodName")
+                    langColumnStr = n.columnHeader;
+                else if (n.nutrient == "NDBNo")
+                    keyColumnStr = n.columnHeader;
+            for (int i = 0; i < arr.Count; i++)
+                if (arr[i] == keyColumnStr)
+                    keyColumn = i;
+                else if (arr[i] == langColumnStr)
+                    langColumn = i;
             for (int i = 0; i < n; i++) //loop over each ENTRY in the database, e.g. 8760 for USDA
             {
-                string fileName = $"{mainForm.get}";
+                if (!colInts.Contains(i))
+                    continue;
+                string fileName = $"{mainForm.getVal(0, i)}";
                 foreach (int j in colInts)
-                    ;
+                    itmsOut.Add(mainForm.getVal(i, j));
                 ////////////////////////////////////////////////////////////////////////////////////itmsOut.Add()
                 //////////////////////////??????????????????
             }
 
             File.WriteAllLines($"{fp}{slash}_hashInfo.ini", txtConfig.Lines);
-            File.WriteAllLines($"{fp}{slash}_hashMap.ini", hashMapOut);
+			File.WriteAllLines($"{fp}{slash}_hashLang.ini", hashLangOut);
+            File.WriteAllLines($"{fp}{slash}_hashKey.ini", hashKeyOut);
+            //for (int i = 0;)
             //for (int i = 0; i < listBox1.Items.Count; i++)
             //{
             //    string[] colVal = new string[n];
