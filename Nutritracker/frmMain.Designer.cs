@@ -52,14 +52,19 @@
             this.label3 = new System.Windows.Forms.Label();
             this.btnProfile = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.tabFoods = new System.Windows.Forms.TabPage();
+            this.btnEditCustFoods = new System.Windows.Forms.Button();
+            this.lstBoxFoods = new System.Windows.Forms.ListBox();
+            this.tabRecipes = new System.Windows.Forms.TabPage();
+            this.button1 = new System.Windows.Forms.Button();
+            this.lstBoxRecipes = new System.Windows.Forms.ListBox();
             this.comboMeal = new System.Windows.Forms.ComboBox();
             this.label6 = new System.Windows.Forms.Label();
             this.txtQty = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.btnLogCustFood = new System.Windows.Forms.Button();
             this.label7 = new System.Windows.Forms.Label();
-            this.lstBoxFoods = new System.Windows.Forms.ListBox();
-            this.btnEditCustFoods = new System.Windows.Forms.Button();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.manageActiveFieldsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -69,6 +74,7 @@
             this.decomposeRecipeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.rankFoodsByNutrientToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addToLogToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addSearchCommonFoodsToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.addExerciseToLogToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
@@ -90,22 +96,16 @@
             this.comboLoggedDays = new System.Windows.Forms.ComboBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.btnDeleteDay = new System.Windows.Forms.Button();
-            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.tabFoods = new System.Windows.Forms.TabPage();
-            this.tabRecipes = new System.Windows.Forms.TabPage();
-            this.button1 = new System.Windows.Forms.Button();
-            this.lstBoxRecipes = new System.Windows.Forms.ListBox();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataDay)).BeginInit();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataExercise)).BeginInit();
             this.groupBox3.SuspendLayout();
-            this.menuStrip1.SuspendLayout();
-            this.panel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabFoods.SuspendLayout();
             this.tabRecipes.SuspendLayout();
+            this.menuStrip1.SuspendLayout();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnAddEx
@@ -393,6 +393,84 @@
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Recipes and Custom Foods";
             // 
+            // tabControl1
+            // 
+            this.tabControl1.Controls.Add(this.tabFoods);
+            this.tabControl1.Controls.Add(this.tabRecipes);
+            this.tabControl1.Location = new System.Drawing.Point(6, 28);
+            this.tabControl1.Name = "tabControl1";
+            this.tabControl1.SelectedIndex = 0;
+            this.tabControl1.Size = new System.Drawing.Size(311, 233);
+            this.tabControl1.TabIndex = 10;
+            // 
+            // tabFoods
+            // 
+            this.tabFoods.Controls.Add(this.btnEditCustFoods);
+            this.tabFoods.Controls.Add(this.lstBoxFoods);
+            this.tabFoods.Location = new System.Drawing.Point(4, 33);
+            this.tabFoods.Name = "tabFoods";
+            this.tabFoods.Padding = new System.Windows.Forms.Padding(3);
+            this.tabFoods.Size = new System.Drawing.Size(303, 196);
+            this.tabFoods.TabIndex = 0;
+            this.tabFoods.Text = "Foods";
+            this.tabFoods.UseVisualStyleBackColor = true;
+            // 
+            // btnEditCustFoods
+            // 
+            this.btnEditCustFoods.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnEditCustFoods.Location = new System.Drawing.Point(41, 7);
+            this.btnEditCustFoods.Name = "btnEditCustFoods";
+            this.btnEditCustFoods.Size = new System.Drawing.Size(220, 28);
+            this.btnEditCustFoods.TabIndex = 2;
+            this.btnEditCustFoods.TabStop = false;
+            this.btnEditCustFoods.Text = "Edit Custom Foods";
+            this.btnEditCustFoods.UseVisualStyleBackColor = true;
+            this.btnEditCustFoods.Click += new System.EventHandler(this.btnEditCustFoods_Click);
+            // 
+            // lstBoxFoods
+            // 
+            this.lstBoxFoods.FormattingEnabled = true;
+            this.lstBoxFoods.ItemHeight = 24;
+            this.lstBoxFoods.Location = new System.Drawing.Point(8, 41);
+            this.lstBoxFoods.Name = "lstBoxFoods";
+            this.lstBoxFoods.Size = new System.Drawing.Size(289, 148);
+            this.lstBoxFoods.TabIndex = 0;
+            this.lstBoxFoods.TabStop = false;
+            // 
+            // tabRecipes
+            // 
+            this.tabRecipes.Controls.Add(this.button1);
+            this.tabRecipes.Controls.Add(this.lstBoxRecipes);
+            this.tabRecipes.Location = new System.Drawing.Point(4, 33);
+            this.tabRecipes.Name = "tabRecipes";
+            this.tabRecipes.Padding = new System.Windows.Forms.Padding(3);
+            this.tabRecipes.Size = new System.Drawing.Size(303, 196);
+            this.tabRecipes.TabIndex = 1;
+            this.tabRecipes.Text = "Recipes";
+            this.tabRecipes.UseVisualStyleBackColor = true;
+            // 
+            // button1
+            // 
+            this.button1.Enabled = false;
+            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button1.Location = new System.Drawing.Point(40, 7);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(220, 28);
+            this.button1.TabIndex = 4;
+            this.button1.TabStop = false;
+            this.button1.Text = "Edit Recipes";
+            this.button1.UseVisualStyleBackColor = true;
+            // 
+            // lstBoxRecipes
+            // 
+            this.lstBoxRecipes.FormattingEnabled = true;
+            this.lstBoxRecipes.ItemHeight = 24;
+            this.lstBoxRecipes.Location = new System.Drawing.Point(7, 41);
+            this.lstBoxRecipes.Name = "lstBoxRecipes";
+            this.lstBoxRecipes.Size = new System.Drawing.Size(289, 148);
+            this.lstBoxRecipes.TabIndex = 3;
+            this.lstBoxRecipes.TabStop = false;
+            // 
             // comboMeal
             // 
             this.comboMeal.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
@@ -467,28 +545,6 @@
             this.label7.Size = new System.Drawing.Size(43, 24);
             this.label7.TabIndex = 16;
             this.label7.Text = "Qty:";
-            // 
-            // lstBoxFoods
-            // 
-            this.lstBoxFoods.FormattingEnabled = true;
-            this.lstBoxFoods.ItemHeight = 24;
-            this.lstBoxFoods.Location = new System.Drawing.Point(8, 41);
-            this.lstBoxFoods.Name = "lstBoxFoods";
-            this.lstBoxFoods.Size = new System.Drawing.Size(289, 148);
-            this.lstBoxFoods.TabIndex = 0;
-            this.lstBoxFoods.TabStop = false;
-            // 
-            // btnEditCustFoods
-            // 
-            this.btnEditCustFoods.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnEditCustFoods.Location = new System.Drawing.Point(41, 7);
-            this.btnEditCustFoods.Name = "btnEditCustFoods";
-            this.btnEditCustFoods.Size = new System.Drawing.Size(220, 28);
-            this.btnEditCustFoods.TabIndex = 2;
-            this.btnEditCustFoods.TabStop = false;
-            this.btnEditCustFoods.Text = "Edit Custom Foods";
-            this.btnEditCustFoods.UseVisualStyleBackColor = true;
-            this.btnEditCustFoods.Click += new System.EventHandler(this.btnEditCustFoods_Click);
             // 
             // menuStrip1
             // 
@@ -574,6 +630,13 @@
             this.helpToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F1;
             this.helpToolStripMenuItem.Size = new System.Drawing.Size(216, 22);
             this.helpToolStripMenuItem.Text = "Help";
+            // 
+            // aboutToolStripMenuItem
+            // 
+            this.aboutToolStripMenuItem.Enabled = false;
+            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(216, 22);
+            this.aboutToolStripMenuItem.Text = "About";
             // 
             // addToLogToolStripMenuItem
             // 
@@ -699,7 +762,7 @@
             // btnRemoveFood
             // 
             this.btnRemoveFood.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnRemoveFood.Location = new System.Drawing.Point(221, 30);
+            this.btnRemoveFood.Location = new System.Drawing.Point(221, 27);
             this.btnRemoveFood.Name = "btnRemoveFood";
             this.btnRemoveFood.Size = new System.Drawing.Size(127, 31);
             this.btnRemoveFood.TabIndex = 9;
@@ -776,69 +839,6 @@
             this.btnDeleteDay.UseVisualStyleBackColor = true;
             this.btnDeleteDay.Click += new System.EventHandler(this.btnDeleteDay_Click);
             // 
-            // aboutToolStripMenuItem
-            // 
-            this.aboutToolStripMenuItem.Enabled = false;
-            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(216, 22);
-            this.aboutToolStripMenuItem.Text = "About";
-            // 
-            // tabControl1
-            // 
-            this.tabControl1.Controls.Add(this.tabFoods);
-            this.tabControl1.Controls.Add(this.tabRecipes);
-            this.tabControl1.Location = new System.Drawing.Point(6, 28);
-            this.tabControl1.Name = "tabControl1";
-            this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(311, 233);
-            this.tabControl1.TabIndex = 10;
-            // 
-            // tabFoods
-            // 
-            this.tabFoods.Controls.Add(this.btnEditCustFoods);
-            this.tabFoods.Controls.Add(this.lstBoxFoods);
-            this.tabFoods.Location = new System.Drawing.Point(4, 33);
-            this.tabFoods.Name = "tabFoods";
-            this.tabFoods.Padding = new System.Windows.Forms.Padding(3);
-            this.tabFoods.Size = new System.Drawing.Size(303, 196);
-            this.tabFoods.TabIndex = 0;
-            this.tabFoods.Text = "Foods";
-            this.tabFoods.UseVisualStyleBackColor = true;
-            // 
-            // tabRecipes
-            // 
-            this.tabRecipes.Controls.Add(this.button1);
-            this.tabRecipes.Controls.Add(this.lstBoxRecipes);
-            this.tabRecipes.Location = new System.Drawing.Point(4, 33);
-            this.tabRecipes.Name = "tabRecipes";
-            this.tabRecipes.Padding = new System.Windows.Forms.Padding(3);
-            this.tabRecipes.Size = new System.Drawing.Size(303, 196);
-            this.tabRecipes.TabIndex = 1;
-            this.tabRecipes.Text = "Recipes";
-            this.tabRecipes.UseVisualStyleBackColor = true;
-            // 
-            // button1
-            // 
-            this.button1.Enabled = false;
-            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.Location = new System.Drawing.Point(40, 7);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(220, 28);
-            this.button1.TabIndex = 4;
-            this.button1.TabStop = false;
-            this.button1.Text = "Edit Recipes";
-            this.button1.UseVisualStyleBackColor = true;
-            // 
-            // lstBoxRecipes
-            // 
-            this.lstBoxRecipes.FormattingEnabled = true;
-            this.lstBoxRecipes.ItemHeight = 24;
-            this.lstBoxRecipes.Location = new System.Drawing.Point(7, 41);
-            this.lstBoxRecipes.Name = "lstBoxRecipes";
-            this.lstBoxRecipes.Size = new System.Drawing.Size(289, 148);
-            this.lstBoxRecipes.TabIndex = 3;
-            this.lstBoxRecipes.TabStop = false;
-            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -861,13 +861,13 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataExercise)).EndInit();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
+            this.tabControl1.ResumeLayout(false);
+            this.tabFoods.ResumeLayout(false);
+            this.tabRecipes.ResumeLayout(false);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            this.tabControl1.ResumeLayout(false);
-            this.tabFoods.ResumeLayout(false);
-            this.tabRecipes.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 

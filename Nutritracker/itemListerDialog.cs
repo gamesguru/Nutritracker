@@ -28,7 +28,8 @@ namespace Nutritracker
 
         private void itemListerDialog_FormClosed(object sender, FormClosedEventArgs e)
         {
-            mainForm.reEnableButton();
+            try { mainForm.reEnableButton(); }
+            catch { }
         }
 
         private void button1_Click(object sender, EventArgs e)

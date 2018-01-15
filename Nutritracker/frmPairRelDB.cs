@@ -16,6 +16,7 @@ namespace Nutritracker
         static string slash;
         private void frmPairRelDB_Load(object sender, EventArgs e)
         {
+            itmL = new itemListerDialog(this);
             slash = Path.DirectorySeparatorChar.ToString();
             usdaRoot = $"{Application.StartupPath}{slash}usr{slash}share{slash}DBs{slash}USDAstock";
             string[] dbs = Directory.GetDirectories($"{Application.StartupPath}{slash}usr{slash}profile{frmMain.currentUser.index}{slash}DBs");
@@ -53,26 +54,48 @@ namespace Nutritracker
         List<dbc> dbConfigKeys;
         string usdaRoot = "";
         List<string> diskContents;
-
+        itemListerDialog itmL;
         private void btnBegin_Click(object sender, EventArgs e)
         {
-            btnBegin.Enabled = false;
-            comboFields.Enabled = false;
-            lblTweak.Visible = true;
-            txtTweak.Visible = true;
-            lblNum.Visible = true;
-            numUpDownIndex.Visible = true;
-            lblFieldVal.Visible = true;
+            if (btnBegin.Text == "Begin")
+            {
+                btnBegin.Visible = false;
+                comboFields.Enabled = false;
+                lblTweak.Visible = true;
+                txtTweak.Visible = true;
+                lblNum.Visible = true;
+                numUpDownIndex.Visible = true;
+                lblFieldVal.Visible = true;
 
-            string[] usdaNutKeyPairLines = File.ReadAllLines($"{usdaRoot}{slash}_nutKeyPairs.TXT");
-            foreach (string s in usdaNutKeyPairLines)
-                if (s.Split('|')[1] == "FoodName")
-                    usdaDB.names = File.ReadAllLines($"{usdaRoot}{slash}{s.Split('|')[0]}");
-                else if (s.Split('|')[1] == "NDBNo")
-                    usdaDB.ndbs = File.ReadAllLines($"{usdaRoot}{slash}{s.Split('|')[0]}");
+                string[] usdaNutKeyPairLines = File.ReadAllLines($"{usdaRoot}{slash}_nutKeyPairs.TXT");
+                foreach (string s in usdaNutKeyPairLines)
+                    if (s.Split('|')[1] == "FoodName")
+                        usdaDB.names = File.ReadAllLines($"{usdaRoot}{slash}{s.Split('|')[0]}");
+                    else if (s.Split('|')[1] == "NDBNo")
+                        usdaDB.ndbs = File.ReadAllLines($"{usdaRoot}{slash}{s.Split('|')[0]}");
 
-            storLoc = $"{Application.StartupPath}{slash}usr{slash}profile{frmMain.currentUser.index}{slash}DBs{slash}_par_f{slash}{comboFields.Text}.TXT";
-            txtTweak.Text = fobjs[_n].foodName;
+                storLoc = $"{Application.StartupPath}{slash}usr{slash}profile{frmMain.currentUser.index}{slash}DBs{slash}_par_f{slash}{comboFields.Text}.TXT";
+                txtTweak.Text = fobjs[_n].foodName;
+                itmL.items = new List<string>();
+                foreach (_diskEntry d in diskEntries)
+                    if (d.fIndex == _n)
+                        for (int i = 0; i < usdaDB.ndbs.Length; i++)
+                            if (d.ndb == usdaDB.ndbs[i])
+                                itmL.items.Add($"{d.ndb} -- {usdaDB.names[i]}");
+                btnBegin.Text = $"List {itmL.items.Count} Pairs";
+                btnBegin.Visible = true;
+            }
+            else if (itmL.items.Count > 0)
+            {
+                itmL = new itemListerDialog(this);
+                itmL.items = new List<string>();
+                foreach (_diskEntry d in diskEntries)
+                    if (d.fIndex == _n)
+                        for (int i = 0; i < usdaDB.ndbs.Length; i++)
+                            if (d.ndb == usdaDB.ndbs[i])
+                                itmL.items.Add($"{d.ndb} -- {usdaDB.names[i]}");
+                itmL.Show();
+            }
         }
 
         //
@@ -240,11 +263,9 @@ namespace Nutritracker
                    MessageBox.Show("Please press begin!!");
                    return;
                }
-               if (chkLstBoxUSDAresults.CheckedItems.Count == 0)
-               {
-                   if (MessageBox.Show("Really skip this entry?", "", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
-                       return;
-               }
+                if (chkLstBoxUSDAresults.CheckedItems.Count == 0 && MessageBox.Show("Really skip this entry?", "", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
+                    return;
+               
                _n++;
                numUpDownIndex.Value = _n;
                txtTweak.Focus();
@@ -317,6 +338,11 @@ namespace Nutritracker
             _n = Convert.ToInt32(numUpDownIndex.Value) - 1;
             _fObj f = fobjs[_n];
             lblFieldVal.Text = $"{f.mainMetric} value: {f.value}";
+            int x = 0;
+            foreach (_diskEntry d in diskEntries)
+                if (d.fIndex == _n)
+                    x++;
+            btnBegin.Text = $"List {x} Pairs";
             txtTweak.Text = f.foodName;
         }
 
@@ -331,7 +357,8 @@ namespace Nutritracker
             }
         }
 
-        private void chkLstBoxUSDAresults_Leave(object sender, EventArgs eventArgs){
+        private void chkLstBoxUSDAresults_Leave(object sender, EventArgs eventArgs)
+        {
             foreach (var c in chkLstBoxUSDAresults.CheckedItems)
             {
                 bool dupe = false;
@@ -349,10 +376,13 @@ namespace Nutritracker
             }
 
             for (int i = 0; i < diskEntries.Count; i++)
-                for (int j=0;j<chkLstBoxUSDAresults.Items.Count;j++)
-                    if (diskEntries[i].ndb == chkLstBoxUSDAresults.Items[j].ToString().Split(new string[] { " -- " }, StringSplitOptions.None)[0] && !chkLstBoxUSDAresults.GetItemChecked(j))
-                        try { diskEntries.RemoveAt(i); }
-                        catch { }
+                for (int j = 0; j < chkLstBoxUSDAresults.Items.Count; j++)
+                    try
+                    {
+                        if (diskEntries[i].ndb == chkLstBoxUSDAresults.Items[j].ToString().Split(new string[] { " -- " }, StringSplitOptions.None)[0] && !chkLstBoxUSDAresults.GetItemChecked(j))
+                            diskEntries.RemoveAt(i);
+                    }
+                    catch { }
             writeDisk(diskEntries);
         }
     }

@@ -1,11 +1,12 @@
 ﻿<Properties StartupConfiguration="{086472C5-DD1F-4872-9BF1-9F9B633A376F}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Nutritracker/frmPairRelDB.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Nutritracker/frmNewDB.cs">
     <Files>
       <File FileName="Nutritracker/frmNewDBrel.cs" Line="359" Column="14" />
       <File FileName="Nutritracker/frmPairRelDB.cs" Line="312" Column="14" />
       <File FileName="Nutritracker/frmMain.cs" Line="1447" Column="1" />
-      <File FileName="Nutritracker/frmProfile.cs" Line="311" Column="27" />
       <File FileName="Nutritracker/frmManageRel.cs" Line="25" Column="29" />
+      <File FileName="Nutritracker/frmNewDB.cs" Line="122" Column="47" />
+      <File FileName="Nutritracker/licenseDialog.cs" Line="41" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />

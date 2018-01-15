@@ -39,7 +39,6 @@ namespace Nutritracker
                 Process.GetCurrentProcess().Kill();
         }
 
-        int m = 0;
         string name;
         private void licenseDialog_Load(object sender, EventArgs e)
         {

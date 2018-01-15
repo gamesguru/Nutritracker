@@ -110,16 +110,22 @@ namespace Nutritracker
             else
                 Directory.CreateDirectory(fp);
 
+            List<int> colInts = new List<int>();
+            for (int i = 0; i < arr.Count;i++)
+                if (txtConfig.Text.Contains($"{arr[i]}="))
+                    colInts.Add(i);
+            
             List<string> itmsOut = new List<string>();
             List<string> hashMapOut = new List<string>();
             for (int i = 0; i < n; i++) //loop over each ENTRY in the database, e.g. 8760 for USDA
             {
-                itmsOut.Add()
+                string fileName = $"{mainForm.get}";
+                foreach (int j in colInts)
+                    ;
+                ////////////////////////////////////////////////////////////////////////////////////itmsOut.Add()
                 //////////////////////////??????????????????
             }
 
-            
-            
             File.WriteAllLines($"{fp}{slash}_hashInfo.ini", txtConfig.Lines);
             File.WriteAllLines($"{fp}{slash}_hashMap.ini", hashMapOut);
             //for (int i = 0; i < listBox1.Items.Count; i++)
