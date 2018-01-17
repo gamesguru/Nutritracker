@@ -20,6 +20,13 @@ namespace Nutritracker
             public string columnHeader;
             public string nutrient;
         }
+        private class nutEntry
+        {
+            public string fileName;
+            public List<string> nuts = new List<string>();
+            public List<string> vals = new List<string>();
+            public List<string> conts = new List<string>();
+        }
         List<nutNameKey> nutNameKeys;
         List<string> activeNutes;
         string slash = Path.DirectorySeparatorChar.ToString();
@@ -122,26 +129,36 @@ namespace Nutritracker
             List<string> hashKeyOut = new List<string>();
             string langColumnStr = "", keyColumnStr = "";
             int langColumn, keyColumn;
-            foreach (nutNameKey n in nutNameKeys)
-                if (n.nutrient == "FoodName")
-                    langColumnStr = n.columnHeader;
-                else if (n.nutrient == "NDBNo")
-                    keyColumnStr = n.columnHeader;
+            foreach (nutNameKey na in nutNameKeys)
+                if (na.nutrient == "FoodName")
+                    langColumnStr = na.columnHeader;
+                else if (na.nutrient == "NDBNo")
+                    keyColumnStr = na.columnHeader;
             for (int i = 0; i < arr.Count; i++)
                 if (arr[i] == keyColumnStr)
                     keyColumn = i;
                 else if (arr[i] == langColumnStr)
                     langColumn = i;
+            List<nutEntry> nutEntries = new List<nutEntry>();
             for (int i = 0; i < n; i++) //loop over each ENTRY in the database, e.g. 8760 for USDA
             {
                 if (!colInts.Contains(i))
                     continue;
-                string fileName = $"{mainForm.getVal(0, i)}";
+                nutEntry nu = new nutEntry();
+                nu.fileName = $"{mainForm.getVal(0, i)}";
                 foreach (int j in colInts)
-                    itmsOut.Add(mainForm.getVal(i, j));
+                    nu.conts.Add($"[{nutNameKeys[i].nutrient}]{mainForm.getVal(i, j)}");
+                
+				//n.nuts.Add(nutNameKeys[i].nutrient);
+				//n.vals.Add(mainForm.getVal(i, j));
+
+                //itmsOut.Add(mainForm.getVal(i, j));
                 ////////////////////////////////////////////////////////////////////////////////////itmsOut.Add()
                 //////////////////////////??????????????????
             }
+
+            foreach (nutEntry nu in nutEntries)
+                File.WriteAllLines(nu.fileName, nu.conts);
 
             File.WriteAllLines($"{fp}{slash}_hashInfo.ini", txtConfig.Lines);
 			File.WriteAllLines($"{fp}{slash}_hashLang.ini", hashLangOut);
