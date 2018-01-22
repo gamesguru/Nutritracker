@@ -189,7 +189,6 @@ namespace Nutritracker
                     frmMDB.nutkeyPath = $"{Application.StartupPath}{slash}usr{slash}share{slash}DBs{slash}{db}{slash}_nutKeyPairs.TXT";
                     frmMDB.ShowDialog();
                 }
-
             }
         }
 
@@ -243,8 +242,11 @@ namespace Nutritracker
             this.Invoke(new MethodInvoker(delegate { this.UseWaitCursor = true; }));
             string input = txtSrch.Text.ToUpper().Trim();
             if (input.Length < 2)
-                //if (range.Count > 800)
+            //if (range.Count > 800)
+            {
+                this.Invoke(new MethodInvoker(delegate { this.UseWaitCursor = false; }));
                 return;
+            }
 
             string[] words = input.Split(new char[] { ' ', ',', '/' });
 
@@ -266,18 +268,14 @@ namespace Nutritracker
                         wCount[i] += Convert.ToInt32(words[k].Length);
 
             //MessageBox.Show(words[n]);
-            for (int i = 0; i < range.Count; i++)
-                if (words[n].Length > 1 && range[i].StartsWith(words[n]))
-                    wCount[i] += Convert.ToInt32(1.5 * words[n].Length);
-                else if (words[n].Length > 1 && range[i].Contains(words[n]))
-                    wCount[i] += Convert.ToInt32(words[n].Length);
-
-
 
             int q = wCount.Max();
             //MessageBox.Show(q.ToString());
             if (q == 0)
+            {
+                this.Invoke(new MethodInvoker(delegate { this.UseWaitCursor = false; }));
                 return;
+            }
             int z = 0;
             itms = new List<ListViewItem>();
             //itms = new List<ListViewItem>();

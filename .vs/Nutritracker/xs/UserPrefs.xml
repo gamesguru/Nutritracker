@@ -5,16 +5,14 @@
       <File FileName="Nutritracker/frmPairRelDB.cs" Line="312" Column="14" />
       <File FileName="Nutritracker/frmMain.cs" Line="1447" Column="1" />
       <File FileName="Nutritracker/frmManageRel.cs" Line="25" Column="29" />
-      <File FileName="Nutritracker/frmNewDB.cs" Line="27" Column="10" />
+      <File FileName="Nutritracker/frmNewDB.cs" Line="149" Column="42" />
       <File FileName="Nutritracker/frmParseCustomDatabase.cs" Line="196" Column="1" />
+      <File FileName="Nutritracker/Program.cs" Line="19" Column="44" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore>
-      <Breakpoint file="/home/shane/MonoProjects/Nutritracker/Nutritracker/frmNewDB.cs" relfile="Nutritracker/frmNewDB.cs" line="151" column="25" />
-      <Breakpoint file="/home/shane/MonoProjects/Nutritracker/Nutritracker/frmNewDB.cs" relfile="Nutritracker/frmNewDB.cs" line="123" column="29" />
-    </BreakpointStore>
+    <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MonoDevelop.Ide.ItemProperties.Nutritracker PreferredExecutionTarget="MonoDevelop.Default" />

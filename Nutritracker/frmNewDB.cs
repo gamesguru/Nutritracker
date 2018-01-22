@@ -128,7 +128,7 @@ namespace Nutritracker
             List<string> hashLangOut = new List<string>();
             List<string> hashKeyOut = new List<string>();
             string langColumnStr = "", keyColumnStr = "";
-            int langColumn, keyColumn;
+            int langColumn = 0, keyColumn = 0;
             foreach (nutNameKey na in nutNameKeys)
                 if (na.nutrient == "FoodName")
                     langColumnStr = na.columnHeader;
@@ -142,65 +142,35 @@ namespace Nutritracker
             List<nutEntry> nutEntries = new List<nutEntry>();
             for (int i = 0; i < n; i++) //loop over each ENTRY in the database, e.g. 8760 for USDA
             {
-                if (!colInts.Contains(i))
-                    continue;
                 nutEntry nu = new nutEntry();
-                nu.fileName = $"{mainForm.getVal(0, i)}";
-                foreach (int j in colInts)
-                    nu.conts.Add($"[{nutNameKeys[i].nutrient}]{mainForm.getVal(i, j)}");
+                bool prevMatch = false;
+                foreach (nutEntry nut in nutEntries)
+                    if (nut.fileName.ToUpper() == $"{mainForm.getVal(i, langColumn).Substring(0, 3)}".ToUpper())
+                        prevMatch = true;
                 
-				//n.nuts.Add(nutNameKeys[i].nutrient);
-				//n.vals.Add(mainForm.getVal(i, j));
+                nu.fileName = prevMatch?$"{mainForm.getVal(i, langColumn).Substring(0, 3)}{i}":$"{mainForm.getVal(i, langColumn).Substring(0, 3)}";
+                foreach (int j in colInts)
+                {
+                    string nutrient = "";
+                    foreach (nutNameKey nut in nutNameKeys)
+                        if (arr.Contains(nut.columnHeader))
+                            nutrient = nut.nutrient;
+                    nu.conts.Add($"[{nutrient}]{mainForm.getVal(i, j)}"); //nutNameKeys[j].nutrient
 
-                //itmsOut.Add(mainForm.getVal(i, j));
-                ////////////////////////////////////////////////////////////////////////////////////itmsOut.Add()
-                //////////////////////////??????????????????
+                    if (j == langColumn)
+                        hashLangOut.Add($"{nu.fileName}|{mainForm.getVal(i, j)}");
+                    else if (j == keyColumn)
+                        hashKeyOut.Add($"{nu.fileName}|{mainForm.getVal(i, j)}");
+                }
+                nutEntries.Add(nu);
             }
+            
+			File.WriteAllLines($"{fp}{slash}_hashInfo.ini", txtConfig.Lines);
+			File.WriteAllLines($"{fp}{slash}_hashLang.ini", hashLangOut);
+			File.WriteAllLines($"{fp}{slash}_hashKey.ini", hashKeyOut);
 
             foreach (nutEntry nu in nutEntries)
-                File.WriteAllLines(nu.fileName, nu.conts);
-
-            File.WriteAllLines($"{fp}{slash}_hashInfo.ini", txtConfig.Lines);
-			File.WriteAllLines($"{fp}{slash}_hashLang.ini", hashLangOut);
-            File.WriteAllLines($"{fp}{slash}_hashKey.ini", hashKeyOut);
-            //for (int i = 0;)
-            //for (int i = 0; i < listBox1.Items.Count; i++)
-            //{
-            //    string[] colVal = new string[n];
-            //    for (int j = 0; j < n; j++)
-            //        colVal[j] = mainForm.getVal(j, i);
-            //    File.WriteAllLines($"{fp}{slash}{listBox2.Items[i]}.TXT", colVal); //writes the stores for each unit
-            //}
-            //File.WriteAllLines(fp + $"{slash}_nameKeyPairs.txt", nameKeyPairs);
-            //         string[] firstCommit = { searchKey + "|FoodName", calorieKey + "|Calories" };
-            //         File.WriteAllLines($"{fp}{slash}_nutKeyPairs.TXT", firstCommit); //writes the initial key pairs for nutrients and txt files
-
-            //List<string> nameKeyPairs = new List<string>();
-            //List<string> unitKeyPairs = new List<string>();
-
-            //for (int i = 0; i < listBox2.Items.Count; i++){
-            //    string header = frmParseCustomDatabase.columns[i].header;
-            //    nameKeyPairs.Add(listBox2.Items[i].ToString() + ".TXT|" + header);
-
-            //    string unit = "";
-            //    try{
-            //        unit = header.Split('[')[1].Split(']')[0].ToLower().Replace(" ", "");
-            //    }
-            //    catch{
-            //        try{
-            //            unit = header.Split('(')[1].Split(')')[0].ToLower().Replace(" ", "");
-            //        }
-            //        catch{
-            //            unit = "per " + header.Split(new string[] { " per " }, StringSplitOptions.None)[1].Trim();
-            //        }
-            //    }
-
-            //    if (unit.Length > 0)
-            //        unitKeyPairs.Add($"{listBox2.Items[i]}.TXT|" + unit);
-            //}
-            //File.WriteAllLines($"{fp}{slash}_nameKeyPairs.TXT", nameKeyPairs); //writes the names (and often) the units
-            //if (unitKeyPairs.Count() > 0)
-            //    File.WriteAllLines($"{fp}{slash}_unitKeyPairs.TXT", unitKeyPairs);
+                File.WriteAllLines($"{fp}{slash}{nu.fileName}.TXT", nu.conts);
 
             MessageBox.Show("Database created successfully.  Please use the search function on the main page to try it out.  Your first time using it, you will be asked to assign real nutrient names to the imported fields.  The software isn't able to do that yet.", "Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
             this.Close();
