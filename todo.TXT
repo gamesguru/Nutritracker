@@ -1,7 +1,6 @@
 frequently searched
-
 recipes/foods on tab view
-
+max search results
 
 TROUBLING QUERIES
 watermelon
