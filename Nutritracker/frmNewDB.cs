@@ -125,7 +125,7 @@ namespace Nutritracker
             for (int i = 0; i < arr.Count; i++)
                 foreach (string s in activeNutes)
                     foreach (string st in txtConfig.Lines)
-                        if (st == $"{arr[i]}={s}")
+                        if (st.Replace(" ", "") == $"{arr[i]}={s}")
                             colInts.Add(i);
             
             List<string> itmsOut = new List<string>();
@@ -157,7 +157,7 @@ namespace Nutritracker
                 {
                     string nutrient = "";
                     foreach (nutNameKey nut in nutNameKeys)
-                        if (arr.Contains(nut.columnHeader))
+                        if (nut.columnHeader == arr[j])
                             nutrient = nut.nutrient;
                     nu.conts.Add($"[{nutrient}]{mainForm.getVal(i, j)}"); //nutNameKeys[j].nutrient
 
