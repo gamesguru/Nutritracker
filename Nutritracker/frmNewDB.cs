@@ -49,8 +49,12 @@ namespace Nutritracker
 
             //populate txtConfig box
             List<string> tmp = new List<string>();
+            int tmax = 0;
+            foreach (string s in arr)
+                if (s.Length > tmax)
+                    tmax = s.Length;
             for (int i = 0; i < arr.Count; i++)
-                tmp.Add($"{arr[i]}=");        
+                tmp.Add($"{arr[i].PadRight(tmax, ' ')}=");        
             txtConfig.Lines = tmp.ToArray();
 
             //loads the columnHeader-nutrientName key-val pairs
@@ -182,14 +186,14 @@ namespace Nutritracker
             p = 0;
             nutNameKeys = new List<nutNameKey>();
             foreach (string s in txtConfig.Lines)
-                if (arr.Contains(s.Split('=')[0]))
+                if (arr.Contains(s.Split('=')[0].Replace(" ", "")))
                 {
                     p++;
                     nutNameKey nm = new nutNameKey();
-                    nm.columnHeader = s.Split('=')[0];
+                    nm.columnHeader = s.Split('=')[0].Replace(" ", "");
                     try
                     {
-                        nm.nutrient = s.Split('=')[1];
+                        nm.nutrient = s.Split('=')[1].Replace(" ", "");
                         if (activeNutes.Contains(nm.nutrient))
                             nutNameKeys.Add(nm);
                     }
@@ -208,10 +212,12 @@ namespace Nutritracker
         {
             //copies over to txtConfig
             try {
+                //int n = txtConfig.Lines[0].Length;
                 string updated = txtConfig.Text.Substring(0, txtConfig.SelectionStart);
                 updated += lstBoxNutes.Text;
                 updated += txtConfig.Text.Substring(txtConfig.SelectionStart, txtConfig.TextLength - txtConfig.SelectionStart - 1);
                 txtConfig.Text = updated;
+                //txtConfig.SelectionStart += n + lstBoxNutes.Text.Length;
             }
             catch { }
         }

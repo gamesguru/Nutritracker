@@ -163,6 +163,7 @@
             this.txtConfig.Name = "txtConfig";
             this.txtConfig.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.txtConfig.Size = new System.Drawing.Size(295, 240);
+            this.txtConfig.Font = new System.Drawing.Font("Courier New", 12);
             this.txtConfig.TabIndex = 12;
             this.txtConfig.TextChanged += new System.EventHandler(this.txtConfig_TextChanged);
             // 
