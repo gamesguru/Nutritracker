@@ -176,7 +176,7 @@ namespace Nutritracker
             foreach (nutEntry nu in nutEntries)
                 File.WriteAllLines($"{fp}{slash}{nu.fileName}.TXT", nu.conts);
 
-            MessageBox.Show("Database created successfully.  Please use the search function on the main page to try it out.  Your first time using it, you will be asked to assign real nutrient names to the imported fields.  The software isn't able to do that yet.", "Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show("Database created successfully.  Please use the search function on the main page to try it out.", "Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
             this.Close();
         }
 

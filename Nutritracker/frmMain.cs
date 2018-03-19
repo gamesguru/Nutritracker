@@ -844,10 +844,10 @@ namespace Nutritracker
             {
                 if (s.Split(Path.DirectorySeparatorChar)[s.Split(Path.DirectorySeparatorChar).Length - 1].StartsWith("_"))
                     continue;
-                string[] nutKeylines = File.ReadAllLines($"{s}{slash}_nutKeyPairs.TXT");
-                foreach (string st in nutKeylines)
-                    if (basicFields.Contains(st.Split('|')[1]) && !lFields.Contains(st.Split('|')[1]))
-                        lFields.Add(st.Split('|')[1]);                    
+                string[] hashInfolines = File.ReadAllLines($"{s}{slash}_hashInfo.ini");
+                foreach (string st in hashInfolines)
+                    if (basicFields.Contains(st.Split('=')[1]) && !lFields.Contains(st.Split('=')[1]))
+                        lFields.Add(st.Split('=')[1]);                    
             }
             return lFields;
         }
@@ -872,20 +872,20 @@ namespace Nutritracker
             {
                 if (s.Split(Path.DirectorySeparatorChar)[s.Split(Path.DirectorySeparatorChar).Length - 1].StartsWith("_"))
                     continue;
-                string[] nutKeylines = File.ReadAllLines($"{s}{slash}_nutKeyPairs.TXT");
-                string[] unitKeyLines = File.ReadAllLines($"{s}{slash}_unitKeyPairs.TXT");
-                foreach (string st in nutKeylines)
-                    if (basicFields.Contains(st.Split('|')[1]))
+                string[] hashInfoLines = File.ReadAllLines($"{s}{slash}_hashInfo.ini");
+                //string[] unitKeyLines = File.ReadAllLines($"{s}{slash}_unitKeyPairs.TXT");
+                foreach (string st in hashInfoLines)
+                    if (basicFields.Contains(st.Split('=')[1]))
                     {
                         bool dupe = false;
                         foreach (colObj _c in lFields)
-                            if (_c.header == st.Split('|')[1])
+                            if (_c.header == st.Split('=')[1])
                                 dupe = true;
                         if (dupe)
                             continue;
                         colObj c = new colObj();
                         c.file = st.Split('|')[0];
-                        c.header = st.Split('|')[1];
+                        c.header = st.Split('=')[1];
                         foreach (string str in unitKeyLines)
                             if (str.Split('|')[0] == c.file)
                                 c.unit = str.Split('|')[1];
@@ -993,10 +993,11 @@ namespace Nutritracker
             dLog = new List<logItem>();
             try
             {
+                //TODO: convert
                 string[] lines = todaysLog.Split(new string[] { "--Breakfast--" }, StringSplitOptions.RemoveEmptyEntries)[0].Split(new string[] { "--Lunch--" }, StringSplitOptions.RemoveEmptyEntries)[0].Split(new string[] { "\n" }, StringSplitOptions.RemoveEmptyEntries);
                 foreach (string st in lines)
                 {
-                     litm = new logItem();
+                    litm = new logItem();
                     litm._db = st.Split('|')[0];
                     litm.primKeyNo = st.Split('|')[1];
                     litm.grams = Convert.ToDouble(st.Split('|')[2]);

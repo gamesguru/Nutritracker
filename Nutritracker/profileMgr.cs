@@ -165,8 +165,7 @@ namespace Nutritracker
                             if (s.StartsWith("[Name]"))
                                 name = s.Replace("[Name]", "");
                         profs.Add(directs[i]);
-                        comboExistingProfs.Items
-                            .Add(name); ;
+                        comboExistingProfs.Items.Add(name);
                     }
             }
             catch { }

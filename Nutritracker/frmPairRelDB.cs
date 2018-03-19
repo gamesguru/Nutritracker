@@ -274,7 +274,7 @@ namespace Nutritracker
 
         string storLoc = "";
         bool mH = false;
-        char[] _delims = new char[] { '/', ',', ' ', '-', ';', '(', ')' };
+        char[] _delims = { '/', ',', ' ', '-', ';', '(', ')' };
         private void txtTweak_TextChanged(object sender, EventArgs e)
         {
             //

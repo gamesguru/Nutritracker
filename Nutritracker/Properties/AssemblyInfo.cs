@@ -10,8 +10,8 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("Nutritracker")]
-[assembly: AssemblyCopyright("Copyright © Shane 2017")]
-[assembly: AssemblyTrademark("The GNU General Public License v3.0")]
+[assembly: AssemblyCopyright("Copyright © Shane 2018")]
+[assembly: AssemblyTrademark("The GNU General Public License v2.0")]
 [assembly: AssemblyCulture("")]
 
 // Setting ComVisible to false makes the types in this assembly not visible 
