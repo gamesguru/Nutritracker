@@ -179,9 +179,9 @@ namespace Nutritracker
 
         public class logItem
         {
-            public int index = 0;
             public string _db = "USDAstock";
             public string primKeyNo;
+            public string fileName;
             public double grams = 100;
         }
 
@@ -803,7 +803,7 @@ namespace Nutritracker
             "Cals",
             "FatTot",
             "FatSat",
-            "CarbsTot",
+            "Carbs",
             "Sugar",
             "Fiber",
             "Protein",
@@ -829,8 +829,8 @@ namespace Nutritracker
             "IF_Rating",
             "ORAC"
         };
-        
-        
+
+        string[] hashInfoLines;
         private List<string> fetchLogsFields(List<logItem> nLog)
         {
             List<string> dbs = new List<string>();
@@ -844,18 +844,17 @@ namespace Nutritracker
             {
                 if (s.Split(Path.DirectorySeparatorChar)[s.Split(Path.DirectorySeparatorChar).Length - 1].StartsWith("_"))
                     continue;
-                string[] hashInfolines = File.ReadAllLines($"{s}{slash}_hashInfo.ini");
-                foreach (string st in hashInfolines)
+                hashInfoLines = File.ReadAllLines($"{s}{slash}_hashInfo.ini");
+                foreach (string st in hashInfoLines)
                     if (basicFields.Contains(st.Split('=')[1]) && !lFields.Contains(st.Split('=')[1]))
-                        lFields.Add(st.Split('=')[1]);                    
+                        lFields.Add(st.Split('=')[1]);
             }
             return lFields;
         }
         
         public class colObj
         {
-            public string file;
-            public string header;
+            public string field;
             public string unit = "";
         }
         public static List<colObj> activeFieldsWithUnits;
@@ -879,83 +878,64 @@ namespace Nutritracker
                     {
                         bool dupe = false;
                         foreach (colObj _c in lFields)
-                            if (_c.header == st.Split('=')[1])
+                            if (_c.field == st.Split('=')[1])
                                 dupe = true;
                         if (dupe)
                             continue;
                         colObj c = new colObj();
-                        c.file = st.Split('|')[0];
-                        c.header = st.Split('=')[1];
+                        c.field = st.Split('=')[1];
                         if (st.Contains("(") && st.Contains(")"))
                             c.unit = st.Split('(')[1].Split(')')[0].Trim();
                         lFields.Add(c);
                     }
-
             }
             activeFieldsWithUnits = lFields;
             return lFields;
         }
-        class fObj {
-            public string file = "";
-            public string field = "";
-            public string nutVal = "";
-            public string index = "";
-            public string unit = "";
-        };
-        private string[] fetchNutValues(string[] fields, logItem l, bool includeUnits = false){
+
+
+        private string[] fetchNutValues(string[] fields, logItem l, bool includeUnits = false)
+        {
             //dataDay.Columns.Clear();
             //dataDay.Columns.Add("Spacer", "");
-            List<fObj> fObjs = new List<fObj>();
-            l.index = 0;
             if (l._db == "USDAstock")
             {
                 string dbDir = $"{Application.StartupPath}{slash}usr{slash}share{slash}DBs{slash}{l._db}";
-                string[] nkp = File.ReadAllLines($"{dbDir}{slash}_nutKeyPairs.TXT");
-                foreach (string s in currentBasicFields)
-                    foreach (string st in nkp)
-                        if (st.Split('|')[1] == s)
+                string[] rawItemData = File.ReadAllLines($"{dbDir}{slash}{l.fileName}");
+                Dictionary<string, string> foodItemNutPairs = new Dictionary<string, string>();
+                List<string> _dbg = new List<string>();
+                foreach (string s in fields)
+                    foreach (string st in rawItemData)
+                        if (st.StartsWith($"[{s}]"))
                         {
-                            fObj f = new fObj();
-                            f.field = s;
-                            //dataDay.Columns.Add(s, s);
-                            f.file = st.Split('|')[0];
-                            fObjs.Add(f);
+                            foodItemNutPairs.Add(s, st.Replace($"[{s}]", ""));
+                            _dbg.Add(st);
+                            break;
                         }
-                string[] nutVals = new string[fObjs.Count()];
-                string[] lines = new string[0];
-                for (int i = 0; i < fObjs.Count(); i++)
-                    if (fObjs[i].field == "NDBNo")
-                        lines = File.ReadAllLines($"{dbDir}{slash}{fObjs[i].file}");
-                for (int i = 0; i < lines.Length; i++)
-                    if (lines[i] == l.primKeyNo && l.index == 0)
-                        l.index = i;
-
-                for (int i = 0; i < fObjs.Count(); i++)
-                    foreach (string s in fields)
-                        if (s == fObjs[i].field)
-                            try {
-                                if (fObjs[i].field == "NDBNo")
-                                    throw new Exception();
-                            fObjs[i].nutVal = Math.Round((l.grams * 0.01) * Convert.ToDouble(File.ReadAllLines($"{dbDir}{slash}{fObjs[i].file}")[l.index]), 3).ToString(); }
-                            catch { fObjs[i].nutVal = File.ReadAllLines($"{dbDir}{slash}{fObjs[i].file}")[l.index]; }
-
-                string[] ukp = File.ReadAllLines($"{dbDir}{slash}_unitKeyPairs.TXT");
-                for (int i = 0; i < fObjs.Count(); i++)
-                    foreach (string s in ukp)
-                        if (fObjs[i].file == s.Split('|')[0])
-                            fObjs[i].unit = s.Split('|')[1];
+                List<string> output = new List<string>();
+                foreach (string s in foodItemNutPairs.Keys)
+                    output.Add(foodItemNutPairs[s]);
 
                 double conv = l.grams / 100;
+                string[] _output = output.ToArray();
+                int i = 0;
+                foreach (string s in foodItemNutPairs.Keys)
+                    foreach (string st in hashInfoLines)
+                        if (s == st.Split('=')[1])
+                        {
+                            _output[i++] = s;
+                            break;
+                        }
                 if (includeUnits)
-                    for (int i = 0; i < fObjs.Count(); i++)
-                        nutVals[i] = (fObjs[i].unit == "")?fObjs[i].nutVal:$"{fObjs[i].nutVal} ({fObjs[i].unit})";
-                else
-                    for (int i = 0; i < fObjs.Count(); i++)
-                        nutVals[i] = fObjs[i].nutVal;
-                return nutVals;
+                    foreach (string s in hashInfoLines)
+                    {
+                        if (fields.Contains(s.Split('=')[1]) && s.Contains("(") && s.Contains(")"))
+                            _output[i++] += $" ({s.Split('(')[1].Split(')')[0]})";
+                    }
+                return output.ToArray();
             }
             else
-                return null;         
+                return null;
         }
 
         public static List<logItem> litms;
@@ -990,6 +970,15 @@ namespace Nutritracker
             bLog = new List<logItem>();
             lLog = new List<logItem>();
             dLog = new List<logItem>();
+            //TODO: put this elsewhere?
+            Dictionary<string, string[]> dbHashKeys = new Dictionary<string, string[]>();
+            foreach (string s in Directory.GetDirectories($"{Application.StartupPath}{slash}usr{slash}share{slash}DBs"))
+            {
+                string _db = s.Split(Path.DirectorySeparatorChar)[s.Split(Path.DirectorySeparatorChar).Length - 1];
+                if (!_db.StartsWith("_"))
+                    dbHashKeys.Add(_db, File.ReadAllLines($"{s}{slash}_hashKey.ini"));
+            }
+
             try
             {
                 //TODO: convert
@@ -999,6 +988,12 @@ namespace Nutritracker
                     litm = new logItem();
                     litm._db = st.Split('|')[0];
                     litm.primKeyNo = st.Split('|')[1];
+                    foreach (string str in dbHashKeys[litm._db])
+                        if (str.Split('|')[1] == litm.primKeyNo)
+                        {
+                            litm.fileName = $"{str.Split('|')[0]}.TXT";
+                            break;
+                        }
                     litm.grams = Convert.ToDouble(st.Split('|')[2]);
                     bLog.Add(litm);
                 }
@@ -1008,6 +1003,12 @@ namespace Nutritracker
                     litm = new logItem();
                     litm._db = st.Split('|')[0];
                     litm.primKeyNo = st.Split('|')[1];
+                    foreach (string str in dbHashKeys[litm._db])
+                        if (str.Split('|')[1] == litm.primKeyNo)
+                        {
+                            litm.fileName = $"{str.Split('|')[0]}.TXT";
+                            break;
+                        }
                     litm.grams = Convert.ToDouble(st.Split('|')[2]);
                     lLog.Add(litm);
                 }
@@ -1017,6 +1018,12 @@ namespace Nutritracker
                     litm = new logItem();
                     litm._db = st.Split('|')[0];
                     litm.primKeyNo = st.Split('|')[1];
+                    foreach (string str in dbHashKeys[litm._db])
+                        if (str.Split('|')[1] == litm.primKeyNo)
+                        {
+                            litm.fileName = $"{str.Split('|')[0]}.TXT";
+                            break;
+                        }
                     litm.grams = Convert.ToDouble(st.Split('|')[2]);
                     dLog.Add(litm);
                 }
@@ -1033,8 +1040,8 @@ namespace Nutritracker
             {
                 DataGridViewColumn col = new DataGridViewColumn();
                 col.SortMode = DataGridViewColumnSortMode.Programmatic;
-                col.Name = c.header;
-                col.HeaderText = (c.unit == "") ? c.header : $"{c.header} ({c.unit})";
+                col.Name = c.field;
+                col.HeaderText = (c.unit == "") ? c.field : $"{c.field} ({c.unit})";
                 col.CellTemplate = new DataGridViewTextBoxCell();
                 dataDay.Columns.Add(col);
             }
