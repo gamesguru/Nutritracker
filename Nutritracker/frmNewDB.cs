@@ -144,37 +144,45 @@ namespace Nutritracker
                 else if (arr[i] == langColumnStr)
                     langColumn = i;
             List<nutEntry> nutEntries = new List<nutEntry>();
+            nutEntry nu;
             for (int i = 0; i < n; i++) //loop over each ENTRY in the database, e.g. 8760 for USDA
             {
-                nutEntry nu = new nutEntry();
+                nu = new nutEntry();
                 bool prevMatch = false;
+                string title = mainForm.getVal(i, langColumn).Substring(0, 3);
                 foreach (nutEntry nut in nutEntries)
-                    if (nut.fileName.ToUpper() == $"{mainForm.getVal(i, langColumn).Substring(0, 3)}".ToUpper())
+                    if (nut.fileName.ToUpper() == title.ToUpper())
                         prevMatch = true;
-                
-                nu.fileName = prevMatch?$"{mainForm.getVal(i, langColumn).Substring(0, 3)}{i}":$"{mainForm.getVal(i, langColumn).Substring(0, 3)}";
+
+                nu.fileName = prevMatch ? $"{title}{i}" : title;
+                string[] res = { "CON", "PRN", "AUX", "NUL", "COM1", "COM2", "COM3", "COM4", "COM5", "COM6", "COM7", "COM8", "COM9", "LPT1", "LPT2", "LPT3", "LPT4", "LPT5", "LPT6", "LPT7", "LPT8", "LPT9" };
+                foreach (string s in res)
+                    if (nu.fileName == s)
+                        nu.fileName += "_WX";
                 foreach (int j in colInts)
                 {
                     string nutrient = "";
+                    string val = mainForm.getVal(i, j);
                     foreach (nutNameKey nut in nutNameKeys)
                         if (nut.columnHeader == arr[j])
                             nutrient = nut.nutrient;
-                    nu.conts.Add($"[{nutrient}]{mainForm.getVal(i, j)}"); //nutNameKeys[j].nutrient
+                    nu.conts.Add($"[{nutrient}]{val}");
 
                     if (j == langColumn)
-                        hashLangOut.Add($"{nu.fileName}|{mainForm.getVal(i, j)}");
+                        hashLangOut.Add($"{nu.fileName}|{val}");
                     else if (j == keyColumn)
-                        hashKeyOut.Add($"{nu.fileName}|{mainForm.getVal(i, j)}");
+                        hashKeyOut.Add($"{nu.fileName}|{val}");
                 }
                 nutEntries.Add(nu);
+                nu = null;
             }
             
 			File.WriteAllLines($"{fp}{slash}_hashInfo.ini", txtConfig.Lines);
 			File.WriteAllLines($"{fp}{slash}_hashLang.ini", hashLangOut);
 			File.WriteAllLines($"{fp}{slash}_hashKey.ini", hashKeyOut);
 
-            foreach (nutEntry nu in nutEntries)
-                File.WriteAllLines($"{fp}{slash}{nu.fileName}.TXT", nu.conts);
+            foreach (nutEntry nut in nutEntries)
+                File.WriteAllLines($"{fp}{slash}{nut.fileName}.TXT", nut.conts);
 
             MessageBox.Show("Database created successfully.  Please use the search function on the main page to try it out.", "Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
             this.Close();

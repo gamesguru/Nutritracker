@@ -240,9 +240,6 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\apache.rtf" />
     <None Include="Resources\img.jpg" />
   </ItemGroup>
