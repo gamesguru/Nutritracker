@@ -886,9 +886,8 @@ namespace Nutritracker
                         colObj c = new colObj();
                         c.file = st.Split('|')[0];
                         c.header = st.Split('=')[1];
-                        foreach (string str in unitKeyLines)
-                            if (str.Split('|')[0] == c.file)
-                                c.unit = str.Split('|')[1];
+                        if (st.Contains("(") && st.Contains(")"))
+                            c.unit = st.Split('(')[1].Split(')')[0].Trim();
                         lFields.Add(c);
                     }
 
