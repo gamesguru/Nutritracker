@@ -89,7 +89,6 @@
             this.relationalDatabaseWizardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.manageRelativeDBPairsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.manageCustomFieldsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.manageStandaloneDatabaseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.btnRemoveFood = new System.Windows.Forms.Button();
             this.btnSearch = new System.Windows.Forms.Button();
             this.btnExit = new System.Windows.Forms.Button();
@@ -425,7 +424,6 @@
             this.btnEditCustFoods.TabStop = false;
             this.btnEditCustFoods.Text = "Edit Custom Foods";
             this.btnEditCustFoods.UseVisualStyleBackColor = true;
-            this.btnEditCustFoods.Click += new System.EventHandler(this.btnEditCustFoods_Click);
             // 
             // lstBoxFoods
             // 
@@ -590,7 +588,6 @@
             this.customFoodEntryToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F5;
             this.customFoodEntryToolStripMenuItem.Size = new System.Drawing.Size(216, 22);
             this.customFoodEntryToolStripMenuItem.Text = "Manage Custom Foods";
-            this.customFoodEntryToolStripMenuItem.Click += new System.EventHandler(this.customFoodEntryToolStripMenuItem_Click);
             // 
             // editProfilesToolStripMenuItem
             // 
@@ -716,8 +713,7 @@
             this.parseExcelSpreadsheetToolStripMenuItem,
             this.relationalDatabaseWizardToolStripMenuItem,
             this.manageRelativeDBPairsToolStripMenuItem,
-            this.manageCustomFieldsToolStripMenuItem,
-            this.manageStandaloneDatabaseToolStripMenuItem});
+            this.manageCustomFieldsToolStripMenuItem});
             this.databaseToolStripMenuItem.Name = "databaseToolStripMenuItem";
             this.databaseToolStripMenuItem.Size = new System.Drawing.Size(67, 20);
             this.databaseToolStripMenuItem.Text = "Database";
@@ -751,13 +747,6 @@
             this.manageCustomFieldsToolStripMenuItem.Size = new System.Drawing.Size(241, 22);
             this.manageCustomFieldsToolStripMenuItem.Text = "Manage Custom Fields";
             this.manageCustomFieldsToolStripMenuItem.Click += new System.EventHandler(this.manageCustomFieldsToolStripMenuItem_Click);
-            // 
-            // manageStandaloneDatabaseToolStripMenuItem
-            // 
-            this.manageStandaloneDatabaseToolStripMenuItem.Name = "manageStandaloneDatabaseToolStripMenuItem";
-            this.manageStandaloneDatabaseToolStripMenuItem.Size = new System.Drawing.Size(241, 22);
-            this.manageStandaloneDatabaseToolStripMenuItem.Text = "Manage Standalone Database";
-            this.manageStandaloneDatabaseToolStripMenuItem.Click += new System.EventHandler(this.manageStandaloneDatabaseToolStripMenuItem_Click);
             // 
             // btnRemoveFood
             // 
@@ -923,7 +912,6 @@
         private System.Windows.Forms.ToolStripMenuItem settingsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem databaseToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem manageCustomFieldsToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem manageStandaloneDatabaseToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem decomposeRecipeToolStripMenuItem;
         private System.Windows.Forms.Button btnExit;
         private System.Windows.Forms.ComboBox comboLoggedDays;

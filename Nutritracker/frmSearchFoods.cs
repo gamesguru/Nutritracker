@@ -84,7 +84,7 @@ namespace Nutritracker
         private List<string> range = new List<string>();
         private string[] nutKeyPairs;
         private int n = 0;
-        private Dictionary<string, List<string>> mainDB;
+        private Dictionary<string, string[]> mainDB;
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             File.WriteAllText($"{Application.StartupPath}{slash}usr{slash}profile{frmMain.currentUser.index}{slash}DBs{slash}Default.TXT", comboDBs.SelectedIndex.ToString());
@@ -98,14 +98,14 @@ namespace Nutritracker
                 string[] files = Directory.GetFiles($"{Application.StartupPath}{slash}usr{slash}share{slash}DBs{slash}{db}");
 
 
-                if (File.Exists($"{Application.StartupPath}{slash}usr{slash}share{slash}DBs{slash}{db}{slash}_nutKeyPairs.TXT"))
-
+                if (File.Exists($"{Application.StartupPath}{slash}usr{slash}share{slash}DBs{slash}{db}{slash}_hashLang.ini"))
                 {
-                    mainDB = new Dictionary<string, List<string>>();
+                    mainDB = new Dictionary<string, string[]>();
                     for (int i = 0; i < files.Length; i++)
-                        mainDB.Add(files[i].Replace($"{Application.StartupPath}{slash}usr{slash}share{slash}DBs{slash}{db}{slash}", ""), importArray(files[i]));
+                        mainDB.Add(files[i].Replace($"{Application.StartupPath}{slash}usr{slash}share{slash}DBs{slash}{db}{slash}", ""), File.ReadAllLines(files[i]));
 
-                    nutKeyPairs = importArray($"{Application.StartupPath}{slash}usr{slash}share{slash}DBs{slash}{db}{slash}_nutKeyPairs.TXT").ToArray();
+                    //TODO: swap nutkeypairs.txt for hashinfo.ini
+                    nutKeyPairs = File.ReadAllLines($"{Application.StartupPath}{slash}usr{slash}share{slash}DBs{slash}{db}{slash}_nutKeyPairs.TXT");
                     List<string> tmp = new List<string>();
                     for (int i = 0; i < nutKeyPairs.Length; i++)
                         if (!nutKeyPairs[i].StartsWith("#"))
@@ -122,9 +122,7 @@ namespace Nutritracker
                         lstviewFoods.Columns.Add(nutKeyPairs[i].Split('|')[1]);
 
                     txtSrch.Enabled = true;
-
-
-                    manageBasicFieldsToolStripMenuItem.Enabled = true;
+                    
 
 
                     for (int i = 0; i < lstviewFoods.Columns.Count; i++)
@@ -159,9 +157,9 @@ namespace Nutritracker
                 else
                 {
                     MessageBox.Show("The nutrient keys have not been paired for this database.  You will be taken to the admin center.", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    frmManageDB frmMDB = new frmManageDB();
-                    frmMDB.nutkeyPath = $"{Application.StartupPath}{slash}usr{slash}share{slash}DBs{slash}{db}{slash}_nutKeyPairs.TXT";
-                    frmMDB.ShowDialog();
+                    ///frmManageDB frmMDB = new frmManageDB();
+                    ///frmMDB.nutkeyPath = $"{Application.StartupPath}{slash}usr{slash}share{slash}DBs{slash}{db}{slash}_nutKeyPairs.TXT";
+                    ///frmMDB.ShowDialog();
                 }
             }
 
@@ -170,37 +168,26 @@ namespace Nutritracker
                 string[] files = Directory.GetFiles($"{Application.StartupPath}{slash}usr{slash}profile{frmMain.currentUser.index}{slash}DBs{slash}{db}");
                 if (File.Exists($"{Application.StartupPath}{slash}usr{slash}profile{frmMain.currentUser.index}{slash}DBs{slash}{db}_nutKeyPairs.TXT"))
                 {
-                    Dictionary<string, List<string>> mainDB = new Dictionary<string, List<string>>();
+                    mainDB = new Dictionary<string, string[]>();
                     for (int i = 0; i < files.Length; i++)
-                        mainDB.Add(files[i].Replace($"{Application.StartupPath}{slash}usr{slash}profile{frmMain.currentUser.index}{slash}DBs{slash}{db}{slash}", ""), importArray(files[i]));
+                        mainDB.Add(files[i].Replace($"{Application.StartupPath}{slash}usr{slash}profile{frmMain.currentUser.index}{slash}DBs{slash}{db}{slash}", ""), File.ReadAllLines(files[i]));
 
-                    List<string> nutKeyPairs = importArray($"{Application.StartupPath}{slash}usr{slash}profile{frmMain.currentUser.index}{slash}DBs{slash}{db}_nutKeyPairs.TXT");
-                    for (int i = 0; i < nutKeyPairs.Count; i++)
-                        if (nutKeyPairs[i].StartsWith("#"))
-                            nutKeyPairs.RemoveAt(i);
-                    for (int i = 0; i < nutKeyPairs.Count; i++)
-                        lstviewFoods.Columns.Add(nutKeyPairs[i].Split('|')[1]);
+                    string[] nutKeyPairs = File.ReadAllLines($"{Application.StartupPath}{slash}usr{slash}profile{frmMain.currentUser.index}{slash}DBs{slash}{db}_nutKeyPairs.TXT");
+                    for (int i = 0; i < nutKeyPairs.Length; i++)
+                        if (!nutKeyPairs[i].StartsWith("#"))
+                            lstviewFoods.Columns.Add(nutKeyPairs[i].Split('|')[1]);
                 }
 
                 else
                 {
                     MessageBox.Show("The nutrient keys have not been paired for this database.  You will be taken to the admin center.", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    frmManageDB frmMDB = new frmManageDB();
-                    frmMDB.nutkeyPath = $"{Application.StartupPath}{slash}usr{slash}share{slash}DBs{slash}{db}{slash}_nutKeyPairs.TXT";
-                    frmMDB.ShowDialog();
+                    ///frmManageDB frmMDB = new frmManageDB();
+                    ///frmMDB.nutkeyPath = $"{Application.StartupPath}{slash}usr{slash}share{slash}DBs{slash}{db}{slash}_nutKeyPairs.TXT";
+                    ///frmMDB.ShowDialog();
                 }
             }
         }
-
-        private void manageBasicFieldsToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            string db = comboDBs.Text.Replace(" (share)", "");
-            frmManageDB frmMDB = new frmManageDB();
-            frmMDB.nutkeyPath = $"{Application.StartupPath}{slash}usr{slash}share{slash}DBs{slash}{db}{slash}_nutKeyPairs.TXT";
-            frmMDB.ShowDialog();
-        }
-
-
+        
         private void btnCancel_Click(object sender, EventArgs e) => this.Close();
 
         private void txtSrch_TextChanged(object sender, EventArgs e)

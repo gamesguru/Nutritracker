@@ -1,12 +1,18 @@
+========
 03-23-18
-why isn't LutZea being generated?
+========
+(1)	/usr/share/res/incomplete
 
 
-old:
+
+
+===
+old
+===
 frequently searched
 recipes/foods on tab view
 max search results
 
-TROUBLING QUERIES
+TROUBLING QUERIES (frmPairField)
 watermelon
 rice crisp vs rice cereal///crisp rice//rice cereal

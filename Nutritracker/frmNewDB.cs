@@ -35,7 +35,7 @@ namespace Nutritracker
         int p;
         private void frmNewDB_Load(object sender, EventArgs e)
         {
-            txtLoc.Text = $"{slash}usr{slash}profile{frmMain.currentUser.index}{slash}DBs{slash}";
+            txtLoc.Text = $"{slash}usr{slash}share{slash}DBs{slash}";
 
             //gather active nutrients, TODO: work this into frmMain as it is with logRunner
             activeNutes = new List<string>();
@@ -105,7 +105,7 @@ namespace Nutritracker
                 e.Handled = true;
         }
 
-        int nameColumn = -1;
+        //int nameColumn = -1;
         private void btnCreate_Click(object sender, EventArgs e)
         {
             string fp = Application.StartupPath + txtLoc.Text;

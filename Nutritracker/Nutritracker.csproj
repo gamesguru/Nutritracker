@@ -54,12 +54,6 @@
     <Compile Include="sfCalc.Designer.cs">
       <DependentUpon>sfCalc.cs</DependentUpon>
     </Compile>
-    <Compile Include="frmCustomFood.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="frmCustomFood.Designer.cs">
-      <DependentUpon>frmCustomFood.cs</DependentUpon>
-    </Compile>
     <Compile Include="frmManageRel.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -95,12 +89,6 @@
     </Compile>
     <Compile Include="frmMain.Designer.cs">
       <DependentUpon>frmMain.cs</DependentUpon>
-    </Compile>
-    <Compile Include="frmManageDB.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="frmManageDB.Designer.cs">
-      <DependentUpon>frmManageDB.cs</DependentUpon>
     </Compile>
     <Compile Include="frmManageField.cs">
       <SubType>Form</SubType>
@@ -179,9 +167,6 @@
     <EmbeddedResource Include="sfCalc.resx">
       <DependentUpon>sfCalc.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmCustomFood.resx">
-      <DependentUpon>frmCustomFood.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="frmManageRel.resx">
       <DependentUpon>frmManageRel.cs</DependentUpon>
     </EmbeddedResource>
@@ -199,9 +184,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmMain.resx">
       <DependentUpon>frmMain.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="frmManageDB.resx">
-      <DependentUpon>frmManageDB.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmManageField.resx">
       <DependentUpon>frmManageField.cs</DependentUpon>
