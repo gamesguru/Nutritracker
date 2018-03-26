@@ -22,20 +22,6 @@ namespace Nutritracker
             return sr;
         }
 
-        public List<String> importArray(string filename)
-        {
-            list = new List<string>();
-            using (StreamReader reader = new StreamReader(filename))
-            {
-                string line;
-                while ((line = reader.ReadLine()) != null)
-                    list.Add(line); // Add to list.
-            }
-            return list;
-        }
-        List<string> list;
-
-
         string[] pubDBs;
         string[] userDBs;
         string slash = Path.DirectorySeparatorChar.ToString();
@@ -81,10 +67,9 @@ namespace Nutritracker
 
         private string nameKeyPath = "";
         private string db;
-        private List<string> range = new List<string>();
-        private string[] nutKeyPairs;
+        private string[] range;
         private int n = 0;
-        private Dictionary<string, string[]> mainDB;
+        private Dictionary<string, string[]> fileLangDB;
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             File.WriteAllText($"{Application.StartupPath}{slash}usr{slash}profile{frmMain.currentUser.index}{slash}DBs{slash}Default.TXT", comboDBs.SelectedIndex.ToString());
@@ -95,106 +80,83 @@ namespace Nutritracker
             db = comboDBs.Text.Replace(" (share)", "").Replace(" (user)", "");
             if (comboDBs.Text.Contains("(share)"))
             {
-                string[] files = Directory.GetFiles($"{Application.StartupPath}{slash}usr{slash}share{slash}DBs{slash}{db}");
+                fileLangDB = new Dictionary<string, string[]>();
+                List<string> fields = new List<string>();
+                foreach (string s in File.ReadAllLines($"{Application.StartupPath}{slash}usr{slash}share{slash}DBs{slash}{db}{slash}_hashInfo.ini"))
+                    if (frmMain.currentBasicFields.Contains(s.Split('=')[1]))
+                        fields.Add(s.Split('=')[1]);
+                string[] rawHashLang = File.ReadAllLines($"{Application.StartupPath}{slash}usr{slash}share{slash}DBs{slash}{db}{slash}_hashLang.ini");
+                for (int i = 0; i < rawHashLang.Length; i++)
+                    try { fileLangDB.Add(rawHashLang[i].Split('|')[1], File.ReadAllLines($"{Application.StartupPath}{slash}usr{slash}share{slash}DBs{slash}{db}{slash}{rawHashLang[i].Split('|')[0]}.TXT")); }
+                    catch { fileLangDB.Add($"{rawHashLang[i].Split('|')[1]} {i}", File.ReadAllLines($"{Application.StartupPath}{slash}usr{slash}share{slash}DBs{slash}{db}{slash}{rawHashLang[i].Split('|')[0]}.TXT")); }
+                n = rawHashLang.Length;
+                txtSrch.Enabled = true;
 
+                foreach (string s in fields)
+                    lstviewFoods.Columns.Add(s);
+                for (int i = 0; i < lstviewFoods.Columns.Count; i++)
+                    lstviewFoods.Columns[i].Width = -2;
 
-                if (File.Exists($"{Application.StartupPath}{slash}usr{slash}share{slash}DBs{slash}{db}{slash}_hashLang.ini"))
+                if (n > 80000)
                 {
-                    mainDB = new Dictionary<string, string[]>();
-                    for (int i = 0; i < files.Length; i++)
-                        mainDB.Add(files[i].Replace($"{Application.StartupPath}{slash}usr{slash}share{slash}DBs{slash}{db}{slash}", ""), File.ReadAllLines(files[i]));
-
-                    //TODO: swap nutkeypairs.txt for hashinfo.ini
-                    nutKeyPairs = File.ReadAllLines($"{Application.StartupPath}{slash}usr{slash}share{slash}DBs{slash}{db}{slash}_nutKeyPairs.TXT");
-                    List<string> tmp = new List<string>();
-                    for (int i = 0; i < nutKeyPairs.Length; i++)
-                        if (!nutKeyPairs[i].StartsWith("#"))
-                            tmp.Add(nutKeyPairs[i]);
-                    nutKeyPairs = tmp.ToArray();
-
-                    n = importArray($"{Application.StartupPath}{slash}usr{slash}share{slash}DBs{slash}{db}{slash}{nutKeyPairs[0].Split('|')[0]}").Count;
-
-                    for (int i = 0; i < nutKeyPairs.Length; i++)
-                        if (nutKeyPairs[i].Contains("|FoodName"))
-                            nameKeyPath = $"{Application.StartupPath}{slash}usr{slash}share{slash}DBs{slash}{db}{slash}" +
-                                          nutKeyPairs[i].Replace("|FoodName", "");
-                    for (int i = 0; i < nutKeyPairs.Length; i++)
-                        lstviewFoods.Columns.Add(nutKeyPairs[i].Split('|')[1]);
-
-                    txtSrch.Enabled = true;
-                    
-
-
-                    for (int i = 0; i < lstviewFoods.Columns.Count; i++)
-                        lstviewFoods.Columns[i].Width = -2;
-
-                    if (n > 800)
-                    {
-                        richTxtWarn.Text = "There are more than 800 entries.\nPlease search to turn something up.";
-                        return;
-                    }
-                    itms = new List<ListViewItem>();
-                    for (int j = 0; j < n; j++)
-                    {
-                        ListViewItem itm = new ListViewItem();
-                        for (int i = 0; i < nutKeyPairs.Length; i++)
-                        {
-                            if (i == 0)
-                                itm.Text = mainDB[nutKeyPairs[i].Split('|')[0]][j];
-                            else
-                                itm.SubItems.Add(mainDB[nutKeyPairs[i].Split('|')[0]][j]);
-                        }
-                        itms.Add(itm);
-                    }
-                    lstviewFoods.BeginUpdate();
-                    foreach (ListViewItem itm in itms)
-                        lstviewFoods.Items.Add(itm);
-                    lstviewFoods.EndUpdate();
-
-                    //
-                    //
+                    richTxtWarn.Text = "There are more than 800 entries.\nPlease search to turn something up.";
+                    return;
                 }
-                else
+                //TODO: revert to 800 (above) and fix general indexing
+                itms = new List<ListViewItem>();
+                foreach (string s in fileLangDB.Keys)
                 {
-                    MessageBox.Show("The nutrient keys have not been paired for this database.  You will be taken to the admin center.", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    ///frmManageDB frmMDB = new frmManageDB();
-                    ///frmMDB.nutkeyPath = $"{Application.StartupPath}{slash}usr{slash}share{slash}DBs{slash}{db}{slash}_nutKeyPairs.TXT";
-                    ///frmMDB.ShowDialog();
+                    ListViewItem itm = new ListViewItem();
+                    foreach (string st in fields)
+                        foreach (string str in fileLangDB[s])
+                            if ()
                 }
+                for (int j = 0; j < n; j++)
+                {
+                    ListViewItem itm = new ListViewItem();
+                    for (int i = 0; i < nutKeyPairs.Length; i++)
+                    {
+                        if (i == 0)
+                            itm.Text = fileLangDB[nutKeyPairs[i].Split('|')[0]][j];
+                        else
+                            itm.SubItems.Add(fileLangDB[nutKeyPairs[i].Split('|')[0]][j]);
+                    }
+                    itms.Add(itm);
+                }
+                lstviewFoods.BeginUpdate();
+                foreach (ListViewItem itm in itms)
+                    lstviewFoods.Items.Add(itm);
+                lstviewFoods.EndUpdate();
+
+                //
+                //
             }
-
             else
             {
                 string[] files = Directory.GetFiles($"{Application.StartupPath}{slash}usr{slash}profile{frmMain.currentUser.index}{slash}DBs{slash}{db}");
-                if (File.Exists($"{Application.StartupPath}{slash}usr{slash}profile{frmMain.currentUser.index}{slash}DBs{slash}{db}_nutKeyPairs.TXT"))
-                {
-                    mainDB = new Dictionary<string, string[]>();
-                    for (int i = 0; i < files.Length; i++)
-                        mainDB.Add(files[i].Replace($"{Application.StartupPath}{slash}usr{slash}profile{frmMain.currentUser.index}{slash}DBs{slash}{db}{slash}", ""), File.ReadAllLines(files[i]));
+                fileLangDB = new Dictionary<string, string[]>();
+                for (int i = 0; i < files.Length; i++)
+                    fileLangDB.Add(files[i].Replace($"{Application.StartupPath}{slash}usr{slash}profile{frmMain.currentUser.index}{slash}DBs{slash}{db}{slash}", ""), File.ReadAllLines(files[i]));
 
-                    string[] nutKeyPairs = File.ReadAllLines($"{Application.StartupPath}{slash}usr{slash}profile{frmMain.currentUser.index}{slash}DBs{slash}{db}_nutKeyPairs.TXT");
-                    for (int i = 0; i < nutKeyPairs.Length; i++)
-                        if (!nutKeyPairs[i].StartsWith("#"))
-                            lstviewFoods.Columns.Add(nutKeyPairs[i].Split('|')[1]);
-                }
-
-                else
-                {
-                    MessageBox.Show("The nutrient keys have not been paired for this database.  You will be taken to the admin center.", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    ///frmManageDB frmMDB = new frmManageDB();
-                    ///frmMDB.nutkeyPath = $"{Application.StartupPath}{slash}usr{slash}share{slash}DBs{slash}{db}{slash}_nutKeyPairs.TXT";
-                    ///frmMDB.ShowDialog();
-                }
+                string[] nutKeyPairs = File.ReadAllLines($"{Application.StartupPath}{slash}usr{slash}profile{frmMain.currentUser.index}{slash}DBs{slash}{db}_nutKeyPairs.TXT");
+                for (int i = 0; i < nutKeyPairs.Length; i++)
+                    if (!nutKeyPairs[i].StartsWith("#"))
+                        lstviewFoods.Columns.Add(nutKeyPairs[i].Split('|')[1]);
             }
         }
-        
+
         private void btnCancel_Click(object sender, EventArgs e) => this.Close();
 
         private void txtSrch_TextChanged(object sender, EventArgs e)
         {
             srchTmout.Stop();
             srchTmout.Start();
-            richTxtWarn.Text = "";
+            setWarningTextbox();
+        }
+
+        public void setWarningTextbox(string text = "")
+        {
+            richTxtWarn.Text = text;
         }
 
         string lastQuery = "";
@@ -237,18 +199,18 @@ namespace Nutritracker
 
             string[] words = input.Split(new char[] { ' ', ',', '/' });
 
-            range = importArray(nameKeyPath);
-            for (int k = 0; k < range.Count; k++)
+            range = File.ReadAllLines(nameKeyPath);
+            for (int k = 0; k < range.Length; k++)
                 range[k] = range[k].ToUpper();
             //MessageBox.Show(words.Length.ToString());
             //if (words.Length > 1)
             lstviewFoods.Invoke(new MethodInvoker(delegate { lstviewFoods.Items.Clear(); }));
 
-            int[] wCount = new int[range.Count];
+            int[] wCount = new int[range.Length];
             int n = words.Length - 1;
             //MessageBox.Show(n.ToString());
             for (int k = 0; k < n; k++)
-                for (int i = 0; i < range.Count; i++)
+                for (int i = 0; i < range.Length; i++)
                     if (words[k].Length > 2 && range[i].StartsWith(words[k]))
                         wCount[i] += Convert.ToInt32(1.5 * words[k].Length);
                     else if (words[k].Length > 2 && range[i].Contains(words[k]))
@@ -267,15 +229,15 @@ namespace Nutritracker
             itms = new List<ListViewItem>();
             //itms = new List<ListViewItem>();
             for (int i = q; i > (q == 1 ? 0 : q - 1); i--)
-                for (int k = 0; k < range.Count; k++)
+                for (int k = 0; k < range.Length; k++)
                     if (wCount[k] == i)
                     {
                         ListViewItem itm = new ListViewItem();
                         for (int m = 0; m < nutKeyPairs.Length; m++)
                             if (m == 0)
-                                itm = new ListViewItem(mainDB[nutKeyPairs[m].Split('|')[0]][k]);
+                                itm = new ListViewItem(fileLangDB[nutKeyPairs[m].Split('|')[0]][k]);
                             else
-                                itm.SubItems.Add(mainDB[nutKeyPairs[m].Split('|')[0]][k]);
+                                itm.SubItems.Add(fileLangDB[nutKeyPairs[m].Split('|')[0]][k]);
                         itms.Add(itm);
                     }
             z = itms.Count;
@@ -315,7 +277,8 @@ namespace Nutritracker
                 ignoreWarn();
             }
         }
-        private void richTxtWarn_MouseClick(object sender, MouseEventArgs e){
+        private void richTxtWarn_MouseClick(object sender, MouseEventArgs e)
+        {
             if (warning)
                 ignoreWarn();
         }
@@ -352,7 +315,7 @@ namespace Nutritracker
                         lstviewFoods.Items[0].Focused = true;
                         lstviewFoods.Items[0].Selected = true;
                     }//lstviewFoods.SelectedIndices.Add(0); }
-                        catch { }
+                    catch { }
                 }));
                 this.Invoke(new MethodInvoker(delegate { this.UseWaitCursor = false; }));
             };
@@ -445,8 +408,9 @@ namespace Nutritracker
             File.WriteAllLines($"{Application.StartupPath}{slash}usr{slash}profile{frmMain.currentUser.index}{slash}foodlog{slash}{frmMain.dte}.TXT", output);
             this.Close();
         }
-    
-        class dLogObj{
+
+        class dLogObj
+        {
             //public string date;
             public List<string> bEntries = new List<string>();
             public List<string> lEntries = new List<string>();
@@ -454,7 +418,7 @@ namespace Nutritracker
         }
         private void lstviewFoods_Leave(object sender, EventArgs e)
         {
-            try { ndbno = lstviewFoods.SelectedItems[0].SubItems[0].Text;  }
+            try { ndbno = lstviewFoods.SelectedItems[0].SubItems[0].Text; }
             catch { }
             selectCheck();
         }
@@ -476,12 +440,14 @@ namespace Nutritracker
             }
             catch { }
         }
-        
-        private void lstviewFoods_KeyDown(object sender, KeyEventArgs e){
+
+        private void lstviewFoods_KeyDown(object sender, KeyEventArgs e)
+        {
             if (e.KeyCode == Keys.Return)
-                txtQty.Focus();            
+                txtQty.Focus();
         }
-        private void lstviewFoods_MouseUp(object sender, MouseEventArgs e){
+        private void lstviewFoods_MouseUp(object sender, MouseEventArgs e)
+        {
             txtQty.Focus();
         }
     }

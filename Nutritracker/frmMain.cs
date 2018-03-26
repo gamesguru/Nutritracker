@@ -775,7 +775,7 @@ namespace Nutritracker
             bH = false;
         }
 
-        string[] currentBasicFields;
+        public static string[] currentBasicFields;
         string[] basicFields ={
             "NDBNo",
             "FoodName",
