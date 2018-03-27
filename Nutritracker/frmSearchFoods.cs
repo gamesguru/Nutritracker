@@ -18,14 +18,12 @@ namespace Nutritracker
             string[] sr = new string[s.Length - n + 1];
             for (int i = 0; i < s.Length - n + 1; i++)
                 sr[i] = s.Substring(i, n).ToLower();
-
             return sr;
         }
 
         string[] pubDBs;
         string[] userDBs;
         string slash = Path.DirectorySeparatorChar.ToString();
-
 
         private void frmSearchFoods_Load(object sender, EventArgs e)
         {
@@ -67,7 +65,8 @@ namespace Nutritracker
 
         private string db;
         private int n = 0;
-        private Dictionary<string, string[]> fileLangDB;
+        private Dictionary<string, string> hashLangDB;
+        private Dictionary<string, string[]> fileEntryDB;
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             File.WriteAllText($"{Application.StartupPath}{slash}usr{slash}profile{frmMain.currentUser.index}{slash}DBs{slash}Default.TXT", comboDBs.SelectedIndex.ToString());
@@ -78,15 +77,20 @@ namespace Nutritracker
             db = comboDBs.Text.Replace(" (share)", "").Replace(" (user)", "");
             if (comboDBs.Text.Contains("(share)"))
             {
-                fileLangDB = new Dictionary<string, string[]>();
+                fileEntryDB = new Dictionary<string, string[]>();
                 List<string> fields = new List<string>();
                 foreach (string s in File.ReadAllLines($"{Application.StartupPath}{slash}usr{slash}share{slash}DBs{slash}{db}{slash}_hashInfo.ini"))
                     if (frmMain.currentBasicFields.Contains(s.Split('=')[1]))
                         fields.Add(s.Split('=')[1]);
                 string[] rawHashLang = File.ReadAllLines($"{Application.StartupPath}{slash}usr{slash}share{slash}DBs{slash}{db}{slash}_hashLang.ini");
+                foreach (string s in rawHashLang)
+                    hashLangDB.Add(s.Split('|')[0], s.Split('|')[1]);
+                rawHashLang = null;
+                foreach (string s in hashLangDB.Keys)
+                    fileEntryDB.Add()
                 for (int i = 0; i < rawHashLang.Length; i++)
-                    try { fileLangDB.Add(rawHashLang[i].Split('|')[1], File.ReadAllLines($"{Application.StartupPath}{slash}usr{slash}share{slash}DBs{slash}{db}{slash}{rawHashLang[i].Split('|')[0]}.TXT")); }
-                    catch { fileLangDB.Add($"{rawHashLang[i].Split('|')[1]} {i}", File.ReadAllLines($"{Application.StartupPath}{slash}usr{slash}share{slash}DBs{slash}{db}{slash}{rawHashLang[i].Split('|')[0]}.TXT")); }
+                    try { fileEntryDB.Add(rawHashLang[i].Split('|')[1], File.ReadAllLines($"{Application.StartupPath}{slash}usr{slash}share{slash}DBs{slash}{db}{slash}{rawHashLang[i].Split('|')[0]}.TXT")); }
+                    catch { fileEntryDB.Add($"{rawHashLang[i].Split('|')[1]} {i}", File.ReadAllLines($"{Application.StartupPath}{slash}usr{slash}share{slash}DBs{slash}{db}{slash}{rawHashLang[i].Split('|')[0]}.TXT")); }
                 n = rawHashLang.Length;
                 txtSrch.Enabled = true;
 
@@ -95,65 +99,88 @@ namespace Nutritracker
                 for (int i = 0; i < lstviewFoods.Columns.Count; i++)
                     lstviewFoods.Columns[i].Width = -2;
 
-                if (n > 80000)
+                if (n > 800)
                 {
                     richTxtWarn.Text = "There are more than 800 entries.\nPlease search to turn something up.";
                     return;
                 }
                 //TODO: revert to 800 (above) and fix general indexing
                 itms = new List<ListViewItem>();
-                for (int i = 0; i < fileLangDB.Count; i++)
-                    itms.Add(getListItem(fields, fileLangDB.ElementAt(i).Value));
-                
-                //for (int j = 0; j < n; j)
-                //{
-                //    ListViewItem itm = new ListViewItem();
-                //    for (int i = 0; i < nutKeyPairs.Length; i)
-                //    {
-                //        if (i == 0)
-                //            itm.Text = fileLangDB[nutKeyPairs[i].Split('|')[0]][j];
-                //        else
-                //            itm.SubItems.Add(fileLangDB[nutKeyPairs[i].Split('|')[0]][j]);
-                //    }
-                //    itms.Add(itm);
-                //}
+                for (int i = 0; i < fileEntryDB.Count; i++)
+                {
+                    itms.Add(getListItem(fields, fileEntryDB.ElementAt(i).Value));
+                    _itm = null;
+                }
 
                 lstviewFoods.BeginUpdate();
                 foreach (ListViewItem itm in itms)
                     lstviewFoods.Items.Add(itm);
                 lstviewFoods.EndUpdate();
-
-                //
-                //
+                itms = null;
             }
-            else
-            {
-                string[] files = Directory.GetFiles($"{Application.StartupPath}{slash}usr{slash}profile{frmMain.currentUser.index}{slash}DBs{slash}{db}");
-                fileLangDB = new Dictionary<string, string[]>();
-                for (int i = 0; i < files.Length; i++)
-                    fileLangDB.Add(files[i].Replace($"{Application.StartupPath}{slash}usr{slash}profile{frmMain.currentUser.index}{slash}DBs{slash}{db}{slash}", ""), File.ReadAllLines(files[i]));
+            //else
+            //{
+            //    fileLangDB = new Dictionary<string, string[]>();
+            //    List<string> fields = new List<string>();
+            //    foreach (string s in File.ReadAllLines($"{Application.StartupPath}{slash}usr{slash}profile{frmMain.currentUser.index}{slash}DBs{slash}{db}{slash}_hashInfo.ini"))
+            //        if (frmMain.currentBasicFields.Contains(s.Split('=')[1]))
+            //            fields.Add(s.Split('=')[1]);
+            //    string[] rawHashLang = File.ReadAllLines($"{Application.StartupPath}{slash}usr{slash}profile{frmMain.currentUser.index}{slash}DBs{slash}{db}{slash}_hashLang.ini");
+            //    for (int i = 0; i < rawHashLang.Length; i++)
+            //        try { fileLangDB.Add(rawHashLang[i].Split('|')[1], File.ReadAllLines($"{Application.StartupPath}{slash}usr{slash}profile{frmMain.currentUser.index}{slash}DBs{slash}{db}{slash}{rawHashLang[i].Split('|')[0]}.TXT")); }
+            //        catch { fileLangDB.Add($"{rawHashLang[i].Split('|')[1]} {i}", File.ReadAllLines($"{Application.StartupPath}{slash}usr{slash}profile{frmMain.currentUser.index}{slash}DBs{slash}{db}{slash}{rawHashLang[i].Split('|')[0]}.TXT")); }
+            //    n = rawHashLang.Length;
+            //    txtSrch.Enabled = true;
 
-                string[] nutKeyPairs = File.ReadAllLines($"{Application.StartupPath}{slash}usr{slash}profile{frmMain.currentUser.index}{slash}DBs{slash}{db}_nutKeyPairs.TXT");
-                for (int i = 0; i < nutKeyPairs.Length; i++)
-                    if (!nutKeyPairs[i].StartsWith("#"))
-                        lstviewFoods.Columns.Add(nutKeyPairs[i].Split('|')[1]);
-            }
+            //    foreach (string s in fields)
+            //        lstviewFoods.Columns.Add(s);
+            //    for (int i = 0; i < lstviewFoods.Columns.Count; i++)
+            //        lstviewFoods.Columns[i].Width = -2;
+
+            //    if (n > 800)
+            //    {
+            //        richTxtWarn.Text = "There are more than 800 entries.\nPlease search to turn something up.";
+            //        return;
+            //    }
+            //    //TODO: revert to 800 (above) and fix general indexing
+            //    itms = new List<ListViewItem>();
+            //    for (int i = 0; i < fileLangDB.Count; i++)
+            //    {
+            //        itms.Add(getListItem(fields, fileLangDB.ElementAt(i).Value));
+            //        _itm = null;
+            //    }
+
+            //    lstviewFoods.BeginUpdate();
+            //    foreach (ListViewItem itm in itms)
+            //        lstviewFoods.Items.Add(itm);
+            //    itms = null;
+            //    lstviewFoods.EndUpdate();
+            //}
         }
-        
+
+        ListViewItem _itm;
         ListViewItem getListItem(List<string> fields, string[] dbEntry)
         {
-            ListViewItem itm = new ListViewItem();
+            //TODO: verify it loads foodname first? insert into needed places
+            _itm = new ListViewItem();
+            //TODO: for (int i) loop?  1-1 correspondence of fields to dbEntries?
             foreach (string s in dbEntry)
                 foreach (string st in fields)
                     if (s.StartsWith($"[{st}]"))
                         if (st == "FoodName")
-                            itm.Text = s.Split(']')[1];
+                            _itm.Text = s.Split(']')[1];
                         else
-                            itm.SubItems.Add(s.Split(']')[1]);
-            return itm;
+                            _itm.SubItems.Add(s.Split(']')[1]);
+            return _itm;
         }
 
         private void btnCancel_Click(object sender, EventArgs e) => this.Close();
+
+        private void frmSearchFoods_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            fileEntryDB = null;
+            hashLangDB = null;
+        }
 
         private void txtSrch_TextChanged(object sender, EventArgs e)
         {
@@ -164,11 +191,14 @@ namespace Nutritracker
 
         public void setWarningTextbox(string text = "")
         {
-            richTxtWarn.Text = text;
+            if (richTxtWarn.InvokeRequired)
+                this.Invoke(new MethodInvoker(delegate { richTxtWarn.Text = text; }));
+            else
+                richTxtWarn.Text = text;
         }
 
         string lastQuery = "";
-        BackgroundWorker bw = new BackgroundWorker();
+        BackgroundWorker bw;
         List<ListViewItem> itms;
         private void srchTmout_Tick(object sender, EventArgs e)
         {
@@ -195,6 +225,7 @@ namespace Nutritracker
 
         //int resultCount = 0;
         List<string> range;
+        string[] nutKeyPairs;
         private void search()
         {
             this.Invoke(new MethodInvoker(delegate { this.UseWaitCursor = true; }));
@@ -207,9 +238,9 @@ namespace Nutritracker
             }
 
             string[] words = input.Split(new char[] { ' ', ',', '/' });
-            string[] tmp = File.ReadAllLines($"{Application.StartupPath}{slash}usr{slash}share{slash}DBs{slash}{db}");
+            //string[] tmp = File.ReadAllLines($"{Application.StartupPath}{slash}usr{slash}share{slash}DBs{slash}{db}{slash}");
             range = new List<string>();
-            foreach (string s in tmp)
+            foreach (string s in fileEntryDB.Keys)
                 range.Add(s.Split('|')[1]);
             for (int k = 0; k < range.Count; k++)
                 range[k] = range[k].ToUpper();
@@ -246,9 +277,9 @@ namespace Nutritracker
                         ListViewItem itm = new ListViewItem();
                         for (int m = 0; m < nutKeyPairs.Length; m++)
                             if (m == 0)
-                                itm = new ListViewItem(fileLangDB[nutKeyPairs[m].Split('|')[0]][k]);
+                                itm = new ListViewItem(fileEntryDB[nutKeyPairs[m].Split('|')[0]][k]);
                             else
-                                itm.SubItems.Add(fileLangDB[nutKeyPairs[m].Split('|')[0]][k]);
+                                itm.SubItems.Add(fileEntryDB[nutKeyPairs[m].Split('|')[0]][k]);
                         itms.Add(itm);
                     }
             z = itms.Count;
