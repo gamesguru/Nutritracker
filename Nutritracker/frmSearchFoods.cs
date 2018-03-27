@@ -65,9 +65,7 @@ namespace Nutritracker
             }
         }
 
-        private string nameKeyPath = "";
         private string db;
-        private string[] range;
         private int n = 0;
         private Dictionary<string, string[]> fileLangDB;
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
@@ -104,25 +102,22 @@ namespace Nutritracker
                 }
                 //TODO: revert to 800 (above) and fix general indexing
                 itms = new List<ListViewItem>();
-                foreach (string s in fileLangDB.Keys)
-                {
-                    ListViewItem itm = new ListViewItem();
-                    foreach (string st in fields)
-                        foreach (string str in fileLangDB[s])
-                            if ()
-                }
-                for (int j = 0; j < n; j++)
-                {
-                    ListViewItem itm = new ListViewItem();
-                    for (int i = 0; i < nutKeyPairs.Length; i++)
-                    {
-                        if (i == 0)
-                            itm.Text = fileLangDB[nutKeyPairs[i].Split('|')[0]][j];
-                        else
-                            itm.SubItems.Add(fileLangDB[nutKeyPairs[i].Split('|')[0]][j]);
-                    }
-                    itms.Add(itm);
-                }
+                for (int i = 0; i < fileLangDB.Count; i++)
+                    itms.Add(getListItem(fields, fileLangDB.ElementAt(i).Value));
+                
+                //for (int j = 0; j < n; j)
+                //{
+                //    ListViewItem itm = new ListViewItem();
+                //    for (int i = 0; i < nutKeyPairs.Length; i)
+                //    {
+                //        if (i == 0)
+                //            itm.Text = fileLangDB[nutKeyPairs[i].Split('|')[0]][j];
+                //        else
+                //            itm.SubItems.Add(fileLangDB[nutKeyPairs[i].Split('|')[0]][j]);
+                //    }
+                //    itms.Add(itm);
+                //}
+
                 lstviewFoods.BeginUpdate();
                 foreach (ListViewItem itm in itms)
                     lstviewFoods.Items.Add(itm);
@@ -143,6 +138,19 @@ namespace Nutritracker
                     if (!nutKeyPairs[i].StartsWith("#"))
                         lstviewFoods.Columns.Add(nutKeyPairs[i].Split('|')[1]);
             }
+        }
+        
+        ListViewItem getListItem(List<string> fields, string[] dbEntry)
+        {
+            ListViewItem itm = new ListViewItem();
+            foreach (string s in dbEntry)
+                foreach (string st in fields)
+                    if (s.StartsWith($"[{st}]"))
+                        if (st == "FoodName")
+                            itm.Text = s.Split(']')[1];
+                        else
+                            itm.SubItems.Add(s.Split(']')[1]);
+            return itm;
         }
 
         private void btnCancel_Click(object sender, EventArgs e) => this.Close();
@@ -186,6 +194,7 @@ namespace Nutritracker
         }
 
         //int resultCount = 0;
+        List<string> range;
         private void search()
         {
             this.Invoke(new MethodInvoker(delegate { this.UseWaitCursor = true; }));
@@ -198,19 +207,21 @@ namespace Nutritracker
             }
 
             string[] words = input.Split(new char[] { ' ', ',', '/' });
-
-            range = File.ReadAllLines(nameKeyPath);
-            for (int k = 0; k < range.Length; k++)
+            string[] tmp = File.ReadAllLines($"{Application.StartupPath}{slash}usr{slash}share{slash}DBs{slash}{db}");
+            range = new List<string>();
+            foreach (string s in tmp)
+                range.Add(s.Split('|')[1]);
+            for (int k = 0; k < range.Count; k++)
                 range[k] = range[k].ToUpper();
             //MessageBox.Show(words.Length.ToString());
             //if (words.Length > 1)
             lstviewFoods.Invoke(new MethodInvoker(delegate { lstviewFoods.Items.Clear(); }));
 
-            int[] wCount = new int[range.Length];
+            int[] wCount = new int[range.Count];
             int n = words.Length - 1;
             //MessageBox.Show(n.ToString());
             for (int k = 0; k < n; k++)
-                for (int i = 0; i < range.Length; i++)
+                for (int i = 0; i < range.Count; i++)
                     if (words[k].Length > 2 && range[i].StartsWith(words[k]))
                         wCount[i] += Convert.ToInt32(1.5 * words[k].Length);
                     else if (words[k].Length > 2 && range[i].Contains(words[k]))
@@ -229,7 +240,7 @@ namespace Nutritracker
             itms = new List<ListViewItem>();
             //itms = new List<ListViewItem>();
             for (int i = q; i > (q == 1 ? 0 : q - 1); i--)
-                for (int k = 0; k < range.Length; k++)
+                for (int k = 0; k < range.Count; k++)
                     if (wCount[k] == i)
                     {
                         ListViewItem itm = new ListViewItem();
