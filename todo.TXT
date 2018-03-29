@@ -2,6 +2,9 @@
 03-23-18
 ========
 (1)	/usr/share/res/incomplete
+(2)	add 'globalSettings.py' to root /usr/ directory
+		(a) searchWarnLimit = 400
+		
 
 
 
