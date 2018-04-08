@@ -23,7 +23,7 @@ namespace Nutritracker
         List<string> nameKeyPairs;
         private void frmNewField_Load(object sender, EventArgs e)
         {
-            txtLoc.Text = $"{slash}usr{slash}profile{frmMain.currentUser.index}{slash}DBs{slash}f_user_";
+            txtLoc.Text = $"{slash}usr{slash}profile{frmMain.currentUser.index}{slash}lib{slash}fields";
             lblRowCount.Text = $"Your Field will have {n} entries";
             for (int i = 0; i < arr.Count; i++)
             {
@@ -33,7 +33,7 @@ namespace Nutritracker
                 try { s2 = s.Substring(0, 3); }
                 catch { s2 = s.Substring(0, 2); }
 
-                foreach (char c in new char[] { '/', '\\', ':', '*', '?', '"', '<', '>', '|' , ' '})
+                foreach (char c in new char[] { '/', '\\', ':', '*', '?', '"', '<', '>', '|', ' ' })
                     if (s2.Contains(c))
                         s2 = s2.Replace(c, 'X');
                 s2 = s2.Replace("(", i.ToString()).Replace(" ", "X");
@@ -57,13 +57,15 @@ namespace Nutritracker
                 btnCreate.Enabled = true;
             if (txtName.TextLength < 2)
                 btnCreate.Enabled = false;
-            txtLoc.Text = $"{slash}usr{slash}profile{frmMain.currentUser.index}{slash}DBs{slash}f_user_{txtName.Text}";
+            txtLoc.Text = $"{slash}usr{slash}profile{frmMain.currentUser.index}{slash}lib{slash}fields{slash}{txtName.Text}";
         }
 
         private void txtName_KeyPress(object sender, KeyPressEventArgs e)
         {
+            if (e.KeyChar == ' ')
+                e.KeyChar = '_';
             if (!Char.IsControl(e.KeyChar) && !Char.IsLetterOrDigit(e.KeyChar) && !Char.IsSeparator(e.KeyChar) &&
-                e.KeyChar != '_' && e.KeyChar != '-')
+                e.KeyChar != '_')
                 e.Handled = true;
         }
 
@@ -84,12 +86,13 @@ namespace Nutritracker
                 btnCreate.Enabled = true;
         }
 
-        class dbKey {
+        class dbKey
+        {
             public string fileName;
-            public string fields;
-            public string metricName;
-            public string headers;
-            public string units;
+            public string field;
+            public string metricName = "";
+            public string header;
+            public string units = "";
         }
         List<dbKey> dbKeys;
 
@@ -104,24 +107,24 @@ namespace Nutritracker
             {
                 dbKey k = new dbKey();
                 k.fileName = files[i];
-                k.headers = frmParseCustomDatabase.columns[i].header;
+                k.header = frmParseCustomDatabase.columns[i].header;
                 if (k.fileName == searchKey)
-                    k.fields = "FoodName";
+                    k.field = "FoodName";
                 else if (k.fileName == value1Key)
-                    k.fields = "Value1";
+                    k.field = "Value1";
 
                 string unit = "";
                 try
                 {
-                    unit = k.headers.Split('(')[1].Split(')')[0].Trim();//.ToLower().Replace(" ", "");
-					k.headers = k.headers.Split('(')[0].Trim();
+                    unit = k.header.Split('(')[1].Split(')')[0].Trim();//.ToLower().Replace(" ", "");
+                    k.header = k.header.Split('(')[0].Trim();
                 }
                 catch
                 {
                     try
                     {
-						unit = k.headers.Split('[')[1].Split(']')[0].Trim();//.ToLower().Replace(" ", "");
-						k.headers = k.headers.Split('[')[0].Trim();
+                        unit = k.header.Split('[')[1].Split(']')[0].Trim();//.ToLower().Replace(" ", "");
+                        k.header = k.header.Split('[')[0].Trim();
                     }
                     catch
                     {
@@ -136,18 +139,17 @@ namespace Nutritracker
                 dbKeys.Add(k);
             }
 
-            foreach (dbKey k in dbKeys){
+            foreach (dbKey k in dbKeys)            
                 try
                 {
-                    string[] perSplit = k.units.Split(new string[] { "Per ", "per " }, StringSplitOptions.RemoveEmptyEntries); 
+                    string[] perSplit = k.units.Split(new string[] { "Per ", "per " }, StringSplitOptions.RemoveEmptyEntries);
                     string perWhat = perSplit[perSplit.Length - 1].Trim();
 
                     foreach (dbKey ki in dbKeys)
-                        if (ki.headers == perWhat)
+                        if (ki.header == perWhat)
                             k.units = k.units.Replace(perWhat, "$" + perWhat);
                 }
-                catch{}
-            }
+                catch { }            
 
             if (Directory.Exists(fp))
             {
@@ -161,45 +163,32 @@ namespace Nutritracker
             }
             Directory.CreateDirectory(fp);
             //MessageBox.Show(fp.Split(new string[] { "f_user_" }, StringSplitOptions.None)[0]);
-            if (!File.Exists(fp.Split(new string[] { "f_user_" }, StringSplitOptions.None)[0] + "Slots.TXT"))
-                File.Create(fp.Split(new string[] { "f_user_" }, StringSplitOptions.None)[0] + "Slots.TXT");
+            //if (!File.Exists(fp.Split(new string[] { "f_user_" }, StringSplitOptions.None)[0] + "Slots.TXT"))
+            //    File.Create(fp.Split(new string[] { "f_user_" }, StringSplitOptions.None)[0] + "Slots.TXT");
             nxt:
             for (int i = 0; i < files.Count; i++)
             {
                 string[] colVal = new string[n];
                 for (int j = 0; j < n; j++)
-                    colVal[j] = mainForm.getVal(j, i).Replace('\r', '\0').Replace('\n', '\0');
+                    colVal[j] = mainForm.getVal(j, i).Replace("\r", "").Replace("\n", "");
                 File.WriteAllLines(fp + $"{slash}" + files[i], colVal);
             }
-
-			List<string> dbInit = new List<string>();
-			List<string> dbConfig = new List<string>();
-			foreach (dbKey k in dbKeys){
-				List<string> temp = new List<string>();
-                temp.Add("[File]" + k.fileName);
-				temp.Add("[Header]" + k.headers);
-				if (k.units != null)
-					temp.Add("[Unit]" + k.units);
-				temp.Add("");
-                dbInit.Add(string.Join("\r\n", temp));
+            List<string> dbInit = new List<string>();
+            List<string> dbConfig = new List<string>();
+            dbInit.Add("## Filename:Header:Unit");
+            dbConfig.Add("## Filename:Field:MetricName");
+            foreach (dbKey k in dbKeys)
+                dbInit.Add($"{k.fileName}:{k.header}:{k.units}");            
+            foreach (dbKey k in dbKeys)
+            {
+                if (!String.IsNullOrEmpty(k.field) && (k.field == "Value1" || k.field == "Value2" || k.field == "Value3"))
+                    k.metricName = k.field.Replace("Value", "Unconfigured_Field");
+                dbConfig.Add($"{k.fileName}:{k.field}:{k.metricName}");
             }
-            foreach (dbKey k in dbKeys){
-				List<string> temp = new List<string>();
-				temp.Add("[File]" + k.fileName);
-				if (k.fields != null)
-					temp.Add("[Field]" + k.fields);
-				if (k.fields != null && (k.fields == "Value1" || k.fields == "Value2" || k.fields == "Value3"))
-				{
-                    k.metricName = k.fields;
-					temp.Add("[MetricName]" + k.metricName);
-				}
-				temp.Add("");
-                dbConfig.Add(string.Join("\r\n", temp));
-            }
-			File.WriteAllLines(fp + slash + "_dbInit.TXT", dbInit);
-			File.WriteAllLines(fp + slash + "_dbConfig.TXT", dbConfig);
+            File.WriteAllLines(fp + slash + "_dbInit.TXT", dbInit);
+            File.WriteAllLines(fp + slash + "_dbConfig.TXT", dbConfig);
 
-            MessageBox.Show("Database created successfully.  Please use the search function on the main page to try it out.  Your first time using it, you will be asked to assign real nutrient names to the imported fields.  The software isn't able to do that yet.", "Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show("Database created successfully.  Please use the search function on the main page to try it out.  You should visit the directory to configure the fields in '_dbConfig.TXT'", "Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
             this.Close();
         }
 

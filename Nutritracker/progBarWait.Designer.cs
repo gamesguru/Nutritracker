@@ -42,6 +42,7 @@
             this.lblProgress.Size = new System.Drawing.Size(93, 16);
             this.lblProgress.TabIndex = 0;
             this.lblProgress.Text = "Current object:";
+            this.lblProgress.UseWaitCursor = true;
             // 
             // progBar
             // 
@@ -49,6 +50,7 @@
             this.progBar.Name = "progBar";
             this.progBar.Size = new System.Drawing.Size(282, 27);
             this.progBar.TabIndex = 1;
+            this.progBar.UseWaitCursor = true;
             // 
             // btnAbort
             // 
@@ -59,6 +61,7 @@
             this.btnAbort.TabIndex = 2;
             this.btnAbort.Text = "Abort";
             this.btnAbort.UseVisualStyleBackColor = true;
+            this.btnAbort.UseWaitCursor = true;
             this.btnAbort.Click += new System.EventHandler(this.btnAbort_Click);
             // 
             // progBarWait
@@ -70,12 +73,16 @@
             this.Controls.Add(this.btnAbort);
             this.Controls.Add(this.progBar);
             this.Controls.Add(this.lblProgress);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "progBarWait";
             this.ShowIcon = false;
+            this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Please wait...";
+            this.UseWaitCursor = true;
+            this.Activated += new System.EventHandler(this.progBarWait_Activated);
             this.ResumeLayout(false);
             this.PerformLayout();
 

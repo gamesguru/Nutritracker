@@ -5,7 +5,6 @@ using System.IO;
 using System.Diagnostics;
 using System.Linq;
 using System.Windows.Forms;
-using System.Threading;
 
 namespace Nutritracker
 {
@@ -98,9 +97,6 @@ namespace Nutritracker
             "Aminos",
         };
 
-        public static int mealSpe;
-        public static int mealIndex = 0;
-
         private void tabulateNutrientColumns()
         {
             int tDay1 = 6, tDay2 = 7;
@@ -151,8 +147,11 @@ namespace Nutritracker
             public string goal = "Maintenance";
             public int index = 0; //the index among other profiles, beginning with 0
             public string root;
-            public string dte = "";
+            public string _dte = "";
+            public int lastDB;
+            public int lastMeal;
             public bool license;
+            public string[] __raw_settings;
         }
         public int defaultIndex = 0;
 
@@ -168,6 +167,7 @@ namespace Nutritracker
         List<logItem> lLog;
         List<logItem> dLog;
         logItem litm;
+        //public static List<string> dbsToLoad;
         public static _profile currentUser = new _profile();
 
         public _profile profileParser(string[] input)
@@ -188,17 +188,22 @@ namespace Nutritracker
                     p.ht = Convert.ToInt32(s.Replace("[Height]", ""));
                 else if (s.StartsWith("[ActLvl]"))
                     p.actLvl = Convert.ToInt32(s.Replace("[ActLvl]", ""));
+                else if (s.StartsWith("[lastDB]"))
+                    p.lastDB = Convert.ToInt32(s.Replace("[lastDB]", ""));
+                else if (s.StartsWith("[lastMeal]"))
+                    p.lastMeal = Convert.ToInt32(s.Replace("[lastMeal]", ""));
                 else if (s.StartsWith("[Goal]"))
                     p.goal = s.Replace("[Goal]", "");
                 else if (s.StartsWith("[Date]"))
-                    p.dte = s.Replace("[Date]", "");
+                    p._dte = s.Replace("[Date]", "");
                 else if (s.StartsWith($"[License]StallmanApproves_{p.name.GetHashCode()}"))
                     p.license = true;
             return p;
         }
 
-        public void profileWriter(_profile p)
+        public static void profileWriter(_profile p)
         {
+            //TODO: ??
             List<string> output = new List<string>();
             if (p.name != "")
                 output.Add($"[Name]{p.name}");
@@ -214,15 +219,15 @@ namespace Nutritracker
                 output.Add($"[Height]{p.ht}");
             if (p.actLvl != 0)
                 output.Add($"[ActLvl]{p.actLvl}");
-            if (p.dte != "")
-                output.Add($"[Date]{p.dte}");
+            if (p._dte != "")
+                output.Add($"[Date]{p._dte}");
+            output.Add($"[LastDB]{p.lastDB}");
+            output.Add($"[LastMeal]{p.lastMeal}");
             if (p.license)
                 output.Add($"[License]StallmanApproves_{p.name.GetHashCode()}");
-            else
-                output.Add("[License]StallmanDisapproves");
 
             if (p.root != "")
-                File.WriteAllLines($"{p.root}{slash}profile.TXT", output);
+                File.WriteAllLines($"{p.root}{slash}profile.py", output);
             else
                 MessageBox.Show("null user directory");
         }
@@ -231,13 +236,7 @@ namespace Nutritracker
         {
             try { currentUser.index = Convert.ToInt32(Directory.GetFiles($"{Application.StartupPath}{slash}usr")[0].Split(new string[] { $"usr{slash}default" }, StringSplitOptions.None)[1]); }
             catch { }
-            try
-            {
-                foreach (string s in File.ReadAllLines($"{Application.StartupPath}{slash}usr{slash}profile{currentUser.index}{slash}profile.TXT"))
-                    if (s.StartsWith("[Date]"))
-                        dte = s.Replace("[Date]", "");
-            }
-            catch { dte = DateTime.Today.ToString("MM-dd-yyyy"); }
+
             //currentUser.root = $"{Application.StartupPath}{slash}usr{slash}profile{currentUser.index}";
             string todaysLog = "";
 
@@ -254,10 +253,41 @@ namespace Nutritracker
                 if (directs[i].EndsWith($"{slash}profile{i}"))
                     profDirects.Add(directs[i]);
 
+            //grabs basic fields, IMPORTS DBs
+            try
+            {
+                foreach (string s in File.ReadAllLines($"{Application.StartupPath}{slash}usr{slash}profile{currentUser.index}{slash}profile.py"))
+                    if (s.StartsWith("[Date]"))
+                        dte = s.Replace("[Date]", "");
+                string st = "";
+                try
+                {
+                    foreach (string s in (currentUser.__raw_settings = File.ReadAllLines($"{Application.StartupPath}{slash}usr{slash}profile{currentUser.index}{slash}settings.py")))
+                    {
+                        if (String.IsNullOrEmpty(s) || s.StartsWith("#"))
+                            continue;
+                        st = s.Split('#')[0].Replace("\t", "");
+                        if (st.StartsWith("[searchWarnLimit]"))
+                            frmSearchFoods.searchWarnLimit = Convert.ToInt32(st.Replace("[searchWarnLimit]", ""));
+                        //else if (st.StartsWith("[imptDB]") && Directory.Exists($"{Application.StartupPath}{slash}usr{slash}share{slash}DBs{slash}{st.Replace("[imptDB]", "")}"))
+                        //if (!String.IsNullOrEmpty(st.Replace("[imptDB]", "")))
+                        //dbsToLoad.Add(st.Replace("[imptDB]", ""));
+                        //DBsToLoad.Add(d);
+                        //TODO: put this after we change the date combobox index, somehow
+                        //frmSearchFoods.loadDB(st.Replace("[imptDB]", ""));
+                    }
+                }
+                catch (Exception ex) { MessageBox.Show($"param: {st}\r\n\r\n{ex}"); }
+            }
+            catch { dte = DateTime.Today.ToString("MM-dd-yyyy"); }
+
+            //TODO: use the profile parser?
+            //sets the user
             string rt = $"{Application.StartupPath}{slash}usr{slash}profile{currentUser.index}{slash}";
             try
             {
-                foreach (string s in File.ReadAllLines($"{rt}profile.TXT"))
+                string[] sets = File.ReadAllLines($"{rt}profile.py");
+                foreach (string s in sets)
                 {
                     if (s.StartsWith("[Gender]"))
                         currentUser.gender = s.Replace("[Gender]", "");
@@ -276,13 +306,17 @@ namespace Nutritracker
                     else if (s.StartsWith("[Goal]"))
                         currentUser.goal = s.Replace("[Goal]", "");
                     else if (s.StartsWith("[Date]"))
-                        currentUser.dte = s.Replace("[Date]", "");
+                        currentUser._dte = s.Replace("[Date]", "");
                 }
+                foreach (string s in sets)
+                    if (s == $"[License]StallmanApproves_{currentUser.name.GetHashCode()}")
+                        currentUser.license = true;
+
                 currentUser.root = $"{Application.StartupPath}{slash}usr{slash}profile{frmMain.currentUser.index}";
             }
-            catch //(Exception ex)
+            catch (Exception ex)
             {
-                //MessageBox.Show(ex.ToString());
+                MessageBox.Show(ex.ToString());
                 frmP.ShowDialog();
                 if (currentUser.root == null)
                     Process.GetCurrentProcess().Kill();
@@ -290,13 +324,13 @@ namespace Nutritracker
 
             try
             {
-                if (!File.ReadAllLines($"{rt}profile.TXT").Contains($"[License]StallmanApproves_{currentUser.name.GetHashCode()}"))
+                if (!File.ReadAllLines($"{rt}profile.py").Contains($"[License]StallmanApproves_{currentUser.name.GetHashCode()}"))
                 {
                     licenseDialog frmli = new licenseDialog();
-                    frmli.profData = File.ReadAllLines($"{rt}profile.TXT").ToList();
+                    frmli.profData = File.ReadAllLines($"{rt}profile.py").ToList();
                     frmli.rt = rt;
                     frmli.ShowDialog();
-                    if (!File.ReadAllLines($"{rt}profile.TXT").Contains($"[License]StallmanApproves_{currentUser.name.GetHashCode()}"))
+                    if (!File.ReadAllLines($"{rt}profile.py").Contains($"[License]StallmanApproves_{currentUser.name.GetHashCode()}"))
                         Process.GetCurrentProcess().Kill();
                 }
             }
@@ -308,19 +342,27 @@ namespace Nutritracker
 
             try
             {
-                foreach (string s in Directory.GetFiles($"{Application.StartupPath}{slash}usr{slash}profile{currentUser.index}{slash}foodlog"))
+                foreach (string s in Directory.GetFiles($"{Application.StartupPath}{slash}usr{slash}profile{currentUser.index}{slash}log"))
                     comboLoggedDays.Items.Add(s.Split(Path.DirectorySeparatorChar)[s.Split(Path.DirectorySeparatorChar).Length - 1].Replace(".TXT", ""));
-                todaysLog = File.ReadAllText($"{Application.StartupPath}{slash}usr{slash}profile{currentUser.index}{slash}foodlog{slash}{dte}.TXT");
+                todaysLog = File.ReadAllText($"{Application.StartupPath}{slash}usr{slash}profile{currentUser.index}{slash}log{slash}{dte}.TXT");
             }
             catch
             {
-                Directory.CreateDirectory($"{Application.StartupPath}{slash}usr{slash}profile{currentUser.index}{slash}foodlog");
+                Directory.CreateDirectory($"{Application.StartupPath}{slash}usr{slash}profile{currentUser.index}{slash}log");
                 if (MessageBox.Show("Warning: no foodlog found for this user today. Create one?", "", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
-                    File.Create($"{Application.StartupPath}{slash}usr{slash}profile{currentUser.index}{slash}foodlog{slash}{dte}.TXT").Close();
+                    File.Create($"{Application.StartupPath}{slash}usr{slash}profile{currentUser.index}{slash}log{slash}{dte}.TXT").Close();
             }
 
             if (!comboLoggedDays.Items.Contains(DateTime.Today.ToString("MM-dd-yyyy")))
                 comboLoggedDays.Items.Add(DateTime.Today.ToString("MM-dd-yyyy"));
+
+            try
+            {
+                foreach (var c in comboLoggedDays.Items)
+                    if (c.ToString() == dte)
+                        comboLoggedDays.SelectedItem = c;
+            }
+            catch { comboLoggedDays.SelectedIndex = comboLoggedDays.Items.Count - 1; }
 
 
             if (profDirects.Count == 0)
@@ -383,24 +425,16 @@ namespace Nutritracker
                 for (int i = 0; i < lstCustFoods.Length; i++)
                     lstBoxFoods.Items.Add(lstCustFoods[i]);
             }
-
-            try
-            {
-                foreach (var c in comboLoggedDays.Items)
-                    if (c.ToString() == dte)
-                        comboLoggedDays.SelectedItem = c;
-            }
-            catch { comboLoggedDays.SelectedIndex = comboLoggedDays.Items.Count - 1; }
         }
 
         string[] lstCustFoods;
         private void comboExType_SelectedIndexChanged(object sender, EventArgs e)
         {
             btnAdvCalc.Enabled = false;
-            int n = comboExType.SelectedIndex;
-            if (n == 0)
+            int n2 = comboExType.SelectedIndex;
+            if (n2 == 0)
                 lblActType.Text = "Steps:";
-            else if (n > 0 && n < 5)
+            else if (n2 > 0 && n2 < 5)
                 lblActType.Text = "Minutes:";
             else
             {
@@ -429,13 +463,13 @@ namespace Nutritracker
             frm.ShowDialog();
 
             comboLoggedDays.Items.Clear();
-            foreach (string f in Directory.GetFiles($"{Application.StartupPath}{slash}usr{slash}profile{currentUser.index}{slash}foodlog"))
+            foreach (string f in Directory.GetFiles($"{Application.StartupPath}{slash}usr{slash}profile{currentUser.index}{slash}log"))
                 if (f.EndsWith(".TXT") && f.Contains("-"))
                     comboLoggedDays.Items.Add(f.Split(new char[] { '/', '\\' })[f.Split(new char[] { '/', '\\' }).Length - 1].Replace(".TXT", ""));
             try { comboLoggedDays.SelectedIndex = comboLoggedDays.Items.Count - 1; }
             catch { }
             //TODO: use RAM memory
-            this.Text = $"Nutritracker — {File.ReadAllLines($"{Application.StartupPath}{slash}usr{slash}profile{currentUser.index}{slash}profile.TXT")[0]}";
+            this.Text = $"Nutritracker — {File.ReadAllLines($"{Application.StartupPath}{slash}usr{slash}profile{currentUser.index}{slash}profile.py")[0]}";
 
             refreshDataDay();
 
@@ -522,7 +556,7 @@ namespace Nutritracker
                 if (dataDay.Rows[i].Cells[0].Value.ToString() == "Totals")
                     tDay = i + 1;
 
-            string fp = $"{Application.StartupPath}{slash}usr{slash}profile{currentUser.index}{slash}foodlog{slash}{dte}.TXT";
+            string fp = $"{Application.StartupPath}{slash}usr{slash}profile{currentUser.index}{slash}log{slash}{dte}.TXT";
             List<string> output = new List<string>();
             output.Add("--Breakfast--");
             for (int m = bDay; m < lDay - 2; m++)
@@ -561,7 +595,7 @@ namespace Nutritracker
             //    if (dataDay.Rows[i].Cells[0].Value.ToString() == "Lunch")
             //        lDay = i;
 
-            //string fp = $"{Application.StartupPath}{slash}usr{slash}profile{currentUser.index}{slash}foodlog{slash}{dte}.TXT";
+            //string fp = $"{Application.StartupPath}{slash}usr{slash}profile{currentUser.index}{slash}log{slash}{dte}.TXT";
             //string textB = "";
             //textB += dataDay.Rows[bDay].Cells[0].Value.ToString() + "|";
             //for (int m = bDay + 1; m < lDay - 1; m++)
@@ -813,15 +847,16 @@ namespace Nutritracker
         private List<string> fetchLogsFields(List<logItem> nLog)
         {
             List<string> dbs = new List<string>();
-            foreach (logItem litm in nLog)
-                if (!dbs.Contains(litm._db))
-                    dbs.Add(litm._db);
+            foreach (logItem _litm in nLog)
+                if (!dbs.Contains(_litm._db))
+                    dbs.Add(_litm._db);
 
             string pubDbRoot = $"{Application.StartupPath}{slash}usr{slash}share{slash}DBs";
             List<string> lFields = new List<string>();
             foreach (string s in Directory.GetDirectories(pubDbRoot))
             {
-                if (s.Split(Path.DirectorySeparatorChar)[s.Split(Path.DirectorySeparatorChar).Length - 1].StartsWith("_"))
+                string dir = s.Split(Path.DirectorySeparatorChar)[s.Split(Path.DirectorySeparatorChar).Length - 1];
+                if (dir.StartsWith("_") || dir.EndsWith("&"))
                     continue;
                 hashInfoLines = File.ReadAllLines($"{s}{slash}_hashInfo.ini");
                 foreach (string st in hashInfoLines)
@@ -840,19 +875,18 @@ namespace Nutritracker
         public List<colObj> fetchLogsFieldsWithUnits(List<logItem> nLog)
         {
             List<string> dbs = new List<string>();
-            foreach (logItem litm in nLog)
-                if (!dbs.Contains(litm._db))
-                    dbs.Add(litm._db);
+            foreach (logItem _litm in nLog)
+                if (!dbs.Contains(_litm._db))
+                    dbs.Add(_litm._db);
 
             string pubDbRoot = $"{Application.StartupPath}{slash}usr{slash}share{slash}DBs";
             List<colObj> lFields = new List<colObj>();
             foreach (string s in Directory.GetDirectories(pubDbRoot))
             {
-                if (s.Split(Path.DirectorySeparatorChar)[s.Split(Path.DirectorySeparatorChar).Length - 1].StartsWith("_"))
+                string dir = s.Split(Path.DirectorySeparatorChar)[s.Split(Path.DirectorySeparatorChar).Length - 1];
+                if (dir.StartsWith("_") || dir.EndsWith("&"))
                     continue;
-                string[] hashInfoLines = File.ReadAllLines($"{s}{slash}_hashInfo.ini");
-                //string[] unitKeyLines = File.ReadAllLines($"{s}{slash}_unitKeyPairs.TXT");
-                foreach (string st in hashInfoLines)
+                foreach (string st in File.ReadAllLines($"{s}{slash}_hashInfo.ini"))
                     if (!st.Contains("NDBNo"))
                         if (basicFields.Contains(st.Split('=')[1]))
                         {
@@ -874,7 +908,7 @@ namespace Nutritracker
         }
 
 
-        private string[] fetchNutValues(string[] fields, logItem l, bool includeUnits = false)
+        private string[] fetchNutValues(string[] fields, logItem l)
         {
             //dataDay.Columns.Clear();
             //dataDay.Columns.Add("Spacer", "");
@@ -907,10 +941,7 @@ namespace Nutritracker
         }
 
         public static List<logItem> litms;
-        private void comboLoggedDays_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            refreshDataDay();
-        }
+        private void comboLoggedDays_SelectedIndexChanged(object sender, EventArgs e) => refreshDataDay();
 
         private void refreshDataDay()
         {
@@ -923,15 +954,16 @@ namespace Nutritracker
             try { dte = comboLoggedDays.SelectedItem.ToString(); }
             catch { dte = DateTime.Today.ToString("MM-dd-yyyy").Replace("/", "-"); }
 
-            //rework this
+            //TODO: rework this
             //also make comboLogged days save to disk, so dte is remembered...
-            string[] profData = File.ReadAllLines($"{currentUser.root}{slash}profile.TXT"); //root not defined yet
-            profData[8] = $"[Date]{dte}"; //8th index, really?
+            string[] profData = File.ReadAllLines($"{currentUser.root}{slash}profile.py"); //root not defined yet
+            //profData[8] = $"[Date]{dte}"; //8th index, really?
 
-            File.WriteAllLines($"{currentUser.root}{slash}profile.TXT", profData);
+            File.WriteAllLines($"{currentUser.root}{slash}profile.py", profData);
             string todaysLog = "";
-            try { todaysLog = File.ReadAllText($"{currentUser.root}{slash}foodlog{slash}{dte}.TXT").Replace("\r", ""); }
-            catch { File.Create($"{currentUser.root}{slash}foodlog{slash}{dte}.TXT"); }
+            try { todaysLog = File.ReadAllText($"{currentUser.root}{slash}log{slash}{dte}.TXT").Replace("\r", ""); }
+            //TODO: file in use exception at file.create
+            catch { File.Create($"{currentUser.root}{slash}log{slash}{dte}.TXT"); }
             if (!comboLoggedDays.Items.Contains(dte))
                 comboLoggedDays.Items.Add(dte);
 
@@ -943,7 +975,7 @@ namespace Nutritracker
             foreach (string s in Directory.GetDirectories($"{Application.StartupPath}{slash}usr{slash}share{slash}DBs"))
             {
                 string _db = s.Split(Path.DirectorySeparatorChar)[s.Split(Path.DirectorySeparatorChar).Length - 1];
-                if (!_db.StartsWith("_"))
+                if (!_db.StartsWith("_") && !_db.EndsWith("&"))
                     dbHashKeys.Add(_db, File.ReadAllLines($"{s}{slash}_hashKey.ini"));
             }
 
@@ -1003,7 +1035,17 @@ namespace Nutritracker
             litms.AddRange(lLog);
             litms.AddRange(dLog);
             dataDay.Columns.Add("MealNo", "Meal No.");
+            //TODO: place elsewhere
             currentBasicFields = fetchLogsFields(litms).ToArray();
+            //foreach (string s in dbsToLoad)
+            //{
+            //    bool added = false;
+            //    foreach (frmSearchFoods.DB d in frmSearchFoods.loadedDBs)
+            //        if (d.name == s)
+            //            added = true;
+            //    if (!added)
+            //        frmSearchFoods.loadDB(s);
+            //}
             foreach (colObj c in fetchLogsFieldsWithUnits(litms))
             {
                 DataGridViewColumn col = new DataGridViewColumn();
@@ -1247,37 +1289,37 @@ namespace Nutritracker
             ex = Convert.ToInt32(txtExerciseVal.Text.Replace(",", ""));
             int digs = txtExerciseVal.Text.Replace(",", "").Length;
 
-
+            int n2;
             if (txtExerciseVal.Text.StartsWith("0") && txtExerciseVal.TextLength > 0 && !mH)
             {
-                n = txtExerciseVal.SelectionStart - 1;
+                n2 = txtExerciseVal.SelectionStart - 1;
                 mH = true;
                 txtExerciseVal.Text = txtExerciseVal.Text.Remove(0, 1);
                 mH = false;
-                txtExerciseVal.SelectionStart = n;
+                txtExerciseVal.SelectionStart = n2;
                 return;
             }
 
             if (digs == 4 && !mH)
             {
-                int n = 0;
+                n2 = 0;
                 if (!txtExerciseVal.Text.Contains(","))
                 {
-                    n = txtExerciseVal.SelectionStart + 1;
+                    n2 = txtExerciseVal.SelectionStart + 1;
                     mH = true;
                     txtExerciseVal.Text = txtExerciseVal.Text.Insert(1, ",");
                     mH = false;
-                    txtExerciseVal.SelectionStart = n;
+                    txtExerciseVal.SelectionStart = n2;
                     return;
                 }
                 else if (txtExerciseVal.Text[2] == ',')
                 {
-                    n = txtExerciseVal.SelectionStart;
+                    n2 = txtExerciseVal.SelectionStart;
                     mH = true;
                     txtExerciseVal.Text = txtExerciseVal.Text.Replace(",", "");
                     txtExerciseVal.Text = txtExerciseVal.Text.Insert(1, ",");
                     mH = false;
-                    txtExerciseVal.SelectionStart = n;
+                    txtExerciseVal.SelectionStart = n2;
                     return;
                 }
 
@@ -1285,19 +1327,19 @@ namespace Nutritracker
             else if (digs == 5 && !mH)
             {
                 //MessageBox.Show(digs.ToString());
-                n = txtExerciseVal.SelectionStart;
+                n2 = txtExerciseVal.SelectionStart;
                 mH = true;
                 txtExerciseVal.Text = txtExerciseVal.Text.Replace(",", "");
                 txtExerciseVal.Text = txtExerciseVal.Text.Insert(2, ",");
                 mH = false;
-                txtExerciseVal.SelectionStart = n;
+                txtExerciseVal.SelectionStart = n2;
             }
             else if (digs < 4)
                 if (txtExerciseVal.Text.Contains(","))
                 {
-                    n = txtExerciseVal.SelectionStart - 1;
+                    n2 = txtExerciseVal.SelectionStart - 1;
                     txtExerciseVal.Text = txtExerciseVal.Text.Replace(",", "");
-                    txtExerciseVal.SelectionStart = n > 0 ? n : 0;
+                    txtExerciseVal.SelectionStart = n2 > 0 ? n : 0;
                 }
 
 
@@ -1307,10 +1349,7 @@ namespace Nutritracker
                 btnAddEx.Enabled = false;
         }
 
-        private void editProfilesToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            btnProfile.PerformClick();
-        }
+        private void editProfilesToolStripMenuItem_Click(object sender, EventArgs e) => btnProfile.PerformClick();
 
         private void btnDetailReport_Click(object sender, EventArgs e)
         {
@@ -1320,25 +1359,22 @@ namespace Nutritracker
 
         private void bodyFatCalcToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            sfCalc.currentName = File.ReadAllLines($"{Application.StartupPath}{slash}usr{slash}profile{currentUser.index}{slash}profile.TXT")[0];
+            sfCalc.currentName = File.ReadAllLines($"{Application.StartupPath}{slash}usr{slash}profile{currentUser.index}{slash}profile.py")[0];
             sfCalc frmBFC = new sfCalc();
-            frmBFC.gender = File.ReadAllLines($"{Application.StartupPath}{slash}usr{slash}profile{currentUser.index}{slash}profile.TXT")[1];
-            frmBFC.age = Convert.ToInt32(File.ReadAllLines($"{Application.StartupPath}{slash}usr{slash}profile{currentUser.index}{slash}profile.TXT")[2]);
-            frmBFC.wt = Convert.ToInt32(File.ReadAllLines($"{Application.StartupPath}{slash}usr{slash}profile{currentUser.index}{slash}profile.TXT")[4]);
-            frmBFC.ht = Convert.ToInt32(File.ReadAllLines($"{Application.StartupPath}{slash}usr{slash}profile{currentUser.index}{slash}profile.TXT")[5]);
+            frmBFC.gender = File.ReadAllLines($"{Application.StartupPath}{slash}usr{slash}profile{currentUser.index}{slash}profile.py")[1];
+            frmBFC.age = Convert.ToInt32(File.ReadAllLines($"{Application.StartupPath}{slash}usr{slash}profile{currentUser.index}{slash}profile.py")[2]);
+            frmBFC.wt = Convert.ToInt32(File.ReadAllLines($"{Application.StartupPath}{slash}usr{slash}profile{currentUser.index}{slash}profile.py")[4]);
+            frmBFC.ht = Convert.ToInt32(File.ReadAllLines($"{Application.StartupPath}{slash}usr{slash}profile{currentUser.index}{slash}profile.py")[5]);
             frmBFC.ShowDialog();
         }
 
-        private void viewDetailReportToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            btnDetailReport.PerformClick();
-        }
+        private void viewDetailReportToolStripMenuItem_Click(object sender, EventArgs e) => btnDetailReport.PerformClick();
 
         private void naturalPotentialCalcToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            lmCalc.bodyfat = Convert.ToInt32(File.ReadAllLines($"{Application.StartupPath}{slash}usr{slash}profile{currentUser.index}{slash}profile.TXT")[3]);
-            lmCalc.weight = Convert.ToInt32(File.ReadAllLines($"{Application.StartupPath}{slash}usr{slash}profile{currentUser.index}{slash}profile.TXT")[4]);
-            lmCalc.height = Convert.ToInt32(File.ReadAllLines($"{Application.StartupPath}{slash}usr{slash}profile{currentUser.index}{slash}profile.TXT")[5]);
+            lmCalc.bodyfat = Convert.ToInt32(File.ReadAllLines($"{Application.StartupPath}{slash}usr{slash}profile{currentUser.index}{slash}profile.py")[3]);
+            lmCalc.weight = Convert.ToInt32(File.ReadAllLines($"{Application.StartupPath}{slash}usr{slash}profile{currentUser.index}{slash}profile.py")[4]);
+            lmCalc.height = Convert.ToInt32(File.ReadAllLines($"{Application.StartupPath}{slash}usr{slash}profile{currentUser.index}{slash}profile.py")[5]);
             lmCalc frmNatPot = new Nutritracker.lmCalc();
             frmNatPot.ShowDialog();
         }
@@ -1351,9 +1387,9 @@ namespace Nutritracker
 
         private void btnSearch_Click(object sender, EventArgs e)
         {
-            if (!Directory.Exists($"{Application.StartupPath}{slash}usr{slash}share{slash}DBs") && !Directory.Exists($"{Application.StartupPath}{slash}usr{slash}profile{currentUser.index}{slash}DBs"))
+            if (!Directory.Exists($"{Application.StartupPath}{slash}usr{slash}share{slash}DBs"))
             {
-                MessageBox.Show("There don't seem to be any shared OR user databases.  Try going to the spreadsheet wizard (under tools) to import some, or borrow copies from another user.", "Nothing found", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("There don't seem to be any databases.  Try going to the spreadsheet wizard (under tools) to import some, or borrow copies from another user.", "Nothing found", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
             else
@@ -1364,16 +1400,7 @@ namespace Nutritracker
             }
         }
 
-        private void addSearchCommonFoodsToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            btnSearch.PerformClick();
-        }
-
-        private void manageCustomFieldsToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            frmManageField frmMF = new frmManageField(this);
-            frmMF.ShowDialog();
-        }
+        private void addSearchCommonFoodsToolStripMenuItem1_Click(object sender, EventArgs e) => btnSearch.PerformClick();
 
         private void manageActiveFieldsToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -1395,12 +1422,13 @@ namespace Nutritracker
 
         private void btnExit_Click(object sender, EventArgs e)
         {
+            //TODO: dispose garbage
             this.Close();
         }
 
         private void manageRelativeDBPairsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            frmPairRelDB frmGRDB = new frmPairRelDB();
+            frmPairField frmGRDB = new frmPairField();
             frmGRDB.ShowDialog();
         }
 
@@ -1408,23 +1436,24 @@ namespace Nutritracker
         {
             if (MessageBox.Show("Are you sure you want to archive this day?  You can undo this manually.", "", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
-                Directory.CreateDirectory($"{currentUser.root}{slash}foodlog{slash}_arc");
-                string file = $"{currentUser.root}{slash}foodlog{slash}_arc{slash}{comboLoggedDays.Text}.TXT";
+                Directory.CreateDirectory($"{currentUser.root}{slash}log{slash}_arc");
+                string file = $"{currentUser.root}{slash}log{slash}_arc{slash}{comboLoggedDays.Text}.TXT";
                 int pn = 0;
-                while (File.Exists(file = $"{currentUser.root}{slash}foodlog{slash}_arc{slash}{comboLoggedDays.Text}_{pn}.TXT"))
+                while (File.Exists(file = $"{currentUser.root}{slash}log{slash}_arc{slash}{comboLoggedDays.Text}_{pn}.TXT"))
                     pn++;
-                try { File.Move($"{currentUser.root}{slash}foodlog{slash}{comboLoggedDays.Text}.TXT", file); }
+                try { File.Move($"{currentUser.root}{slash}log{slash}{comboLoggedDays.Text}.TXT", file); }
                 catch (Exception ex) { MessageBox.Show(ex.ToString(), "", MessageBoxButtons.OK, MessageBoxIcon.Warning); }
-                int n = comboLoggedDays.SelectedIndex;
+                int n2 = comboLoggedDays.SelectedIndex;
                 comboLoggedDays.SelectedIndex = 0;
-                comboLoggedDays.Items.RemoveAt(n);
+                comboLoggedDays.Items.RemoveAt(n2);
             }
         }
 
-        private void settingsToolStripMenuItem_Click(object sender, EventArgs e)
+        private void historyMergerToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            settings frmSet = new settings();
-            frmSet.ShowDialog();
+            frmHistoryMerger frmHM = new frmHistoryMerger();
+            frmHM.ShowDialog();
+            frmHM = null;
         }
     }
 }

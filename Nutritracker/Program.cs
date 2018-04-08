@@ -14,6 +14,8 @@ namespace Nutritracker
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new frmMain());
+            //try { Application.Run(new frmMain()); }
+            //catch (Exception e) { eReporter.catchEx(e, nameof(progBarWait), nameof(Main), null, true); }
         }
     }
 }

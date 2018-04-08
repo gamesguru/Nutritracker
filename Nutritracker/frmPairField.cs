@@ -6,9 +6,9 @@ using System.IO;
 
 namespace Nutritracker
 {
-    public partial class frmPairRelDB : Form
+    public partial class frmPairField : Form
     {
-        public frmPairRelDB()
+        public frmPairField()
         {
             InitializeComponent();
         }
@@ -19,14 +19,17 @@ namespace Nutritracker
             itmL = new itemListerDialog(this);
             slash = Path.DirectorySeparatorChar.ToString();
             usdaRoot = $"{Application.StartupPath}{slash}usr{slash}share{slash}DBs{slash}USDAstock";
-            string[] dbs = Directory.GetDirectories($"{Application.StartupPath}{slash}usr{slash}profile{frmMain.currentUser.index}{slash}DBs");
+            string[] dbs = Directory.GetDirectories($"{Application.StartupPath}{slash}usr{slash}profile{frmMain.currentUser.index}{slash}lib{slash}fields");
             foreach (string s in dbs)
-                if (s.Contains("f_user_"))
-                    comboFields.Items.Add(s.Split(new string[] { $"{slash}f_user_" }, StringSplitOptions.None)[1]);
+            {
+                string db = s.Split(Path.DirectorySeparatorChar)[s.Split(Path.DirectorySeparatorChar).Length - 1];
+                if (!db.StartsWith("_"))
+                    comboFields.Items.Add(db);
+            }
             if (comboFields.Items.Count == 0)
             {
-                this.Close();
                 MessageBox.Show("Please create some fields before using this form.");
+                this.Close();
             }
             comboFields.SelectedIndex = 0;
         }
@@ -38,13 +41,13 @@ namespace Nutritracker
         {
             public string file;
             public string header;
-            public string unit;
+            public string unit = "";
         }
         class dbc
         {
             public string file;
             public string field;
-            public string metric;
+            public string metric = "";
         }
 
 
@@ -136,6 +139,7 @@ namespace Nutritracker
             File.WriteAllLines(storLoc, output);
         }
 
+        string _db = "";
         private void comboFields_SelectedIndexChanged(object sender, EventArgs e)
         {
             //
@@ -143,40 +147,31 @@ namespace Nutritracker
             //loads other things behind the scenes
             //
 
-            this.Text = $"Pair {comboFields.Text} with USDA";
-            string fieldRoot = $"{Application.StartupPath}{slash}usr{slash}profile{frmMain.currentUser.index}{slash}DBs{slash}f_user_{comboFields.Text}{slash}";
-            storLoc = $"{Application.StartupPath}{slash}usr{slash}profile{frmMain.currentUser.index}{slash}DBs{slash}_par_f{slash}{comboFields.Text}.TXT";
+            _db = this.Text;
+            this.Text = $"Pair {_db} with USDA";
+            string fieldRoot = $"{Application.StartupPath}{slash}usr{slash}profile{frmMain.currentUser.index}{slash}lib{slash}{_db}{slash}";
+            storLoc = $"{Application.StartupPath}{slash}usr{slash}profile{frmMain.currentUser.index}{slash}lib{slash}_pairings{slash}{_db}.TXT";
             dbInitKeys = new List<dbi>();
             dbConfigKeys = new List<dbc>();
-            string[] dbInitItems = File.ReadAllText(fieldRoot + "_dbInit.TXT").Split(new string[] { "[File]" }, StringSplitOptions.None);
-            string[] dbConfigItems = File.ReadAllText(fieldRoot + "_dbConfig.TXT").Split(new string[] { "[File]" }, StringSplitOptions.None);
-            string[] fieldInfo = new string[0];
-            try { fieldInfo = File.ReadAllLines($"{Application.StartupPath}{slash}usr{slash}profile{frmMain.currentUser.index}{slash}DBs{slash}_par_f{slash}{comboFields.Text}.TXT"); }
-            catch{}
+            string[] dbInitLines = File.ReadAllLines($"{fieldRoot}_dbInit.TXT");
+            string[] dbConfigLines = File.ReadAllLines($"{fieldRoot}_dbConfig.TXT");
+            string[] fieldInfo;
+            try { fieldInfo = File.ReadAllLines($"{Application.StartupPath}{slash}usr{slash}profile{frmMain.currentUser.index}{slash}lib{slash}_pairings{slash}{comboFields.Text}.TXT"); }
+            catch { }
 
-            foreach (string s in dbInitItems)
+            foreach (string s in dbInitLines)
             {
-                dbi d = new dbi();
-                string[] lines = s.Replace("\r", "").Split('\n');
-                d.file = lines[0];
-                foreach (string st in lines)
-                    if (st.StartsWith("[Header]"))
-                        d.header = st.Replace("[Header]", "");
-                    else if (st.StartsWith("[Unit]"))
-                        d.unit = st.Replace("[Unit]", "");
-                dbInitKeys.Add(d);
+                if (s.StartsWith("#") || string.IsNullOrWhiteSpace(s))
+                    continue;
+                string[] _params = s.Split(':');
+                dbInitKeys.Add(new dbi { file = _params[0], header = _params[1], unit = _params[2] });
             }
-            foreach (string s in dbConfigItems)
+            foreach (string s in dbConfigLines)
             {
-                dbc d = new dbc();
-                string[] lines = s.Replace("\r", "").Split('\n');
-                d.file = lines[0];
-                foreach (string st in lines)
-                    if (st.StartsWith("[Field]"))
-                        d.field = st.Replace("[Field]", "");
-                    else if (st.StartsWith("[MetricName]"))
-                        d.metric = st.Replace("[MetricName]", "");
-                dbConfigKeys.Add(d);
+                if (s.StartsWith("#") || string.IsNullOrWhiteSpace(s))
+                    continue;
+                string[] _params = s.Split(':');
+                dbConfigKeys.Add(new dbc { file = _params[0], field = _params[1], metric = _params[2] });
             }
 
             //
@@ -197,10 +192,7 @@ namespace Nutritracker
                             vals = File.ReadAllLines(fieldRoot + d2.file);
                             for (int i = 0; i < names.Length; i++)
                             {
-                                _fObj f = new _fObj();
-                                f.index = i;
-                                f.foodName = names[i];
-                                f.value = vals[i];
+                                _fObj f = new _fObj { index = i, foodName = names[i], value = vals[i] };
                                 //if (!string.IsNullOrEmpty(d.metric) && !f.metricsToTrack.Contains(d.metric))
                                     //f.metricsToTrack.Add(d.metric);
                                 if (!string.IsNullOrEmpty(d.metric) && d.field == "Value1")
@@ -212,28 +204,23 @@ namespace Nutritracker
             }
 
 			_n = 0;
-            try { 
+            try
+            {
                 diskContents = File.ReadAllLines(storLoc).ToList();
 
-				foreach (string s in diskContents)
-					if (s.StartsWith("[Progress]"))
+                foreach (string s in diskContents)
+                    if (s.StartsWith("[Progress]"))
                     {
-						_n = Convert.ToInt32(s.Replace("[Progress]", ""));
+                        _n = Convert.ToInt32(s.Replace("[Progress]", ""));
                         break;
                     }
-                
+
                 diskEntries = new List<_diskEntry>();
                 foreach (string s in diskContents)
                     if (!s.StartsWith("["))
-                    {
-                        _diskEntry d = new _diskEntry();
-                        d.ndb = s.Split('|')[0];
-                        d.value = s.Split('|')[1];
-                        d.fIndex = Convert.ToInt32(s.Split('|')[2]);
-                        diskEntries.Add(d);
-                    }
+                        diskEntries.Add(new _diskEntry { ndb = s.Split('|')[0], value = s.Split('|')[1], fIndex = Convert.ToInt32(s.Split('|')[2]) });
             }
-            catch{}
+            catch { }
 
             mH = true;
             numUpDownIndex.Minimum = 1;

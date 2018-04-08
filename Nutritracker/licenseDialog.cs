@@ -16,7 +16,7 @@ namespace Nutritracker
         }
 
         private void btnDecline_Click(object sender, EventArgs e) => Process.GetCurrentProcess().Kill();
-        
+
         string[] apache;
         public List<string> profData;
         public string rt = "";
@@ -25,13 +25,13 @@ namespace Nutritracker
         private void btnAccept_Click(object sender, EventArgs e)
         {
             profData.Add($"[License]StallmanApproves_{name.GetHashCode()}");
-            File.WriteAllLines($"{rt}profile.TXT", profData);
+            File.WriteAllLines($"{rt}profile.py", profData);
             license = true;
             this.Close();
         }
 
         private void licenseDialog_FormClosing(object sender, FormClosingEventArgs e) { if (!license) Process.GetCurrentProcess().Kill(); }
-        
+
 
         string name;
         private void licenseDialog_Load(object sender, EventArgs e)
@@ -40,7 +40,7 @@ namespace Nutritracker
             richTextBox1.Clear();
             richTextBox1.Rtf = Nutritracker.Properties.Resources.apache;
             List<string> tmp = richTextBox1.Lines.ToList();
-            tmp.RemoveAt(40);
+            //tmp.RemoveAt(40);
             richTextBox1.Lines = tmp.ToArray();
             mH = false;
             apache = richTextBox1.Lines;

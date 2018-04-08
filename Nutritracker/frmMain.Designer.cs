@@ -81,20 +81,19 @@
             this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.advancedExerciseCalcToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.viewDetailReportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.bodyFatCalcToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.naturalPotentialCalcToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.databaseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.parseExcelSpreadsheetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.relationalDatabaseWizardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.manageRelativeDBPairsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.manageCustomFieldsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.btnRemoveFood = new System.Windows.Forms.Button();
             this.btnSearch = new System.Windows.Forms.Button();
             this.btnExit = new System.Windows.Forms.Button();
             this.comboLoggedDays = new System.Windows.Forms.ComboBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.btnDeleteDay = new System.Windows.Forms.Button();
+            this.historyMergerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataDay)).BeginInit();
             this.groupBox2.SuspendLayout();
@@ -664,9 +663,9 @@
             this.toolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.advancedExerciseCalcToolStripMenuItem,
             this.viewDetailReportToolStripMenuItem,
-            this.settingsToolStripMenuItem,
             this.bodyFatCalcToolStripMenuItem,
-            this.naturalPotentialCalcToolStripMenuItem});
+            this.naturalPotentialCalcToolStripMenuItem,
+            this.historyMergerToolStripMenuItem});
             this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
             this.toolsToolStripMenuItem.Size = new System.Drawing.Size(47, 20);
             this.toolsToolStripMenuItem.Text = "Tools";
@@ -684,14 +683,6 @@
             this.viewDetailReportToolStripMenuItem.Size = new System.Drawing.Size(199, 22);
             this.viewDetailReportToolStripMenuItem.Text = "Run Detail Report";
             this.viewDetailReportToolStripMenuItem.Click += new System.EventHandler(this.viewDetailReportToolStripMenuItem_Click);
-            // 
-            // settingsToolStripMenuItem
-            // 
-            this.settingsToolStripMenuItem.Enabled = false;
-            this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
-            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(199, 22);
-            this.settingsToolStripMenuItem.Text = "Settings";
-            this.settingsToolStripMenuItem.Click += new System.EventHandler(this.settingsToolStripMenuItem_Click);
             // 
             // bodyFatCalcToolStripMenuItem
             // 
@@ -712,8 +703,7 @@
             this.databaseToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.parseExcelSpreadsheetToolStripMenuItem,
             this.relationalDatabaseWizardToolStripMenuItem,
-            this.manageRelativeDBPairsToolStripMenuItem,
-            this.manageCustomFieldsToolStripMenuItem});
+            this.manageRelativeDBPairsToolStripMenuItem});
             this.databaseToolStripMenuItem.Name = "databaseToolStripMenuItem";
             this.databaseToolStripMenuItem.Size = new System.Drawing.Size(67, 20);
             this.databaseToolStripMenuItem.Text = "Database";
@@ -740,13 +730,6 @@
             this.manageRelativeDBPairsToolStripMenuItem.Size = new System.Drawing.Size(241, 22);
             this.manageRelativeDBPairsToolStripMenuItem.Text = "Manage Field Pairs for USDA";
             this.manageRelativeDBPairsToolStripMenuItem.Click += new System.EventHandler(this.manageRelativeDBPairsToolStripMenuItem_Click);
-            // 
-            // manageCustomFieldsToolStripMenuItem
-            // 
-            this.manageCustomFieldsToolStripMenuItem.Name = "manageCustomFieldsToolStripMenuItem";
-            this.manageCustomFieldsToolStripMenuItem.Size = new System.Drawing.Size(241, 22);
-            this.manageCustomFieldsToolStripMenuItem.Text = "Manage Custom Fields";
-            this.manageCustomFieldsToolStripMenuItem.Click += new System.EventHandler(this.manageCustomFieldsToolStripMenuItem_Click);
             // 
             // btnRemoveFood
             // 
@@ -827,6 +810,13 @@
             this.btnDeleteDay.Text = "Archive";
             this.btnDeleteDay.UseVisualStyleBackColor = true;
             this.btnDeleteDay.Click += new System.EventHandler(this.btnDeleteDay_Click);
+            // 
+            // historyMergerToolStripMenuItem
+            // 
+            this.historyMergerToolStripMenuItem.Name = "historyMergerToolStripMenuItem";
+            this.historyMergerToolStripMenuItem.Size = new System.Drawing.Size(199, 22);
+            this.historyMergerToolStripMenuItem.Text = "History Merger";
+            this.historyMergerToolStripMenuItem.Click += new System.EventHandler(this.historyMergerToolStripMenuItem_Click);
             // 
             // frmMain
             // 
@@ -909,9 +899,7 @@
         private System.Windows.Forms.ToolStripMenuItem addToLogToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem addSearchCommonFoodsToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem addExerciseToLogToolStripMenuItem1;
-        private System.Windows.Forms.ToolStripMenuItem settingsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem databaseToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem manageCustomFieldsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem decomposeRecipeToolStripMenuItem;
         private System.Windows.Forms.Button btnExit;
         private System.Windows.Forms.ComboBox comboLoggedDays;
@@ -929,6 +917,7 @@
         private System.Windows.Forms.TabPage tabRecipes;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.ListBox lstBoxRecipes;
+        private System.Windows.Forms.ToolStripMenuItem historyMergerToolStripMenuItem;
     }
 }
 

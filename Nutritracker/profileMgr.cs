@@ -60,7 +60,7 @@ namespace Nutritracker
                 mH = false;
             }
 
-            
+
 
             for (int i = 0; i < comboExistingProfs.Items.Count; i++)
                 if (txtNewProfName.Text.ToLower() == comboExistingProfs.Items[i].ToString().ToLower())
@@ -147,24 +147,25 @@ namespace Nutritracker
             {
                 defaultIndex = Convert.ToInt32(Directory.GetFiles(root)[0].Replace($"{root}{sl}default", ""));
             }
-            catch{
+            catch
+            {
                 defaultIndex = 0;
                 File.Create($"{root}{sl}default0").Close();
             }
 
             string[] directs = Directory.GetDirectories(root);
             //MessageBox.Show(string.Join(", ", directs));
-            List<string> profs = new List<string>();
+            List<string> _profs = new List<string>();
             try
             {
                 for (int i = 0; i < directs.Length; i++)
                     if (directs[i].EndsWith($"{sl}profile{i}"))
                     {
                         string name = "";
-                        foreach (string s in File.ReadAllLines($"{directs[i]}{sl}profile.TXT"))
+                        foreach (string s in File.ReadAllLines($"{directs[i]}{sl}profile.py"))
                             if (s.StartsWith("[Name]"))
                                 name = s.Replace("[Name]", "");
-                        profs.Add(directs[i]);
+                        _profs.Add(directs[i]);
                         comboExistingProfs.Items.Add(name);
                     }
             }
@@ -179,12 +180,12 @@ namespace Nutritracker
             foreach (string s in Directory.GetFiles(root))
                 File.Delete(s);
             File.Create($"{root}{sl}default{frmMain.currentUser.index}").Close();
-            
+
             if (comboExistingProfs.SelectedIndex == defaultIndex)
                 checkDefaultProf.Enabled = false;
             else
                 checkDefaultProf.Enabled = true;
-            
+
 
             profMax = directs.Length;
         }
@@ -204,7 +205,7 @@ namespace Nutritracker
             int profIndex = 0;
             string root = Application.StartupPath + $"{sl}usr";
             string[] directs = Directory.GetDirectories(root);
-            
+
             //profMax = files.Length;
             profs = new List<string>();
             bool license = false;
@@ -213,7 +214,7 @@ namespace Nutritracker
                 for (int i = 0; i < directs.Length; i++)
                 {
                     string name = "";
-                    foreach (string s in File.ReadAllLines($"{directs[i]}{sl}profile.TXT"))
+                    foreach (string s in File.ReadAllLines($"{directs[i]}{sl}profile.py"))
                         if (s.StartsWith("[Name]"))
                             name = s.Replace("[Name]", "");
                         else if (s.StartsWith($"[License]StallmanApproves_{name.GetHashCode()}"))
@@ -224,7 +225,7 @@ namespace Nutritracker
                         profIndex = i;
                         profs.Add(directs[i]);
                         comboExistingProfs.Items
-                            .Add(name); //importArray(root + "profile.txt")[0]);
+                            .Add(name); //importArray(root + "profile.py")[0]);
                         break;
                     }
                     else
@@ -233,7 +234,7 @@ namespace Nutritracker
             }
 
             catch { }
-            
+
             string gender = radioMale.Checked ? "male" : "female";
             profData.Add($"[Name]{txtNewProfName.Text}");
             profData.Add($"[Gender]{gender}");
@@ -246,21 +247,21 @@ namespace Nutritracker
             profData.Add($"[Date]{frmMain.dte}");
             if (license)
                 profData.Add($"[License]StallmanApproves_{txtNewProfName.Text.GetHashCode()}");
-            
-            try { File.WriteAllLines($"{root}{sl}profile{profIndex}{sl}profile.TXT", profData); }
+
+            try { File.WriteAllLines($"{root}{sl}profile{profIndex}{sl}profile.py", profData); }
             catch
             {
-                Directory.CreateDirectory($"{root}{sl}profile{profIndex}foodlog");
+                Directory.CreateDirectory($"{root}{sl}profile{profIndex}log");
                 Directory.CreateDirectory($"{root}{sl}profile{profIndex}exlog");
-                Directory.CreateDirectory( $"{root}{sl}profile{profIndex}dtlreports");
+                Directory.CreateDirectory($"{root}{sl}profile{profIndex}dtlreports");
                 Directory.CreateDirectory($"{root}{sl}profile{profIndex}DBs{sl}_foods");
                 Directory.CreateDirectory($"{root}{sl}profile{profIndex}DBs{sl}_recipes");
-                File.WriteAllLines($"{root}{sl}profile{profIndex}{sl}profile.TXT", profData);
+                File.WriteAllLines($"{root}{sl}profile{profIndex}{sl}profile.py", profData);
                 comboExistingProfs.Items.Add(txtNewProfName.Text);
                 comboExistingProfs.SelectedIndex = comboExistingProfs.Items.Count - 1;
             }
 
-            
+
             frmMain.currentUser.index = comboExistingProfs.SelectedIndex;
             frmMain.currentUser.root = $"{root}{sl}profile{frmMain.currentUser.index}";
             frmMain.currentUser.name = txtNewProfName.Text;
@@ -271,7 +272,7 @@ namespace Nutritracker
             frmMain.currentUser.ht = Convert.ToInt32(txtHt.Text);
             frmMain.currentUser.actLvl = comboActivity.SelectedIndex;
             frmMain.currentUser.goal = comboGoal.SelectedIndex.ToString();
-            
+
             if (checkDefaultProf.Checked)
             {
                 foreach (string s in Directory.GetFiles(root))
@@ -279,14 +280,14 @@ namespace Nutritracker
                 File.Create($"{root}{sl}default{frmMain.currentUser.index}").Close();
             }
 
-            
-            if (!File.ReadAllLines($"{frmMain.currentUser.root}{sl}profile.TXT").Contains($"[License]StallmanApproves_{txtNewProfName.Text.GetHashCode()}"))
+
+            if (!File.ReadAllLines($"{frmMain.currentUser.root}{sl}profile.py").Contains($"[License]StallmanApproves_{txtNewProfName.Text.GetHashCode()}"))
             {
                 licenseDialog frmli = new licenseDialog();
-                frmli.profData = File.ReadAllLines($"{frmMain.currentUser.root}{sl}profile.TXT").ToList();
+                frmli.profData = File.ReadAllLines($"{frmMain.currentUser.root}{sl}profile.py").ToList();
                 frmli.rt = $"{frmMain.currentUser.root}{sl}";
                 frmli.ShowDialog();
-                if (!File.ReadAllLines($"{frmMain.currentUser.root}{sl}profile.TXT").ToList().Contains($"[License]StallmanApproves_{txtNewProfName.Text.GetHashCode()}"))
+                if (!File.ReadAllLines($"{frmMain.currentUser.root}{sl}profile.py").ToList().Contains($"[License]StallmanApproves_{txtNewProfName.Text.GetHashCode()}"))
                     Process.GetCurrentProcess().Kill();
             }
 
@@ -307,18 +308,18 @@ namespace Nutritracker
             string root = $"{Application.StartupPath}{sl}usr{sl}";
             string[] files = Directory.GetFiles(root);
             //MessageBox.Show(string.Join(", ", files));
-            List<string> profs = new List<string>();
+            List<string> _profs = new List<string>();
             for (int i = 0; i < files.Length; i++)
                 if (files[i].Contains($"{sl}profile"))
                 {
-                    profs.Add(files[i]);
+                    _profs.Add(files[i]);
                     foreach (string s in File.ReadAllLines(files[i]))
                         if (s.StartsWith("[Name]"))
-                            comboExistingProfs.Items.Add(s.Replace("[Name]", "")); 
+                            comboExistingProfs.Items.Add(s.Replace("[Name]", ""));
                 }
 
             if (defaultIndex >= comboExistingProfs.Items.Count)
-            defaultIndex -= 1;
+                defaultIndex -= 1;
 
             comboExistingProfs.SelectedIndex = defaultIndex;
             foreach (string s in Directory.GetFiles(root))
@@ -349,7 +350,7 @@ namespace Nutritracker
             {
                 if (txtNewProfName.TextLength > 1 && (radioMale.Checked || radioFemale.Checked) &&
                     Convert.ToInt32(txtHt.Text) > 9 && Convert.ToInt32(txtWt.Text) > 4 &&
-                    Convert.ToInt32(txtAge.Text) > 0 )
+                    Convert.ToInt32(txtAge.Text) > 0)
                     btnSave.Enabled = true;
                 else
                     btnSave.Enabled = false;
@@ -379,7 +380,7 @@ namespace Nutritracker
             {
                 if (txtNewProfName.TextLength > 1 && (radioMale.Checked || radioFemale.Checked) &&
                     Convert.ToInt32(txtHt.Text) > 9 && Convert.ToInt32(txtWt.Text) > 4 &&
-                    Convert.ToInt32(txtAge.Text) > 0 )
+                    Convert.ToInt32(txtAge.Text) > 0)
                     btnSave.Enabled = true;
                 else
                     btnSave.Enabled = false;
@@ -418,14 +419,14 @@ namespace Nutritracker
                 string name = "";
                 try
                 {
-                    foreach (string st in File.ReadAllLines($"{directs[i]}{sl}profile.TXT"))
+                    foreach (string st in File.ReadAllLines($"{directs[i]}{sl}profile.py"))
                         if (st.StartsWith("[Name]"))
                             name = st.Replace("[Name]", "");
                 }
                 catch { continue; }
                 if (directs[i].Contains($"{sl}profile{i}") && name.ToLower() ==
                     comboExistingProfs.Text.ToLower())
-                    foreach (string s in File.ReadAllLines($"{directs[i]}{sl}profile.TXT"))                    
+                    foreach (string s in File.ReadAllLines($"{directs[i]}{sl}profile.py"))
                         if (s.StartsWith("[Gender]"))
                             if (s.Contains("female"))
                                 radioMale.Checked = false;
@@ -446,9 +447,9 @@ namespace Nutritracker
                         else if (s.StartsWith("[Goal]"))
                             comboGoal.SelectedIndex = Convert.ToInt32(s.Replace("[Goal]", ""));
                         else if (s.StartsWith("[Date]"))
-                            frmMain.dte = s.Replace("[Date]", "");                    
+                            frmMain.dte = s.Replace("[Date]", "");
             }
-                
+
             if (comboExistingProfs.SelectedIndex == defaultIndex)
                 checkDefaultProf.Checked = true;
             else

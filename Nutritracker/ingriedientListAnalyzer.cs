@@ -13,7 +13,7 @@ namespace Nutritracker
             InitializeComponent();
         }
         static string nl;
-		static string sl;
+        static string sl;
 
 
         private static class DB
@@ -22,9 +22,9 @@ namespace Nutritracker
             public static string[] names;
             public static string[] cals;
             public static int[] wMatch;
-            public static string[] joinedMatches;
+            //public static string[] joinedMatches;
         }
-        char[] _delims = new char[] { '/', ',', ' ', '-', ';', '(', ')' };
+        char[] _delims = { '/', ',', ' ', '-', ';', '(', ')' };
         private class _dbObj
         {
             public string db = "USDAstock";
@@ -51,13 +51,13 @@ namespace Nutritracker
                 else if (s.Split('|')[1] == "Cals")
                     DB.cals = File.ReadAllLines($"{Application.StartupPath}{sl}usr{sl}share{sl}DBs{sl}USDAstock{sl}{s.Split('|')[0]}");
         }
-        
+
         private void txtIngrieds_TextChanged(object sender, EventArgs e)
         {
             string input = txtIngrieds.Text;
             lstBoxIngrieds.Items.Clear();
             List<string> output = input.Split(new string[] { nl }, StringSplitOptions.RemoveEmptyEntries).ToList();
-            for (int i=0;i<output.Count;i++)
+            for (int i = 0; i < output.Count; i++)
                 if (output[i].Length < 3)
                     output.RemoveAt(i);
             string[] ingrieds = output.ToArray();
@@ -83,15 +83,21 @@ namespace Nutritracker
 
 
         private void txtTweakName_TextChanged(object sender, EventArgs e) => search();
-        private void txtTweakWeight_TextChanged(object sender, EventArgs e) { 
-            try { dbobjs[curDbIndex].weight = Convert.ToDouble(txtTweakWeight.Text);
-             } catch { }
+        private void txtTweakWeight_TextChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                dbobjs[curDbIndex].weight = Convert.ToDouble(txtTweakWeight.Text);
+            }
+            catch { }
             updateList();
         }
-        
+
         private void assignNdb()
         {
-            try { dbobjs[curDbIndex].ndbno = lstViewDBresults.SelectedItems[0].SubItems[0].Text;
+            try
+            {
+                dbobjs[curDbIndex].ndbno = lstViewDBresults.SelectedItems[0].SubItems[0].Text;
                 lblNDBNo.Text = $"USDA NDB#: {dbobjs[curDbIndex].ndbno}";
             }
             catch { }
@@ -99,12 +105,14 @@ namespace Nutritracker
 
         private void assignCurObj()
         {
-            try{curDbIndex = lstBoxIngrieds.SelectedIndex;
+            try
+            {
+                curDbIndex = lstBoxIngrieds.SelectedIndex;
                 txtTweakName.Text = dbobjs[curDbIndex].name;
                 txtTweakWeight.Text = Convert.ToString(dbobjs[curDbIndex].weight);
                 lblNDBNo.Text = $"USDA NDB#: {dbobjs[curDbIndex].ndbno}";
             }
-            catch{}
+            catch { }
         }
 
         double x = 0.4;
@@ -125,8 +133,9 @@ namespace Nutritracker
         }
         private void updatePer()
         {
-            if (dbobjs == null || dbobjs.Count == 0) {
-            return;
+            if (dbobjs == null || dbobjs.Count == 0)
+            {
+                return;
             }
 
             x = (double)trackGeo.Value / trackGeo.Maximum;
@@ -149,7 +158,7 @@ namespace Nutritracker
         {
             lstViewDBresults.Items.Clear();
             DB.wMatch = new int[DB.names.Length];
-            DB.joinedMatches = new string[DB.names.Length];
+            //DB.joinedMatches = new string[DB.names.Length];
 
 
             string[] words;
@@ -173,13 +182,13 @@ namespace Nutritracker
                         itm.SubItems.Add(DB.names[j]); //$"{DB.names[j]} -- [{DB.wMatch[j]}]");
                         itm.SubItems.Add(DB.cals[j]);
                         itms.Add(itm);
-                    }         
+                    }
             lstViewDBresults.BeginUpdate();
             for (int i = 0; i < itms.Count; i++)
                 lstViewDBresults.Items.Add(itms[i]);
             lstViewDBresults.EndUpdate();
         }
-        
+
         private void btnSave_Click(object sender, EventArgs e)
         {
             if (txtRecipeName.TextLength < 4)

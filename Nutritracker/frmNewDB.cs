@@ -1,8 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Windows.Forms;
 using System.IO;
+using System.Linq;
+using System.Threading;
+using System.Windows.Forms;
+using System.Collections.Generic;
 
 namespace Nutritracker
 {
@@ -28,23 +29,25 @@ namespace Nutritracker
             public List<string> conts = new List<string>();
         }
         List<nutNameKey> nutNameKeys;
-        List<string> activeNutes;
+        List<string> configuredFields;
+        List<string> primKeys;
         string slash = Path.DirectorySeparatorChar.ToString();
         public List<string> arr = new List<string>();
         public int n = 0;
         int p;
+        progBarWait pbw;
         private void frmNewDB_Load(object sender, EventArgs e)
         {
             txtLoc.Text = $"{slash}usr{slash}share{slash}DBs{slash}";
 
             //gather active nutrients, TODO: work this into frmMain as it is with logRunner
-            activeNutes = new List<string>();
-            activeNutes.Add("NDBNo");
-            activeNutes.Add("FoodName");
-            foreach (string s in File.ReadAllLines($"{Application.StartupPath}{slash}usr{slash}profile{frmMain.currentUser.index}{slash}activeFields.TXT"))
+            configuredFields = new List<string>();
+            configuredFields.Add("NDBNo");
+            configuredFields.Add("FoodName");
+            foreach (string s in File.ReadAllLines($"{Application.StartupPath}{slash}usr{slash}profile{frmMain.currentUser.index}{slash}configured_fields.py"))
                 if (!s.StartsWith("#") && s.Contains("|"))
-                    activeNutes.Add(s.Split('#')[0].Split('|')[0]);
-            foreach (string s in activeNutes)
+                    configuredFields.Add(s.Split('#')[0].Split('|')[0]);
+            foreach (string s in configuredFields)
                 lstBoxNutes.Items.Add(s);
 
             //populate txtConfig box
@@ -54,58 +57,83 @@ namespace Nutritracker
                 if (s.Length > tmax)
                     tmax = s.Length;
             for (int i = 0; i < arr.Count; i++)
-                tmp.Add($"{arr[i].PadRight(tmax, ' ')}=");        
+                tmp.Add($"{arr[i].PadRight(tmax, ' ')}=");
             txtConfig.Lines = tmp.ToArray();
+            tmp = null;
 
-            //loads the columnHeader-nutrientName key-val pairs
-            p = 0;
-            nutNameKeys = new List<nutNameKey>();
-            foreach (string s in txtConfig.Lines)
-                if (arr.Contains(s.Split('=')[0]))
+
+            //adds the primary keys
+            pbw = new progBarWait();
+            Thread t = new Thread(() =>
+            {
+                pbw.ShowDialog();
+                pbw.finished = true;
+            });
+            t.Start();
+            while (!pbw.ready)
+                Thread.Sleep(60);
+
+            pbw.setTitle($"Identifying possible primary keys...");
+            pbw.setProgMax(frmParseCustomDatabase.columns.Length, 1);
+            List<string> _isUniqueList;
+            primKeys = new List<string>();
+            int _z = 0;
+            foreach (frmParseCustomDatabase.Column c in frmParseCustomDatabase.columns)
+            {
+                if (pbw.abort)
+                    break;
+                _z++;
+                pbw.setLblCurObj(c.header);
+                bool unique = true;
+                _isUniqueList = new List<string>();
+                foreach (string s in c.items)
                 {
-                    p++;
-                    nutNameKey nm = new nutNameKey();
-                    nm.columnHeader = s.Split('=')[0];
-                    try
+                    _isUniqueList.Add(s);
+                    if (_isUniqueList.Distinct().Count() != _isUniqueList.Count)
                     {
-                        nm.nutrient = s.Split('=')[1];
-                        if (activeNutes.Contains(nm.nutrient))
-                            nutNameKeys.Add(nm);
+                        unique = false;
+                        break;
                     }
-                    catch { }
                 }
-            lblStatus.Text = $"You have {n} entries — {p} properties ({nutNameKeys.Count} configured)";
+                _isUniqueList = null;
+                if (unique)
+                    primKeys.Add(c.header);
+            }
+            if (pbw.abort)
+                this.Close();
+            this.Activate();
+            if (primKeys.Count == 0)
+            {
+                //TODO: make generate extra column
+                chkGeneratePrimKey.Checked = true;
+                chkGeneratePrimKey.Enabled = false;
+            }
+            foreach (string s in primKeys)
+                comboPrimKey.Items.Add(s);
+            comboPrimKey.SelectedIndex = 0;
+            lblStatus.Text = $"You have {n} entries — {arr.Count} properties (0 configured)";
         }
 
         private void txtName_TextChanged(object sender, EventArgs e)
         {
-            if (radioShared.Checked)            
-                txtLoc.Text = $"{slash}usr{slash}share{slash}DBs{slash}{txtName.Text}";            
-            else            
-                txtLoc.Text = $"{slash}usr{slash}profile{frmMain.currentUser.index}{slash}DBs{slash}{txtName.Text}";
+            txtLoc.Text = $"{slash}usr{slash}share{slash}DBs{slash}{txtName.Text}";
 
-            if (txtName.TextLength > 2)//////////////// && nameColumn > -1)
+            if (txtName.TextLength > 2)
                 btnCreate.Enabled = true;
 
             if (txtName.TextLength < 2)
                 btnCreate.Enabled = false;
         }
 
-        private void radioShared_CheckedChanged(object sender, EventArgs e)
-        {
-            if (radioShared.Checked)
-                txtLoc.Text = $"{slash}usr{slash}share{slash}DBs{slash}{txtName.Text}";
-            else
-                txtLoc.Text = $"{slash}usr{slash}profile{frmMain.currentUser.index}{slash}DBs{slash}{txtName.Text}";
-        }
-        
         private void txtName_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (!Char.IsLetterOrDigit(e.KeyChar) && !Char.IsControl(e.KeyChar) && !Char.IsSeparator(e.KeyChar) && e.KeyChar != ',')
                 e.Handled = true;
         }
 
-        //int nameColumn = -1;
+        List<string> entryKeyLang;
+        List<nutEntry> nutEntries;
+        List<string> itmsOut;
         private void btnCreate_Click(object sender, EventArgs e)
         {
             string fp = Application.StartupPath + txtLoc.Text;
@@ -123,14 +151,14 @@ namespace Nutritracker
 
             List<int> colInts = new List<int>();
             for (int i = 0; i < arr.Count; i++)
-                foreach (string s in activeNutes)
+                foreach (string s in configuredFields)
                     foreach (string st in txtConfig.Lines)
                         if (st.Replace(" ", "") == $"{arr[i]}={s}")
                             colInts.Add(i);
-            
-            List<string> itmsOut = new List<string>();
-            List<string> hashLangOut = new List<string>();
-            List<string> hashKeyOut = new List<string>();
+
+            itmsOut = new List<string>();
+            entryKeyLang = new List<string>();
+
             string langColumnStr = "", keyColumnStr = "";
             int langColumn = 0, keyColumn = 0;
             foreach (nutNameKey na in nutNameKeys)
@@ -143,13 +171,25 @@ namespace Nutritracker
                     keyColumn = i;
                 else if (arr[i] == langColumnStr)
                     langColumn = i;
-            List<nutEntry> nutEntries = new List<nutEntry>();
+            nutEntries = new List<nutEntry>();
             nutEntry nu;
+            pbw = new progBarWait();
+            Thread t = new Thread(() =>
+               {
+                   pbw.ShowDialog();
+                   pbw.finished = true;
+               });
+            t.Start();
+            while (!pbw.ready)
+                Thread.Sleep(60);
+            pbw.setTitle("Pairing the keys...");
+            pbw.setProgMax(n, 50);
             for (int i = 0; i < n; i++) //loop over each ENTRY in the database, e.g. 8760 for USDA
             {
                 nu = new nutEntry();
                 bool prevMatch = false;
                 string title = mainForm.getVal(i, langColumn).Substring(0, 3);
+                pbw.setLblCurObj(title);
                 foreach (nutEntry nut in nutEntries)
                     if (nut.fileName.ToUpper() == title.ToUpper())
                         prevMatch = true;
@@ -159,6 +199,7 @@ namespace Nutritracker
                 foreach (string s in res)
                     if (nu.fileName == s)
                         nu.fileName += "_WX";
+                string lang = "", key = "";
                 foreach (int j in colInts)
                 {
                     string nutrient = "";
@@ -169,21 +210,40 @@ namespace Nutritracker
                     nu.conts.Add($"[{nutrient}]{val}");
 
                     if (j == langColumn)
-                        hashLangOut.Add($"{nu.fileName}|{val}");
+                        lang = val; //hashLangOut.Add($"{nu.fileName}|{val}");
                     else if (j == keyColumn)
-                        hashKeyOut.Add($"{nu.fileName}|{val}");
+                        key = val; //hashKeyOut.Add($"{nu.fileName}|{val}");
                 }
+                entryKeyLang.Add($"{nu.fileName}|{key}|{lang}");
                 nutEntries.Add(nu);
                 nu = null;
             }
-            
-			File.WriteAllLines($"{fp}{slash}_hashInfo.ini", txtConfig.Lines);
-			File.WriteAllLines($"{fp}{slash}_hashLang.ini", hashLangOut);
-			File.WriteAllLines($"{fp}{slash}_hashKey.ini", hashKeyOut);
 
-            foreach (nutEntry nut in nutEntries)
-                File.WriteAllLines($"{fp}{slash}{nut.fileName}.TXT", nut.conts);
-
+            File.WriteAllLines($"{fp}{slash}_fieldInit.ini", txtConfig.Lines);
+            File.WriteAllLines($"{fp}{slash}_entryKeyLang.ini", entryKeyLang);
+            //File.WriteAllLines($"{fp}{slash}_hashLang.ini", hashLangOut);
+            //File.WriteAllLines($"{fp}{slash}_hashKey.ini", hashKeyOut);
+            pbw = new progBarWait();
+            t = new Thread(() =>
+               {
+                   pbw.ShowDialog();
+                   pbw.finished = true;
+                   pbw = null;
+               });
+            t.Start();
+            while (!pbw.ready)
+                Thread.Sleep(60);
+            pbw.setTitle("Writing the entries...");
+            n = nutEntries.Count;
+            pbw.setProgMax(n, 50);
+            for (int i = 0; i < n; i++)
+            {
+                pbw.setLblCurObj(nutEntries[i].fileName);
+                File.WriteAllLines($"{fp}{slash}{nutEntries[i].fileName}.TXT", nutEntries[i].conts);
+            }
+            entryKeyLang = null;
+            nutEntries = null;
+            itmsOut = null;
             MessageBox.Show("Database created successfully.  Please use the search function on the main page to try it out.", "Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
             this.Close();
         }
@@ -202,7 +262,7 @@ namespace Nutritracker
                     try
                     {
                         nm.nutrient = s.Split('=')[1].Replace(" ", "");
-                        if (activeNutes.Contains(nm.nutrient))
+                        if (configuredFields.Contains(nm.nutrient))
                             nutNameKeys.Add(nm);
                     }
                     catch { }
@@ -211,7 +271,7 @@ namespace Nutritracker
             //updates label and listBox
             lblStatus.Text = $"You have {n} entries — {p} properties ({nutNameKeys.Count} configured)";
             lstBoxNutes.Items.Clear();
-            foreach (string s in activeNutes)
+            foreach (string s in configuredFields)
                 if (!txtConfig.Text.Contains($"={s}"))
                     lstBoxNutes.Items.Add(s);
         }
@@ -219,7 +279,8 @@ namespace Nutritracker
         private void lstBoxNutes_MouseClick(object sender, MouseEventArgs e)
         {
             //copies over to txtConfig
-            try {
+            try
+            {
                 //int n = txtConfig.Lines[0].Length;
                 string updated = txtConfig.Text.Substring(0, txtConfig.SelectionStart);
                 updated += lstBoxNutes.Text;
@@ -228,6 +289,16 @@ namespace Nutritracker
                 //txtConfig.SelectionStart += n + lstBoxNutes.Text.Length;
             }
             catch { }
+        }
+
+        private void chkGeneratePrimKey_CheckedChanged(object sender, EventArgs e)
+        {
+            comboPrimKey.Items.Clear();
+            if (chkGeneratePrimKey.Checked)
+                comboPrimKey.Items.Add("primKey");
+            foreach (string s in primKeys)
+                comboPrimKey.Items.Add(s);
+            comboPrimKey.SelectedIndex = 0;
         }
     }
 }

@@ -47,7 +47,7 @@
             this.comboDBs = new System.Windows.Forms.ComboBox();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.swapOrManageUserFieldsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.historyManagerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.srchTmout = new System.Windows.Forms.Timer(this.components);
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.richTxtWarn = new System.Windows.Forms.RichTextBox();
@@ -246,7 +246,7 @@
             this.comboDBs.Size = new System.Drawing.Size(121, 21);
             this.comboDBs.TabIndex = 0;
             this.comboDBs.TabStop = false;
-            this.comboDBs.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
+            this.comboDBs.SelectedIndexChanged += new System.EventHandler(this.comboDBs_SelectedIndexChanged);
             // 
             // menuStrip1
             // 
@@ -262,17 +262,17 @@
             // fileToolStripMenuItem
             // 
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.swapOrManageUserFieldsToolStripMenuItem});
+            this.historyManagerToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.fileToolStripMenuItem.Text = "File";
             // 
-            // swapOrManageUserFieldsToolStripMenuItem
+            // historyManagerToolStripMenuItem
             // 
-            this.swapOrManageUserFieldsToolStripMenuItem.Name = "swapOrManageUserFieldsToolStripMenuItem";
-            this.swapOrManageUserFieldsToolStripMenuItem.Size = new System.Drawing.Size(221, 22);
-            this.swapOrManageUserFieldsToolStripMenuItem.Text = "Swap or Manage User Fields";
-            this.swapOrManageUserFieldsToolStripMenuItem.Click += new System.EventHandler(this.swapOrManageUserFieldsToolStripMenuItem_Click);
+            this.historyManagerToolStripMenuItem.Name = "historyManagerToolStripMenuItem";
+            this.historyManagerToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.historyManagerToolStripMenuItem.Text = "History Manager";
+            this.historyManagerToolStripMenuItem.Click += new System.EventHandler(this.historyManagerToolStripMenuItem_Click);
             // 
             // srchTmout
             // 
@@ -373,10 +373,10 @@
         private System.Windows.Forms.ComboBox comboDBs;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem swapOrManageUserFieldsToolStripMenuItem;
         private System.Windows.Forms.Timer srchTmout;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.RichTextBox richTxtWarn;
         private System.Windows.Forms.Label lblCurrentFood;
+        private System.Windows.Forms.ToolStripMenuItem historyManagerToolStripMenuItem;
     }
 }

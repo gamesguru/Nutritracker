@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Nutritracker</RootNamespace>
     <AssemblyName>Nutritracker</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <TargetFrameworkProfile />
@@ -25,14 +25,18 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
+    <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>img_XXc_icon.ico</ApplicationIcon>
+    <ApplicationIcon>
+    </ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="eReporter.cs" />
@@ -41,6 +45,12 @@
     </Compile>
     <Compile Include="frmActiveFields.Designer.cs">
       <DependentUpon>frmActiveFields.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmHistoryMerger.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmHistoryMerger.Designer.cs">
+      <DependentUpon>frmHistoryMerger.cs</DependentUpon>
     </Compile>
     <Compile Include="progBarWait.cs">
       <SubType>Form</SubType>
@@ -72,11 +82,11 @@
     <Compile Include="frmDetailReport.Designer.cs">
       <DependentUpon>frmDetailReport.cs</DependentUpon>
     </Compile>
-    <Compile Include="frmPairRelDB.cs">
+    <Compile Include="frmPairField.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmPairRelDB.Designer.cs">
-      <DependentUpon>frmPairRelDB.cs</DependentUpon>
+    <Compile Include="frmPairField.Designer.cs">
+      <DependentUpon>frmPairField.cs</DependentUpon>
     </Compile>
     <Compile Include="lmCalc.cs">
       <SubType>Form</SubType>
@@ -89,12 +99,6 @@
     </Compile>
     <Compile Include="frmMain.Designer.cs">
       <DependentUpon>frmMain.cs</DependentUpon>
-    </Compile>
-    <Compile Include="frmManageField.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="frmManageField.Designer.cs">
-      <DependentUpon>frmManageField.cs</DependentUpon>
     </Compile>
     <Compile Include="frmNewDB.cs">
       <SubType>Form</SubType>
@@ -132,12 +136,6 @@
     <Compile Include="frmSearchFoods.Designer.cs">
       <DependentUpon>frmSearchFoods.cs</DependentUpon>
     </Compile>
-    <Compile Include="settings.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="settings.Designer.cs">
-      <DependentUpon>settings.cs</DependentUpon>
-    </Compile>
     <Compile Include="itemListerDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -161,6 +159,9 @@
     <EmbeddedResource Include="frmActiveFields.resx">
       <DependentUpon>frmActiveFields.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmHistoryMerger.resx">
+      <DependentUpon>frmHistoryMerger.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="progBarWait.resx">
       <DependentUpon>progBarWait.cs</DependentUpon>
     </EmbeddedResource>
@@ -176,17 +177,14 @@
     <EmbeddedResource Include="frmDetailReport.resx">
       <DependentUpon>frmDetailReport.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmPairRelDB.resx">
-      <DependentUpon>frmPairRelDB.cs</DependentUpon>
+    <EmbeddedResource Include="frmPairField.resx">
+      <DependentUpon>frmPairField.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="lmCalc.resx">
       <DependentUpon>lmCalc.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmMain.resx">
       <DependentUpon>frmMain.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="frmManageField.resx">
-      <DependentUpon>frmManageField.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmNewDB.resx">
       <DependentUpon>frmNewDB.cs</DependentUpon>
@@ -206,9 +204,6 @@
     <EmbeddedResource Include="frmSearchFoods.resx">
       <DependentUpon>frmSearchFoods.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="settings.resx">
-      <DependentUpon>settings.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="itemListerDialog.resx">
       <DependentUpon>itemListerDialog.cs</DependentUpon>
     </EmbeddedResource>
@@ -223,7 +218,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\apache.rtf" />
-    <None Include="Resources\img.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\heart.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
