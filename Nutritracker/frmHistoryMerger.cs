@@ -96,10 +96,7 @@ namespace Nutritracker
             this.Invoke(new MethodInvoker(delegate
             {
                 txtConsole.Lines = lines;
-                int n = 0;
-                foreach (string s in txtConsole.Lines)
-                    n += s.Length + 1;
-                txtConsole.SelectionStart = n;
+                txtConsole.SelectionStart = txtConsole.TextLength;
                 txtConsole.ScrollToCaret();
             }));
         }
@@ -128,18 +125,26 @@ namespace Nutritracker
                     while ((line = p.StandardError.ReadLine()) != null)
                         stdERR.Add(line);
                 line = null;
+                int n = 0;
                 while ((line = p.StandardOutput.ReadLine()) != null)
+                {
+                    if (!skipLogging)
+                        if (line.StartsWith("[") && ++n % 50 == 0)
+                            Log($"\t{line}");
+                        else if (!line.StartsWith("["))
+                            Log($"\t{line}");
                     stdOUT.Add(line);
+                }
                 if (!skipLogging)
                 {
                     foreach (string st in stdERR)
                         Log($"ERROR: {st}");
-                    int n = 0;
-                    foreach (string st in stdOUT)
-                        if (st.StartsWith("[") && ++n % 50 == 0)
-                            Log($"\t{st}");
-                        else if (!st.StartsWith("["))
-                            Log($"\t{st}");
+                    //int n = 0;
+                    //foreach (string st in stdOUT)
+                        //if (st.StartsWith("[") && ++n % 50 == 0)
+                        //    Log($"\t{st}");
+                        //else if (!st.StartsWith("["))
+                            //Log($"\t{st}");
                 }
                 this.UseWaitCursor = false;
                 finished = true;
@@ -246,17 +251,18 @@ namespace Nutritracker
             device.__line_id = $"{device.manu} {device.model} ({device.droidVer}) nutri: [v{device.version} ({device.build})]";
             Log(device.__line_id);
             Log("");
-            List<string> localDump = adb("shell ls /storage/emulated/0", true, false);
+            List<string> localDump = adb("shell ls /storage/emulated/0/Android/data", true, true);
             bool existingData = false;
             foreach (string s in localDump)
-                if (s == "Nutritracker")
+                if (s == "com.one.nutri1.nutritracker")
                     existingData = true;
             if (!existingData)
             {
                 Log("INFO: no existing data on phone, preparing for first time use");
-                adb($"push {Application.StartupPath}{sl}usr /storage/emulated/0/Nutritracker/usr");
+                adb($"push {Application.StartupPath}{sl}usr /storage/emulated/0/Android/data/com.one.nutri1.nutritracker/usr");
             }
-            localDump = adb("shell ls /storage/emulated/0/Nutritracker/usr/share/DBs");
+            Thread.Sleep(200);
+            localDump = adb("shell ls /storage/emulated/0/Android/data/com.one.nutri1.nutritracker/usr/share/DBs");
         }
     }
 }
