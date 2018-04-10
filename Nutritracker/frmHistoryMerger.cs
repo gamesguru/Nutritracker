@@ -238,7 +238,10 @@ namespace Nutritracker
                         device.version = lines[k].Trim().Replace("versionName=", "");
                     else if (lines[k].Trim().StartsWith("versionCode="))   //versionCode=502 targetSdk=23
                         device.build = lines[k].Trim().Split(' ')[0].Replace("versionCode=", "");
-            Log("DEVICE FOUND!!");
+            device.__line_id = $"{device.manu} {device.model} ({device.firmware} -- {device.prodName}), Android version: {device.droidVer}";
+            Log("");
+            Log("Your device:");
+            Log($"\t{device.__line_id}");
             if (!device.nutriInstalled)
             {
                 Log("");
@@ -248,21 +251,24 @@ namespace Nutritracker
                 btnAction.Text = "Install Nutritracker";
                 return;
             }
-            device.__line_id = $"{device.manu} {device.model} ({device.droidVer}) nutri: [v{device.version} ({device.build})]";
-            Log(device.__line_id);
             Log("");
-            List<string> localDump = adb("shell ls /storage/emulated/0/Android/data", true, true);
+            Log($"\tnutritracker-android:\tv{device.version} (build #{device.build})");
+            Log("");
+            if (device.droidVer.StartsWith("6"))
+                Log("WARNING: on marshmallow (android version 6) you **MUST** go settings --> apps --> Nutritracker --> Enable device storage");
+            Log("");
+            List<string> localDump = adb("shell ls /storage/emulated/0", true, true);
             bool existingData = false;
             foreach (string s in localDump)
-                if (s == "com.one.nutri1.nutritracker")
+                if (s == "Nutritracker")
                     existingData = true;
             if (!existingData)
             {
                 Log("INFO: no existing data on phone, preparing for first time use");
-                adb($"push {Application.StartupPath}{sl}usr /storage/emulated/0/Android/data/com.one.nutri1.nutritracker/usr");
+                adb($"push {Application.StartupPath}{sl}usr /storage/emulated/0/Nutritracker/usr");
             }
             Thread.Sleep(200);
-            localDump = adb("shell ls /storage/emulated/0/Android/data/com.one.nutri1.nutritracker/usr/share/DBs");
+            localDump = adb("shell ls /storage/emulated/0/Nutritracker/usr/share/DBs");
         }
     }
 }
