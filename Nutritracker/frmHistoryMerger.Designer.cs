@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmHistoryMerger));
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
@@ -53,10 +54,12 @@
             this.txtConsole = new System.Windows.Forms.TextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.treeView1 = new System.Windows.Forms.TreeView();
-            this.checkedListBox1 = new System.Windows.Forms.CheckedListBox();
             this.btnAction = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.chkLstBoxSyncDBs = new System.Windows.Forms.CheckedListBox();
+            this.btnSync = new System.Windows.Forms.Button();
+            this.btnDelete = new System.Windows.Forms.Button();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox5.SuspendLayout();
@@ -70,6 +73,9 @@
             // 
             // tabControl1
             // 
+            this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -268,7 +274,6 @@
             // 
             this.tabPage2.Controls.Add(this.groupBox6);
             this.tabPage2.Controls.Add(this.groupBox2);
-            this.tabPage2.Controls.Add(this.checkedListBox1);
             this.tabPage2.Controls.Add(this.btnAction);
             this.tabPage2.Controls.Add(this.groupBox1);
             this.tabPage2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -282,6 +287,8 @@
             // 
             // groupBox6
             // 
+            this.groupBox6.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox6.Controls.Add(this.txtConsole);
             this.groupBox6.Location = new System.Drawing.Point(6, 139);
             this.groupBox6.Name = "groupBox6";
@@ -292,11 +299,14 @@
             // 
             // txtConsole
             // 
+            this.txtConsole.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.txtConsole.Location = new System.Drawing.Point(6, 21);
             this.txtConsole.Multiline = true;
             this.txtConsole.Name = "txtConsole";
             this.txtConsole.ReadOnly = true;
-            this.txtConsole.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.txtConsole.ScrollBars = System.Windows.Forms.ScrollBars.Both;
             this.txtConsole.Size = new System.Drawing.Size(744, 182);
             this.txtConsole.TabIndex = 3;
             this.txtConsole.WordWrap = false;
@@ -320,14 +330,6 @@
             this.treeView1.Size = new System.Drawing.Size(121, 97);
             this.treeView1.TabIndex = 0;
             // 
-            // checkedListBox1
-            // 
-            this.checkedListBox1.FormattingEnabled = true;
-            this.checkedListBox1.Location = new System.Drawing.Point(186, 27);
-            this.checkedListBox1.Name = "checkedListBox1";
-            this.checkedListBox1.Size = new System.Drawing.Size(120, 89);
-            this.checkedListBox1.TabIndex = 1;
-            // 
             // btnAction
             // 
             this.btnAction.Location = new System.Drawing.Point(7, 354);
@@ -340,21 +342,48 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.textBox1);
+            this.groupBox1.Controls.Add(this.btnDelete);
+            this.groupBox1.Controls.Add(this.btnSync);
+            this.groupBox1.Controls.Add(this.chkLstBoxSyncDBs);
             this.groupBox1.Location = new System.Drawing.Point(545, 6);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(217, 122);
+            this.groupBox1.Size = new System.Drawing.Size(217, 127);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Your Device";
+            this.groupBox1.Text = "Databases";
             // 
-            // textBox1
+            // chkLstBoxSyncDBs
             // 
-            this.textBox1.Location = new System.Drawing.Point(6, 21);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(205, 84);
-            this.textBox1.TabIndex = 0;
+            this.chkLstBoxSyncDBs.FormattingEnabled = true;
+            this.chkLstBoxSyncDBs.Location = new System.Drawing.Point(6, 21);
+            this.chkLstBoxSyncDBs.Name = "chkLstBoxSyncDBs";
+            this.chkLstBoxSyncDBs.Size = new System.Drawing.Size(205, 72);
+            this.chkLstBoxSyncDBs.TabIndex = 1;
+            // 
+            // btnSync
+            // 
+            this.btnSync.Location = new System.Drawing.Point(6, 99);
+            this.btnSync.Name = "btnSync";
+            this.btnSync.Size = new System.Drawing.Size(91, 23);
+            this.btnSync.TabIndex = 2;
+            this.btnSync.Text = "Sync Phone";
+            this.btnSync.UseVisualStyleBackColor = true;
+            // 
+            // btnDelete
+            // 
+            this.btnDelete.Location = new System.Drawing.Point(136, 99);
+            this.btnDelete.Name = "btnDelete";
+            this.btnDelete.Size = new System.Drawing.Size(75, 23);
+            this.btnDelete.TabIndex = 3;
+            this.btnDelete.Text = "Delete";
+            this.btnDelete.UseVisualStyleBackColor = true;
+            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
+            // 
+            // timer1
+            // 
+            this.timer1.Enabled = true;
+            this.timer1.Interval = 1750;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // frmHistoryMerger
             // 
@@ -380,7 +409,6 @@
             this.groupBox6.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -391,11 +419,10 @@
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Button btnAction;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.TreeView treeView1;
-        private System.Windows.Forms.CheckedListBox checkedListBox1;
+        private System.Windows.Forms.CheckedListBox chkLstBoxSyncDBs;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.CheckBox chkPrimKey;
         private System.Windows.Forms.Label label2;
@@ -415,5 +442,8 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.GroupBox groupBox6;
         private System.Windows.Forms.TextBox txtConsole;
+        private System.Windows.Forms.Button btnDelete;
+        private System.Windows.Forms.Button btnSync;
+        private System.Windows.Forms.Timer timer1;
     }
 }

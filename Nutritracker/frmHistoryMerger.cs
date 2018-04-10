@@ -218,7 +218,7 @@ namespace Nutritracker
         }
 
         //remove database: adb("shell rm -r /storage/emulated/0/Nutritracker")
-
+        bool setup = false;
         void setUpDevice(string serial)
         {
             device.serial = serial;
@@ -264,19 +264,49 @@ namespace Nutritracker
             if (device.droidVer.StartsWith("6"))
                 Log("WARNING: on marshmallow (android version 6) you **MUST** go settings --> apps --> Nutritracker --> Enable device storage");
             Log("");
-            List<string> localDump = adb("shell ls /storage/emulated/0", true, true);
-            bool existingData = false;
+            List<string> localDump = adb("shell ls /storage/emulated/0/Nutritracker/usr/share/DBs", true, true);
+            int n = 0;
             foreach (string s in localDump)
-                if (s == "Nutritracker")
-                    existingData = true;
+                if (!string.IsNullOrWhiteSpace(s))
+                    n++;
+            bool existingData = n > 1;
             if (!existingData)
             {
                 Log("INFO: no existing data on phone, preparing for first time use");
-                adb($"push {Application.StartupPath}{sl}usr /storage/emulated/0/Nutritracker/usr");
+                adb($"push {Application.StartupPath}{sl}usr /storage/emulated/0/Nutritracker/");
                 adb($"shell mkdir /storage/emulated/0/Nutritracker/_db_upload_complete");
+                Thread.Sleep(200);
+                localDump = adb("shell ls /storage/emulated/0/Nutritracker/usr/share/DBs");
             }
-            Thread.Sleep(200);
-            localDump = adb("shell ls /storage/emulated/0/Nutritracker/usr/share/DBs");
+            chkLstBoxSyncDBs.Items.Clear();
+            foreach (string s in localDump)
+                if (!s.EndsWith("&") && !String.IsNullOrWhiteSpace(s))
+                    chkLstBoxSyncDBs.Items.Add(s);
+            //setup = true
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            if (!setup)
+            {
+                //do some code
+            }
+        }
+
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            if (chkLstBoxSyncDBs.SelectedItems.Count == 0)
+            {
+                MessageBox.Show("No databases selected...", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+            if (MessageBox.Show("Are you sure you want to remove these database(s) from your phone?", "", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
+                foreach (var v in chkLstBoxSyncDBs.CheckedItems)
+                {
+                    adb($"shell rm -r /storage/emulated/0/Nutritracker/usr/share/DBs/{v}");
+                    adb($"shell rm -r \"/storage/emulated/0/Nutritracker/usr/share/DBs/{v}\\&\"");
+                    Log($"--> {v} removed!!");
+                }
         }
     }
 }
