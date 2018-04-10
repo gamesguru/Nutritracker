@@ -266,6 +266,7 @@ namespace Nutritracker
             {
                 Log("INFO: no existing data on phone, preparing for first time use");
                 adb($"push {Application.StartupPath}{sl}usr /storage/emulated/0/Nutritracker/usr");
+                adb($"mkdir /storage/emulated/0/Nutritracker/usr/_db_upload_complete");
             }
             Thread.Sleep(200);
             localDump = adb("shell ls /storage/emulated/0/Nutritracker/usr/share/DBs");
