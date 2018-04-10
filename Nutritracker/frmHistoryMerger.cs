@@ -149,6 +149,11 @@ namespace Nutritracker
                 this.UseWaitCursor = false;
                 finished = true;
             });
+            if (!File.Exists(adbLoc))
+            {
+                Log($"ERROR: adb not found at '{adbLoc}'");
+                return stdOUT;
+            }
             t.Start();
             while (!finished)
                 Application.DoEvents();
