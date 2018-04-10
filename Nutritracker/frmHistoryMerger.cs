@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IO;
 using System.Diagnostics;
 using System.Threading;
@@ -217,6 +217,8 @@ namespace Nutritracker
             btnAction.Enabled = true;
         }
 
+        //remove database: adb("shell rm -r /storage/emulated/0/Nutritracker")
+
         void setUpDevice(string serial)
         {
             device.serial = serial;
@@ -271,7 +273,7 @@ namespace Nutritracker
             {
                 Log("INFO: no existing data on phone, preparing for first time use");
                 adb($"push {Application.StartupPath}{sl}usr /storage/emulated/0/Nutritracker/usr");
-                adb($"mkdir /storage/emulated/0/Nutritracker/usr/_db_upload_complete");
+                adb($"shell mkdir /storage/emulated/0/Nutritracker/_db_upload_complete");
             }
             Thread.Sleep(200);
             localDump = adb("shell ls /storage/emulated/0/Nutritracker/usr/share/DBs");
