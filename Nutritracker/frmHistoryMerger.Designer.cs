@@ -60,10 +60,10 @@
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.mergeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.dToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.removeSystemDataFromPhoneToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.button1 = new System.Windows.Forms.Button();
-            this.dToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.mergeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox5.SuspendLayout();
@@ -348,11 +348,11 @@
             // 
             // btnDelete
             // 
-            this.btnDelete.Location = new System.Drawing.Point(136, 99);
+            this.btnDelete.Location = new System.Drawing.Point(98, 99);
             this.btnDelete.Name = "btnDelete";
-            this.btnDelete.Size = new System.Drawing.Size(75, 23);
+            this.btnDelete.Size = new System.Drawing.Size(113, 23);
             this.btnDelete.TabIndex = 3;
-            this.btnDelete.Text = "Delete";
+            this.btnDelete.Text = "Verify Integrity";
             this.btnDelete.UseVisualStyleBackColor = true;
             this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
             // 
@@ -390,6 +390,19 @@
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.fileToolStripMenuItem.Text = "File";
             // 
+            // mergeToolStripMenuItem
+            // 
+            this.mergeToolStripMenuItem.Name = "mergeToolStripMenuItem";
+            this.mergeToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F2;
+            this.mergeToolStripMenuItem.Size = new System.Drawing.Size(251, 22);
+            this.mergeToolStripMenuItem.Text = "Merge";
+            // 
+            // dToolStripMenuItem
+            // 
+            this.dToolStripMenuItem.Name = "dToolStripMenuItem";
+            this.dToolStripMenuItem.Size = new System.Drawing.Size(251, 22);
+            this.dToolStripMenuItem.Text = "Refresh";
+            // 
             // removeSystemDataFromPhoneToolStripMenuItem
             // 
             this.removeSystemDataFromPhoneToolStripMenuItem.Name = "removeSystemDataFromPhoneToolStripMenuItem";
@@ -407,19 +420,6 @@
             this.button1.Text = "Exit";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // dToolStripMenuItem
-            // 
-            this.dToolStripMenuItem.Name = "dToolStripMenuItem";
-            this.dToolStripMenuItem.Size = new System.Drawing.Size(251, 22);
-            this.dToolStripMenuItem.Text = "Refresh";
-            // 
-            // mergeToolStripMenuItem
-            // 
-            this.mergeToolStripMenuItem.Name = "mergeToolStripMenuItem";
-            this.mergeToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F2;
-            this.mergeToolStripMenuItem.Size = new System.Drawing.Size(251, 22);
-            this.mergeToolStripMenuItem.Text = "Merge";
             // 
             // frmHistoryMerger
             // 

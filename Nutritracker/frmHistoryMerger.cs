@@ -197,6 +197,7 @@ namespace Nutritracker
         bool setup = false;
         void setUpDevice(string serial)
         {
+        Top:
             device.serial = serial;
             List<string> lines = adb("shell getprop", true);
             for (int k = 0; k < lines.Count; k++)
@@ -213,11 +214,14 @@ namespace Nutritracker
             if ((lines = adb($"shell dumpsys package {nutriPkg}", true)).Count < 5)
                 device.nutriInstalled = false;
             else
+            {
+                device.nutriInstalled = true;
                 for (int k = 0; k < lines.Count; k++)
                     if (lines[k].Trim().StartsWith("versionName="))        //versionName=2.4
                         device.version = lines[k].Trim().Replace("versionName=", "");
                     else if (lines[k].Trim().StartsWith("versionCode="))   //versionCode=502 targetSdk=23
-                        device.build = lines[k].Trim().Split(' ')[0].Replace("versionCode=", "");
+                        device.build = lines[k].Trim().Split(' ')[0].Replace("versionCode=", "");                
+            }
             device.__line_id = $"{device.manu} {device.model} ({device.firmware} -- {device.prodName}), Android version: {device.droidVer}";
             Log(" ");
             Log("Your device:");
@@ -232,6 +236,7 @@ namespace Nutritracker
                     Log("--> INSTALLING nutritracker-android");
                     adb($"uninstall {nutriPkg}");
                     adb($"install {nutriPkg}.apk", false, false);
+                    goto Top;
                 }
                 else
                 {
@@ -240,7 +245,7 @@ namespace Nutritracker
                 }
             }
             Log(" ");
-            Log($"\tnutritracker-android:\tv{device.version} (build #{device.build})");
+            Log($"\tnutritracker-android:  v{device.version} (build #{device.build})");
             Log(" ");
             if (device.droidVer.StartsWith("6"))
                 Log("WARNING: on marshmallow (android version 6) you **MUST** go settings --> apps --> Nutritracker --> Enable device storage");
