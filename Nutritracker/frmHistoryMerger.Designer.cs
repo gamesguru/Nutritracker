@@ -54,12 +54,16 @@
             this.txtConsole = new System.Windows.Forms.TextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.treeView1 = new System.Windows.Forms.TreeView();
-            this.btnAction = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.chkLstBoxSyncDBs = new System.Windows.Forms.CheckedListBox();
-            this.btnSync = new System.Windows.Forms.Button();
             this.btnDelete = new System.Windows.Forms.Button();
+            this.chkLstBoxSyncDBs = new System.Windows.Forms.CheckedListBox();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.removeSystemDataFromPhoneToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.button1 = new System.Windows.Forms.Button();
+            this.dToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.mergeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox5.SuspendLayout();
@@ -69,6 +73,7 @@
             this.groupBox6.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
+            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -79,10 +84,10 @@
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tabControl1.Location = new System.Drawing.Point(12, 12);
+            this.tabControl1.Location = new System.Drawing.Point(12, 27);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(776, 426);
+            this.tabControl1.Size = new System.Drawing.Size(776, 418);
             this.tabControl1.TabIndex = 0;
             this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
             // 
@@ -96,7 +101,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 25);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(768, 397);
+            this.tabPage1.Size = new System.Drawing.Size(768, 389);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Internal";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -274,25 +279,25 @@
             // 
             this.tabPage2.Controls.Add(this.groupBox6);
             this.tabPage2.Controls.Add(this.groupBox2);
-            this.tabPage2.Controls.Add(this.btnAction);
             this.tabPage2.Controls.Add(this.groupBox1);
             this.tabPage2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tabPage2.Location = new System.Drawing.Point(4, 25);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(768, 397);
+            this.tabPage2.Size = new System.Drawing.Size(768, 389);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Android Sync";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
             // groupBox6
             // 
-            this.groupBox6.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            this.groupBox6.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox6.Controls.Add(this.txtConsole);
-            this.groupBox6.Location = new System.Drawing.Point(6, 139);
+            this.groupBox6.Location = new System.Drawing.Point(6, 141);
             this.groupBox6.Name = "groupBox6";
-            this.groupBox6.Size = new System.Drawing.Size(756, 209);
+            this.groupBox6.Size = new System.Drawing.Size(756, 242);
             this.groupBox6.TabIndex = 4;
             this.groupBox6.TabStop = false;
             this.groupBox6.Text = "Console Output";
@@ -307,7 +312,7 @@
             this.txtConsole.Name = "txtConsole";
             this.txtConsole.ReadOnly = true;
             this.txtConsole.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.txtConsole.Size = new System.Drawing.Size(744, 182);
+            this.txtConsole.Size = new System.Drawing.Size(744, 215);
             this.txtConsole.TabIndex = 3;
             this.txtConsole.WordWrap = false;
             this.txtConsole.MouseDown += new System.Windows.Forms.MouseEventHandler(this.txtConsole_MouseDown);
@@ -318,7 +323,7 @@
             this.groupBox2.Controls.Add(this.treeView1);
             this.groupBox2.Location = new System.Drawing.Point(6, 6);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(162, 127);
+            this.groupBox2.Size = new System.Drawing.Size(222, 129);
             this.groupBox2.TabIndex = 2;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Meal Conflicts";
@@ -327,23 +332,12 @@
             // 
             this.treeView1.Location = new System.Drawing.Point(6, 21);
             this.treeView1.Name = "treeView1";
-            this.treeView1.Size = new System.Drawing.Size(121, 97);
+            this.treeView1.Size = new System.Drawing.Size(210, 101);
             this.treeView1.TabIndex = 0;
-            // 
-            // btnAction
-            // 
-            this.btnAction.Location = new System.Drawing.Point(7, 354);
-            this.btnAction.Name = "btnAction";
-            this.btnAction.Size = new System.Drawing.Size(215, 37);
-            this.btnAction.TabIndex = 1;
-            this.btnAction.Text = "Load Device";
-            this.btnAction.UseVisualStyleBackColor = true;
-            this.btnAction.Click += new System.EventHandler(this.btnAction_Click);
             // 
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.btnDelete);
-            this.groupBox1.Controls.Add(this.btnSync);
             this.groupBox1.Controls.Add(this.chkLstBoxSyncDBs);
             this.groupBox1.Location = new System.Drawing.Point(545, 6);
             this.groupBox1.Name = "groupBox1";
@@ -351,23 +345,6 @@
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Databases";
-            // 
-            // chkLstBoxSyncDBs
-            // 
-            this.chkLstBoxSyncDBs.FormattingEnabled = true;
-            this.chkLstBoxSyncDBs.Location = new System.Drawing.Point(6, 21);
-            this.chkLstBoxSyncDBs.Name = "chkLstBoxSyncDBs";
-            this.chkLstBoxSyncDBs.Size = new System.Drawing.Size(205, 72);
-            this.chkLstBoxSyncDBs.TabIndex = 1;
-            // 
-            // btnSync
-            // 
-            this.btnSync.Location = new System.Drawing.Point(6, 99);
-            this.btnSync.Name = "btnSync";
-            this.btnSync.Size = new System.Drawing.Size(91, 23);
-            this.btnSync.TabIndex = 2;
-            this.btnSync.Text = "Sync Phone";
-            this.btnSync.UseVisualStyleBackColor = true;
             // 
             // btnDelete
             // 
@@ -379,19 +356,81 @@
             this.btnDelete.UseVisualStyleBackColor = true;
             this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
             // 
+            // chkLstBoxSyncDBs
+            // 
+            this.chkLstBoxSyncDBs.FormattingEnabled = true;
+            this.chkLstBoxSyncDBs.Location = new System.Drawing.Point(6, 21);
+            this.chkLstBoxSyncDBs.Name = "chkLstBoxSyncDBs";
+            this.chkLstBoxSyncDBs.Size = new System.Drawing.Size(205, 72);
+            this.chkLstBoxSyncDBs.TabIndex = 1;
+            // 
             // timer1
             // 
-            this.timer1.Enabled = true;
-            this.timer1.Interval = 1750;
+            this.timer1.Interval = 550;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
+            // menuStrip1
+            // 
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.fileToolStripMenuItem});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
+            this.menuStrip1.Size = new System.Drawing.Size(800, 24);
+            this.menuStrip1.TabIndex = 1;
+            this.menuStrip1.Text = "menuStrip1";
+            // 
+            // fileToolStripMenuItem
+            // 
+            this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mergeToolStripMenuItem,
+            this.dToolStripMenuItem,
+            this.removeSystemDataFromPhoneToolStripMenuItem});
+            this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
+            this.fileToolStripMenuItem.Text = "File";
+            // 
+            // removeSystemDataFromPhoneToolStripMenuItem
+            // 
+            this.removeSystemDataFromPhoneToolStripMenuItem.Name = "removeSystemDataFromPhoneToolStripMenuItem";
+            this.removeSystemDataFromPhoneToolStripMenuItem.Size = new System.Drawing.Size(251, 22);
+            this.removeSystemDataFromPhoneToolStripMenuItem.Text = "Remove System Data from Phone";
+            this.removeSystemDataFromPhoneToolStripMenuItem.Click += new System.EventHandler(this.removeSystemDataFromPhoneToolStripMenuItem_Click);
+            // 
+            // button1
+            // 
+            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button1.Location = new System.Drawing.Point(622, 447);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(166, 37);
+            this.button1.TabIndex = 4;
+            this.button1.Text = "Exit";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // dToolStripMenuItem
+            // 
+            this.dToolStripMenuItem.Name = "dToolStripMenuItem";
+            this.dToolStripMenuItem.Size = new System.Drawing.Size(251, 22);
+            this.dToolStripMenuItem.Text = "Refresh";
+            // 
+            // mergeToolStripMenuItem
+            // 
+            this.mergeToolStripMenuItem.Name = "mergeToolStripMenuItem";
+            this.mergeToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F2;
+            this.mergeToolStripMenuItem.Size = new System.Drawing.Size(251, 22);
+            this.mergeToolStripMenuItem.Text = "Merge";
             // 
             // frmHistoryMerger
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(800, 490);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.tabControl1);
+            this.Controls.Add(this.menuStrip1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MainMenuStrip = this.menuStrip1;
             this.MaximizeBox = false;
             this.Name = "frmHistoryMerger";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -409,7 +448,10 @@
             this.groupBox6.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -419,7 +461,6 @@
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.Button btnAction;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.TreeView treeView1;
         private System.Windows.Forms.CheckedListBox chkLstBoxSyncDBs;
@@ -443,7 +484,12 @@
         private System.Windows.Forms.GroupBox groupBox6;
         private System.Windows.Forms.TextBox txtConsole;
         private System.Windows.Forms.Button btnDelete;
-        private System.Windows.Forms.Button btnSync;
         private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem removeSystemDataFromPhoneToolStripMenuItem;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.ToolStripMenuItem mergeToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem dToolStripMenuItem;
     }
 }
