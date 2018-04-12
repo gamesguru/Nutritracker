@@ -3,12 +3,7 @@ using System.IO;
 using System.Diagnostics;
 using System.Threading;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Nutritracker
@@ -74,12 +69,12 @@ namespace Nutritracker
             setup = false;
             if (tabControl1.SelectedIndex == 1)
             {
-                timer1.Enabled = true;
+                timerAdbDevices.Enabled = true;
                 adbSuspended = true;
             }
             else
             {
-                timer1.Enabled = false;
+                timerAdbDevices.Enabled = false;
                 adbSuspended = false;
             }
         }
@@ -87,14 +82,7 @@ namespace Nutritracker
         static string sl = Path.DirectorySeparatorChar.ToString();
         string adbLoc = $"{Application.StartupPath}{sl}lib{sl}android{sl}adb";
 
-        //string serial = "";
-        private void timerAdbDevices_Tick(object sender, EventArgs e)
-        {
-            if (adbSuspended)
-                return;
-
-        }
-
+        void Log() => Log(" ");
         void Log(string line)
         {
             List<string> tmp = txtConsole.Lines.ToList();
@@ -122,7 +110,10 @@ namespace Nutritracker
             s.CreateNoWindow = true;
             s.RedirectStandardError = true;
             s.RedirectStandardOutput = true;
-            s.Arguments = args;
+            if (!string.IsNullOrEmpty(device.serial))
+                s.Arguments = $"-s {device.serial} {args}";
+            else
+                s.Arguments = args;
             s.WorkingDirectory = $"{Application.StartupPath}{sl}lib{sl}android";
             Log($"adb {args}");
 
@@ -177,27 +168,27 @@ namespace Nutritracker
         }
         string nutriPkg = "com.nutri1.nutritracker";
 
-        private void btnAction_Click(object sender, EventArgs e)
-        {
-            //btnAction.Enabled = false;
-            //if (btnAction.Text == "Install Nutritracker")
-            //{
-            //    adb($"uninstall {nutriPkg}");
-            //    adb($"install {nutriPkg}.apk", false, false);
-            //    btnAction.Text = "Load Device";
-            //}
-            //else if (btnAction.Text == "Load Device")
-            //{
-            //    refresh();
-            //}
-            //btnAction.Enabled = true;
-        }
+        //private void btnAction_Click(object sender, EventArgs e)
+        //{
+        //btnAction.Enabled = false;
+        //if (btnAction.Text == "Install Nutritracker")
+        //{
+        //    adb($"uninstall {nutriPkg}");
+        //    adb($"install {nutriPkg}.apk", false, false);
+        //    btnAction.Text = "Load Device";
+        //}
+        //else if (btnAction.Text == "Load Device")
+        //{
+        //    refresh();
+        //}
+        //btnAction.Enabled = true;
+        //}
 
         //remove database: adb("shell rm -r /storage/emulated/0/Nutritracker")
         bool setup = false;
         void setUpDevice(string serial)
         {
-        Top:
+            Top:
             device.serial = serial;
             List<string> lines = adb("shell getprop", true);
             for (int k = 0; k < lines.Count; k++)
@@ -223,12 +214,12 @@ namespace Nutritracker
                         device.build = lines[k].Trim().Split(' ')[0].Replace("versionCode=", "");                
             }
             device.__line_id = $"{device.manu} {device.model} ({device.firmware} -- {device.prodName}), Android version: {device.droidVer}";
-            Log(" ");
+            Log();
             Log("Your device:");
             Log($"\t{device.__line_id}");
             if (!device.nutriInstalled)
             {
-                Log(" ");
+                Log();
                 device.__line_id = $"{device.manu} {device.model} ({device.droidVer}) nutritracker **NOT** installed";
                 //Log(device.__line_id);
                 if (MessageBox.Show("Nutritracker not installed on android phone.  Install it now?", "", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
@@ -244,19 +235,27 @@ namespace Nutritracker
                     return;
                 }
             }
-            Log(" ");
+            Log();
             Log($"\tnutritracker-android:  v{device.version} (build #{device.build})");
-            Log(" ");
+            Log();
             if (device.droidVer.StartsWith("6"))
-                Log("WARNING: on marshmallow (android version 6) you **MUST** go settings --> apps --> Nutritracker --> Enable device storage");
-            Log(" ");
+            {
+                Log("WARNING: on marshmallow (android version 6) you **MUST** go settings --> apps --> Nutritracker\r\n\t --> Permissions --> Enable device storage");
+                //Log("Launching settings activity on your phone, please goto \"Apps\"");
+                //adb ("shell am start com.android.settings/com.android.settings.Settings");
+            }
+            Log();
             List<string> localDump = adb("shell ls /storage/emulated/0/Nutritracker/usr/share/DBs");
             bool existingData = false;
+            dbs = new List<string>();
             foreach (string s in localDump)
                 if (!string.IsNullOrWhiteSpace(s))
                     foreach (string st in localDump)
                         if ($"{s}&" == st)
+                        {
+                            dbs.Add(st);
                             existingData = true;
+                        }
             if (!existingData)
             {
                 Log("INFO: no existing data on phone, preparing for first time use");
@@ -265,16 +264,75 @@ namespace Nutritracker
                 adb($"push {Application.StartupPath}{sl}usr /storage/emulated/0/Nutritracker/usr");
                 adb($"shell mkdir /storage/emulated/0/Nutritracker/_db_upload_complete");
                 Thread.Sleep(200);
-                localDump = adb("shell ls /storage/emulated/0/Nutritracker/usr/share/DBs");
             }
-            chkLstBoxSyncDBs.Items.Clear();
-            foreach (string s in localDump)
-                if (!s.EndsWith("&") && !String.IsNullOrWhiteSpace(s))
-                    chkLstBoxSyncDBs.Items.Add(s);
             //setup = true
+            mergeDevice();
         }
 
-        private void timer1_Tick(object sender, EventArgs e)
+        List<string> dbs;
+        List<string> phoneQueue;
+        List<string> compQueue;
+        void mergeDevice()
+        {
+            Log("*** VERIFYING FOOD LOG ***");
+            List<string> localDump = adb($"shell ls  /storage/emulated/0/Nutritracker/usr/profile{frmMain.currentUser.index}/log");
+            List<string> phoneDates = new List<string>();
+            foreach (string s in localDump)
+                if (s.Contains("-") && s.EndsWith(".TXT") && !phoneDates.Contains(s))
+                    phoneDates.Add(s);
+
+            localDump = Directory.GetFiles($"{Application.StartupPath}{sl}usr{sl}profile{frmMain.currentUser.index}/log").ToList();
+            List<string> compDates = new List<string>();
+            foreach (string s in localDump)
+            {
+                string st = s.Split(Path.DirectorySeparatorChar)[s.Split(Path.DirectorySeparatorChar).Length- 1];
+                if (st.Contains("-") && st.EndsWith(".TXT") && !compDates.Contains(st))
+                    compDates.Add(st);
+            }
+            List<string> allDates = new List<string>();
+            allDates.AddRange(phoneDates);
+            foreach (string s in compDates)
+                if (!allDates.Contains(s))
+                    allDates.Add(s);
+
+            phoneQueue = new List<string>();
+            compQueue = new List<string>();
+            foreach (string s in allDates.ToArray())
+            {
+                string[] compCat;
+                List<string> tmp = new List<string>();
+                if (phoneDates.Contains(s))
+                    tmp = adb($"shell cat /storage/emulated/0/Nutritracker/usr/profile{frmMain.currentUser.index}/log/{s}", true);
+                List<string> phoneCat = new List<string>();
+                bool _new = false;
+                bool _identical = true;
+                if (!phoneDates.Contains(s))
+                {
+                    phoneQueue.Add(s);
+                    _new = true;
+                }
+                if (!compDates.Contains(s))
+                {
+                    compQueue.Add(s);
+                    _new = true;
+                }
+                if (!_new)
+                {
+                    foreach (string str in tmp)
+                        if (!string.IsNullOrWhiteSpace(str))
+                            phoneCat.Add(str);
+                    compCat = File.ReadAllLines($"{Application.StartupPath}{sl}usr{sl}profile{frmMain.currentUser.index}/log/{s}");
+                    if (phoneCat.Count == compCat.Length)
+                        for (int i = 0; i < compCat.Length; i++)
+                            if (phoneCat[i] != compCat[i])
+                                _identical = false;
+                    if (!_identical)
+                        ; //merge date
+                }
+            }
+        }
+
+        private void timerAdbDevices_Tick(object sender, EventArgs e)
         {
             refresh();
         }
@@ -289,6 +347,7 @@ namespace Nutritracker
             }
             if (!setup)
             {
+                Log("*** CHECKING IN DEVICE ***");
                 List<string> devQuery = adb("devices");
                 List<string> serials = new List<string>();
                 foreach (string s in devQuery)
@@ -308,37 +367,37 @@ namespace Nutritracker
                 }
                 if (string.IsNullOrEmpty(device.serial) || device.serial == serials[0])
                 {
-                    timer1.Enabled = false;
+                    timerAdbDevices.Enabled = false;
                     setUpDevice(serials[0]);
                 }
                 else if (serials[0] != device.serial)
                 {
                     Log($"DEBUG: device '{device.serial}' disconnected, please restart");
                     setup = false;
-                    timer1.Enabled = true;
+                    timerAdbDevices.Enabled = true;
                 }
             }
         }
 
-        private void btnDelete_Click(object sender, EventArgs e)
-        {
-            if (chkLstBoxSyncDBs.SelectedItems.Count == 0)
-            {
-                MessageBox.Show("No databases selected...", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                return;
-            }
-            if (MessageBox.Show("Are you sure you want to remove these database(s) from your phone?", "", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
-            {
-                Log("This will take a moment... please by patient");
-                foreach (var v in chkLstBoxSyncDBs.CheckedItems)
-                {
-                    adb($"shell rm -r /storage/emulated/0/Nutritracker/usr/share/DBs/{v}");
-                    adb($"shell rm -r \"/storage/emulated/0/Nutritracker/usr/share/DBs/{v}\\&\"");
-                    Log($"--> {v} removed!!");
-                }
-                refresh();
-            }
-        }
+        //private void btnDelete_Click(object sender, EventArgs e)
+        //{
+        //    if (chkLstBoxSyncDBs.SelectedItems.Count == 0)
+        //    {
+        //        MessageBox.Show("No databases selected...", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        //        return;
+        //    }
+        //    if (MessageBox.Show("Are you sure you want to remove these database(s) from your phone?", "", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
+        //    {
+        //        Log("This will take a moment... please by patient");
+        //        foreach (var v in chkLstBoxSyncDBs.CheckedItems)
+        //        {
+        //            adb($"shell rm -r /storage/emulated/0/Nutritracker/usr/share/DBs/{v}");
+        //            adb($"shell rm -r \"/storage/emulated/0/Nutritracker/usr/share/DBs/{v}\\&\"");
+        //            Log($"--> {v} removed!!");
+        //        }
+        //        refresh();
+        //    }
+        //}
 
         private void removeSystemDataFromPhoneToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -349,9 +408,24 @@ namespace Nutritracker
             }
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void btnExit_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void btnRemoveUserData_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnRemoveSystemData_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnCommit_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
