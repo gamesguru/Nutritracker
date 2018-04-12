@@ -215,6 +215,7 @@
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <Compile Include="pReader.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\apache.rtf" />

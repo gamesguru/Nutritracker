@@ -85,7 +85,9 @@ namespace Nutritracker
         void Log() => Log(" ");
         void Log(string line)
         {
-            List<string> tmp = txtConsole.Lines.ToList();
+            List<string> tmp = new List<string>();
+            try { tmp = txtConsole.Lines.ToList(); }
+            catch { }
             tmp.Add(line);
             string[] lines = tmp.ToArray();
             try
@@ -101,8 +103,12 @@ namespace Nutritracker
             catch { }
         }
 
+        static bool busy = false;
         List<string> adb(string args, bool skipLogging = false, bool skipStdErr = true)
         {
+            if (busy)
+                return new List<string>();
+            busy = true;
             List<string> stdOUT = new List<string>();
             Process p = null;
             ProcessStartInfo s = new ProcessStartInfo(adbLoc);
@@ -120,6 +126,7 @@ namespace Nutritracker
             bool finished = false;
             Thread t = new Thread(() =>
             {
+                finished = false;
                 this.UseWaitCursor = true;
                 p = Process.Start(s);
                 string line;
@@ -150,6 +157,7 @@ namespace Nutritracker
                 Application.DoEvents();
             try { p.Close(); }
             catch { }
+            busy = false;
             return stdOUT;
         }
 
@@ -347,7 +355,7 @@ namespace Nutritracker
             }
             if (!setup)
             {
-                Log("*** CHECKING IN DEVICE ***");
+                Log("*** INITIALIZING ANDROID DEBUG BRIDGE ***");
                 List<string> devQuery = adb("devices");
                 List<string> serials = new List<string>();
                 foreach (string s in devQuery)
@@ -368,6 +376,7 @@ namespace Nutritracker
                 if (string.IsNullOrEmpty(device.serial) || device.serial == serials[0])
                 {
                     timerAdbDevices.Enabled = false;
+                    Log("*** CHECKING IN DEVICE ***");
                     setUpDevice(serials[0]);
                 }
                 else if (serials[0] != device.serial)

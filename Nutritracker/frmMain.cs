@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using System.Drawing;
 using System.IO;
 using System.Diagnostics;
 using System.Linq;
 using System.Windows.Forms;
+using static Nutritracker.pReader;
 
 namespace Nutritracker
 {
@@ -232,8 +234,20 @@ namespace Nutritracker
                 MessageBox.Show("null user directory");
         }
 
+        public static string osPlatform = "";
+
+        public enum OS { Windows, macOS, Linux };
+        public static OS os;
+
         private void frmMain_Load(object sender, EventArgs e)
         {
+            //osPlatform = System.Runtime.InteropServices.RuntimeInformation.OSDescription;
+            if (slash == "\\")
+                os = OS.Windows;
+            else if (exc("uname")[0] == "Darwin")
+                os = OS.macOS;
+            else
+                os = OS.Linux;
             try { currentUser.index = Convert.ToInt32(Directory.GetFiles($"{Application.StartupPath}{slash}usr")[0].Split(new string[] { $"usr{slash}default" }, StringSplitOptions.None)[1]); }
             catch { }
 
