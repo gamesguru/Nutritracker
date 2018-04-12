@@ -5,6 +5,7 @@ using System.Threading;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
+using static Nutritracker.pReader;
 
 namespace Nutritracker
 {
@@ -14,13 +15,18 @@ namespace Nutritracker
         {
             InitializeComponent();
         }
-        string slash = Path.DirectorySeparatorChar.ToString();
-
+        string sl = Path.DirectorySeparatorChar.ToString();
+        string adbLoc = "";
         private void frmHistoryMerger_Load(object sender, EventArgs e)
         {
+            if (frmMain.os == frmMain.OS.Windows)
+                adbLoc = $"{Application.StartupPath}{sl}lib{sl}android{sl}win{sl}adb.exe";
+            else if (frmMain.os == frmMain.OS.macOS)
+                adbLoc = $"{Application.StartupPath}{sl}lib{sl}android{sl}mac{sl}adb";
+            else
+                adbLoc = $"{Application.StartupPath}{sl}lib{sl}android{sl}unix{sl}adb";
+                
             comboMeal.SelectedIndex = frmMain.currentUser.lastMeal;
-            if (sl == "\\")
-                adbLoc += ".exe";
         }
 
         string _db = "";
@@ -34,7 +40,7 @@ namespace Nutritracker
             }
             _db = chkLstBoxDBs.CheckedItems[0].ToString();
             _dbPrimKeys = new List<string>();
-            foreach (string s in File.ReadAllLines($"{Application.StartupPath}{slash}usr{slash}share{slash}DBs{slash}_db{slash}_entryKeyLang.ini"))
+            foreach (string s in File.ReadAllLines($"{Application.StartupPath}{sl}usr{sl}share{sl}DBs{sl}_db{sl}_entryKeyLang.ini"))
                 _dbPrimKeys.Add(s.Split('|')[1]);
             if (!_dbPrimKeys.Contains(primKeyToAdd))
             {
@@ -53,15 +59,15 @@ namespace Nutritracker
         string primKeyToAdd = "";
         private void txtPrimKeyToAdd_TextChanged(object sender, EventArgs e) => primKeyToAdd = txtPrimKeyToAdd.Text;
 
-        bool adbSuspended = true;
+
         private void txtConsole_MouseDown(object sender, MouseEventArgs e)
         {
-            adbSuspended = true;
+            //adbSuspended = true;
         }
 
         private void txtConsole_MouseUp(object sender, MouseEventArgs e)
         {
-            adbSuspended = false;
+            //adbSuspended = false;
         }
 
         private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
@@ -70,110 +76,16 @@ namespace Nutritracker
             if (tabControl1.SelectedIndex == 1)
             {
                 timerAdbDevices.Enabled = true;
-                adbSuspended = true;
+                //adbSuspended = true;
             }
             else
             {
                 timerAdbDevices.Enabled = false;
-                adbSuspended = false;
+                //adbSuspended = false;
             }
         }
 
-        static string sl = Path.DirectorySeparatorChar.ToString();
-        string adbLoc = $"{Application.StartupPath}{sl}lib{sl}android{sl}adb";
 
-        void Log() => Log(" ");
-        void Log(string line)
-        {
-            List<string> tmp = new List<string>();
-            try { tmp = txtConsole.Lines.ToList(); }
-            catch { }
-            tmp.Add(line);
-            string[] lines = tmp.ToArray();
-            try
-            {
-                this.Invoke(new MethodInvoker(delegate
-                {
-                    txtConsole.Lines = lines;
-                    txtConsole.SelectionStart = txtConsole.TextLength;
-                    txtConsole.ScrollToCaret();
-
-                }));
-            }
-            catch { }
-        }
-
-        static bool busy = false;
-        List<string> adb(string args, bool skipLogging = false, bool skipStdErr = true)
-        {
-            if (busy)
-                return new List<string>();
-            busy = true;
-            List<string> stdOUT = new List<string>();
-            Process p = null;
-            ProcessStartInfo s = new ProcessStartInfo(adbLoc);
-            s.UseShellExecute = false;
-            s.CreateNoWindow = true;
-            s.RedirectStandardError = true;
-            s.RedirectStandardOutput = true;
-            if (!string.IsNullOrEmpty(device.serial))
-                s.Arguments = $"-s {device.serial} {args}";
-            else
-                s.Arguments = args;
-            s.WorkingDirectory = $"{Application.StartupPath}{sl}lib{sl}android";
-            Log($"adb {args}");
-
-            bool finished = false;
-            Thread t = new Thread(() =>
-            {
-                finished = false;
-                this.UseWaitCursor = true;
-                p = Process.Start(s);
-                string line;
-                if (!skipStdErr)
-                    while ((line = p.StandardError.ReadLine()) != null)
-                        Log($"ERROR: {line}");
-                line = null;
-                int n = 0;
-                while ((line = p.StandardOutput.ReadLine()) != null)
-                {
-                    if (!skipLogging)
-                        if (line.StartsWith("[") && ++n % 50 == 0)
-                            Log($"\t{line}");
-                        else if (!line.StartsWith("["))
-                            Log($"\t{line}");
-                    stdOUT.Add(line);
-                }
-                this.UseWaitCursor = false;
-                finished = true;
-            });
-            if (!File.Exists(adbLoc))
-            {
-                Log($"ERROR: adb **NOT** found at '{adbLoc}'");
-                return stdOUT;
-            }
-            t.Start();
-            while (!finished)
-                Application.DoEvents();
-            try { p.Close(); }
-            catch { }
-            busy = false;
-            return stdOUT;
-        }
-
-        static class device
-        {
-            public static string serial;
-            public static string manu;
-            public static string model;
-            public static string droidVer;
-            public static string firmware;
-            public static string prodName;
-            public static bool nutriInstalled = true;
-            public static string version;
-            public static string build;
-            public static string __line_id = "";
-        }
         string nutriPkg = "com.nutri1.nutritracker";
 
         //private void btnAction_Click(object sender, EventArgs e)
@@ -386,6 +298,100 @@ namespace Nutritracker
                     timerAdbDevices.Enabled = true;
                 }
             }
+        }
+
+
+        public void Log() => Log(" ");
+        public void Log(string line)
+        {
+            List<string> tmp = new List<string>();
+            try { tmp = txtConsole.Lines.ToList(); }
+            catch { }
+            tmp.Add(line);
+            string[] lines = tmp.ToArray();
+            try
+            {
+                this.Invoke(new MethodInvoker(delegate
+                {
+                    txtConsole.Lines = lines;
+                    txtConsole.SelectionStart = txtConsole.TextLength;
+                    txtConsole.ScrollToCaret();
+
+                }));
+            }
+            catch { }
+        }
+
+        public static bool busy = false;
+        public List<string> adb(string args, bool skipLogging = false, bool skipStdErr = true)
+        {
+            if (busy)
+                return new List<string>();
+            busy = true;
+            List<string> stdOUT = new List<string>();
+            Process p = null;
+            ProcessStartInfo s = new ProcessStartInfo(adbLoc);
+            s.UseShellExecute = false;
+            s.CreateNoWindow = true;
+            s.RedirectStandardError = true;
+            s.RedirectStandardOutput = true;
+            if (!string.IsNullOrEmpty(device.serial))
+                s.Arguments = $"-s {device.serial} {args}";
+            else
+                s.Arguments = args;
+            s.WorkingDirectory = $"{Application.StartupPath}{sl}lib{sl}android";
+            Log($"adb {args}");
+
+            bool finished = false;
+            Thread t = new Thread(() =>
+            {
+                finished = false;
+                //this.UseWaitCursor = true;
+                p = Process.Start(s);
+                string line;
+                if (!skipStdErr)
+                    while ((line = p.StandardError.ReadLine()) != null)
+                        Log($"ERROR: {line}");
+                line = null;
+                int n = 0;
+                while ((line = p.StandardOutput.ReadLine()) != null)
+                {
+                    if (!skipLogging)
+                        if (line.StartsWith("[") && ++n % 50 == 0)
+                            Log($"\t{line}");
+                        else if (!line.StartsWith("["))
+                            Log($"\t{line}");
+                    stdOUT.Add(line);
+                }
+                //this.UseWaitCursor = false;
+                finished = true;
+            });
+            if (!File.Exists(adbLoc))
+            {
+                Log($"ERROR: adb **NOT** found at '{adbLoc}'");
+                return stdOUT;
+            }
+            t.Start();
+            while (!finished)
+                Application.DoEvents();
+            try { p.Close(); }
+            catch { }
+            busy = false;
+            return stdOUT;
+        }
+
+        public static class device
+        {
+            public static string serial;
+            public static string manu;
+            public static string model;
+            public static string droidVer;
+            public static string firmware;
+            public static string prodName;
+            public static bool nutriInstalled = true;
+            public static string version;
+            public static string build;
+            public static string __line_id = "";
         }
 
         //private void btnDelete_Click(object sender, EventArgs e)
