@@ -58,6 +58,12 @@
     <Compile Include="progBarWait.Designer.cs">
       <DependentUpon>progBarWait.cs</DependentUpon>
     </Compile>
+    <Compile Include="setReminder.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="setReminder.Designer.cs">
+      <DependentUpon>setReminder.cs</DependentUpon>
+    </Compile>
     <Compile Include="sfCalc.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -164,6 +170,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="progBarWait.resx">
       <DependentUpon>progBarWait.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="setReminder.resx">
+      <DependentUpon>setReminder.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="sfCalc.resx">
       <DependentUpon>sfCalc.cs</DependentUpon>

@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmHistoryMerger));
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
@@ -50,29 +49,31 @@
             this.label1 = new System.Windows.Forms.Label();
             this.txtQuery = new System.Windows.Forms.TextBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.btnSync = new System.Windows.Forms.Button();
-            this.btnRemoveSystemData = new System.Windows.Forms.Button();
-            this.groupBox6 = new System.Windows.Forms.GroupBox();
-            this.txtConsole = new System.Windows.Forms.TextBox();
-            this.timerAdbDevices = new System.Windows.Forms.Timer(this.components);
-            this.btnExit = new System.Windows.Forms.Button();
-            this.btnSkip = new System.Windows.Forms.Button();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.lblMergeDesc = new System.Windows.Forms.Label();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
+            this.lblStatus = new System.Windows.Forms.Label();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.txtCompCat = new System.Windows.Forms.TextBox();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.txtPhoneCat = new System.Windows.Forms.TextBox();
+            this.btnSetReminder = new System.Windows.Forms.Button();
+            this.btnAction = new System.Windows.Forms.Button();
+            this.btnRemove = new System.Windows.Forms.Button();
+            this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.txtCommand = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.txtConsole = new System.Windows.Forms.TextBox();
+            this.btnExit = new System.Windows.Forms.Button();
+            this.btnExit2 = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox5.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.tabPage2.SuspendLayout();
-            this.groupBox6.SuspendLayout();
-            this.groupBox2.SuspendLayout();
-            this.groupBox1.SuspendLayout();
             this.groupBox7.SuspendLayout();
+            this.groupBox1.SuspendLayout();
+            this.groupBox2.SuspendLayout();
+            this.groupBox6.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -86,12 +87,13 @@
             this.tabControl1.Location = new System.Drawing.Point(12, 12);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(822, 433);
+            this.tabControl1.Size = new System.Drawing.Size(820, 504);
             this.tabControl1.TabIndex = 0;
             this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.btnExit2);
             this.tabPage1.Controls.Add(this.groupBox5);
             this.tabPage1.Controls.Add(this.flowLayoutPanel1);
             this.tabPage1.Controls.Add(this.groupBox4);
@@ -100,7 +102,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 25);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(843, 404);
+            this.tabPage1.Size = new System.Drawing.Size(812, 475);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Internal";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -279,54 +281,159 @@
             this.tabPage2.Controls.Add(this.groupBox7);
             this.tabPage2.Controls.Add(this.groupBox1);
             this.tabPage2.Controls.Add(this.groupBox2);
-            this.tabPage2.Controls.Add(this.btnSkip);
-            this.tabPage2.Controls.Add(this.btnSync);
-            this.tabPage2.Controls.Add(this.btnRemoveSystemData);
+            this.tabPage2.Controls.Add(this.btnSetReminder);
+            this.tabPage2.Controls.Add(this.btnAction);
+            this.tabPage2.Controls.Add(this.btnRemove);
             this.tabPage2.Controls.Add(this.groupBox6);
             this.tabPage2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tabPage2.Location = new System.Drawing.Point(4, 25);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(814, 404);
+            this.tabPage2.Size = new System.Drawing.Size(812, 475);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Android Sync";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
-            // btnSync
+            // groupBox7
             // 
-            this.btnSync.Enabled = false;
-            this.btnSync.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSync.Location = new System.Drawing.Point(570, 125);
-            this.btnSync.Name = "btnSync";
-            this.btnSync.Size = new System.Drawing.Size(116, 44);
-            this.btnSync.TabIndex = 5;
-            this.btnSync.Text = "Sync";
-            this.btnSync.UseVisualStyleBackColor = true;
-            this.btnSync.Click += new System.EventHandler(this.btnCommit_Click);
+            this.groupBox7.Controls.Add(this.lblStatus);
+            this.groupBox7.Location = new System.Drawing.Point(570, 6);
+            this.groupBox7.Name = "groupBox7";
+            this.groupBox7.Size = new System.Drawing.Size(238, 63);
+            this.groupBox7.TabIndex = 11;
+            this.groupBox7.TabStop = false;
+            this.groupBox7.Text = "Status";
             // 
-            // btnRemoveSystemData
+            // lblStatus
             // 
-            this.btnRemoveSystemData.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnRemoveSystemData.Location = new System.Drawing.Point(692, 112);
-            this.btnRemoveSystemData.Name = "btnRemoveSystemData";
-            this.btnRemoveSystemData.Size = new System.Drawing.Size(112, 57);
-            this.btnRemoveSystemData.TabIndex = 6;
-            this.btnRemoveSystemData.Text = "Erase System Data";
-            this.btnRemoveSystemData.UseVisualStyleBackColor = true;
-            this.btnRemoveSystemData.Click += new System.EventHandler(this.btnRemoveSystemData_Click);
+            this.lblStatus.Location = new System.Drawing.Point(6, 18);
+            this.lblStatus.Name = "lblStatus";
+            this.lblStatus.Size = new System.Drawing.Size(226, 42);
+            this.lblStatus.TabIndex = 10;
+            this.lblStatus.Text = "Nothing to merge...";
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox1.Controls.Add(this.txtCompCat);
+            this.groupBox1.Location = new System.Drawing.Point(12, 6);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(274, 222);
+            this.groupBox1.TabIndex = 9;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Computer";
+            // 
+            // txtCompCat
+            // 
+            this.txtCompCat.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtCompCat.Location = new System.Drawing.Point(6, 21);
+            this.txtCompCat.Multiline = true;
+            this.txtCompCat.Name = "txtCompCat";
+            this.txtCompCat.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.txtCompCat.Size = new System.Drawing.Size(262, 195);
+            this.txtCompCat.TabIndex = 7;
+            this.txtCompCat.WordWrap = false;
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox2.Controls.Add(this.txtPhoneCat);
+            this.groupBox2.Location = new System.Drawing.Point(286, 6);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(274, 222);
+            this.groupBox2.TabIndex = 8;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Phone";
+            // 
+            // txtPhoneCat
+            // 
+            this.txtPhoneCat.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtPhoneCat.Location = new System.Drawing.Point(6, 21);
+            this.txtPhoneCat.Multiline = true;
+            this.txtPhoneCat.Name = "txtPhoneCat";
+            this.txtPhoneCat.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.txtPhoneCat.Size = new System.Drawing.Size(262, 195);
+            this.txtPhoneCat.TabIndex = 7;
+            this.txtPhoneCat.WordWrap = false;
+            // 
+            // btnSetReminder
+            // 
+            this.btnSetReminder.Enabled = false;
+            this.btnSetReminder.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSetReminder.Location = new System.Drawing.Point(570, 75);
+            this.btnSetReminder.Name = "btnSetReminder";
+            this.btnSetReminder.Size = new System.Drawing.Size(116, 44);
+            this.btnSetReminder.TabIndex = 7;
+            this.btnSetReminder.Text = "Set Reminder";
+            this.btnSetReminder.UseVisualStyleBackColor = true;
+            this.btnSetReminder.Click += new System.EventHandler(this.btnSetReminder_Click);
+            // 
+            // btnAction
+            // 
+            this.btnAction.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAction.Location = new System.Drawing.Point(570, 125);
+            this.btnAction.Name = "btnAction";
+            this.btnAction.Size = new System.Drawing.Size(116, 44);
+            this.btnAction.TabIndex = 5;
+            this.btnAction.Text = "Sync";
+            this.btnAction.UseVisualStyleBackColor = true;
+            this.btnAction.Click += new System.EventHandler(this.btnAction_Click);
+            // 
+            // btnRemove
+            // 
+            this.btnRemove.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnRemove.Location = new System.Drawing.Point(692, 75);
+            this.btnRemove.Name = "btnRemove";
+            this.btnRemove.Size = new System.Drawing.Size(112, 57);
+            this.btnRemove.TabIndex = 6;
+            this.btnRemove.Text = "Erase System Data";
+            this.btnRemove.UseVisualStyleBackColor = true;
+            this.btnRemove.Click += new System.EventHandler(this.btnRemoveData);
             // 
             // groupBox6
             // 
             this.groupBox6.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox6.Controls.Add(this.btnExit);
+            this.groupBox6.Controls.Add(this.txtCommand);
+            this.groupBox6.Controls.Add(this.label5);
             this.groupBox6.Controls.Add(this.txtConsole);
-            this.groupBox6.Location = new System.Drawing.Point(6, 175);
+            this.groupBox6.Location = new System.Drawing.Point(6, 234);
             this.groupBox6.Name = "groupBox6";
-            this.groupBox6.Size = new System.Drawing.Size(802, 223);
+            this.groupBox6.Size = new System.Drawing.Size(800, 235);
             this.groupBox6.TabIndex = 4;
             this.groupBox6.TabStop = false;
             this.groupBox6.Text = "Console Output";
+            // 
+            // txtCommand
+            // 
+            this.txtCommand.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtCommand.Location = new System.Drawing.Point(83, 191);
+            this.txtCommand.Name = "txtCommand";
+            this.txtCommand.Size = new System.Drawing.Size(532, 22);
+            this.txtCommand.TabIndex = 5;
+            this.txtCommand.Text = "sync";
+            this.txtCommand.Enter += new System.EventHandler(this.txtCommand_Enter);
+            this.txtCommand.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtCommand_KeyDown);
+            // 
+            // label5
+            // 
+            this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(6, 194);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(71, 16);
+            this.label5.TabIndex = 4;
+            this.label5.Text = "command:";
             // 
             // txtConsole
             // 
@@ -338,20 +445,16 @@
             this.txtConsole.Name = "txtConsole";
             this.txtConsole.ReadOnly = true;
             this.txtConsole.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtConsole.Size = new System.Drawing.Size(790, 196);
+            this.txtConsole.Size = new System.Drawing.Size(788, 164);
             this.txtConsole.TabIndex = 3;
             this.txtConsole.MouseDown += new System.Windows.Forms.MouseEventHandler(this.txtConsole_MouseDown);
             this.txtConsole.MouseUp += new System.Windows.Forms.MouseEventHandler(this.txtConsole_MouseUp);
             // 
-            // timerAdbDevices
-            // 
-            this.timerAdbDevices.Interval = 550;
-            this.timerAdbDevices.Tick += new System.EventHandler(this.timerAdbDevices_Tick);
-            // 
             // btnExit
             // 
+            this.btnExit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnExit.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnExit.Location = new System.Drawing.Point(622, 447);
+            this.btnExit.Location = new System.Drawing.Point(634, 198);
             this.btnExit.Name = "btnExit";
             this.btnExit.Size = new System.Drawing.Size(166, 37);
             this.btnExit.TabIndex = 4;
@@ -359,93 +462,23 @@
             this.btnExit.UseVisualStyleBackColor = true;
             this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
             // 
-            // btnSkip
+            // btnExit2
             // 
-            this.btnSkip.Enabled = false;
-            this.btnSkip.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSkip.Location = new System.Drawing.Point(570, 75);
-            this.btnSkip.Name = "btnSkip";
-            this.btnSkip.Size = new System.Drawing.Size(116, 44);
-            this.btnSkip.TabIndex = 7;
-            this.btnSkip.Text = "Skip";
-            this.btnSkip.UseVisualStyleBackColor = true;
-            // 
-            // groupBox2
-            // 
-            this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox2.Controls.Add(this.textBox2);
-            this.groupBox2.Location = new System.Drawing.Point(288, 6);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(276, 163);
-            this.groupBox2.TabIndex = 8;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Phone";
-            // 
-            // textBox2
-            // 
-            this.textBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox2.Location = new System.Drawing.Point(6, 21);
-            this.textBox2.Multiline = true;
-            this.textBox2.Name = "textBox2";
-            this.textBox2.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textBox2.Size = new System.Drawing.Size(264, 136);
-            this.textBox2.TabIndex = 7;
-            this.textBox2.WordWrap = false;
-            // 
-            // groupBox1
-            // 
-            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox1.Controls.Add(this.textBox1);
-            this.groupBox1.Location = new System.Drawing.Point(12, 6);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(276, 163);
-            this.groupBox1.TabIndex = 9;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Computer";
-            // 
-            // textBox1
-            // 
-            this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox1.Location = new System.Drawing.Point(6, 21);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textBox1.Size = new System.Drawing.Size(264, 136);
-            this.textBox1.TabIndex = 7;
-            this.textBox1.WordWrap = false;
-            // 
-            // lblMergeDesc
-            // 
-            this.lblMergeDesc.Location = new System.Drawing.Point(6, 18);
-            this.lblMergeDesc.Name = "lblMergeDesc";
-            this.lblMergeDesc.Size = new System.Drawing.Size(226, 42);
-            this.lblMergeDesc.TabIndex = 10;
-            this.lblMergeDesc.Text = "Nothing to merge...";
-            // 
-            // groupBox7
-            // 
-            this.groupBox7.Controls.Add(this.lblMergeDesc);
-            this.groupBox7.Location = new System.Drawing.Point(570, 6);
-            this.groupBox7.Name = "groupBox7";
-            this.groupBox7.Size = new System.Drawing.Size(238, 63);
-            this.groupBox7.TabIndex = 11;
-            this.groupBox7.TabStop = false;
-            this.groupBox7.Text = "Status";
+            this.btnExit2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnExit2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnExit2.Location = new System.Drawing.Point(640, 432);
+            this.btnExit2.Name = "btnExit2";
+            this.btnExit2.Size = new System.Drawing.Size(166, 37);
+            this.btnExit2.TabIndex = 8;
+            this.btnExit2.Text = "Exit";
+            this.btnExit2.UseVisualStyleBackColor = true;
+            this.btnExit2.Click += new System.EventHandler(this.btnExit2_Click);
             // 
             // frmHistoryMerger
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(846, 490);
-            this.Controls.Add(this.btnExit);
+            this.ClientSize = new System.Drawing.Size(844, 561);
             this.Controls.Add(this.tabControl1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
@@ -461,13 +494,13 @@
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             this.tabPage2.ResumeLayout(false);
-            this.groupBox6.ResumeLayout(false);
-            this.groupBox6.PerformLayout();
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
+            this.groupBox7.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            this.groupBox7.ResumeLayout(false);
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
+            this.groupBox6.ResumeLayout(false);
+            this.groupBox6.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -496,16 +529,18 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.GroupBox groupBox6;
         private System.Windows.Forms.TextBox txtConsole;
-        private System.Windows.Forms.Timer timerAdbDevices;
         private System.Windows.Forms.Button btnExit;
-        private System.Windows.Forms.Button btnRemoveSystemData;
-        private System.Windows.Forms.Button btnSync;
-        private System.Windows.Forms.Button btnSkip;
+        private System.Windows.Forms.Button btnRemove;
+        private System.Windows.Forms.Button btnAction;
+        private System.Windows.Forms.Button btnSetReminder;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox txtCompCat;
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.Label lblMergeDesc;
+        private System.Windows.Forms.TextBox txtPhoneCat;
+        private System.Windows.Forms.Label lblStatus;
         private System.Windows.Forms.GroupBox groupBox7;
+        private System.Windows.Forms.TextBox txtCommand;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Button btnExit2;
     }
 }
