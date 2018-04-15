@@ -111,7 +111,7 @@ namespace Nutritracker
 
 
 
-            ProcessStartInfo ps = new ProcessStartInfo($"{Application.StartupPath}{slash}logrunner{slash}logRunner.exe");
+            ProcessStartInfo ps = new ProcessStartInfo($"{Application.StartupPath}{slash}logRunner.exe");
 
             // arg1   = profile #
             // arg2   = unique log output *.TXT, full file name

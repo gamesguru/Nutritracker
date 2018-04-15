@@ -163,8 +163,8 @@ namespace Nutritracker
                     {
                         string name = "";
                         foreach (string s in File.ReadAllLines($"{directs[i]}{sl}profile.py"))
-                            if (s.StartsWith("[Name]"))
-                                name = s.Replace("[Name]", "");
+                            if (s.StartsWith("Name:"))
+                                name = s.Split(':')[1];
                         _profs.Add(directs[i]);
                         comboExistingProfs.Items.Add(name);
                     }
@@ -271,7 +271,7 @@ namespace Nutritracker
             frmMain.currentUser.wt = Convert.ToInt32(txtWt.Text);
             frmMain.currentUser.ht = Convert.ToInt32(txtHt.Text);
             frmMain.currentUser.actLvl = comboActivity.SelectedIndex;
-            frmMain.currentUser.goal = comboGoal.SelectedIndex.ToString();
+            frmMain.currentUser.goal = comboGoal.SelectedIndex;
 
             if (checkDefaultProf.Checked)
             {
@@ -420,34 +420,34 @@ namespace Nutritracker
                 try
                 {
                     foreach (string st in File.ReadAllLines($"{directs[i]}{sl}profile.py"))
-                        if (st.StartsWith("[Name]"))
-                            name = st.Replace("[Name]", "");
+                        if (st.StartsWith("Name:"))
+                            name = st.Split(':')[1];
                 }
                 catch { continue; }
                 if (directs[i].Contains($"{sl}profile{i}") && name.ToLower() ==
                     comboExistingProfs.Text.ToLower())
                     foreach (string s in File.ReadAllLines($"{directs[i]}{sl}profile.py"))
-                        if (s.StartsWith("[Gender]"))
+                        if (s.StartsWith("Gender:"))
                             if (s.Contains("female"))
                                 radioMale.Checked = false;
                             else
                                 radioMale.Checked = true;
-                        else if (s.StartsWith("[Name]"))
-                            txtNewProfName.Text = s.Replace("[Name]", "");
-                        else if (s.StartsWith("[Age]"))
-                            txtAge.Text = s.Replace("[Age]", "");
-                        else if (s.StartsWith("[Bodyfat]"))
-                            txtBodyfat.Text = s.Replace("[Bodyfat]", "");
-                        else if (s.StartsWith("[Weight]"))
-                            txtWt.Text = s.Replace("[Weight]", "");
-                        else if (s.StartsWith("[Height]"))
-                            txtHt.Text = s.Replace("[Height]", "");
-                        else if (s.StartsWith("[ActLvl]"))
-                            comboActivity.SelectedIndex = Convert.ToInt32(s.Replace("[ActLvl]", ""));
-                        else if (s.StartsWith("[Goal]"))
-                            comboGoal.SelectedIndex = Convert.ToInt32(s.Replace("[Goal]", ""));
-                        else if (s.StartsWith("[Date]"))
-                            frmMain.dte = s.Replace("[Date]", "");
+                        else if (s.StartsWith("Name:"))
+                            txtNewProfName.Text = s.Split(':')[1];
+                        else if (s.StartsWith("Age:"))
+                            txtAge.Text = s.Split(':')[1];
+                        else if (s.StartsWith("Bodyfat:"))
+                            txtBodyfat.Text = s.Split(':')[1];
+                        else if (s.StartsWith("Weight:"))
+                            txtWt.Text = s.Split(':')[1];
+                        else if (s.StartsWith("Height:"))
+                            txtHt.Text = s.Split(':')[1];
+                        else if (s.StartsWith("ActLvl:"))
+                            comboActivity.SelectedIndex = Convert.ToInt32(s.Split(':')[1]);
+                        else if (s.StartsWith("Goal:"))
+                            comboGoal.SelectedIndex = Convert.ToInt32(s.Split(':')[1]);
+                        else if (s.StartsWith("Date:"))
+                            frmMain.dte = s.Split(':')[1];
             }
 
             if (comboExistingProfs.SelectedIndex == defaultIndex)

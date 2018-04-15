@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Runtime.InteropServices;
 using System.Drawing;
 using System.IO;
 using System.Diagnostics;
@@ -146,7 +145,7 @@ namespace Nutritracker
             public int wt;
             public int ht;
             public int actLvl = 2;
-            public string goal = "Maintenance";
+            public int goal = 0;  //Maint, loss, gain, overall transformation {0, 1, 2, 3}
             public int index = 0; //the index among other profiles, beginning with 0
             public string root;
             public string _dte = "";
@@ -176,29 +175,29 @@ namespace Nutritracker
         {
             _profile p = new _profile();
             foreach (string s in input)
-                if (s.StartsWith("[Gender]"))
-                    p.gender = s.Replace("[Gender]", "");
-                else if (s.StartsWith("[Name]"))
-                    p.name = s.Replace("[Name]", "");
-                else if (s.StartsWith("[Age]"))
-                    p.age = Convert.ToInt32(s.Replace("[Age]", ""));
-                else if (s.StartsWith("[Bodyfat]"))
-                    p.bf = Convert.ToDouble(s.Replace("[Bodyfat]", ""));
-                else if (s.StartsWith("[Weight]"))
-                    p.wt = Convert.ToInt32(s.Replace("[Weight]", ""));
-                else if (s.StartsWith("[Height]"))
-                    p.ht = Convert.ToInt32(s.Replace("[Height]", ""));
-                else if (s.StartsWith("[ActLvl]"))
-                    p.actLvl = Convert.ToInt32(s.Replace("[ActLvl]", ""));
-                else if (s.StartsWith("[lastDB]"))
-                    p.lastDB = Convert.ToInt32(s.Replace("[lastDB]", ""));
-                else if (s.StartsWith("[lastMeal]"))
-                    p.lastMeal = Convert.ToInt32(s.Replace("[lastMeal]", ""));
-                else if (s.StartsWith("[Goal]"))
-                    p.goal = s.Replace("[Goal]", "");
-                else if (s.StartsWith("[Date]"))
-                    p._dte = s.Replace("[Date]", "");
-                else if (s.StartsWith($"[License]StallmanApproves_{p.name.GetHashCode()}"))
+                if (s.StartsWith("Gender:"))
+                    p.gender = s.Split(':')[1];
+                else if (s.StartsWith("Name:"))
+                    p.name = s.Split(':')[1];
+                else if (s.StartsWith("Age:"))
+                    p.age = Convert.ToInt32(s.Split(':')[1]);
+                else if (s.StartsWith("Bodyfat:"))
+                    p.bf = Convert.ToDouble(s.Split(':')[1]);
+                else if (s.StartsWith("Weight:"))
+                    p.wt = Convert.ToInt32(s.Split(':')[1]);
+                else if (s.StartsWith("Height:"))
+                    p.ht = Convert.ToInt32(s.Split(':')[1]);
+                else if (s.StartsWith("ActLvl:"))
+                    p.actLvl = Convert.ToInt32(s.Split(':')[1]);
+                else if (s.StartsWith("LastDB:"))
+                    p.lastDB = Convert.ToInt32(s.Split(':')[1]);
+                else if (s.StartsWith("LastMeal:"))
+                    p.lastMeal = Convert.ToInt32(s.Split(':')[1]);
+                else if (s.StartsWith("Goal:"))
+                    p.goal = Convert.ToInt32(s.Split(':')[1]);
+                else if (s.StartsWith("Date:"))
+                    p._dte = s.Split(':')[1];
+                else if (s.StartsWith($"License]StallmanApproves_{p.name.GetHashCode()}"))
                     p.license = true;
             return p;
         }
@@ -208,25 +207,25 @@ namespace Nutritracker
             //TODO: ??
             List<string> output = new List<string>();
             if (p.name != "")
-                output.Add($"[Name]{p.name}");
+                output.Add($"Name:{p.name}");
             if (p.gender != "")
-                output.Add($"[Gender]{p.age}");
+                output.Add($"Gender:{p.gender}");
             if (p.age != 0)
-                output.Add($"[Age]{p.age}");
+                output.Add($"Age:{p.age}");
             if (p.bf != 0)
-                output.Add($"[Bodyfat]{p.bf}");
+                output.Add($"Bodyfat:{p.bf}");
             if (p.wt != 0)
-                output.Add($"[Weight]{p.wt}");
+                output.Add($"Weight:{p.wt}");
             if (p.ht != 0)
-                output.Add($"[Height]{p.ht}");
-            if (p.actLvl != 0)
-                output.Add($"[ActLvl]{p.actLvl}");
+                output.Add($"Height:{p.ht}");
+            output.Add($"ActLvl:{p.actLvl}");
+            output.Add($"Goal:{p.goal}");
             if (p._dte != "")
-                output.Add($"[Date]{p._dte}");
-            output.Add($"[LastDB]{p.lastDB}");
-            output.Add($"[LastMeal]{p.lastMeal}");
+                output.Add($"Date:{p._dte}");
+            output.Add($"LastDB:{p.lastDB}");
+            output.Add($"LastMeal:{p.lastMeal}");
             if (p.license)
-                output.Add($"[License]StallmanApproves_{p.name.GetHashCode()}");
+                output.Add($"License:StallmanApproves_{p.name.GetHashCode()}");
 
             if (p.root != "")
                 File.WriteAllLines($"{p.root}{slash}profile.py", output);
@@ -271,8 +270,8 @@ namespace Nutritracker
             try
             {
                 foreach (string s in File.ReadAllLines($"{Application.StartupPath}{slash}usr{slash}profile{currentUser.index}{slash}profile.py"))
-                    if (s.StartsWith("[Date]"))
-                        dte = s.Replace("[Date]", "");
+                    if (s.StartsWith("Date:"))
+                        dte = s.Split(':')[1];
                 string st = "";
                 try
                 {
@@ -303,27 +302,31 @@ namespace Nutritracker
                 string[] sets = File.ReadAllLines($"{rt}profile.py");
                 foreach (string s in sets)
                 {
-                    if (s.StartsWith("[Gender]"))
-                        currentUser.gender = s.Replace("[Gender]", "");
-                    else if (s.StartsWith("[Name]"))
-                        currentUser.name = s.Replace("[Name]", "");
-                    else if (s.StartsWith("[Age]"))
-                        currentUser.age = Convert.ToInt32(s.Replace("[Age]", ""));
-                    else if (s.StartsWith("[Bodyfat]"))
-                        currentUser.bf = Convert.ToDouble(s.Replace("[Bodyfat]", ""));
-                    else if (s.StartsWith("[Weight]"))
-                        currentUser.wt = Convert.ToInt32(s.Replace("[Weight]", ""));
-                    else if (s.StartsWith("[Height]"))
-                        currentUser.ht = Convert.ToInt32(s.Replace("[Height]", ""));
-                    else if (s.StartsWith("[ActLvl]"))
-                        currentUser.actLvl = Convert.ToInt32(s.Replace("[ActLvl]", ""));
-                    else if (s.StartsWith("[Goal]"))
-                        currentUser.goal = s.Replace("[Goal]", "");
-                    else if (s.StartsWith("[Date]"))
-                        currentUser._dte = s.Replace("[Date]", "");
+                    if (s.StartsWith("Gender:"))
+                        currentUser.gender = s.Split(':')[1];
+                    else if (s.StartsWith("Name:"))
+                        currentUser.name = s.Split(':')[1];
+                    else if (s.StartsWith("Age:"))
+                        currentUser.age = Convert.ToInt32(s.Split(':')[1]);
+                    else if (s.StartsWith("Bodyfat:"))
+                        currentUser.bf = Convert.ToDouble(s.Split(':')[1]);
+                    else if (s.StartsWith("Weight:"))
+                        currentUser.wt = Convert.ToInt32(s.Split(':')[1]);
+                    else if (s.StartsWith("Height:"))
+                        currentUser.ht = Convert.ToInt32(s.Split(':')[1]);
+                    else if (s.StartsWith("ActLvl:"))
+                        currentUser.actLvl = Convert.ToInt32(s.Split(':')[1]);
+                    else if (s.StartsWith("Goal:"))
+                        currentUser.goal = Convert.ToInt32(s.Split(':')[1]);
+                    else if (s.StartsWith("LastDB:"))
+                        currentUser.lastDB = Convert.ToInt32(s.Split(':')[1]);
+                    else if (s.StartsWith("LastMeal:"))
+                        currentUser.lastMeal = Convert.ToInt32(s.Split(':')[1]);                        
+                    else if (s.StartsWith("Date:"))
+                        currentUser._dte = s.Split(':')[1];
                 }
                 foreach (string s in sets)
-                    if (s == $"[License]StallmanApproves_{currentUser.name.GetHashCode()}")
+                    if (s == $"License:StallmanApproves_{currentUser.name.GetHashCode()}")
                         currentUser.license = true;
 
                 currentUser.root = $"{Application.StartupPath}{slash}usr{slash}profile{frmMain.currentUser.index}";
@@ -338,13 +341,13 @@ namespace Nutritracker
 
             try
             {
-                if (!File.ReadAllLines($"{rt}profile.py").Contains($"[License]StallmanApproves_{currentUser.name.GetHashCode()}"))
+                if (!File.ReadAllLines($"{rt}profile.py").Contains($"License:StallmanApproves_{currentUser.name.GetHashCode()}"))
                 {
                     licenseDialog frmli = new licenseDialog();
                     frmli.profData = File.ReadAllLines($"{rt}profile.py").ToList();
                     frmli.rt = rt;
                     frmli.ShowDialog();
-                    if (!File.ReadAllLines($"{rt}profile.py").Contains($"[License]StallmanApproves_{currentUser.name.GetHashCode()}"))
+                    if (!File.ReadAllLines($"{rt}profile.py").Contains($"License:StallmanApproves_{currentUser.name.GetHashCode()}"))
                         Process.GetCurrentProcess().Kill();
                 }
             }
@@ -857,8 +860,8 @@ namespace Nutritracker
             "ORAC"
         };
 
-        string[] hashInfoLines;
-        private List<string> fetchLogsFields(List<logItem> nLog)
+        string[] fieldInitLines;
+        List<string> fetchLogsFields(List<logItem> nLog)
         {
             List<string> dbs = new List<string>();
             foreach (logItem _litm in nLog)
@@ -872,8 +875,8 @@ namespace Nutritracker
                 string dir = s.Split(Path.DirectorySeparatorChar)[s.Split(Path.DirectorySeparatorChar).Length - 1];
                 if (dir.StartsWith("_") || dir.EndsWith("&"))
                     continue;
-                hashInfoLines = File.ReadAllLines($"{s}{slash}_hashInfo.ini");
-                foreach (string st in hashInfoLines)
+                fieldInitLines = File.ReadAllLines($"{s}{slash}_fieldInit.ini");
+                foreach (string st in fieldInitLines)
                     if (!st.Contains("NDBNo") && basicFields.Contains(st.Split('=')[1]) && !lFields.Contains(st.Split('=')[1]))
                         lFields.Add(st.Split('=')[1]);
             }
@@ -900,7 +903,7 @@ namespace Nutritracker
                 string dir = s.Split(Path.DirectorySeparatorChar)[s.Split(Path.DirectorySeparatorChar).Length - 1];
                 if (dir.StartsWith("_") || dir.EndsWith("&"))
                     continue;
-                foreach (string st in File.ReadAllLines($"{s}{slash}_hashInfo.ini"))
+                foreach (string st in File.ReadAllLines($"{s}{slash}_fieldInit.ini"))
                     if (!st.Contains("NDBNo"))
                         if (basicFields.Contains(st.Split('=')[1]))
                         {
@@ -931,14 +934,14 @@ namespace Nutritracker
                 string dbDir = $"{Application.StartupPath}{slash}usr{slash}share{slash}DBs{slash}{l._db}";
                 string[] rawItemData = File.ReadAllLines($"{dbDir}{slash}{l.fileName}");
                 Dictionary<string, string> foodItemNutPairs = new Dictionary<string, string>();
-                List<string> _dbg = new List<string>();
+                //List<string> _dbg = new List<string>();
                 foreach (string s in fields)
                     if (s != "NDBNo")
                         foreach (string st in rawItemData)
-                            if (st.StartsWith($"[{s}]"))
+                            if (st.StartsWith($"{s}:"))
                             {
-                                foodItemNutPairs.Add(s, st.Replace($"[{s}]", ""));
-                                _dbg.Add(st);
+                                foodItemNutPairs.Add(s, st.Split(':')[1]);
+                                //_dbg.Add(st);
                                 break;
                             }
                 List<string> output = new List<string>();

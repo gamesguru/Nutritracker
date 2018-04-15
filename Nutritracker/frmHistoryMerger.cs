@@ -24,7 +24,7 @@ namespace Nutritracker
             else if (frmMain.os == frmMain.OS.macOS)
                 adbLoc = $"{Application.StartupPath}{sl}lib{sl}android{sl}mac{sl}adb";
             else
-                adbLoc = $"{Application.StartupPath}{sl}lib{sl}android{sl}unix{sl}adb";
+                adbLoc = $"{Application.StartupPath}{sl}lib{sl}android{sl}linux{sl}adb";
 
             tabControl1.SelectedIndex = 1;
             comboMeal.SelectedIndex = frmMain.currentUser.lastMeal;
@@ -301,8 +301,9 @@ namespace Nutritracker
                 }
                 txtCompCat.Text = txtCompCat.Text.Replace(">> ", "");
                 txtPhoneCat.Text = txtPhoneCat.Text.Replace(">> ", "");
-                File.WriteAllLines(txtCompCat.Lines)
-                    mergeNextobj?
+                //TODO: work here
+                //File.WriteAllLines(txtCompCat.Lines)
+                    //mergeNextobj?
             }
         }
 

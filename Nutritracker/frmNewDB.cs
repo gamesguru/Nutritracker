@@ -198,7 +198,7 @@ namespace Nutritracker
                 string[] res = { "CON", "PRN", "AUX", "NUL", "COM1", "COM2", "COM3", "COM4", "COM5", "COM6", "COM7", "COM8", "COM9", "LPT1", "LPT2", "LPT3", "LPT4", "LPT5", "LPT6", "LPT7", "LPT8", "LPT9" };
                 foreach (string s in res)
                     if (nu.fileName == s)
-                        nu.fileName += "_WX";
+                        nu.fileName += i.ToString();
                 string lang = "", key = "";
                 foreach (int j in colInts)
                 {
@@ -207,7 +207,7 @@ namespace Nutritracker
                     foreach (nutNameKey nut in nutNameKeys)
                         if (nut.columnHeader == arr[j])
                             nutrient = nut.nutrient;
-                    nu.conts.Add($"[{nutrient}]{val}");
+                    nu.conts.Add($"{nutrient}:{val}");
 
                     if (j == langColumn)
                         lang = val; //hashLangOut.Add($"{nu.fileName}|{val}");
@@ -238,7 +238,8 @@ namespace Nutritracker
             pbw.setProgMax(n, 50);
             for (int i = 0; i < n; i++)
             {
-                pbw.setLblCurObj(nutEntries[i].fileName);
+                try { pbw.setLblCurObj(nutEntries[i].fileName); }
+                catch { }
                 File.WriteAllLines($"{fp}{slash}{nutEntries[i].fileName}.TXT", nutEntries[i].conts);
             }
             entryKeyLang = null;
