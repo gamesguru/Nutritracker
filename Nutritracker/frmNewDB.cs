@@ -146,6 +146,11 @@ namespace Nutritracker
                 for (int i = 0; i < st.Length; i++)
                     File.Delete(st[i]);
             }
+            else if (txtLoc.Text.ToUpper() == "FOODS" || txtLoc.Text.ToUpper() == "RECIPES")
+            {
+                MessageBox.Show("ERROR: 'foods' and 'recipes' are reserved keywords!", "", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
             else
                 Directory.CreateDirectory(fp);
 

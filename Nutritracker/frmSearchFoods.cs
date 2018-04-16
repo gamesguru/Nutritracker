@@ -31,7 +31,7 @@ namespace Nutritracker
             dB.name = db;
             dB.fields = new List<string>();
             dB.columns = new List<string>();
-            foreach (string s in File.ReadAllLines($"{Application.StartupPath}{slash}usr{slash}share{slash}DBs{slash}{db}{slash}_hashInfo.ini"))
+            foreach (string s in File.ReadAllLines($"{Application.StartupPath}{slash}usr{slash}share{slash}DBs{slash}{db}{slash}_fieldInit.ini"))
                 if (frmMain.currentBasicFields.Contains(s.Split('=')[1]))
                 {
                     string f = s.Split('=')[1];
@@ -41,17 +41,19 @@ namespace Nutritracker
                     else
                         dB.columns.Add(f);
                 }
-            string[] rawHashLang = File.ReadAllLines($"{Application.StartupPath}{slash}usr{slash}share{slash}DBs{slash}{db}{slash}_hashLang.ini");
+            string[] rawEntryKeyLang = File.ReadAllLines($"{Application.StartupPath}{slash}usr{slash}share{slash}DBs{slash}{db}{slash}_entryKeyLang.ini");
             dB.hashLang.fileNames = new List<string>();
+            dB.hashLang.primKeys = new List<string>();
             dB.hashLang.foodNames = new List<string>();
             dB.hashLang.fileEntries = new List<string[]>();
-            foreach (string s in rawHashLang)
+            foreach (string s in rawEntryKeyLang)
             {
                 dB.hashLang.fileNames.Add((s.Split('|')[0]));
-                dB.hashLang.foodNames.Add((s.Split('|')[1].ToUpper()));
+                dB.hashLang.primKeys.Add((s.Split('|')[1]));
+                dB.hashLang.foodNames.Add((s.Split('|')[2].ToUpper()));
             }
-            dB.numOfEntries = rawHashLang.Length;
-            rawHashLang = null;
+            dB.numOfEntries = rawEntryKeyLang.Length;
+            rawEntryKeyLang = null;
 
             pbw = new progBarWait();
 
@@ -61,7 +63,7 @@ namespace Nutritracker
                 pbw.finished = true;
             });
             t.Start();
-            while (!pbw.ready)
+            while (!pbw.ready && !pbw.abort)
                 Thread.Sleep(60);
             pbw.setTitle($"Reading in {db}...");
             pbw.setProgMax(dB.hashLang.foodNames.Count, 50);
@@ -119,6 +121,7 @@ namespace Nutritracker
         public class _hashLang
         {
             public List<string> fileNames;
+            public List<string> primKeys;
             public List<string> foodNames;
             public List<string[]> fileEntries;
             public int[] wCount;
@@ -183,11 +186,11 @@ namespace Nutritracker
             _itm = new ListViewItem();
             //TODO: for (int i) loop?  1-1 correspondence of fields to dbEntries?
             foreach (string s in dbEntry)
-                if (currentDB.fields.Contains(s.Split(']')[0].Replace("[", "")))
-                    if (s.StartsWith("[FoodName]"))
-                        _itm.Text = s.Split(']')[1];
+                if (currentDB.fields.Contains(s.Split(':')[0]))
+                    if (s.StartsWith("FoodName:"))
+                        _itm.Text = s.Split(':')[1];
                     else
-                        _itm.SubItems.Add(s.Split(']')[1]);
+                        _itm.SubItems.Add(s.Split(':')[1]);
             return _itm;
         }
 
@@ -200,7 +203,8 @@ namespace Nutritracker
             //hashLang.fileNames = null;
             //hashLang.fileEntries = null;
             //hashLang.wCount = null;
-            lstviewFoods.Dispose();
+            try { lstviewFoods.Dispose(); }
+            catch { }
             lstviewFoods = null;
             bw = null;
         }

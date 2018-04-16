@@ -988,12 +988,12 @@ namespace Nutritracker
             lLog = new List<logItem>();
             dLog = new List<logItem>();
             //TODO: put this elsewhere?
-            Dictionary<string, string[]> dbHashKeys = new Dictionary<string, string[]>();
+            Dictionary<string, string[]> dbEntryLangKeys = new Dictionary<string, string[]>();
             foreach (string s in Directory.GetDirectories($"{Application.StartupPath}{slash}usr{slash}share{slash}DBs"))
             {
                 string _db = s.Split(Path.DirectorySeparatorChar)[s.Split(Path.DirectorySeparatorChar).Length - 1];
                 if (!_db.StartsWith("_") && !_db.EndsWith("&"))
-                    dbHashKeys.Add(_db, File.ReadAllLines($"{s}{slash}_hashKey.ini"));
+                    dbEntryLangKeys.Add(_db, File.ReadAllLines($"{s}{slash}_entryKeyLang.ini"));
             }
 
             try
@@ -1005,7 +1005,7 @@ namespace Nutritracker
                     litm = new logItem();
                     litm._db = st.Split('|')[0];
                     litm.primKeyNo = st.Split('|')[1];
-                    foreach (string str in dbHashKeys[litm._db])
+                    foreach (string str in dbEntryLangKeys[litm._db])
                         if (str.Split('|')[1] == litm.primKeyNo)
                         {
                             litm.fileName = $"{str.Split('|')[0]}.TXT";
@@ -1020,7 +1020,7 @@ namespace Nutritracker
                     litm = new logItem();
                     litm._db = st.Split('|')[0];
                     litm.primKeyNo = st.Split('|')[1];
-                    foreach (string str in dbHashKeys[litm._db])
+                    foreach (string str in dbEntryLangKeys[litm._db])
                         if (str.Split('|')[1] == litm.primKeyNo)
                         {
                             litm.fileName = $"{str.Split('|')[0]}.TXT";
@@ -1035,7 +1035,7 @@ namespace Nutritracker
                     litm = new logItem();
                     litm._db = st.Split('|')[0];
                     litm.primKeyNo = st.Split('|')[1];
-                    foreach (string str in dbHashKeys[litm._db])
+                    foreach (string str in dbEntryLangKeys[litm._db])
                         if (str.Split('|')[1] == litm.primKeyNo)
                         {
                             litm.fileName = $"{str.Split('|')[0]}.TXT";
