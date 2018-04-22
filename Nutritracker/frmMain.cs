@@ -1472,5 +1472,10 @@ namespace Nutritracker
             frmHM.ShowDialog();
             frmHM = null;
         }
+
+        private void manageRecipesFoodsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

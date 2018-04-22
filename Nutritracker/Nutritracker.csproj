@@ -25,6 +25,7 @@
     <WarningLevel>4</WarningLevel>
     <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
     <Prefer32Bit>true</Prefer32Bit>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationIcon>
@@ -44,6 +45,12 @@
     </Compile>
     <Compile Include="frmActiveFields.Designer.cs">
       <DependentUpon>frmActiveFields.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmCustomFoodRecipes.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmCustomFoodRecipes.Designer.cs">
+      <DependentUpon>frmCustomFoodRecipes.cs</DependentUpon>
     </Compile>
     <Compile Include="frmHistoryMerger.cs">
       <SubType>Form</SubType>
@@ -163,6 +170,9 @@
     </Compile>
     <EmbeddedResource Include="frmActiveFields.resx">
       <DependentUpon>frmActiveFields.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmCustomFoodRecipes.resx">
+      <DependentUpon>frmCustomFoodRecipes.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmHistoryMerger.resx">
       <DependentUpon>frmHistoryMerger.cs</DependentUpon>

@@ -4,7 +4,6 @@ using System.Linq;
 using System.Windows.Forms;
 using System.Diagnostics;
 using System.IO;
-using System.Drawing;
 
 namespace Nutritracker
 {
@@ -24,7 +23,7 @@ namespace Nutritracker
         bool license;
         private void btnAccept_Click(object sender, EventArgs e)
         {
-            profData.Add($"[License]StallmanApproves_{name.GetHashCode()}");
+            profData.Add($"License:StallmanApproves_{name.GetHashCode()}");
             File.WriteAllLines($"{rt}profile.py", profData);
             license = true;
             this.Close();
@@ -45,9 +44,9 @@ namespace Nutritracker
             mH = false;
             apache = richTextBox1.Lines;
             foreach (string s in profData)
-                if (s.StartsWith("[Name]"))
+                if (s.StartsWith("Name:"))
                 {
-                    name = s.Replace("[Name]", "");
+                    name = s.Split(':')[1];
                     this.Text = $"License Agreement — {name}";
                     break;
                 }

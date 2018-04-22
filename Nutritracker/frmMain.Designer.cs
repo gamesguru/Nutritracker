@@ -71,7 +71,6 @@
             this.customFoodEntryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editProfilesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.undoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.decomposeRecipeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.rankFoodsByNutrientToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -83,6 +82,7 @@
             this.viewDetailReportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.bodyFatCalcToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.naturalPotentialCalcToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.historyMergerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.databaseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.parseExcelSpreadsheetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.relationalDatabaseWizardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -93,7 +93,8 @@
             this.comboLoggedDays = new System.Windows.Forms.ComboBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.btnDeleteDay = new System.Windows.Forms.Button();
-            this.historyMergerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.decomposeRecipeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.manageRecipesFoodsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataDay)).BeginInit();
             this.groupBox2.SuspendLayout();
@@ -565,7 +566,6 @@
             this.customFoodEntryToolStripMenuItem,
             this.editProfilesToolStripMenuItem,
             this.undoToolStripMenuItem,
-            this.decomposeRecipeToolStripMenuItem,
             this.rankFoodsByNutrientToolStripMenuItem,
             this.helpToolStripMenuItem,
             this.aboutToolStripMenuItem});
@@ -604,13 +604,6 @@
             this.undoToolStripMenuItem.Size = new System.Drawing.Size(216, 22);
             this.undoToolStripMenuItem.Text = "Undo";
             this.undoToolStripMenuItem.Click += new System.EventHandler(this.undoToolStripMenuItem_Click);
-            // 
-            // decomposeRecipeToolStripMenuItem
-            // 
-            this.decomposeRecipeToolStripMenuItem.Name = "decomposeRecipeToolStripMenuItem";
-            this.decomposeRecipeToolStripMenuItem.Size = new System.Drawing.Size(216, 22);
-            this.decomposeRecipeToolStripMenuItem.Text = "Analyze Ingriedent List";
-            this.decomposeRecipeToolStripMenuItem.Click += new System.EventHandler(this.analyzeIngriedientListToolStripMenuItem_Click);
             // 
             // rankFoodsByNutrientToolStripMenuItem
             // 
@@ -665,7 +658,9 @@
             this.viewDetailReportToolStripMenuItem,
             this.bodyFatCalcToolStripMenuItem,
             this.naturalPotentialCalcToolStripMenuItem,
-            this.historyMergerToolStripMenuItem});
+            this.historyMergerToolStripMenuItem,
+            this.decomposeRecipeToolStripMenuItem,
+            this.manageRecipesFoodsToolStripMenuItem});
             this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
             this.toolsToolStripMenuItem.Size = new System.Drawing.Size(47, 20);
             this.toolsToolStripMenuItem.Text = "Tools";
@@ -674,29 +669,36 @@
             // 
             this.advancedExerciseCalcToolStripMenuItem.Enabled = false;
             this.advancedExerciseCalcToolStripMenuItem.Name = "advancedExerciseCalcToolStripMenuItem";
-            this.advancedExerciseCalcToolStripMenuItem.Size = new System.Drawing.Size(199, 22);
+            this.advancedExerciseCalcToolStripMenuItem.Size = new System.Drawing.Size(218, 22);
             this.advancedExerciseCalcToolStripMenuItem.Text = "Advanced Exercise Calc";
             // 
             // viewDetailReportToolStripMenuItem
             // 
             this.viewDetailReportToolStripMenuItem.Name = "viewDetailReportToolStripMenuItem";
-            this.viewDetailReportToolStripMenuItem.Size = new System.Drawing.Size(199, 22);
+            this.viewDetailReportToolStripMenuItem.Size = new System.Drawing.Size(218, 22);
             this.viewDetailReportToolStripMenuItem.Text = "Run Detail Report";
             this.viewDetailReportToolStripMenuItem.Click += new System.EventHandler(this.viewDetailReportToolStripMenuItem_Click);
             // 
             // bodyFatCalcToolStripMenuItem
             // 
             this.bodyFatCalcToolStripMenuItem.Name = "bodyFatCalcToolStripMenuItem";
-            this.bodyFatCalcToolStripMenuItem.Size = new System.Drawing.Size(199, 22);
+            this.bodyFatCalcToolStripMenuItem.Size = new System.Drawing.Size(218, 22);
             this.bodyFatCalcToolStripMenuItem.Text = "Bodyfat Calculator";
             this.bodyFatCalcToolStripMenuItem.Click += new System.EventHandler(this.bodyFatCalcToolStripMenuItem_Click);
             // 
             // naturalPotentialCalcToolStripMenuItem
             // 
             this.naturalPotentialCalcToolStripMenuItem.Name = "naturalPotentialCalcToolStripMenuItem";
-            this.naturalPotentialCalcToolStripMenuItem.Size = new System.Drawing.Size(199, 22);
+            this.naturalPotentialCalcToolStripMenuItem.Size = new System.Drawing.Size(218, 22);
             this.naturalPotentialCalcToolStripMenuItem.Text = "Strength Limits for Men";
             this.naturalPotentialCalcToolStripMenuItem.Click += new System.EventHandler(this.naturalPotentialCalcToolStripMenuItem_Click);
+            // 
+            // historyMergerToolStripMenuItem
+            // 
+            this.historyMergerToolStripMenuItem.Name = "historyMergerToolStripMenuItem";
+            this.historyMergerToolStripMenuItem.Size = new System.Drawing.Size(218, 22);
+            this.historyMergerToolStripMenuItem.Text = "History Merger";
+            this.historyMergerToolStripMenuItem.Click += new System.EventHandler(this.historyMergerToolStripMenuItem_Click);
             // 
             // databaseToolStripMenuItem
             // 
@@ -811,12 +813,18 @@
             this.btnDeleteDay.UseVisualStyleBackColor = true;
             this.btnDeleteDay.Click += new System.EventHandler(this.btnDeleteDay_Click);
             // 
-            // historyMergerToolStripMenuItem
+            // decomposeRecipeToolStripMenuItem
             // 
-            this.historyMergerToolStripMenuItem.Name = "historyMergerToolStripMenuItem";
-            this.historyMergerToolStripMenuItem.Size = new System.Drawing.Size(199, 22);
-            this.historyMergerToolStripMenuItem.Text = "History Merger";
-            this.historyMergerToolStripMenuItem.Click += new System.EventHandler(this.historyMergerToolStripMenuItem_Click);
+            this.decomposeRecipeToolStripMenuItem.Name = "decomposeRecipeToolStripMenuItem";
+            this.decomposeRecipeToolStripMenuItem.Size = new System.Drawing.Size(218, 22);
+            this.decomposeRecipeToolStripMenuItem.Text = "Analyze Ingriedent List";
+            // 
+            // manageRecipesFoodsToolStripMenuItem
+            // 
+            this.manageRecipesFoodsToolStripMenuItem.Name = "manageRecipesFoodsToolStripMenuItem";
+            this.manageRecipesFoodsToolStripMenuItem.Size = new System.Drawing.Size(218, 22);
+            this.manageRecipesFoodsToolStripMenuItem.Text = "Manage Recipes and Foods";
+            this.manageRecipesFoodsToolStripMenuItem.Click += new System.EventHandler(this.manageRecipesFoodsToolStripMenuItem_Click);
             // 
             // frmMain
             // 
@@ -900,7 +908,6 @@
         private System.Windows.Forms.ToolStripMenuItem addSearchCommonFoodsToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem addExerciseToLogToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem databaseToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem decomposeRecipeToolStripMenuItem;
         private System.Windows.Forms.Button btnExit;
         private System.Windows.Forms.ComboBox comboLoggedDays;
         private System.Windows.Forms.ToolStripMenuItem rankFoodsByNutrientToolStripMenuItem;
@@ -918,6 +925,8 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.ListBox lstBoxRecipes;
         private System.Windows.Forms.ToolStripMenuItem historyMergerToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem decomposeRecipeToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem manageRecipesFoodsToolStripMenuItem;
     }
 }
 
